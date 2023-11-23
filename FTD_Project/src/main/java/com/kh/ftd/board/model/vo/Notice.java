@@ -1,5 +1,5 @@
 package com.kh.ftd.board.model.vo;
 
-public class Board {
+public class Notice {
 
 }
