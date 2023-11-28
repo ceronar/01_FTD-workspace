@@ -28,7 +28,7 @@
 	</bean>
 	
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    	<property name="order" value="classpath:/application-API-KEY.properties" />
+    	<property name="locations" value="classpath:/application-API-KEY.properties" />
 	</bean>
 	
 </beans>
