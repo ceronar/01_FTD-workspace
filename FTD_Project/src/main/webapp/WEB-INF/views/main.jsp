@@ -109,7 +109,7 @@
             <h1>FTD - Farm to Dish</h1>
             <div class="nav-menu">
                 <a href="#">홈</a>
-                <a href="#">가게 찾기</a>
+                <a href="list.in">가게 찾기</a>
                 <a href="#">상품 찾기</a>
                 <a href="#">회원 가입</a>
                 <a href="#">로그인</a>
