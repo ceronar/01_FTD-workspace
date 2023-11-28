@@ -1,5 +1,6 @@
 package com.kh.ftd.order.service.kakaoApi.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,9 @@ import lombok.RequiredArgsConstructor;
 public class KakaoPayService {
 
     static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
-    static final String admin_Key = "${ADMIN_KEY}"; // 공개 조심! 본인 애플리케이션의 어드민 키를 넣어주세요
+	//${}로 프로퍼티 정보 불러오기 가능
+    @Value("${kakao-admin-key}")
+    private String kakaoApiKey;
     private KakaoReadyResponse kakaoReady;
     
     public KakaoReadyResponse kakaoPayReady() {
