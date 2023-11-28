@@ -1,0 +1,6 @@
+/target/
+.classpath
+.project
+
+application-API.properties
+application-API-KEY.properties
