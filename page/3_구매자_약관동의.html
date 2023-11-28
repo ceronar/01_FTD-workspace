@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>약관동의</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    
+    <style>
+        body {  
+            font-family: Arial, sans-serif;
+			height: 1600px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: green;
+            color: black;
+            padding: 1em;
+            text-align: center;
+        }
+
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        * { font-family: 'Pretendard-Regular'; }
+      
+        .adminNameBar { 
+        	margin:auto;
+	 		color: black(121, 172, 120);
+			text-align: center;
+	 	}
+
+        #register-title-area{ /* 상단 텍스트 영역 */
+            width: 1200px;
+            margin: auto;
+            margin-top: 5%;
+            border-bottom: 3px solid rgb(121, 172, 120);
+        }
+
+        #register-title-area>p{ /* 상단 텍스트 */
+            font-size: 26px;
+            font-weight: bold;
+            color: rgb(121, 172, 120);
+            letter-spacing: 3px;
+        }
+
+        .register-title-menu{ /* 상단슬롯 */
+            width: 12%;
+            padding: 6px;
+            float: right;
+            margin-left: 2px;
+            margin-top: 20px;
+            background-color: rgb(121, 172, 120);
+            color: white;
+        }
+        .register-title-menu:hover{ /* 상단슬롯 호버효과삭제 */
+            width: 12%;
+            padding: 6px;
+            float: right;
+            margin-left: 2px;
+            margin-top: 20px;
+            background-color: rgb(121, 172, 120);
+            color: white;
+        }
+
+        #agreement-area{ /* 약관 공통 영역 */
+            width: 900px;
+            margin: auto;
+        }
+
+        .title-text{ /* 제목텍스트 + 내용 영역 */
+            width: 800px;
+            margin: auto;
+                    
+        }
+
+        .title-text>p{ /* 약관 타이틀 텍스트 */
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        #agreement-use, #agreement-info{ /* 약관 내용 텍스트박스 */
+            width: 800px;
+            height: 300px;
+            border: 2px solid lightgray;
+            resize: none;
+            background-color: white;
+        }
+
+        #use-true, #info-true{ /* 체크박스 */
+            width: 20px;
+            height: 20px;
+            margin-top: 8px;
+            vertical-align: middle;
+        }
+
+        .agree-text{ /* "동의합니다." */
+            font-size: 18px;
+            vertical-align: text-top; 
+        }
+
+        #btn-nextPage1 { /* 다음버튼 */
+            width: 120px;
+            height: 50px;
+            border: 0px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-top: 100px;
+            background-color: rgb(121, 172, 120);
+            color: white;
+        }
+        #btn-nextPage1:hover{
+            background-color: rgb(82, 116, 82);
+        }
+        #btn-nextPage2 { /* 다음버튼 */
+            width: 120px;
+            height: 50px;
+            border: 0px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-top: 100px;
+            background-color: rgb(121, 172, 120);
+            color: white;
+        }
+        #btn-nextPage2:hover{
+            background-color: rgb(82, 116, 82);
+        }
+
+        footer {
+            background-color: green;
+            color: black;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1>신선한 땅의 맛</h1>
+    </header>
+
+    <div class="adminNameBar">
+        <br><br>
+        <h1>Farm To Dish</h1>
+        <hr>
+    </div>
+
+    <div id="register-title-area">
+        <p>
+            구매자 회원가입
+                <span class="register-title-menu btn btn-sm disabled">가입완료</span>
+                <span class="register-title-menu btn btn-sm disabled">정보입력</span>
+                <span class="register-title-menu btn btn-sm disabled" style="background-color: green;">약관동의</span>
+        </p>
+    </div>
+    <br><br><br>
+		<form action="<%= contextPath %>/register.rg" method="post">
+        <div id="agreement-area">
+			
+            <div class="title-text">
+                <p>서비스 이용약관</p>
+                <textarea class="form-control" rows="5" id="agreement-use" readonly>
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                </textarea>
+                <br>
+                <input type="checkbox" id="use-true" required> &nbsp;
+                <label for="use-true" class="agree-text">동의합니다.</label>
+            </div>
+            
+            <div class="title-text">
+                <p>개인정보처리방침</p>   
+                <textarea class="form-control" rows="5" id="agreement-info" align="center" readonly>
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용대충약관설명내용
+                    대충약관설명내용
+                    대충약관설명내용
+                </textarea>
+                <br>
+                <input type="checkbox" id="info-true" required> &nbsp;
+                <label for="info-true" class="agree-text">동의합니다.</label>
+
+            </div>
+
+            <div align="center">
+                <button type="submit" id="btn-nextPage1">다음</button>
+            </div>
+
+        </div>
+        </form>
+
+    <br><br>
+    
+    <footer>
+        <p>&copy; 2023 Farm To Dish. All rights reserved.</p>
+    </footer>
+</body>
+</html>
