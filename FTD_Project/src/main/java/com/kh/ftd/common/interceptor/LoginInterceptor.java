@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 		} else {
 			
-			session.setAttribute("alertMsg", "로그인이 필요한 서비스 입니다.");
+			session.setAttribute("alertMsg", "");
 			
 			response.sendRedirect(request.getContextPath());
 			
