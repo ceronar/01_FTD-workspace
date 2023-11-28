@@ -18,8 +18,8 @@ public class PromotionController {
 		
 		ArrayList<Reply> list = boardService.selectReplyList(bno);
 		
-		Gson gson = new Gson();
-		return gson.toJson(list);
+		// Gson gson = new Gson();
+		// return gson.toJson(list);
 		
 		return new Gson().toJson(list);
 	}

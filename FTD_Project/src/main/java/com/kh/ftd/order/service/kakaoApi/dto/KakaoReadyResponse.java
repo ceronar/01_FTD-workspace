@@ -1,4 +1,4 @@
-package com.kh.ftd.order.dto;
+package com.kh.ftd.order.service.kakaoApi.dto;
 
 import lombok.Getter;
 import lombok.Setter;
