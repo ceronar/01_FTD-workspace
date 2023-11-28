@@ -13,17 +13,17 @@ public interface PromotionService {
 	int insertPromotion(Promotion p);
 	
 	// 홍보리스트 상세조회 서비스
-		// 홍보리스트 조회수 증가
-		int increaseCount(int promotionNo);
-		
-		// 홍보리스트 상세조회
-		Promotion selectPromotion(int promotionNo);
+	// 홍보리스트 조회수 증가
+	int increaseCount(int promotionNo);
 	
-		// 댓글 리스트 조회 서비스 (ajax)
-		ArrayList<Reply> selectReplyList(int boardNo);
-		
-		// 댓글 작성 서비스 (ajax)
-		int insertReply(Reply r);
+	// 홍보리스트 상세조회
+	Promotion selectPromotion(int promotionNo);
+
+	// 댓글 리스트 조회 서비스 (ajax)
+	ArrayList<Reply> selectReplyList(int boardNo);
+	
+	// 댓글 작성 서비스 (ajax)
+	int insertReply(Reply r);
 	
 	
 }
