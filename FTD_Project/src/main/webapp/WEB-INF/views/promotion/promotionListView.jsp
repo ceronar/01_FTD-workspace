@@ -255,8 +255,8 @@
             <a href="">필터</a>
             <a href="">필터</a>
         </div>
-        <div align="center">
-            <ul>
+        <div class="list" align="center">
+            <ul id="sentinel">
                 <li id="promotion">
                     <div>
                         <div id="profile">
@@ -329,6 +329,7 @@
 
                 </li>
             </ul>
+            
         </div>
     </main>
 
