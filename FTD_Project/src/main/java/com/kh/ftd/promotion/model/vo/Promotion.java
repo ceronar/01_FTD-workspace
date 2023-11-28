@@ -26,4 +26,5 @@ public class Promotion {
 	private Date createDate;				//	CREATE_DATE
 	private Date deleteDate;				//	DELETE_DATE
 
+	
 }
