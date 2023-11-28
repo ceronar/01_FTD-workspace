@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니 - 농산물 직거래 플랫폼</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column; /* 섹션을 세로로 정렬 */
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            width: 100%;
+            position: fixed; /* 헤더를 화면 상단에 고정 */
+            top: 0; /* 헤더가 화면 상단에 고정될 때의 위치 */
+            z-index: 1000; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
+        }
+
+        .content {
+            margin: 0 auto;
+            margin-top: 100px;
+            padding: 20px;
+            width: 100%; /* 컨텐츠를 전체 너비로 확장 */
+            box-sizing: border-box;
+            width: 1080px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .quantity-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-button {
+            padding: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>대충 헤더 파일</h1>
+        </div>
+
+        <div class="content">
+            <!-- 장바구니 내용 -->
+            <h2>장바구니</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>상품명</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                        <th>배송비</th>
+                        <th>판매자</th>
+                        <th>삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="사과이미지주소.jpg" alt="사과 이미지" class="product-image">
+                            사과
+                        </td>
+                        <td class="quantity-buttons">
+                            <button class="quantity-button" onclick="adjustQuantity(1, -1)">-</button>
+                            <span id="quantity1">2</span>
+                            <button class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
+                        </td>
+                        <td>5,000원</td>
+                        <td>2,000원</td>
+                        <td rowspan="2">
+                            <div class="market-header">마켓 1</div>
+                            <!-- 판매자 마켓 1에 해당하는 상품 목록 -->
+                            <ul>
+                                <li>사과</li>
+                                <li>배</li>
+                            </ul>
+                        </td>
+                        <td><button onclick="removeItem(1)">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="배이미지주소.jpg" alt="배 이미지" class="product-image">
+                            배
+                        </td>
+                        <td class="quantity-buttons">
+                            <button class="quantity-button" onclick="adjustQuantity(2, -1)">-</button>
+                            <span id="quantity2">3</span>
+                            <button class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
+                        </td>
+                        <td>7,500원</td>
+                        <td>3,000원</td>
+                        <td><button onclick="removeItem(2)">삭제</button></td>
+                    </tr>
+                    <!-- 여기에 더 많은 상품 정보가 들어갈 수 있습니다. -->
+                </tbody>
+            </table>
+
+            <!-- 총 배송비 및 총 가격 -->
+            <div class="total-section">
+                <div>
+                    <p><strong>총 배송비: 5,000원</strong></p>
+                    <p><strong>총 가격: 20,500원</strong></p>
+                </div>
+                <!-- 결제 버튼 -->
+                <button onclick="openKakaoPayModal()">결제하기</button>
+            </div>
+        </div>
+
+        <!-- 카카오페이 결제 모달 -->
+        <div id="kakaoPayModal" class="modal">
+            <div class="modal-content">
+                <span onclick="closeKakaoPayModal()" style="float: right; cursor: pointer;">&times;</span>
+                <h2>카카오페이 결제</h2>
+                <!-- 여기에 카카오페이 결제창이 나타날 수 있도록 스크립트를 추가 -->
+                <script>
+                    function openKakaoPayModal() {
+                        var modal = document.getElementById('kakaoPayModal');
+                        modal.style.display = 'flex';
+                        // 카카오페이 결제창 호출 함수
+                        kakaopay.pay({
+                            cid: 'your_kakao_pay_cid', // 카카오페이에서 발급받은 가맹점 CID
+                            partner_order_id: 'your_order_id', // 가맹점 주문번호
+                            partner_user_id: 'your_user_id', // 가맹점 회원 ID
+                            item_name: '장바구니 결제', // 결제명
+                            quantity: 1,
+                            total_amount: 12500, // 결제 금액
+                            vat_amount: 1136, // 부가세
+                            tax_free_amount: 114, // 비과세
+                            approval_url: 'https://your_domain.com/approval', // 결제 성공 시 redirect URL
+                            fail_url: 'https://your_domain.com/fail', // 결제 실패 시 redirect URL
+                            cancel_url: 'https://your_domain.com/cancel' // 결제 취소 시 redirect URL
+                        });
+                    }
+
+                    function closeKakaoPayModal() {
+                        var modal = document.getElementById('kakaoPayModal');
+                        modal.style.display = 'none';
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 대충 푸터 파일</p>
+        </div>
+
+        <script>
+            // 가상의 상품 삭제 함수
+            function removeItem(itemId) {
+                // 여기에 상품 삭제 로직을 추가하세요.
+                alert('상품이 장바구니에서 삭제되었습니다.');
+            }
+
+            // 수량 조절 함수
+            function adjustQuantity(itemId, change) {
+                var quantityElement = document.getElementById('quantity' + itemId);
+                var currentQuantity = parseInt(quantityElement.innerText);
+                var newQuantity = currentQuantity + change;
+                
+                if (newQuantity >= 1) {
+                    quantityElement.innerText = newQuantity;
+                    // 여기에 수량 변경 로직을 추가하세요.
+                } else {
+                    alert('수량은 1 이상이어야 합니다.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
