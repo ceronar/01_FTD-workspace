@@ -17,6 +17,8 @@ public interface PromotionService {
 	// 홍보리스트 조회수 증가
 	int increaseCount(int promotionNo);
 	
+	// 홍보리스트 상세조회
+	Promotion selectPromotion(int promotionNo);
 
 	// 댓글 리스트 조회 서비스 
 	ArrayList<PromotionReply> selectPromotionReplyList(int promotionNo);
@@ -24,14 +26,7 @@ public interface PromotionService {
 	// 댓글 작성 서비스 
 	int insertPromotionReply(PromotionReply pr);
 
-	// 홍보리스트 상세조회
-	Promotion selectPromotion(int promotionNo);
 
-	// 댓글 리스트 조회 서비스 (ajax)
-	ArrayList<Reply> selectReplyList(int boardNo);
-	
-	// 댓글 작성 서비스 (ajax)
-	int insertReply(Reply r);
 
 	
 	

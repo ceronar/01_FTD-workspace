@@ -23,6 +23,7 @@ public class PromotionController {
 	@RequestMapping(value = "plist.bo", produces = "application/json; charset=UTF-8")
 	public String ajaxSelectReplyList() {
 		
+		//홍보리스트 내용
 		ArrayList<Promotion> list = promotionService.selectPromotionList();
 		System.out.println(list);
 		
