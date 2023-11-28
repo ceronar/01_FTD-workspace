@@ -26,4 +26,9 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="order" value="classpath:/application-API-KEY.properties" />
+	</bean>
+	
 </beans>
