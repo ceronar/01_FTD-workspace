@@ -5,8 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.wrapper {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    min-height: 100vh;
+	}
+</style>
 </head>
 <body>
- 테스트테스트dasdasd
+	<div class="wrapper">
+		
+		<jsp:include page="common/header.jsp" />
+	
+		
+		
+		<jsp:include page="common/footer.jsp" />
+	
+	</div>
+	
 </body>
 </html>

@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
+	<resultMap id="memberResultSet" type="member">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="MEMBER_PWD" property="memberPwd" />
+		<result column="MEMBER_NAME" property="memberName" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="ADDRESS" property="address" />
+		<result column="GENDER" property="gender" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	
+	<!-- 로그인용 쿼리문 -->
+	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+		
+		<!-- 나중에 암호화 문으로 바꿔주세요. -->
+		SELECT *
+		  FROM MEMBER
+		 WHERE MEMBER_ID = #{memberId}
+		   AND MEMBER_PWD = #{memberPwd}
+		   AND STATUS IS NULL
+		   
+	</select>
+
 </mapper>

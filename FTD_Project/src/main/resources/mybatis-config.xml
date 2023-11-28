@@ -9,6 +9,7 @@
 	</settings>
 	
 	<typeAliases>
+		<typeAlias type="com.kh.ftd.member.model.vo.Member" alias="member" />
 	</typeAliases>
 	
 	<!-- 
@@ -19,7 +20,6 @@
 	
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
-		<mapper resource="/mappers/board-mapper.xml" />
 	</mappers>
 	<!--  
 		주의사항 : mapper 파일이 없는데도 미리 등록하면 FileNotFoundException 발생
