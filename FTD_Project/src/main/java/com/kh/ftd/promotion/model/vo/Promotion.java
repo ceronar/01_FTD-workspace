@@ -19,7 +19,7 @@ import lombok.ToString;
 public class Promotion {
 	
 	private int promotionNo;  					//	PROMOTION_NO
-	private String sellerNo;					//	SELLER_NO
+	private String sellerN;					//	SELLER_NO
 	private String promotionTitle;				//	PROMOTION_TITLE
 	private String promotionContent;			//	PROMOTION_CONTENT
 	private int count;							//	COUNT

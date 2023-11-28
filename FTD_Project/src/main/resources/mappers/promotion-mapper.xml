@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="promotionMapper">
+	
+	<resultMap id="promotionResultSet" type="promotion">
+		<result column="PROMOTION_NO" property="promotionNo" />
+		<result column="SELLER_NO" property="sellerNo" />
+		<result column="PROMOTION_TITLE" property="promotionTitle" />
+		<result column="PROMOTION_CONTENT" property="promotionContent" />
+		<result column="COUNT" property="count" /> <!-- 별칭 -->
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+	</resultMap>
+	
+	<select id="selectPromotionList" resultMap="promotionResultSet">
+		SELECT *
+		FROM PROMOTION
+		ORDER BY PROMOTION_NO DESC
+	</select>
+	
+	
+	
+</mapper>
