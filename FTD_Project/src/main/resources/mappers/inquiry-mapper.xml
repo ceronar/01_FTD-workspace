@@ -19,10 +19,10 @@
         SELECT COUNT(*)
 		  FROM INQUIRY
 		 WHERE DELETE_DATE IS NULL
-		   AND SELLER_NO = #{SELLER_NO}
+		   AND SELLER_NO = #{sellerNo}
 	</select>
 	
-	<select id="selectInquiryList" parameterType="string" resultType="inquiryResultSet">
+	<select id="selectInquiryList" parameterType="string" resultMap="inquiryResultSet">
 		SELECT INQ_NO
 		     , MEMBER_NO
 		     , INQ_TITLE
