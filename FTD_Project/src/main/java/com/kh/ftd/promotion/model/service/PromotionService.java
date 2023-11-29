@@ -6,6 +6,7 @@ import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
 import com.kh.ftd.seller.model.vo.Seller;
+import com.kh.ftd.seller.model.vo.SellerFile;
 
 public interface PromotionService {
 
@@ -18,14 +19,15 @@ public interface PromotionService {
 		Seller selectSellerList(String sellerNo);		
 		
 		//홍보리스트 마켓프로필사진조회
-		//ArrayList<SellerFile> selectSellerFileProfileList();
+		ArrayList<SellerFile> selectSellerFileProfileList(String sellerNo);
 		
 		//홍보리스트 사진조회
-		ArrayList<PromotionFile> selectPromotionFileList();
+		ArrayList<PromotionFile> selectPromotionFileList(int promotionNo);
 		
 		//홍보리스트 댓글조회
-		int PromotionReplyCount(); 
+		int PromotionReplyCount(int promotionNo); 
 		
+	
 		
 	//홍보리스트 작성하기 서비스
 	int insertPromotion(Promotion p);

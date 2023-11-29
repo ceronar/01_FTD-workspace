@@ -11,6 +11,7 @@ import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
 import com.kh.ftd.seller.model.vo.Seller;
+import com.kh.ftd.seller.model.vo.SellerFile;
 
 @Service
 public class PromotionServiceImpl implements PromotionService{
@@ -34,22 +35,22 @@ public class PromotionServiceImpl implements PromotionService{
 	}
 
 
-//	@Override
-//	public ArrayList<SellerFile> selectSellerFileProfileList() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 	@Override
-	public ArrayList<PromotionFile> selectPromotionFileList() {
+	public ArrayList<SellerFile> selectSellerFileProfileList(String sellerNo) {
 		// TODO Auto-generated method stub
-		return null;
+		return promotionDao.selectSellerFileProfileList(sqlSession,sellerNo);
 	}
 
 	@Override
-	public int PromotionReplyCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<PromotionFile> selectPromotionFileList(int promotionNo) {
+	
+		return promotionDao.selectPromotionFileList(sqlSession,promotionNo);
+	}
+
+	@Override
+	public int PromotionReplyCount(int promotionNo) {
+		
+		return promotionDao.selectPromotionReplyCount(sqlSession,promotionNo);
 	}
 
 
