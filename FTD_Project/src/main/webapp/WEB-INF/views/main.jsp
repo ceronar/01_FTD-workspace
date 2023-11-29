@@ -11,6 +11,7 @@
 	    flex-direction: column;
 	    align-items: center;
 	    min-height: 100vh;
+	    padding-top: 150px;
 	}
 </style>
 </head>
@@ -18,8 +19,8 @@
 	<div class="wrapper">
 		
 		<jsp:include page="common/header.jsp" />
-	
 		
+		<a href="">장바구니</a>
 		
 		<jsp:include page="common/footer.jsp" />
 	
