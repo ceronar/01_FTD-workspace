@@ -15,15 +15,18 @@
 </style>
 </head>
 <body>
-	<div class="wrapper">
-		
-		<jsp:include page="common/header.jsp" />
 	
+	<div class="wrapper">
+
+		<jsp:include page="common/header.jsp" />
+		
 		
 		
 		<jsp:include page="common/footer.jsp" />
 	
 	</div>
+	
+	
 	
 </body>
 </html>

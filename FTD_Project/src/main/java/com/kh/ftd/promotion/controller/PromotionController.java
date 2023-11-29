@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.ftd.promotion.model.service.PromotionService;
+
 import com.kh.ftd.promotion.model.vo.Promotion;
+import com.kh.ftd.promotion.model.vo.PromotionFile;
+import com.kh.ftd.seller.model.vo.Seller;
 
 
 @Controller
@@ -19,19 +22,37 @@ public class PromotionController {
 	private PromotionService promotionService;
 	
 	
-	@ResponseBody
-	@RequestMapping(value = "plist.bo", produces = "application/json; charset=UTF-8")
+	
+	@RequestMapping(value = "plist.bo")
 	public String ajaxSelectReplyList() {
 		
-		//홍보리스트 내용
-		ArrayList<Promotion> list = promotionService.selectPromotionList();
-		System.out.println(list);
 		
+		int promotionNo = 0;
+		String sellerNo = "";
+		//홍보리스트 내용
+		ArrayList<Promotion> pList = promotionService.selectPromotionList();
+		//System.out.println(pList);
+		
+		for(Promotion p : pList) {
+			promotionNo = p.getPromotionNo();
+			sellerNo = p.getSellerNo();
+		
+
+		Seller sellerList = promotionService.selectSellerList(sellerNo);
+		System.out.println(sellerList);
+	
+//		ArrayList<SellerFile> sellerFileList = promotionService.selectSellerFileProfileList();
+//		
+//		ArrayList<PromotionFile> pFileList = promotionService.selectPromotionFileList();
+//		
+//		int replyList =  promotionService.PromotionReplyCount();
+	
+		}
 		
 		// Gson gson = new Gson();
 		// return gson.toJson(list);
 		
-		return new Gson().toJson(list);
+		return "";
 	}
 	
 	

@@ -12,11 +12,37 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
+	<resultMap id="sellerResultSet" type="seller">
+		<result column="SELLER_NO" property="sellerNo"/>
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_PWD" property="sellerPwd"/>
+		<result column="SELLER_NAME" property="sellerName"/>
+		<result column="COMPANY_NO" property="companyNo"/>
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="ADDRESS" property="address"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ACCOUNT_NO" property="accountNo"/>
+		<result column="DELETE_DATE" property="deleteDate"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="ACCEPT_DATE" property="acceptDate"/>
+		<result column="REFUSE_REASON" property="refuseReason"/>
+	</resultMap>
+	
+	
 	<select id="selectPromotionList" resultMap="promotionResultSet">
 		SELECT *
 		FROM PROMOTION
 		ORDER BY PROMOTION_NO DESC
 	</select>
+	
+	<select id="selectSellerList" resultMap="sellerResultSet" parameterType="string">
+		SELECT *
+		FROM SELLER
+		WHERE SELLER_NO = #{sellerNo} 
+	</select>
+	
 	
 	
 	
