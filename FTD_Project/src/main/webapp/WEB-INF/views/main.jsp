@@ -22,11 +22,22 @@
 </style>
 </head>
 <body>
+
+	<div class="wrapper">
+
+		<jsp:include page="common/header.jsp" />
+		
+
 	<div class="wrapper">
 		<jsp:include page="common/header.jsp" />
 		
 		<div class="content">
+
+
+		
+
 			<a href="basket.me">장바구니로</a>
+
 		
 		</div>
 
@@ -34,6 +45,8 @@
 		
 	
 	</div>
+	
+	
 	
 </body>
 </html>

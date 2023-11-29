@@ -72,6 +72,7 @@
 			<a href="list.in">홈</a>
 			<a href="#">가게 찾기</a>
             <a href="#">상품 찾기</a>
+            <a href="plist.bo">홍보</a>
             <c:choose>
             	<%-- 구매자 로그인 후 --%>
             	<c:when test="${ not empty sessionScope.loginUser }">
