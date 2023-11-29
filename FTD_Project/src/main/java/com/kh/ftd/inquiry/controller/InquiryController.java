@@ -1,21 +1,21 @@
-package com.kh.ftd.iniquiry.controller;
+package com.kh.ftd.inquiry.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IniquiryController {
+public class InquiryController {
 	
 	@RequestMapping("detail.in")
 	public String selectIniquiry() {
 		
-		return "iniquiry/iniquiryDetailView";
+		return "inquiry/inquiryDetailView";
 	}
 	
 	@RequestMapping("list.in")
 	public String selectIniquiryList() {
 		
-		return "iniquiry/iniquiryListView";
+		return "inquiry/inquiryListView";
 	}
 
 }

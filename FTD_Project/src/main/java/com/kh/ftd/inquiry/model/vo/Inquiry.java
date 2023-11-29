@@ -1,4 +1,4 @@
-package com.kh.ftd.iniquiry.model.vo;
+package com.kh.ftd.inquiry.model.vo;
 
 import java.sql.Date;
 
@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Iniquiry {
+public class Inquiry {
 
 	private int inqNo; 				//INQ_NO	NUMBER
 	private String sellerNo; 		//SELLER_NO	NUMBER

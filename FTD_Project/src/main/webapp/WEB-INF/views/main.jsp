@@ -11,7 +11,6 @@
 	    flex-direction: column;
 		margin: auto;
 	    min-height: 100vh;
-	    background : rgb(51, 51, 51);
 	}
 	
 	.content {
@@ -29,8 +28,7 @@
 		
 		
 		</div>
-			
-		
+
 		<jsp:include page="common/footer.jsp" />
 		
 	

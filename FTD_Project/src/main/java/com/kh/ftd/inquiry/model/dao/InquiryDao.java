@@ -1,8 +1,8 @@
-package com.kh.ftd.iniquiry.model.dao;
+package com.kh.ftd.inquiry.model.dao;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class IniquiryDao {
+public class InquiryDao {
 
 }

@@ -1,4 +1,4 @@
-package com.kh.ftd.iniquiry.model.vo;
+package com.kh.ftd.inquiry.model.vo;
 
 import java.sql.Date;
 
@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class IniquiryReply {
+public class InquiryReply {
 	
 	private int replyNo;			//REPLY_NO	NUMBER
 	private int inqNo;				//INQ_NO	NUMBER
