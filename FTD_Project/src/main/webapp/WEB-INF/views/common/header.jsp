@@ -6,16 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- alertify 라이브러리 -->
+   <!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+
 <style>
 	.header {
-    	background-color: #4CAF50;
-	    padding: 10px;
-	    text-align: center;
-	    color: white;
-	    width: 100%;
+	    color: #4CAF50;
 	    position: fixed; /* 헤더를 화면 상단에 고정 */
 	    top: 0; /* 헤더가 화면 상단에 고정될 때의 위치 */
-	    z-index: 1000; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
+		margin: center;
+		width: 900px;
+		padding: 0px 18px;
+		background: rgb(255, 255, 255);
+		border-bottom: 1px solid rgb(201, 205, 210);
+		box-sizing: border-box;
+		z-index: 40;	
+	    /*z-index: 1000; */ /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
 	}
 	
 	.nav-menu {
@@ -25,7 +39,7 @@
     }
 
     .nav-menu a {
-        color: white;
+        color: #4CAF50;
         text-decoration: none;
         padding: 10px;
         border-radius: 5px;
@@ -40,13 +54,20 @@
 <body>
 
 	<!-- 1회성 알람문구 코드 추가해주세요. -->
-
-
+	<c:if test="${ not empty sessionScope.alertMsg }">
+		<script>
+			alertify.alert('Alert', '${ sessionScope.alertMsg }', function(){ alertify.success('Ok'); });
+		</script>
+		
+		<!-- session 의 alertMsg 지우기 -->
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+	
 
 
 
 	<div class="header">
-	<h1>FTD - Farm to Dish</h1>
+	<h2>신선한땅의 맛</h1>
 		<div class="nav-menu">
 			<a href="#">홈</a>
 			<a href="#">가게 찾기</a>
