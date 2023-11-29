@@ -11,6 +11,7 @@
 	    flex-direction: column;
 		margin: auto;
 	    min-height: 100vh;
+	    margin-top: 150px;
 	}
 	
 	.content {
@@ -25,7 +26,7 @@
 		<jsp:include page="common/header.jsp" />
 		
 		<div class="content">
-		
+			<a href="basket.me">장바구니로</a>
 		
 		</div>
 

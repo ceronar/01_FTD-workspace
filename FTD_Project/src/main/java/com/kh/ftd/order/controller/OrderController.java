@@ -1,6 +1,14 @@
 package com.kh.ftd.order.controller;
 
-public class OrderController {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+@Controller
+public class OrderController {
+	
+	@RequestMapping(value = "basket.me")
+	public String memberBasketList() {
+		return "member/memberBasket";
+	}
 	
 }
