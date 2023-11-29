@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,10 +64,22 @@
         .btn button:hover {
             background-color: #27ae60;
         }
+		.material-symbols-outlined {
+		  font-variation-settings:
+		  'FILL' 0,
+		  'wght' 400,
+		  'GRAD' 0,
+		  'opsz' 24
+		}
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
+
+	
     <div class="container">
         <h1>게시판</h1>
         <div align="center">
@@ -75,7 +88,7 @@
                     <tr>
                         <th style="width : 5%;"><input type="checkbox" id="check-all"></th>
                         <th style="width : 7%;">번호</th>
-                        <th style="width : 15%;">답변상태</th>
+                        <th style="width : 15%;">답변여부</th>
                         <th style="width : 38%;">제목</th>
                         <th style="width : 10%;">문의자</th>
                         <th style="width : 10%">조회수</th>
@@ -83,16 +96,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <c:forEach var="i" items="${ requestScope.list }">
                     <tr>
                         <td><input type="checkbox" class="delete"></td>
-                        <td name="inqNo">1</td>
-                        <td name="">답변 완료</td>
-                        <td>집에가고싶어요</td>
-                        <td>user01</td>
-                        <td>10</td>
-                        <td>2023-11-23</td>
+                        <td name="inqNo">${i.inquiryNo}</td>
+                        <td name="answerStatus">
+                        	<c:if test="${not empty i.responseContent}">
+                        		<span class="material-symbols-outlined">
+								check_circle
+								</span>
+                        	</c:if>
+                        </td>
+                        <td name="inquiryTitle">${i.inquiryTitle}</td>
+                        <td name="memberNo">${i.memberNo}</td>
+                        <td name="count">${i.count}</td>
+                        <td name="createDate">${i.createDate}</td>
                     </tr>
-                    
+                    </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -142,4 +162,6 @@
         }
         */
     </script>
+    <jsp:include page="../common/footer.jsp" />
+   </body>
 </html>

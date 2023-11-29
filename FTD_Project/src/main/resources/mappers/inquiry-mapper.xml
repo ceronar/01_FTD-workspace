@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="inquiryMapper">
+
+	<resultMap id="inquiryResultSet" type="inquiry">
+		<result column="INQ_NO" property="inqNo" />
+		<result column="SELLER_NO" property="sellerNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="INQ_TITLE" property="inqTitle" />
+		<result column="inqContent" property="INQ_CONTENT" />
+		<result column="count" property="COUNT" />
+		<result column="createDate" property="CREATE_DATE" />
+		<result column="deleteDate" property="DELETE_DATE" />
+		<result column="resopnseContent" property="RESPONSE_CONTENT" />
+		<result column="responseDate" property="RESPONSE_DATE" />
+	</resultMap>
+
+	<select id="selectInquiryCount" parameterType="string" resultType="_int">
+        SELECT COUNT(*)
+		  FROM INQUIRY
+		 WHERE DELETE_DATE IS NULL
+		   AND SELLER_NO = #{SELLER_NO}
+	</select>
+	
+	<select id="selectInquiryList" parameterType="string" resultType="inquiryResultSet">
+		SELECT INQ_NO
+		     , MEMBER_NO
+		     , INQ_TITLE
+		     , COUNT
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , RESPONSE_DATE
+		  FROM INQUIRY
+		 WHERE DELETE_DATE IS NULL
+		   AND SELLER_NO = #{sellerNo}
+		 ORDER BY INQ_NO DESC
+	</select>
+
+</mapper>

@@ -12,22 +12,22 @@ public interface InquiryService {
 	
 
 	// 총 게시글 갯수
-	int selectIniquiryListCount();
+	int selectInquiryCount(String sellerNo);
 	
 	// 게시글 리스트 조회
-	ArrayList<Inquiry> selectNoticeList(PageInfo pi);
+	ArrayList<Inquiry> selectInquiryList(PageInfo pi, String sellerNo);
 	
 	// 게시글 작성하기
 	int insertNotice(Inquiry i);
 	
 	// 게시글 조회수 증가
-	int increaseIniquiryCount(int iniquiryNo);
+	int increaseInquiryCount(int inquiryNo);
 	
 	// 게시글 상세조회
 	Inquiry selectNotice(int inquiryNo);
 	
 	// 게시글 삭제
-	int deleteIniquiry(int iniquiryNo);
+	int deleteInquiry(int inquiryNo);
 	
 	// 게시글 수정
 	int updateNotice(Inquiry i);
