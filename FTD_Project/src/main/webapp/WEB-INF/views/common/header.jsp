@@ -17,38 +17,48 @@
 <!-- Semantic UI theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 
+<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
 <style>
-	.header {
-	    color: #4CAF50;
-	    position: fixed; /* 헤더를 화면 상단에 고정 */
-	    top: 0; /* 헤더가 화면 상단에 고정될 때의 위치 */
-		margin: center;
-		width: 900px;
-		padding: 0px 18px;
-		background: rgb(255, 255, 255);
-		border-bottom: 1px solid rgb(201, 205, 210);
-		box-sizing: border-box;
-		z-index: 40;	
-	    /*z-index: 1000; */ /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
-	}
-	
-	.nav-menu {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 10px;
+
+	.header > div {
+        display: block;
+    }
+
+    .title-div > div {
+        width: 100%;
+        display: inline;
+        box-sizing: border-box;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+    }
+
+     /* 네비게이션 메뉴 스타일 */
+    .nav-menu {
+    	width: 100%;
+    	height: 100%;
+        float: right; /* 오른쪽으로 정렬합니다. */
+        
     }
 
     .nav-menu a {
-        color: #4CAF50;
+		width: 150px;
+        display: inline-block; /* 가로로 나열되도록 변경합니다. */
         text-decoration: none;
-        padding: 10px;
+        padding: 10px; /* 위아래 좌우 여백 조절 */
+        margin: 0 5px; /* 좌우 간격 조절 */
+        color: black;
+        background-color: #ccc;
         border-radius: 5px;
-        transition: background-color 0.3s;
     }
 
     .nav-menu a:hover {
-        background-color: #45a049;
+        background-color: #ddd;
     }
+	
 </style>
 </head>
 <body>
@@ -64,34 +74,39 @@
 	</c:if>
 	
 
-
-
 	<div class="header">
-	<h2>신선한땅의 맛</h1>
-		<div class="nav-menu">
-			<a href="#">홈</a>
-			<a href="#">가게 찾기</a>
-            <a href="#">상품 찾기</a>
-            <c:choose>
-            	<%-- 구매자 로그인 후 --%>
-            	<c:when test="${ not empty sessionScope.loginUser }">
-	            	<a href="myPage.me">마이페이지</a>
-		            <a href="logout.me">로그아웃</a>
-            	</c:when>
-            	
-            	<%-- 판매자 로그인 후 --%>
-            	<c:when test="">
-            	
-            	</c:when>            	
-
-				<%-- 로그인 전 --%>
-            	<c:otherwise>
-		            <a href="loginForm.me">로그인</a>
-		            <a href="#">회원 가입</a>  	
-            	</c:otherwise>
-            	
-            </c:choose>
+		<div class="title-div">
+			<div><img></div>
+			<div><a>신선한땅의 맛</a></div>
+			<div><img></div>
+			<div>
+	            <c:choose>
+	            	<%-- 구매자 로그인 후 --%>
+	            	<c:when test="${ not empty sessionScope.loginUser }">
+			            <a href="logout.me">로그아웃</a>
+	            	</c:when>
+	            	
+	            	<%-- 판매자 로그인 후 --%>
+	            	<c:when test="">
+	            	
+	            	</c:when>            	
+	
+					<%-- 로그인 전 --%>
+	            	<c:otherwise>
+			            <a href="loginForm.me">로그인</a>	
+	            	</c:otherwise>         	
+	            </c:choose>	
+			</div>	
 		</div>
+		
+		<div class="nav-menu">
+			<a href="#">추천</a>
+			<a href="#">공지사항</a>
+            <a href="#">고객센터</a>
+            <a href="#">회사소개</a>
+		</div>
+		
+		
 	</div>
 	
 	

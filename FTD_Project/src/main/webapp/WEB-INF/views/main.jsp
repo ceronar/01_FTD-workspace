@@ -3,36 +3,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	.wrapper {
-	    display: flex;
-	    flex-direction: column;
-		margin: auto;
-	    min-height: 100vh;
-	}
-	
-	.content {
-		
-		background: rgb(255, 255, 255);
-	}
-
-</style>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div class="wrapper">
-		<jsp:include page="common/header.jsp" />
-		
-		<div class="content">
-		
-		
-		</div>
-
-		<jsp:include page="common/footer.jsp" />
-		
-	
-	</div>
-	
+    <div class="wrapper">
+        <div class="center-div">  
+         
+	        <jsp:include page="common/sidebar.jsp" />
+	        
+	        <div class="main-div">
+	            <jsp:include page="common/header.jsp" />
+	            <div class="content">메인 컨텐츠</div>
+	            <jsp:include page="common/footer.jsp" />
+	        </div> 
+	              
+        </div>
+    </div>
 </body>
 </html>
