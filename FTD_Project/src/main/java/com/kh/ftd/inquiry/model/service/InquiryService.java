@@ -12,10 +12,10 @@ public interface InquiryService {
 	
 
 	// 총 게시글 갯수
-	int selectInquiryCount(String sellerNo);
-	
-	// 게시글 리스트 조회
-	ArrayList<Inquiry> selectInquiryList(PageInfo pi, String sellerNo);
+//	int selectInquiryCount(String sellerNo);
+//	
+//	// 게시글 리스트 조회
+//	ArrayList<Inquiry> selectInquiryList(PageInfo pi, String sellerNo);
 	
 	// 게시글 작성하기
 	int insertNotice(Inquiry i);
