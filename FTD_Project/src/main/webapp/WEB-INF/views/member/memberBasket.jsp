@@ -210,38 +210,9 @@
                     <p><strong>총 가격: 20,500원</strong></p>
                 </div>
                 <!-- 결제 버튼 -->
-                <button onclick="openKakaoPayModal();">결제하기</button>
+                <button id="pay">카카오 페이 결제하기</button>
             </div>
         </div>
-		
-		<!-- ********************************모달 시작****************************** -->
-        <div id="kakaoModalContainer" class="hidden">
-			<input class="sessionuserID" type="hidden" value="${sessionScope.userId}">
-			<input class="amountValue" type="hidden">
-			<div class="popup">  <!-- 팝업처럼 하기 위한 배경 -->
-				<div class="pwrap">  <!-- 실제 팝업창 -->
-					<a class="closeBtn"><span class="material-symbols-outlined">close</span></a> <!-- 팝업창 닫기 버튼 -->
-					<div>
-						<h1>결제하기</h1>
-					</div>
-					<table>
-						<tr>
-							<td><a href="#" onclick="kakaopay()"><img src="/ftd/resources/images/kakaoPay/03_SVG/combination_with_BG.svg"></a></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-					<div>
-						<h3 class="amount">결제 금액 : 0원</h3>
-					</div>		
-				</div>
-			</div>
-			<script src="/ftd/resources/js/api/kakao_payment.js"></script>
-		</div>
-		<!-- ****************************모달 끝 *******************************-->
 		
         <jsp:include page="../common/footer.jsp" />
 
@@ -274,17 +245,44 @@
                 }
             }
             
-            const closeBtn = document.querySelector('.closeBtn');
-            const popup = document.querySelector('.popup');
-            const amount = document.querySelector('.amount');
-            const modal = document.querySelector('#kakaoModalContainer');
-
-            function openKakaoPayModal() {
-                modal.style.display = 'block';
-            }
-            closeBtn.on('click', function(){
-            	modal.style.display = 'none';
-            });
+            $('#pay').on('click', function(e) {
+        		e.preventDefault();
+        		if($("input[type=radio][name=a_payment]:checked").is(':checked')){
+       				//가맹점 식별코드
+       				IMP.init('가맹점식별코드');
+       				IMP.request_pay({
+       					pg : 'TC0ONETIME',
+       					pay_method : 'card',
+       					merchant_uid : 'merchant_' + new Date().getTime(),
+       					name : '물품명', //결제창에서 보여질 이름
+       					amount : 물품가격(숫자), //실제 결제되는 가격
+       					buyer_email : 'iamport@siot.do',
+       					buyer_name : '구매자이름',
+       					buyer_tel : '010-1234-5678',
+       					buyer_addr : '서울 강남구 도곡동',
+       					buyer_postcode : '123-456'
+       				}, function(rsp) {
+       					console.log(rsp);
+       					if (rsp.success) {
+       						var msg = '결제가 완료되었습니다.';
+       						msg += '고유ID : ' + rsp.imp_uid;
+       						msg += '상점 거래ID : ' + rsp.merchant_uid;
+       						msg += '결제 금액 : ' + rsp.paid_amount;
+       						msg += '카드 승인번호 : ' + rsp.apply_num;
+       						var actionForm =$("#pay_form");
+       						const a_completed = $("<input type='hidden' value='T' name='a_completed'>");
+       						actionForm.append(a_completed);
+       						console.log(actionForm);
+       						actionForm.find("input[name='p_id']").val($(this).attr("href"));
+       						actionForm.submit();
+       					} else {
+       						var msg = '결제에 실패하였습니다.';
+       						msg += '에러내용 : ' + rsp.error_msg;
+       					}
+       					alert(msg);
+       				});
+        		}
+        	});
         </script>
     </div>
 </body>
