@@ -9,12 +9,64 @@ INSERT INTO MEMBER(MEMBER_NO
             VALUES(SEQ_MNO.NEXTVAL
                  , 'user01'
                  , 'pass01'
-                 , 'í…ŒìŠ¤íŠ¸'
+                 , 'È«±æµ¿'
                  , 'user01@gmail.com'
                  , '010-1234-5678'
-                 , 'ì„œìš¸ì‹œ'
+                 , '¼­¿ï½Ã ¿µµîÆ÷±¸'
                  , 'M');
                  
+INSERT INTO SELLER(SELLER_NO
+                 , COMPANY_NAME
+                 , SELLER_ID
+                 , SELLER_PWD
+                 , SELLER_NAME
+                 , COMPANY_NO
+                 , BUSINESS_NO
+                 , ADDRESS
+                 , EMAIL
+                 , PHONE
+                 , ACCOUNT_NO
+                 , DELETE_DATE
+                 , ENROLL_DATE
+                 , ACCEPT_DATE
+                 , REFUSE_REASON)
+            VALUES(SEQ_SNO.NEXTVAL
+                 , '¹ÝÂ¦³ó»ê'
+                 , 'user01'
+                 , 'pass01'
+                 , 'È«±æµ¿'
+                 , '111-222-3333'
+                 , '³ë¿ø±¸-1111È£'
+                 , '¼­¿ï½Ã ¿µµîÆ÷±¸'
+                 , 'user01@gmail.com'
+                 , '010-1234-5678'
+                 , '111-111111-11-111'
+                 , DEFAULT
+                 , DEFAULT
+                 , DEFAULT
+                 , '»ç¾÷Á¤Áö');
+                 
+INSERT INTO INQUIRY(INQ_NO
+                  , SELLER_NO
+                  , MEMBER_NO
+                  , INQ_TITLE
+                  , INQ_CONTENT
+                  , COUNT
+                  , CREATE_DATE
+                  , DELETE_DATE
+                  , RESPONSE_CONTENT
+                  , RESPONSE_DATE)
+            VALUES(SEQ_INO.NEXTVAL
+                 , 1
+                 , 1
+                 , '¹®ÀÇÁ¦¸ñ'
+                 , '¹®ÀÇ³»¿ë'
+                 , 1
+                 , DEFAULT
+                 , DEFAULT
+                 , DEFAULT
+                 , DEFAULT);
+
 COMMIT;
 
 		   

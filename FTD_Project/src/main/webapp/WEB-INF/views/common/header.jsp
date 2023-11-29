@@ -69,7 +69,7 @@
 	<div class="header">
 	<h2>신선한땅의 맛</h1>
 		<div class="nav-menu">
-			<a href="#">홈</a>
+			<a href="list.in">홈</a>
 			<a href="#">가게 찾기</a>
             <a href="#">상품 찾기</a>
             <c:choose>
