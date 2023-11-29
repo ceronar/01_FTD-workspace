@@ -2,27 +2,36 @@ package com.kh.ftd.inquiry.model.service;
 
 import java.util.ArrayList;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.inquiry.model.dao.InquiryDao;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
 import com.kh.ftd.inquiry.model.vo.InquiryReply;
 
 @Service
+@EnableTransactionManagement
 public class InquiryServiceImpl implements InquiryService{
 
+	@Autowired
+	private InquiryDao inquiryDao;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
 	@Override
-	public int selectIniquiryListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectInquiryCount(String sellerNo) {
+		return inquiryDao.selectInquiryCount(sqlSession, sellerNo);
 	}
 
 	@Override
-	public ArrayList<Inquiry> selectNoticeList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Inquiry> selectInquiryList(PageInfo pi, String sellerNo) {
+		return inquiryDao.selectInquiryList(sqlSession, pi, sellerNo);
 	}
-
+	
 	@Override
 	public int insertNotice(Inquiry i) {
 		// TODO Auto-generated method stub
@@ -30,7 +39,7 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public int increaseIniquiryCount(int iniquiryNo) {
+	public int increaseInquiryCount(int inquiryNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -42,7 +51,7 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public int deleteIniquiry(int iniquiryNo) {
+	public int deleteInquiry(int inquiryNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -71,6 +80,7 @@ public class InquiryServiceImpl implements InquiryService{
 		return 0;
 	}
 
+	
 
 
 }
