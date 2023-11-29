@@ -1,15 +1,15 @@
-package com.kh.ftd.iniquiry.model.service;
+package com.kh.ftd.inquiry.model.service;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
 import com.kh.ftd.common.model.vo.PageInfo;
-import com.kh.ftd.iniquiry.model.vo.Iniquiry;
-import com.kh.ftd.iniquiry.model.vo.IniquiryReply;
+import com.kh.ftd.inquiry.model.vo.Inquiry;
+import com.kh.ftd.inquiry.model.vo.InquiryReply;
 
 @Service
-public class IniquiryServiceImpl implements IniquiryService{
+public class InquiryServiceImpl implements InquiryService{
 
 	@Override
 	public int selectIniquiryListCount() {
@@ -18,13 +18,13 @@ public class IniquiryServiceImpl implements IniquiryService{
 	}
 
 	@Override
-	public ArrayList<Iniquiry> selectNoticeList(PageInfo pi) {
+	public ArrayList<Inquiry> selectNoticeList(PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertNotice(Iniquiry i) {
+	public int insertNotice(Inquiry i) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -36,7 +36,7 @@ public class IniquiryServiceImpl implements IniquiryService{
 	}
 
 	@Override
-	public Iniquiry selectNotice(int inquiryNo) {
+	public Inquiry selectNotice(int inquiryNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -48,27 +48,29 @@ public class IniquiryServiceImpl implements IniquiryService{
 	}
 
 	@Override
-	public int updateNotice(Iniquiry i) {
+	public int updateNotice(Inquiry i) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int insertAnswer(Iniquiry i) {
+	public int insertAnswer(Inquiry i) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<IniquiryReply> selectReplyList(int boardNo) {
+	public ArrayList<InquiryReply> selectReplyList(int boardNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertReply(IniquiryReply r) {
+	public int insertReply(InquiryReply r) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }
