@@ -13,6 +13,15 @@
 		<typeAlias type="com.kh.ftd.member.model.vo.Member" alias="member" />
 		<typeAlias type="com.kh.ftd.promotion.model.vo.Promotion" alias="promotion" />
 
+		<typeAlias type="com.kh.ftd.seller.model.vo.Seller" alias="seller" />
+		<typeAlias type="com.kh.ftd.seller.model.vo.SellerFile" alias="sellerFile"/>
+		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
+		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
+		<!-- 11/29 성광 12:51분 판매자 별칭추가 -->
+
+		<typeAlias type="com.kh.ftd.inquiry.model.vo.Inquiry" alias="inquiry" />
+
+
 	</typeAliases>
 	
 	<!-- 
@@ -24,7 +33,7 @@
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/promotion-mapper.xml"/>
-
+		<mapper resource="/mappers/inquiry-mapper.xml" />
 	</mappers>
 	<!--  
 		주의사항 : mapper 파일이 없는데도 미리 등록하면 FileNotFoundException 발생

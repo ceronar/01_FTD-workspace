@@ -12,11 +12,82 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
+	<resultMap id="sellerResultSet" type="seller">
+		<result column="SELLER_NO" property="sellerNo"/>
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_PWD" property="sellerPwd"/>
+		<result column="SELLER_NAME" property="sellerName"/>
+		<result column="COMPANY_NO" property="companyNo"/>
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="ADDRESS" property="address"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ACCOUNT_NO" property="accountNo"/>
+		<result column="DELETE_DATE" property="deleteDate"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="ACCEPT_DATE" property="acceptDate"/>
+		<result column="REFUSE_REASON" property="refuseReason"/>
+	</resultMap>
+	
+	<resultMap id="sellerFileResultSet" type="sellerFile">
+		<result column="FILE_NO" property="fileNo"/>
+		<result column="SELLER_NO" property="sellerNo" />
+		<result column="ORIGINAL_NAME" property="originalName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate"/>
+	</resultMap>
+	
+	<resultMap id="promotionFileResultSet" type="promotionFile">
+		<result column="FILE_NO" property="fileNo"/>
+		<result column="PROMOTION_NO" property="promotionNo" />
+		<result column="ORIGINAL_NAME" property="originalName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate"/>
+	</resultMap>
+	
+	<resultMap id="promotionReplyResultSet" type="promotionReply">
+		<result column="REPLY_NO" property="replyNo"/>
+		<result column="PROMOTION_NO" property="promotionNo" />
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate"/>
+	</resultMap>
+	
+	
 	<select id="selectPromotionList" resultMap="promotionResultSet">
 		SELECT *
 		FROM PROMOTION
 		ORDER BY PROMOTION_NO DESC
 	</select>
+	
+	<select id="selectSellerList" resultMap="sellerResultSet" parameterType="string">
+		SELECT *
+		FROM SELLER
+		WHERE SELLER_NO = #{sellerNo} 
+	</select>
+	
+	<select id="selectSellerFileProfileList" resultMap="sellerFileResultSet" parameterType="string">
+		SELECT *
+		FROM SELLER_FILE
+		WHERE SELLER_NO = #{sellerNo} 
+	</select>
+	
+	<select id="selectPromotionFileList" resultMap="promotionFileResultSet" parameterType="_int">
+		SELECT *
+		FROM PROMOTION_FILE
+		WHERE PROMOTION_NO = #{promotionNo}
+	</select>
+	
+	<select id="selectPromotionReplyCount" resultType="_int" parameterType="_int">
+		SELECT COUNT(*) COUNT
+		  FROM PROMOTION_REPLY
+		 WHERE PROMOTION_NO = #{promotionNo}
+	</select>
+	
 	
 	
 	

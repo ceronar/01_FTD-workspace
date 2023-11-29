@@ -75,6 +75,7 @@
 	
 
 	<div class="header">
+
 		<div class="title-div">
 			<div><img></div>
 			<div><a>신선한땅의 맛</a></div>
@@ -97,18 +98,45 @@
 	            	</c:otherwise>         	
 	            </c:choose>	
 			</div>	
-		</div>
-		
+<!-- 
+	<h2>신선한땅의 맛</h1>
 		<div class="nav-menu">
-			<a href="#">추천</a>
-			<a href="#">공지사항</a>
-            <a href="#">고객센터</a>
-            <a href="#">회사소개</a>
+			<a href="list.in">홈</a>
+			<a href="#">가게 찾기</a>
+            <a href="#">상품 찾기</a>
+            <a href="plist.bo">홍보</a>
+            <c:choose>
+            	<%-- 구매자 로그인 후 --%>
+            	<c:when test="${ not empty sessionScope.loginUser }">
+	            	<a href="myPage.me">마이페이지</a>
+		            <a href="logout.me">로그아웃</a>
+            	</c:when>
+            	
+            	<%-- 판매자 로그인 후 --%>
+            	<c:when test="">
+            	
+            	</c:when>            	
+
+				<%-- 로그인 전 --%>
+            	<c:otherwise>
+		            <a href="loginForm.me">로그인</a>
+		            <a href="#">회원 가입</a>  	
+            	</c:otherwise>
+            	
+            </c:choose>
+
+		</div> -->
+		
+			<div class="nav-menu">
+				<a href="#">추천</a>
+				<a href="#">공지사항</a>
+				<a href="#">고객센터</a>
+				<a href="#">회사소개</a>
+			</div>
+			
+		
 		</div>
-		
-		
 	</div>
-	
 	
 	
 </body>

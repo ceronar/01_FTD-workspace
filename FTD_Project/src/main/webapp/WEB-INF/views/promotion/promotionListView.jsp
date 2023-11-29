@@ -242,11 +242,107 @@
 
 
         }
+               #loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .skeleton {
+            background: #f0f0f0;
+            animation: loading 1.5s infinite ease-in-out;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes loading {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+        
     </style>
+    <script>
+    var page = 0;
+    var pageSize = 20; // 초기 로딩 시 20개씩 불러오기
+
+    $(document).ready(function () {
+        loadLegacyData();
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                page++;
+                loadLegacyData();
+            }
+        });
+    });
+
+    function loadLegacyData() {
+        // Skeleton UI 추가
+        $('#legacyContainer').append('<div class="skeleton"></div>'.repeat(pageSize));
+
+        $.ajax({
+            url : 'getLegacyData.bo',
+            type: 'get',
+            data: { page: page, size: pageSize },
+            beforeSend: function () {
+                // Ajax 요청 전에 로딩 애니메이션 표시
+                $('#loading').show();
+            },
+            success: function (data) {
+            	
+            	console.log("통신성공!!!");
+            	console.log(data);
+            	
+            	
+            	
+                // Remove skeleton UI
+                $('.skeleton').remove();
+                
+                // Append legacy data to the container
+              
+                data.forEach(function (val) {
+                    $('#legacyContainer').append('<p>' + val + '</p>');
+                });
+
+
+            },
+            complete: function () {
+                // Ajax 요청이 완료되면 로딩 애니메이션 숨기기
+                $('#loading').hide();
+            },
+            error : function() {
+            	console.log("통신실패!");
+            }
+        });
+    }
+
+    </script>
     <title>홍보(리스트)</title>
 </head>
 <body>
     <main>
+    
+    <div id="legacyContainer">
+    
+	</div>
+
+<div id="loading">
+    <img src="resources/images/sample/0019.gif" alt="Loading..."/>
+</div>
+    
+    
         <!-- 내용은 여전히 동일하게 유지 -->
         <div id="filter">
             <a href="">필터</a>
@@ -331,89 +427,6 @@
             </ul>
         </div>
     </main>
-
-    <script>
-	    var intersectionObserver = new IntersectionObserver(function(entries) {
-	    	  // If intersectionRatio is 0, the target is out of view
-	    	  // and we do not need to do anything.
-	    	  if (entries[0].intersectionRatio <= 0) return;
-	
-	    	  loadItems(10);
-	    	  console.log('Loaded new items');
-	    	});
-	    	// start observing
-	    	intersectionObserver.observe(document.querySelector('.scrollerFooter'));
-      
-	    	const io = new IntersectionObserver((entries, observer) => {
-	    		entries.forEach(entry => {
-	    		  if (!entry.isIntersecting) return; 
-	    			//entry가 interscting 중이 아니라면 함수를 실행하지 않습니다.
-	    		  if (page._scrollchk) return;
-	    			//현재 page가 불러오는 중임을 나타내는 flag를 통해 불러오는 중이면 함수를 실행하지 않습니다.
-	    	    observer.observe(document.getElementById('sentinel'));
-	    			//observer를 등록합니다.
-	    	    page._page += 1;
-	    			//불러올 페이지를 추가합니다.
-	    	    page.list.search();
-	    			//페이지를 불러오는 함수를 호출합니다.
-	    		});
-	    	});
-
-	    	io.observe(document.getElementById('sentinel'));
-    </script>
-    
-    <!-- 아이템이 로딩되기면 UI 구현 -->
-    <script>
-    function search() {
-    $.ajax({
-    	url: url,
-    	data: param,
-    	method: "GET",
-    	dataType: "json",
-    	success: function (result) {
-    	  console.log(result);
-    	},
-    	error: function (err) {
-    	  console.log(err);
-    	},
-    	beforeSend: function () {
-        _scrollchk = true; 
-    		//데이터가 로드 중임을 나타내는 flag입니다.
-    		document.getElementById('list').appendChild(skeleton.show());
-    		//skeleton을 그리는 함수를 이용해 DOM에 추가해줍니다.
-        $(".loading").show();
-    		//loading animation을 가진 요소를 보여줍니다.
-    	},
-    	complete: function () {
-        _scrollchk = false;
-    		//데이터가 로드 중임을 나타내는 flag입니다.
-        $(".loading").hide();
-        skeleton.hide();
-    		//loading animation 요소와 skeleton을 지우는 함수를 이용해 DOM에서 지워줍니다.
-    	}
-    });
-    
-    }
-    </script>
-    
-    <!-- 무한 스크롤 멈추기 구현 -->
-    <script>
-	    if (_total === 0) {
-	    	$('#sentinel').hide();
-	    	//검색된 아이템이 없을 경우 관찰중인 요소를 숨긴다.
-	    }
-	    else {
-	    	if (_total <= _page*20){
-	    		$('#sentinel').hide();
-	    		//검색된 아이템이 20개 이하일 경우 관찰중인 요소를 숨긴다.
-	    	}
-	    	else {
-	    		 $('#sentinel').show();
-	    		//관찰중인 요소를 보여준다.
-	    	}
-	    }
-    </script>
-    
 
 </body>
 </html>

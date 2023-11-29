@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ftd.promotion.model.dao.PromotionDao;
 import com.kh.ftd.promotion.model.vo.Promotion;
+import com.kh.ftd.promotion.model.vo.PromotionFile;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
+import com.kh.ftd.seller.model.vo.Seller;
+import com.kh.ftd.seller.model.vo.SellerFile;
 
 @Service
 public class PromotionServiceImpl implements PromotionService{
@@ -24,6 +27,32 @@ public class PromotionServiceImpl implements PromotionService{
 	
 		return promotionDao.selectPromotionList(sqlSession);
 	}
+	
+	@Override
+	public Seller selectSellerList(String sellerNo) {
+		// 
+		return promotionDao.selectSellerList(sqlSession,sellerNo);
+	}
+
+
+	@Override
+	public ArrayList<SellerFile> selectSellerFileProfileList(String sellerNo) {
+		// TODO Auto-generated method stub
+		return promotionDao.selectSellerFileProfileList(sqlSession,sellerNo);
+	}
+
+	@Override
+	public ArrayList<PromotionFile> selectPromotionFileList(int promotionNo) {
+	
+		return promotionDao.selectPromotionFileList(sqlSession,promotionNo);
+	}
+
+	@Override
+	public int PromotionReplyCount(int promotionNo) {
+		
+		return promotionDao.selectPromotionReplyCount(sqlSession,promotionNo);
+	}
+
 
 	@Override
 	public int insertPromotion(Promotion p) {
@@ -55,4 +84,5 @@ public class PromotionServiceImpl implements PromotionService{
 		return 0;
 	}
 
+	
 }
