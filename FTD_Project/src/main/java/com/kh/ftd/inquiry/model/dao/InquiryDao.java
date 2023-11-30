@@ -12,17 +12,17 @@ import com.kh.ftd.inquiry.model.vo.Inquiry;
 @Repository
 public class InquiryDao {
 
-	public int selectInquiryCount(SqlSessionTemplate sqlSession, String sellerNo) {
-		
-		return sqlSession.selectOne("inquiryMapper.selectInquiryCount", sellerNo);
-	}
-	
-	public ArrayList<Inquiry> selectInquiryList(SqlSessionTemplate sqlSession, PageInfo pi, String sellerNo) {
-		int limit = pi.getBoardLimit();
-		int offset = (pi.getCurrentPage() - 1) * limit;
-		
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("inquiryMapper.selectInquiryList", sellerNo, rowBounds);
-	}
+//	public int selectInquiryCount(SqlSessionTemplate sqlSession, String sellerNo) {
+//		
+//		return sqlSession.selectOne("inquiryMapper.selectInquiryCount", sellerNo);
+//	}
+//	
+//	public ArrayList<Inquiry> selectInquiryList(SqlSessionTemplate sqlSession, PageInfo pi, String sellerNo) {
+//		int limit = pi.getBoardLimit();
+//		int offset = (pi.getCurrentPage() - 1) * limit;
+//		
+//		RowBounds rowBounds = new RowBounds(offset, limit);
+//		
+//		return (ArrayList)sqlSession.selectList("inquiryMapper.selectInquiryList", sellerNo, rowBounds);
+//	}
 }

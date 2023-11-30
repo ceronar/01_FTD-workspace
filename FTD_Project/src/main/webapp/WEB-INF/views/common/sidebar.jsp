@@ -7,8 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="footer">
-		<p>&copy; FTD - Farm to Dish</p>
-    </div>
+	 <div class="sidebar">
+	     <a href="#">홈</a>
+	     <a href="#">가게 찾기</a>
+	     <a href="#">상품 찾기</a>
+	     <a href="#">상품 찾기</a>
+	     <a href="#">상품 찾기</a>
+	</div>
 </body>
 </html>
