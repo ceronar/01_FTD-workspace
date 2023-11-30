@@ -71,4 +71,22 @@
 		 
 	</select>
 	
+	<!-- 회원정보수정용 쿼리문 -->
+	<update id="updateMember"
+			parameterType="member">
+	
+	</update>
+	
+	<!-- 회원탈퇴용 쿼리문 -->
+	<update id="deleteMember"
+			parameterType="string">
+		UPDATE MEMBER
+		   SET TEATUS = SYSDATE
+		 WHERE MEMBER_ID = #{memberId}
+		     
+		
+		
+	</update>
+	
+	
 </mapper>
