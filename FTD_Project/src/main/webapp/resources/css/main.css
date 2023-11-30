@@ -77,7 +77,6 @@ html {
 .header, .footer {
     width: 100%;
     background-color: #ffffff;
-    padding: 20px;
     box-sizing: border-box;
     color: black;
     text-align: center;
@@ -89,9 +88,11 @@ html {
 .header {
     border-top-left-radius : 8px;
     border-top-right-radius : 8px;
+    padding : 20px 20px 0 20px;
 }
 
 .footer {
+	padding: 20px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
