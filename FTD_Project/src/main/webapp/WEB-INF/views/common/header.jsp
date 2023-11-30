@@ -88,7 +88,7 @@
 		
 			<div class="nav-menu">
 				<a href="#">추천</a>
-				<a href="#">공지사항</a>
+				<a href="list.no" class="notice">공지사항</a>
 				<a href="#">고객센터</a>
 				<a href="#">회사소개</a>
 			</div>
@@ -100,11 +100,17 @@
 	<script>
 		$(document).ready(function() {
 			
+		 	$(".notice").click(function(e) {
+		 		
+				location.href = "list.no";
+			})
+			
 			// 상단 네비바 클릭시 이벤트 처리
 			$(".nav-menu a").click(function(e){
 				
 			 	e.preventDefault(); // 기본 클릭 이벤트 방지
-			
+				
+			 	
 				// 클릭된 요소에 스타일 적용
 				$(this).css({
 					"font-size": "25px",
@@ -118,6 +124,7 @@
 		        	"border-bottom": "none",
 		        	"color": "rgb(85, 85, 85)" // 다른 메뉴의 글자 색상 변경
 		      	});
+				
 			
 			});
 			

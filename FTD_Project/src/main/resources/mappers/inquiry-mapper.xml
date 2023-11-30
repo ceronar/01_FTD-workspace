@@ -7,12 +7,12 @@
 		<result column="SELLER_NO" property="sellerNo" />
 		<result column="MEMBER_NO" property="memberNo" />
 		<result column="INQ_TITLE" property="inqTitle" />
-		<result column="inqContent" property="INQ_CONTENT" />
-		<result column="count" property="COUNT" />
-		<result column="createDate" property="CREATE_DATE" />
-		<result column="deleteDate" property="DELETE_DATE" />
-		<result column="resopnseContent" property="RESPONSE_CONTENT" />
-		<result column="responseDate" property="RESPONSE_DATE" />
+		<result column="INQ_CONTENT" property="inqContent" />
+		<result column="COUNT" property="count" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+		<result column="RESPONSE_CONTENT" property="resopnseContent" />
+		<result column="RESPONSE_DATE" property="responseDate" />
 	</resultMap>
 
 	<select id="selectInquiryCount" parameterType="string" resultType="_int">

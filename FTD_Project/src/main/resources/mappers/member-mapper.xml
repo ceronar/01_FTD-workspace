@@ -15,7 +15,9 @@
 	</resultMap>
 	
 	<!-- 로그인용 쿼리문 -->
-	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+	<select id="loginMember" 
+			parameterType="member" 
+			resultMap="memberResultSet">
 		
 		<!-- 나중에 암호화 문으로 바꿔주세요. -->
 		SELECT *
@@ -25,5 +27,24 @@
 		   AND STATUS IS NULL
 		   
 	</select>
-
+	
+	<insert id="insertMember"
+			parameterType="member">
+		INSERT INTO MEMBER(MEMBER_ID
+						 , MEMBER_PWD
+						 , MEMBER_NAME
+						 , EMAIL
+						 , PHONE
+						 , ADDRESS
+						 , GENDER)
+				    VALUES(#{userId})
+				    	, (#{userPwd})
+				    	, (#{userName})
+				    	, (#{email})
+				    	, (#{phone})
+				    	, (#{address})
+				    	, (#{gender})	
+	</insert>
+	
+	
 </mapper>
