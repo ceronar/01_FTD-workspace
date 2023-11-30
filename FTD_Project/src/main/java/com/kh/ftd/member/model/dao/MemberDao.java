@@ -9,7 +9,7 @@ import com.kh.ftd.member.model.vo.Member;
 public class MemberDao {
 
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
-		System.out.println("디에이오도착");
+		// System.out.println("디에이오도착");
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 
