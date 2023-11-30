@@ -247,15 +247,15 @@
             
             $('#pay').on('click', function(e) {
         		e.preventDefault();
-        		if($("input[type=radio][name=a_payment]:checked").is(':checked')){
+        		if($("input[type=checkbox].buyItem:checked").length > 0){
        				//가맹점 식별코드
-       				IMP.init('가맹점식별코드');
+       				IMP.init('store-4af58aef-9466-4228-8010-b4b2ac75b122');
        				IMP.request_pay({
        					pg : 'TC0ONETIME',
        					pay_method : 'card',
        					merchant_uid : 'merchant_' + new Date().getTime(),
        					name : '물품명', //결제창에서 보여질 이름
-       					amount : 물품가격(숫자), //실제 결제되는 가격
+       					amount : 1, //실제 결제되는 가격
        					buyer_email : 'iamport@siot.do',
        					buyer_name : '구매자이름',
        					buyer_tel : '010-1234-5678',

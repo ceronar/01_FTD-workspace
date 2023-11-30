@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- alertify 라이브러리 -->
-   <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
@@ -18,48 +19,6 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 
 <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
-<style>
-
-	.header > div {
-        display: block;
-    }
-
-    .title-div > div {
-        width: 100%;
-        display: inline;
-        box-sizing: border-box;
-    }
-
-    img {
-        width: 100px;
-        height: 100px;
-        border: 1px solid black;
-    }
-
-     /* 네비게이션 메뉴 스타일 */
-    .nav-menu {
-    	width: 100%;
-    	height: 100%;
-        float: right; /* 오른쪽으로 정렬합니다. */
-        
-    }
-
-    .nav-menu a {
-		width: 150px;
-        display: inline-block; /* 가로로 나열되도록 변경합니다. */
-        text-decoration: none;
-        padding: 10px; /* 위아래 좌우 여백 조절 */
-        margin: 0 5px; /* 좌우 간격 조절 */
-        color: black;
-        background-color: #ccc;
-        border-radius: 5px;
-    }
-
-    .nav-menu a:hover {
-        background-color: #ddd;
-    }
-	
-</style>
 </head>
 <body>
 
@@ -137,6 +96,42 @@
 		
 		</div>
 	</div>
+
+	<script>
+		$(document).ready(function() {
+			
+			// 상단 네비바 클릭시 이벤트 처리
+			$(".nav-menu a").click(function(e){
+				
+			 	e.preventDefault(); // 기본 클릭 이벤트 방지
+			
+				// 클릭된 요소에 스타일 적용
+				$(this).css({
+					"font-size": "25px",
+				    "border-bottom": "3px solid black",
+				    "color": "black" // 글자 색상 변경
+				});
+				
+				// 나머지 요소 스타일 초기화
+		      	$(".nav-menu a").not(this).css({
+		        	"font-size": "22px",
+		        	"border-bottom": "none",
+		        	"color": "rgb(85, 85, 85)" // 다른 메뉴의 글자 색상 변경
+		      	});
+			
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+		});
+
+
+	</script>
 	
 	
 </body>
