@@ -37,7 +37,7 @@ public class PromotionServiceImpl implements PromotionService{
 
 	@Override
 	public ArrayList<SellerFile> selectSellerFileProfileList(String sellerNo) {
-		// TODO Auto-generated method stub
+	
 		return promotionDao.selectSellerFileProfileList(sqlSession,sellerNo);
 	}
 

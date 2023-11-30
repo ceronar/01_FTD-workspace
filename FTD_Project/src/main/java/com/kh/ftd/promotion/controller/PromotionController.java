@@ -38,7 +38,7 @@ public class PromotionController {
 		
 		//홍보리스트 내용
 		ArrayList<Promotion> pList = promotionService.selectPromotionList();
-		//System.out.println(pList);
+		//System.out.println(pList); //홍보리스트 다 불어와짐
 		
 		//다 담을곳 
 		ArrayList<Object> arrList = new ArrayList<Object>();
@@ -53,7 +53,7 @@ public class PromotionController {
 	
 		//홍보리스트 마켓프로필사진조회 리스트
 		ArrayList<SellerFile> sellerFileList = promotionService.selectSellerFileProfileList(sellerNo);
-		//System.out.println(sellerFileList);
+		//System.out.println(sellerFileList); 
 		
 		//홍보리스트 사진조회 리스트
 		ArrayList<PromotionFile> pFileList = promotionService.selectPromotionFileList(promotionNo);
@@ -61,7 +61,7 @@ public class PromotionController {
 		
 		//각 홍보리스트 댓글갯수
 		int replyList =  promotionService.PromotionReplyCount(promotionNo);
-		//System.out.println(replyList);
+		System.out.println(replyList); // 문젱있음
 	
 		
 		
@@ -74,8 +74,10 @@ public class PromotionController {
 		
 		}
 		
-		System.out.println(arrList);
 		
+		//System.out.println(arrList);
+		
+		//총 DB의 홍보게시글개수
 		int TOTAL_ITEMS = pList.size();
 		
 		int start = page * size;
@@ -83,7 +85,8 @@ public class PromotionController {
 	    int end = Math.min(start + size, TOTAL_ITEMS);
 		
 		
-	   
+	  /*
+	   * 테스트용
 	    ArrayList<String> list 
 					=  new ArrayList<String>();
 
@@ -94,11 +97,12 @@ public class PromotionController {
 	    	
 	   }
 	        System.out.println(list);
+	   */
 
 		// Gson gson = new Gson();
 		// return gson.toJson(list);
 		
-	        return new Gson().toJson(list);
+	        return new Gson().toJson(arrList);
 	}
 	
 	

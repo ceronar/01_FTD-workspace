@@ -22,6 +22,7 @@
 	            
 	            
 	            <a href="list.se">가게</a>
+	            <a href="plist.bo">홍보</a>
 
 	            </div>
 	            <jsp:include page="common/footer.jsp" />

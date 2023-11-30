@@ -16,6 +16,7 @@ public class PromotionDao {
 	public ArrayList<Promotion> selectPromotionList(SqlSessionTemplate sqlSession) {
 	
 		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionList");
+		
 	}
 
 	public Seller selectSellerList(SqlSessionTemplate sqlSession, String sellerNo) {
@@ -25,6 +26,8 @@ public class PromotionDao {
 
 	public ArrayList<SellerFile> selectSellerFileProfileList(SqlSessionTemplate sqlSession, String sellerNo) {
 	
+	
+		
 		return (ArrayList)sqlSession.selectList("promotionMapper.selectSellerFileProfileList", sellerNo);
 	}
 
