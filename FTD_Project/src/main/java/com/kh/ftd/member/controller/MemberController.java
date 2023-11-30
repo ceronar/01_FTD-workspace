@@ -85,5 +85,31 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("update.me")
+	public String updateMember(Member m, Model model, HttpSession session) {
+		
+		int result = memberService.updateMember(m);
+		
+		if(result > 0) {
+			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
+			
+			session.setAttribute("alertMsg", "회원정보 변경");
+			
+			return "";
+			
+			
+		} else {
+			
+			model.addAttribute("errorMsg", "회원정보 변경 실패");
+			
+			
+			return "";
+		}
+	}
+	
+	
 	
 }

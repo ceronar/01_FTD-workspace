@@ -28,22 +28,27 @@
 		   
 	</select>
 	
+	<!-- 회원가입용 쿼리문 -->
 	<insert id="insertMember"
 			parameterType="member">
-		INSERT INTO MEMBER(MEMBER_ID
+		INSERT INTO MEMBER(
+						   MEMBER_NO
+						 , MEMBER_ID
 						 , MEMBER_PWD
 						 , MEMBER_NAME
 						 , EMAIL
 						 , PHONE
 						 , ADDRESS
 						 , GENDER)
-				    VALUES(#{userId})
-				    	, (#{userPwd})
-				    	, (#{userName})
-				    	, (#{email})
-				    	, (#{phone})
-				    	, (#{address})
-				    	, (#{gender})	
+				    VALUES
+				    	  (SEQ_MNO.NEXTVAL
+				    	, #{memberId}
+				    	, #{memberPwd}
+				    	, #{memberName}
+				    	, #{email}
+				    	, #{phone}
+				    	, #{address}
+				    	, #{gender})	
 	</insert>
 	
 	
