@@ -31,8 +31,7 @@
 	<!-- 회원가입용 쿼리문 -->
 	<insert id="insertMember"
 			parameterType="member">
-		INSERT INTO MEMBER(
-						   MEMBER_NO
+		INSERT INTO MEMBER(MEMBER_NO
 						 , MEMBER_ID
 						 , MEMBER_PWD
 						 , MEMBER_NAME
@@ -40,8 +39,7 @@
 						 , PHONE
 						 , ADDRESS
 						 , GENDER)
-				    VALUES
-				    	  (SEQ_MNO.NEXTVAL
+				    VALUES(SEQ_MNO.NEXTVAL
 				    	, #{memberId}
 				    	, #{memberPwd}
 				    	, #{memberName}
@@ -51,5 +49,15 @@
 				    	, #{gender})	
 	</insert>
 	
+	<!-- 아이디 중복체크용 쿼리문 -->
+	<select id="idCheck" 
+			parameterType="string" 
+			resultType="_int">
+		
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE USER_ID = #{checkId}
+		 
+	</select>
 	
 </mapper>
