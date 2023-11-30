@@ -30,7 +30,7 @@ public class PromotionController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getLegacyData.bo" , produces = "application/json; charset=UTF-8")
-	public String ajaxSelectReplyList(int page, int size) {
+	public String ajaxpromotionListView(int page, int size) {
 		
 		
 		int promotionNo = 0;
@@ -76,7 +76,7 @@ public class PromotionController {
 		
 		System.out.println(arrList);
 		
-		int TOTAL_ITEMS = 100;
+		int TOTAL_ITEMS = pList.size();
 		
 		int start = page * size;
 		 

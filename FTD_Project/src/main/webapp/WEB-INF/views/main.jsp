@@ -16,7 +16,9 @@
 	        
 	        <div class="main-div">
 	            <jsp:include page="common/header.jsp" />
-	            <div class="content">메인 컨텐츠</div>
+	            <div class="content">메인 컨텐츠
+	            		dasasdas
+	            </div>
 	            <jsp:include page="common/footer.jsp" />
 	        </div> 
 	              

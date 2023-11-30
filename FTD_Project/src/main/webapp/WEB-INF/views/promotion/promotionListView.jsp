@@ -275,7 +275,7 @@
     </style>
     <script>
     var page = 0;
-    var pageSize = 20; // 초기 로딩 시 20개씩 불러오기
+    var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
 
     $(document).ready(function () {
         loadLegacyData();
