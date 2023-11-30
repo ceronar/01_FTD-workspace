@@ -24,6 +24,8 @@ public class NoticeController {
 			@RequestParam(value = "npage", defaultValue = "1") int currentPage,
 			ModelAndView mv) {
 		
+		System.out.println("잘들어오나?");
+		
 		int listCount = noticeService.selectNoticeCount();
 		
 		int pageLimit = 5;
@@ -39,6 +41,13 @@ public class NoticeController {
 		  .setViewName("notice/noticeListView");
 		  
 		return mv;
+	}
+	
+	@GetMapping("enrollForm.no")
+	public String enrollForm() {
+		
+		// /WEB-INF/views/board/boardEnrollForm.jsp
+		return "notice/noticeEnrollForm";
 	}
 	
 }
