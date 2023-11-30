@@ -8,7 +8,7 @@ import com.kh.ftd.notice.model.vo.Notice;
 public interface NoticeService {
 
 	// 총 게시글 갯수
-	int selectNoticeListCount();
+	int selectNoticeCount();
 	
 	// 게시글 리스트 조회
 	ArrayList<Notice> selectNoticeList(PageInfo pi);

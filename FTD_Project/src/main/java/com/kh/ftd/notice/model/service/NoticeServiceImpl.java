@@ -2,24 +2,31 @@ package com.kh.ftd.notice.model.service;
 
 import java.util.ArrayList;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.notice.model.dao.NoticeDao;
 import com.kh.ftd.notice.model.vo.Notice;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
 
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	@Autowired
+	private NoticeDao noticeDao;
+	
 	@Override
-	public int selectNoticeListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectNoticeCount() {
+		return noticeDao.selectNoticeCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		return noticeDao.selectNoticeList(sqlSession, pi);
 	}
 
 	@Override

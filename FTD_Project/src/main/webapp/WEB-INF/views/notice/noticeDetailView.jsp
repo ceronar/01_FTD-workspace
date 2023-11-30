@@ -17,7 +17,7 @@
             max-width: 800px;
             margin: 20px auto;
             background-color: #fff;
-            padding: 20px;
+            padding: 20px 20px 50px 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -35,13 +35,13 @@
             padding-top: 20px;
         }
 
-        .post-meta {
+        .notice-info, .reply-info {
             font-size: 14px;
             color: #888;
         }
 
         /* 댓글 영역 스타일 */
-        .answer-area {
+        .reply-area {
             margin-top: 30px;
             padding-top: 20px;
         }
@@ -73,14 +73,12 @@
         }
 
         button {
-            float : right;
             padding: 8px 20px;
             border: none;
             background-color: #2ecc71;
             color: #fff;
             cursor: pointer;
             border-radius: 3px;
-            margin: 10px 5px;
         }
 
         button:hover {
@@ -88,8 +86,8 @@
         }
 
         img {
-            width : 50%;
-            height : 50%;
+            width : 100%;
+            height : 100%;
         }
         .btn {
 
@@ -101,24 +99,28 @@
             margin: 0px 5px; /* 버튼 사이의 여백 조절 */
 
         }
+        .reply-area button {
+            float:right;
+        }
     </style>
+    
 </head>
 <body>
     <div class="container">
         <h1>게시글 상세보기</h1>
         <div class="post">
-            <h2>Q. 오늘점심메뉴가 무엇인가요</h2>
-            <div class="post-meta">
+            <h2>[공지사항] 저희 사이트 정상영업합니다</h2>
+            <div class="notice-info">
                 <p>작성자: admin | 작성일: 2023-11-23</p>
             </div>
             <div class="post-content">
-                <p>맛없으면 결식할겁니다.</p>
+                <p>안녕하세요, 저희 사이트는 현재 정상적으로 운영 중입니다. 추가적인 공지사항이 있으면 알려드리겠습니다.</p>
                 <p>감사합니다.</p>
-                <img src="resources/images.png">
+                <img src="resources/pngwing.com (1).png">
             </div>
             <div class="post-img">
                 <a href="">
-                    첨부파일.jpg
+                    originalName.jpg
                 </a>
                 <br>
                 <br>
@@ -127,29 +129,10 @@
         </div>
 
         <div class="btn">
-            <button>문의글 수정</button>
-            <button>문의글 삭제</button>
+            <button>수정</button>
+            <button>삭제</button>
         </div>
         
-        <div class="answer-area">
-            <h2>A.</h2>
-            <div class="post-content">
-                <p>밥 똥국 김 김치 고순조 입니다.</p>
-                <p>감사합니다.</p>
-                <img src="resources/6571f4a68812447d8977d4b027b29386_1641212709.png">
-            </div>
-            <div class="post-img">
-                <a href="">
-                    첨부파일.jpg
-                </a>
-                <br>
-                <br>
-            </div>
-        </div>
-        <div class="btn">
-            <button>답글 수정</button>
-            <button>답글 삭제</button>
-        </div>
         <div class="reply-area">
             <h2>댓글</h2>
             <!-- 댓글 목록 -->
