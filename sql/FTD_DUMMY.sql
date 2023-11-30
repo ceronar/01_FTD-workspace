@@ -66,6 +66,20 @@ INSERT INTO INQUIRY(INQ_NO
                  , DEFAULT
                  , DEFAULT
                  , DEFAULT);
+                 
+
+INSERT INTO NOTICE(NOTICE_NO
+                 , NOTICE_TITLE
+                 , NOTICE_CONTENT
+                 , COUNT
+                 , CREATE_DATE
+                 , DELETE_DATE)
+           VALUES(SEQ_NNO.NEXTVAL
+                , '[공지사항] 제목'
+                , '공지사항의 내용'
+                , DEFAULT
+                , DEFAULT
+                , DEFAULT);
 
 COMMIT;
 

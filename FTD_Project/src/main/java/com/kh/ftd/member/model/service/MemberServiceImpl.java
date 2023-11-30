@@ -21,20 +21,20 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public Member loginMember(Member m) {
-		
+		// System.out.println("서비스 도착");
 		return memberDao.loginMember(sqlSession, m);
 	}
 
 	@Override
 	public int insertMember(Member m) {
-
+		
 		return memberDao.insertMember(sqlSession, m);
 	}
 
 	@Override
 	public int updateMember(Member m) {
 		// TODO Auto-generated method stub
-		return 0;
+		return memberDao.updateMember(sqlSession, m);
 	}
 
 	@Override
@@ -54,5 +54,5 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }
