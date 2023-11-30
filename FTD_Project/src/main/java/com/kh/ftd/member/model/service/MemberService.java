@@ -16,12 +16,12 @@ public interface MemberService {
 	int updateMember(Member m);
 	
 	// 구매자 회원탈퇴 (update)
-	int deleteMember(String userId);
+	int deleteMember(String MemberId);
 	
 	// 구매자 아이디중복체크 (select)
 	int memberIdCheck(String checkId);
 	
-	// 구매자 회원 목록 조회 (select)
+	// 관리자 파트 - 구매자 회원 목록 조회 (select)
 	ArrayList<Member> selectMemberList();
 
 	

@@ -145,5 +145,44 @@ public class MemberController {
 		return (count > 0 ) ? "NNNNN" : "NNNNY";
 	}
 	
+	@RequestMapping("delete.me")
+	public String deleteMember(String memberId,
+							   String memberPwd,
+							   HttpSession session,
+							   Model model) {
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
+		
+		System.out.println(memberPwd);
+		System.out.println(encPwd);
+		
+		if(bcryptPasswordEncoder.matches(memberPwd, encPwd)) {
+			
+			int result = memberService.deleteMember(memberId);
+			
+			if(result > 0) {
+				
+				session.removeAttribute("loginUser");
+				
+				session.setAttribute("alertMsg", "성공적으로 탈퇴완료, 감사했습니다.");
+				
+				return "redirect:/";
+			
+			} else {
+				
+				model.addAttribute("errorMsg", "회원탈퇴실패");
+				
+				return "common/errorPage";
+				
+			}	
+		
+		} else {
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력했습니다. 다시 확인해주세요");
+			
+			return "redirect:/myPage.me";
+		}	
+	}
+	
 	
 }
