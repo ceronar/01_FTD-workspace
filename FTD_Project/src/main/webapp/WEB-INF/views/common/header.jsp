@@ -129,7 +129,7 @@
 		
 			<div class="nav-menu">
 				<a href="#">추천</a>
-				<a href="#">공지사항</a>
+				<a href="list.no">공지사항</a>
 				<a href="#">고객센터</a>
 				<a href="#">회사소개</a>
 			</div>

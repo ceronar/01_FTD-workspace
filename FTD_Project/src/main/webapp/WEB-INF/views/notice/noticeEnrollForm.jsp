@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>문의글 작성</h1>
+        <h1>공지사항 작성</h1>
 
         <form>
             <label for="title">제목:</label>

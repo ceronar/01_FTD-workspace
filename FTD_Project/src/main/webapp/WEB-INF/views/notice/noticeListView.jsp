@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +46,9 @@
 
         tbody tr:hover {
             background-color: #f9f9f9;
-            cursor: pointer;
+            cursor : pointer;
         }
+
         .btn button {
             float : right;
             padding: 8px 20px;
@@ -66,45 +68,54 @@
 </head>
 <body>
     <div class="container">
-        <h1>게시판</h1>
+        <h1>공지사항</h1>
         <div align="center">
-            <table>
+            <table id="noticeList">
                 <thead>
                     <tr>
-                        <th style="width : 5%;"><input type="checkbox" id="check-all"></th>
-                        <th style="width : 7%;">번호</th>
-                        <th style="width : 15%;">답변상태</th>
-                        <th style="width : 38%;">제목</th>
-                        <th style="width : 10%;">문의자</th>
-                        <th style="width : 10%">조회수</th>
-                        <th style="width : 15%;">등록일</th>
+                        <th style="width: 5%"><input type="checkbox" id="check-all"></th>
+                        <th style="width: 8%;">번호</th>
+                        <th style="width: 50%;">제목</th>
+                        <th style="width: 7%;">조회수</th>
+                        <th style="width: 15%;">등록일</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <c:forEach var="n" items="${ requestScope.list }">
                     <tr>
                         <td><input type="checkbox" class="delete"></td>
-                        <td name="inqNo">1</td>
-                        <td name="">답변 완료</td>
-                        <td>집에가고싶어요</td>
-                        <td>user01</td>
-                        <td>10</td>
-                        <td>2023-11-23</td>
+                        <td class="noticeNo">${n.noticeNo}</td>
+                        <td class="noticeName">${ n.noticeTitle }</td>
+                        <td class="count">${ n.count }</td>
+                        <td class="createDate">${ n.createDate }</td>
                     </tr>
-                    
+                    </c:forEach>
                 </tbody>
             </table>
         </div>
+
         <div class="btn">
             <button onclick="deleteSelected()">삭제</button>
             <button>작성</button>
         </div>
     </div>
     <script>
+    	// 공지사항 번호를 nno 로 받아 해당 상세 페이지로 넘어가는 스크립트
+	    $(function() {
+			
+			$("#noticeList>tbody>tr").click(function() {
+
+				let nno = $(this).children(".noticeNo").text();
+				
+				location.href = "list.no?nno=" + nno;
+			});
+		});
+    
         // "check-all" 체크박스를 클릭했을 때 모든 "delete" 클래스의 체크박스의 checked 상태 변경
         document.getElementById("check-all").addEventListener("change", function() {
             let deleteCheckboxes = document.querySelectorAll('.delete'); // "delete" 클래스 체크박스들을 가져옴
             let checkAll = this.checked; // "check-all" 체크박스의 상태
-
+			
             deleteCheckboxes.forEach(function(checkbox) {
                 checkbox.checked = checkAll; // "delete" 클래스 체크박스들의 상태를 "check-all"에 맞게 변경
             });

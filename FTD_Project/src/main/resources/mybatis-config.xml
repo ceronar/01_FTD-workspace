@@ -19,7 +19,8 @@
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
 		<!-- 11/29 성광 12:51분 판매자 별칭추가 -->
-
+		
+		<typeAlias type="com.kh.ftd.notice.model.vo.Notice" alias="notice" />
 		<typeAlias type="com.kh.ftd.inquiry.model.vo.Inquiry" alias="inquiry" />
 
 
@@ -35,6 +36,8 @@
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/promotion-mapper.xml"/>
+		
+		<mapper resource="/mappers/notice-mapper.xml"/>
 		<!-- <mapper resource="/mappers/inquiry-mapper.xml" /> -->
 	</mappers>
 	<!--  
