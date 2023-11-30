@@ -20,19 +20,29 @@
 			resultMap="memberResultSet">
 		
 		<!-- 나중에 암호화 문으로 바꿔주세요. -->
+		
+		<!--
 		SELECT *
 		  FROM MEMBER
 		 WHERE MEMBER_ID = #{memberId}
 		   AND MEMBER_PWD = #{memberPwd}
 		   AND STATUS IS NULL
 		   
-	</select>
-	
+		</select>
+	 	-->
+	 	
+	 	<!-- 암호화 작업 후 : 오로지 아이디(PK) 만으로 회원을 조회 -->
+		 SELECT *
+		   FROM MEMBER
+		  WHERE MEMBER_ID = #{memberId}
+		    AND STATUS IS NULL 
+		</select>
+	 	
+	 
 	<!-- 회원가입용 쿼리문 -->
 	<insert id="insertMember"
 			parameterType="member">
-		INSERT INTO MEMBER(
-						   MEMBER_NO
+		INSERT INTO MEMBER(MEMBER_NO
 						 , MEMBER_ID
 						 , MEMBER_PWD
 						 , MEMBER_NAME
@@ -40,8 +50,7 @@
 						 , PHONE
 						 , ADDRESS
 						 , GENDER)
-				    VALUES
-				    	  (SEQ_MNO.NEXTVAL
+				    VALUES(SEQ_MNO.NEXTVAL
 				    	, #{memberId}
 				    	, #{memberPwd}
 				    	, #{memberName}
@@ -51,5 +60,15 @@
 				    	, #{gender})	
 	</insert>
 	
+	<!-- 아이디 중복체크용 쿼리문 -->
+	<select id="idCheck" 
+			parameterType="string" 
+			resultType="_int">
+		
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE USER_ID = #{checkId}
+		 
+	</select>
 	
 </mapper>

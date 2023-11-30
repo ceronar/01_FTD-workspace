@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -216,15 +218,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>신선한 땅의 맛</h1>
-    </header>
-
-    <div class="adminNameBar">
-        <br><br>
-        <h1>Farm To Dish</h1>
-        <hr>
-    </div>
+    <jsp:include page="../common/header.jsp" />
 
     <div id="register-title-area">
         <p>
@@ -236,7 +230,7 @@
         
     </div>
  
-    <form action="insert.me" method="post" id="register-form" onsubmit="return onGoogle();">
+    <form action="insert.me" method="post" id="register-form">
         <br>
         <div id="table-area-default">
             <p>기본정보입력</p>
@@ -358,7 +352,7 @@
     		let regExp = /^[a-z][a-z\d]{5,15}$/;
     		
     		$.ajax({
-    		url : "duplicateCheck.rg",
+    		url : "idCheck.me",
     		type : "get",
     		data : { checkId : $memberId.val() },
     		success : function(result) {
@@ -454,8 +448,6 @@
 
     <br><br>
 
-    <footer>
-        <p>&copy; 2023 Farm To Dish. All rights reserved.</p>
-    </footer>
+    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

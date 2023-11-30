@@ -3,9 +3,11 @@ package com.kh.ftd.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ftd.member.model.service.MemberService;
@@ -13,9 +15,13 @@ import com.kh.ftd.member.model.vo.Member;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
@@ -31,11 +37,15 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 		
-		if(loginUser != null) { // 로그인 성공
+		// System.out.println(m);
+		// System.out.println(loginUser);
+		
+		if(loginUser != null && 
+				   bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())
+				) { // 로그인 성공
 			
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("alertMsg", "로그인에 성공했습니다.");
-			
 			
 			System.out.println("로그인 성공");
 			
@@ -55,6 +65,7 @@ public class MemberController {
 		
 	}
 	
+	
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -62,11 +73,26 @@ public class MemberController {
 		
 		return "redirect:/";	
 	}
+	@RequestMapping("insertForm.me")
+	public String insertForm() {
+		return "member/memberInsert";
+	}
 	
-	@RequestMapping("insert.me")
+	
+	@RequestMapping(value = "insert.me", produces = "text/html; charset=UTF-8")
 	public String insertMember(Member m, 
 							   Model model, 
 							   HttpSession session) {
+		
+		// System.out.println(m.getMemberName());
+		
+		// bcryptPasswordEncoder.encode("평문") : String (암호문)
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+		
+		System.out.println(encPwd);
+		
+		// Member 객체의 userPwd 필드값을 암호문으로 바꾸기
+		m.setMemberPwd(encPwd);
 		
 		int result = memberService.insertMember(m);
 		
@@ -110,6 +136,14 @@ public class MemberController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping("idCheck.me")
+	public String idCheck(String checkId) {
+		
+		int count = memberService.memberIdCheck(checkId);
+		
+		return (count > 0 ) ? "NNNNN" : "NNNNY";
+	}
 	
 	
 }
