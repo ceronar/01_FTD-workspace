@@ -177,6 +177,8 @@
 		        		<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }"/>
 		        		<input type="hidden" name="orderName" value="${ sessionScope.loginUser.memberName }"/>
 						<input type="hidden" name="phone" value="${sessionScope.loginUser.phone }"/>
+						<input type="hidden" name="zipCode" value="${ sessionScope.loginUser.zipCode }"/>
+						<input type="hidden" name="detailAddress" value="${sessionScope.loginUser.detailAddress }"/>
 			            <!-- 장바구니 내용 -->
 			            <h2>장바구니</h2>
 			            <table>

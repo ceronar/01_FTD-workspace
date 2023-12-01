@@ -20,8 +20,8 @@
 	</resultMap>
 	
 	<insert id="paySuccess" parameterType="order">
-		INSERT INTO MEMBER(ORDER_NO, MEMBER_NO, ORDER_NAME, PHONE, PRICE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, REQUEST, PAY_TID, PAY_METHOD)
-				    VALUES(SEQ_ONO.NEXTVAL, #{memberNo}, #{orderName}, #{phone}, #{price}, #{zipCode}, #{address}, #{detailAddress}, #{request}, #{payTid}, #{payMethod})
+		INSERT INTO "ORDER"(ORDER_NO, MEMBER_NO, ORDER_NAME, PHONE, PRICE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, REQUEST, PAY_TID, PAY_METHOD)
+				     VALUES(SEQ_ONO.NEXTVAL, #{memberNo}, #{orderName}, #{phone}, #{price}, #{zipCode}, #{address}, #{detailAddress}, #{request}, #{payTid}, #{payMethod})
 	</insert>
 
 </mapper>
