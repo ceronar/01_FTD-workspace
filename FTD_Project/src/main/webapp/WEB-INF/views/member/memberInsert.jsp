@@ -273,7 +273,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><span class="nessesary">*</span> 주소</th>
+                    <th><span class="nessesary">*</span>주소</th>
                     <td colspan="3">
                         <input type="text" id="address" name="address" required class="form-control form-control">
                     </td>
