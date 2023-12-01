@@ -22,7 +22,7 @@
 	     <a href="#">마켓</a>
 	     <a href="#">스토리</a>
 	     <a href="#">장바구니</a>
-	     <a href="#">마이페이지</a>
+	     <a href="myPage.me">마이페이지</a>
 	</div>
 </body>
 </html>

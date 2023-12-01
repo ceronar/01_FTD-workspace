@@ -111,6 +111,12 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
+	
+	}
 	@RequestMapping("update.me")
 	public String updateMember(Member m, Model model, HttpSession session) {
 		
@@ -124,7 +130,7 @@ public class MemberController {
 			
 			session.setAttribute("alertMsg", "회원정보 변경");
 			
-			return "";
+			return "redirect:/myPage.me";
 			
 			
 		} else {
@@ -132,7 +138,7 @@ public class MemberController {
 			model.addAttribute("errorMsg", "회원정보 변경 실패");
 			
 			
-			return "";
+			return "common/errorPage";
 		}
 	}
 	
