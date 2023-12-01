@@ -18,10 +18,10 @@
 </head>
 <body>
 	 <div class="sidebar">
-	     <a href="#">홈</a>
+	     <a href="/ftd">홈</a>
 	     <a href="#">마켓</a>
 	     <a href="#">스토리</a>
-	     <a href="#">장바구니</a>
+	     <a href="/ftd/basket.me">장바구니</a>
 	     <a href="#">마이페이지</a>
 	</div>
 </body>
