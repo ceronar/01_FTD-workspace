@@ -5,6 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Add your custom styles -->
+    <style>
+        /* Add custom styles for the modal */
+        .modal-content {
+            background-color: #f8f9fa; /* Light gray background */
+            color: #495057; /* Text color */
+        }
+        
+        .modal-header {
+            background-color: #007bff; /* Primary color for header */
+            color: #fff; /* Text color for header */
+        }
+        
+        .modal-body {
+            padding: 20px; /* Add padding to the modal body */
+        }
+        
+        .modal-footer {
+            background-color: #f8f9fa; /* Light gray background for footer */
+            justify-content: center; /* Center align the buttons */
+        }
+    </style>
+
 </head>
 <body>
     
@@ -83,7 +110,7 @@
                         <br>
                             <label for="memberPwd" class="mr-sm-2">Password : </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memberPwd" name="memberPwd"> <br>
-                    		<input type="hidden" name="memberId" value="${ sessionScope.loginUser.userId }">
+                    		<input type="hidden" name="memberId" value="${ sessionScope.loginUser.memberId }">
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
@@ -95,6 +122,11 @@
     </div>
 
     <jsp:include page="../common/footer.jsp" />
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>

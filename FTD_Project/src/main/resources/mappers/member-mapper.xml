@@ -74,6 +74,14 @@
 	<!-- 회원정보수정용 쿼리문 -->
 	<update id="updateMember"
 			parameterType="member">
+		UPDATE MEMBER
+		   SET MEMBER_NAME = #{memberName}
+		   	 , EMAIL = #{email}
+		   	 , GENDER = #{gender}
+		   	 , PHONE = #{phone}
+		   	 , ADDRESS = #{address}
+		WHERE MEMBER_ID = #{memberId}
+		  AND STATUS IS NULL
 	
 	</update>
 	
@@ -81,7 +89,7 @@
 	<update id="deleteMember"
 			parameterType="string">
 		UPDATE MEMBER
-		   SET TEATUS = SYSDATE
+		   SET STATUS = SYSDATE
 		 WHERE MEMBER_ID = #{memberId}
 		     
 		
