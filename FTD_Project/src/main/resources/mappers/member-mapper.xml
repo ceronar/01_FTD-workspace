@@ -67,7 +67,7 @@
 		
 		SELECT COUNT(*)
 		  FROM MEMBER
-		 WHERE USER_ID = #{checkId}
+		 WHERE MEMBER_ID = #{checkId}
 		 
 	</select>
 	
