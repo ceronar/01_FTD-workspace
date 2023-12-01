@@ -337,7 +337,7 @@
       	
       	$(".deleteBtn").on('click', e => {
       		// console.log(e);
-      		let goodNo = e.;
+      		let goodNo = e;
       		console.log(goodNo);
       	});
       	
