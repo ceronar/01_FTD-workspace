@@ -84,13 +84,12 @@
 
         .total-section {
             display: flex;
-            justify-content: flex-end;
             align-items: center;
             margin-top: 20px;
         }
 		
 		.total-section>div {
-			margin: 10px;
+			margin: 20px;
 		}
 		
         .total-section p {
@@ -148,13 +147,21 @@
 			border: none;
 		}
 		
-		#kakaoModalContainer {
-			display: none;
-		}
-		
 		.total-section img {
+			margin: 10px;
 			height: 100px;
 			width: 150px;
+		}
+		
+		.requestBox {
+			width: 300px;
+			height: 100px;
+			padding: 10px;
+			box-sizing: border-box;
+			border: solid 2px #1E90FF;
+			border-radius: 5px;
+			font-size: 16px;
+			resize: none;
 		}
 
     </style>
@@ -165,8 +172,15 @@
         <jsp:include page="../common/header.jsp" />
 
         <div class="content">
-        	<form id="payForm" method="post" action="">
-        		<input type="hidden" name="memberNo" value="1">
+        	<form id="payForm" method="post" action="123">
+        		<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }"/>
+        		<%-- <input type="hidden" name="" value="${}"/> 
+				<input type="hidden" name="" value="${}"/>
+				<input type="hidden" name="" value="${}"/>
+				<input type="hidden" name="" value="${}"/> 
+				<input type="hidden" name="" value="${}"/>
+				<input type="hidden" name="" value="${}"/>
+				<input type="hidden" name="" value="${}"/> --%>
 	            <!-- 장바구니 내용 -->
 	            <h2>장바구니</h2>
 	            <table>
@@ -187,14 +201,14 @@
 	                	</tr>
 	                	<!-- 상품반복 -->
 	                    <tr>
-	                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="상품코드" /></td>
+	                    	<td><input type="checkbox" class="buyItem" name="goodNo1" value="상품코드" /></td>
 	                        <td>
-	                            <img src="resources/images/sample/224427_132949_129.jpg" alt="사과 이미지" class="product-image">
+	                            <img src="resources/images/sample/224427_132949_129.jpg" alt="상품사진" class="product-image">
 	                        </td>
 	                        <td>사과 1.5kg 한박스</td>
 	                        <td class="quantity-outer">
 	                        	<div class="quantity-buttons">
-	                            	<button type="button" class="quantity-button" onclick="adjustQuantity(1, -1)">-</button><input type="text" id="quantity1" class="quantity-input" name="count" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
+	                            	<button type="button" class="quantity-button" onclick="adjustQuantity(1, -1)">-</button><input type="text" id="quantity1" class="quantity-input" name="goodCount1" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
 	                            </div>
 	                        </td>
 	                        <td>5,000원</td>
@@ -204,12 +218,12 @@
 	                    <tr>
 	                    	<td><input type="checkbox" class="buyItem" /></td>
 	                        <td>
-	                            <img src="resources/images/sample/202005072145_500.jpg" alt="배 이미지" class="product-image">
+	                            <img src="resources/images/sample/202005072145_500.jpg" alt="상품사진" class="product-image">
 	                        </td>
 	                        <td>배 1.5kg 한박스</td>
 	                        <td class="quantity-outer">
 	                        	<div class="quantity-buttons">
-	                            	<button type="button" class="quantity-button" onclick="adjustQuantity(2, -1)">-</button><input type="text" id="quantity2" class="quantity-input" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
+	                            	<button type="button" class="quantity-button" onclick="adjustQuantity(2, -1)">-</button><input type="text" id="quantity2" class="quantity-input" name="goodCount2" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
 	                            </div>
 	                        </td>
 	                        <td>7,500원</td>
@@ -218,18 +232,20 @@
 	                    <!-- 여기에 더 많은 상품 정보가 들어갈 수 있습니다. -->
 	                </tbody>
 	            </table>
-	
+	            
 	            <!-- 총 배송비 및 총 가격 -->
 	            <div class="total-section">
+		            <div class="request-area">
+		            	<h4>주문시 요청사항</h4>
+		            	<textarea class="requestBox" name="request" rows="2" cols="20" placeholder="주문시 요청할 사항 입력"></textarea>
+					</div>
 	                <div>
 	                    <p><strong class="deliver">배송비: 5,000원</strong></p>
 	                    <p><strong class="amount">총 가격: 20,500원</strong></p>
 	                </div>
-	                <label for="kakaoPay">
-	                	<img src="/ftd/resources/images/sample/kakaoPay02.png" />
-	                </label>
+	                <img src="/ftd/resources/images/sample/kakaoPay02.png" />
 	                <!-- 결제 버튼 -->
-	                <button class="kakaoPay" type="submit" onclick="" id="pay">카카오페이 결제하기</button>
+	                <button class="kakaoPay" type="submit" id="pay">카카오페이 결제하기</button>
 	            </div>
             </form>
         </div>
