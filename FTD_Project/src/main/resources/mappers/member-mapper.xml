@@ -12,6 +12,8 @@
 		<result column="ADDRESS" property="address" />
 		<result column="GENDER" property="gender" />
 		<result column="STATUS" property="status" />
+		<result column="ZIP_CODE" property="zipCode" />
+		<result column="DETAIL_ADDRESS" property="detailAddress" />
 	</resultMap>
 	
 	<!-- 로그인용 쿼리문 -->
@@ -49,7 +51,10 @@
 						 , EMAIL
 						 , PHONE
 						 , ADDRESS
-						 , GENDER)
+						 , GENDER
+						 , ZIP_CODE
+						 , DETAIL_ADDRESS
+						 )
 				    VALUES(SEQ_MNO.NEXTVAL
 				    	, #{memberId}
 				    	, #{memberPwd}
@@ -57,7 +62,10 @@
 				    	, #{email}
 				    	, #{phone}
 				    	, #{address}
-				    	, #{gender})	
+				    	, #{gender}
+				    	, #{zipCode}
+				    	, #{detailAddress})
+				    	
 	</insert>
 	
 	<!-- 아이디 중복체크용 쿼리문 -->
@@ -80,6 +88,8 @@
 		   	 , GENDER = #{gender}
 		   	 , PHONE = #{phone}
 		   	 , ADDRESS = #{address}
+		   	 , ZIP_CODE = #{zipCode}
+		   	 , DETAIL_ADDRESS = #{detailAddress}
 		WHERE MEMBER_ID = #{memberId}
 		  AND STATUS IS NULL
 	
