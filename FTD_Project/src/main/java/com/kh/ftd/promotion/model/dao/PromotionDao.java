@@ -24,16 +24,16 @@ public class PromotionDao {
 		return sqlSession.selectOne("promotionMapper.selectSellerList", sellerNo);
 	}
 
-	public ArrayList<SellerFile> selectSellerFileProfileList(SqlSessionTemplate sqlSession, String sellerNo) {
+	public SellerFile selectSellerFileProfileList(SqlSessionTemplate sqlSession, String sellerNo) {
 	
 	
 		
-		return (ArrayList)sqlSession.selectList("promotionMapper.selectSellerFileProfileList", sellerNo);
+		return sqlSession.selectOne("promotionMapper.selectSellerFileProfileList", sellerNo);
 	}
 
-	public ArrayList<PromotionFile> selectPromotionFileList(SqlSessionTemplate sqlSession, int promotionNo) {
+	public PromotionFile selectPromotionFileList(SqlSessionTemplate sqlSession, int promotionNo) {
 		
-		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionFileList", promotionNo);
+		return sqlSession.selectOne("promotionMapper.selectPromotionFileList", promotionNo);
 	}
 
 	public int selectPromotionReplyCount(SqlSessionTemplate sqlSession, int promotionNo) {
