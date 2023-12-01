@@ -119,11 +119,11 @@
         }
 
         /* content 홍보리스트쪽 */
-        #promotion {
+        .promotion {
             list-style: none;
         }
 
-        #promotion a {
+        .promotion a {
             text-decoration: none;
             color: black;
         }
@@ -290,15 +290,19 @@
 
     function loadLegacyData() {
         // Skeleton UI 추가
-        $('#legacyContainer').append('<div class="skeleton"></div>'.repeat(pageSize));
+        $('#promotion').append('<div class="skeleton"></div>'.repeat(pageSize));
 
         $.ajax({
             url : 'getLegacyData.bo',
             type: 'get',
             data: { page: page, size: pageSize },
-            beforeSend: function () {
+            beforeSend: function (data) {
+            	//console.log(data);
                 // Ajax 요청 전에 로딩 애니메이션 표시
+                
                 $('#loading').show();
+                
+              
             },
             success: function (data) {
             	
@@ -306,16 +310,103 @@
             	console.log(data);
             	
             	
+     
             	
                 // Remove skeleton UI
                 $('.skeleton').remove();
                 
                 // Append legacy data to the container
               
+                // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
+                
                 data.forEach(function (val) {
-                    $('#legacyContainer').append('<p>' + val + '</p>');
+                	
+                    $('.promotion').append(
+                    		
+                   
+                  	 '<div>'
+                   +  '<div id="profile">'
+                   +	'<div id="profile_1" style="width : 50px; height : 50px;">'
+                   +	  '<img src="" alt="">'
+                   +	'</div>'
+                   +	'<div id="profile_2">'
+                   +	  '<span>'
+                   +		val[1].companyName
+                   +	  '</span>'
+                   +	  '<div id="profile_2_2">'
+                   +		'<span>'
+                   +		val[1].address
+                   +		'</span>'
+                   +		'<span>* 17분 전</span>'
+                   +	  '</div>'
+                   +	'</div>'
+                   +  '</div>'
+                   +  '<a href="pdlist.bo">'
+                   +	'<div style="margin-left : 35px">'
+                   +	   '<h2>판매</h2>'
+                   +		val[0].promotionContent
+                   +  '</a>'
+                   + '</div>'
+                   
+	               +  '<div>'
+	               +    '<div class="product_image">'
+	               +        '<a href="pdlist.bo">'
+	               +            '<div>'
+	               +                '<div id="product_image_1">'
+	               +                    '<img src="" >'
+	               +                '</div>'
+	               +                '<div id="product_image_2">'
+	               +                    '<div id="product_image_2_1">'
+	               +                        '<img src="">'
+	               +                    '</div>'
+	               +                    '<div id="product_image_2_2">'
+	               +                        '<img src="">'
+	               +                    '</div>'
+	               +                '</div>'
+	               +            '</div>'
+	               +        '</a>'
+	               +    '</div>'
+	               +    '<div class="product_options">'
+	               +        '<div>'
+	               +            '<div class="swiper-wrapper">'
+	               +                '<div class="product" id="product_1">'    
+	               +                    '<div>'
+	               +                        '<span>해녀 채취 말똥성게</span>'
+	               +                        '<span>12,500원~</span>'
+	               +                    '</div>'
+	               +                '</div>'
+	               +                '<div class="product" id="product_2">'                   
+	               +                    '<div>'
+	               +                        '<span>홍새우 (단새우)급냉</span>'
+	               +                        '<span>23,000원~</span>'
+	               +                    '</div>'
+	               +                '</div>'
+	               +            '</div>'
+	               +        '</div>'
+	               +    '</div>'
+	               +'</div>'
+                   
+			       + '<div align="left" style="width : 710px">'
+		           +        '<span><i class="far fa-comment"></i></span>' 
+		           +        '<span>'
+		           +			val[4]
+		           +		'</span>'
+		           + '</div>'
+		           
+		           + '<hr>'
+                    
+                   
+                    
+                    
+                    
+                    
+                    
+                    );
+                    
                 });
 
+                
+                
 
             },
             complete: function () {
@@ -334,9 +425,7 @@
 <body>
     <main>
     
-    <div id="legacyContainer">
-    
-	</div>
+   
 
 <div id="loading">
     <img src="resources/images/sample/0019.gif" alt="Loading..."/>
@@ -353,77 +442,12 @@
         </div>
         <div align="center">
             <ul>
-                <li id="promotion">
-                    <div>
-                        <div id="profile">
-                            <div id="profile_1" style="width : 50px; height : 50px;">
-                                <img src="" alt="">
-                            </div>
-                            <div id="profile_2">
-                                <span>100년 수산</span>
-                                <!-- 마켓 이름-->
-                                <div id="profile_2_2">
-                                    <span>경북 포항</span>
-                                    <!-- 지역 -->
-                                    <span>* 17분 전</span>
-                                    <!-- 몇분전인지-->
-                                </div>
-                            </div>
-                        </div>
-                        <a href="">
-                            <div>
-                                <h2>판매</h2>
-                                안녕하세요~100년수산입니다^^ 추울때 먹는 성게! 오늘 특가합니다! 말똥성게 100g 1
-                            </div>
-                        </a>
-                    </div>
-
-                    <div>
-                        <div class="product_image">
-                            <a href="">
-                                <div>
-                                    <div id="product_image_1">
-                                        <img src="" >
-                                    </div>
-                                    <div id="product_image_2">
-                                        <div id="product_image_2_1">
-                                            <img src="">
-                                        </div>
-                                        <div id="product_image_2_2">
-                                            <img src="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="product_options">
-                            <div>
-                                <div class="swiper-wrapper">
-                                    <div class="product" id="product_1">
-                                        <!-- 상품 하나 이름 + 가격-->
-                                        <div>
-                                            <span>해녀 채취 말똥성게</span>
-                                            <span>12,500원~</span>
-                                        </div>
-                                    </div>
-                                    <div class="product" id="product_2">
-                                        <!-- 상품 하나 이름 + 가격-->
-                                        <div>
-                                            <span>홍새우 (단새우)급냉</span>
-                                            <span>23,000원~</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div align="left" style="width : 710px">
-                        <span><i class="far fa-comment"></i></span> <!-- 채팅 아이콘-->
-                        <span>0</span>
-                    </div>
-
-                </li>
+                
+                <li class="promotion">
+    	
+				</li>
+				
+                
             </ul>
         </div>
     </main>

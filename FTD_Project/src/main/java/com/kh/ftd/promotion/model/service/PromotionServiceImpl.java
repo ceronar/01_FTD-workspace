@@ -36,13 +36,13 @@ public class PromotionServiceImpl implements PromotionService{
 
 
 	@Override
-	public ArrayList<SellerFile> selectSellerFileProfileList(String sellerNo) {
+	public SellerFile selectSellerFileProfileList(String sellerNo) {
 	
 		return promotionDao.selectSellerFileProfileList(sqlSession,sellerNo);
 	}
 
 	@Override
-	public ArrayList<PromotionFile> selectPromotionFileList(int promotionNo) {
+	public PromotionFile selectPromotionFileList(int promotionNo) {
 	
 		return promotionDao.selectPromotionFileList(sqlSession,promotionNo);
 	}

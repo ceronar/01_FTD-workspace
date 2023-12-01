@@ -19,10 +19,10 @@ public interface PromotionService {
 		Seller selectSellerList(String sellerNo);		
 		
 		//홍보리스트 마켓프로필사진조회
-		ArrayList<SellerFile> selectSellerFileProfileList(String sellerNo);
+		SellerFile selectSellerFileProfileList(String sellerNo);
 		
 		//홍보리스트 사진조회
-		ArrayList<PromotionFile> selectPromotionFileList(int promotionNo);
+		PromotionFile selectPromotionFileList(int promotionNo);
 		
 		//홍보리스트 댓글조회
 		int PromotionReplyCount(int promotionNo); 
