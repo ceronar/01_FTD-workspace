@@ -22,7 +22,8 @@
 		
 		<typeAlias type="com.kh.ftd.notice.model.vo.Notice" alias="notice" />
 		<typeAlias type="com.kh.ftd.inquiry.model.vo.Inquiry" alias="inquiry" />
-
+		
+		<typeAlias type="com.kh.ftd.order.model.vo.Order" alias="order" />
 
 
 	</typeAliases>
@@ -39,6 +40,7 @@
 		
 		<mapper resource="/mappers/notice-mapper.xml"/>
 		<!-- <mapper resource="/mappers/inquiry-mapper.xml" /> -->
+		<mapper resource="/mappers/order-mapper.xml"/>
 	</mappers>
 	<!--  
 		주의사항 : mapper 파일이 없는데도 미리 등록하면 FileNotFoundException 발생

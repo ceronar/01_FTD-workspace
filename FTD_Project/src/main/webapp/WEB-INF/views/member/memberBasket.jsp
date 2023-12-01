@@ -197,14 +197,14 @@
 			                	</tr>
 			                	<!-- 상품반복 -->
 			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="상품코드" /></td>
+			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="1" /></td>
 			                        <td>
 			                            <img src="resources/images/sample/224427_132949_129.jpg" alt="상품사진" class="product-image">
 			                        </td>
 			                        <td>사과 1.5kg 한박스</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(1, -1)">-</button><input type="text" id="quantity1" class="quantity-input" name="goodCount1" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
+			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(1, -1)">-</button><input type="text" id="quantity1" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
 			                            </div>
 			                        </td>
 			                        <td>5,000원</td>
@@ -212,14 +212,14 @@
 			                    </tr>
 			                    <!-- 상품반복 -->
 			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="상품코드" /></td>
+			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="2" /></td>
 			                        <td>
 			                            <img src="resources/images/sample/202005072145_500.jpg" alt="상품사진" class="product-image">
 			                        </td>
 			                        <td>배 1.5kg 한박스</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(2, -1)">-</button><input type="text" id="quantity2" class="quantity-input" name="goodCount2" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
+			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(2, -1)">-</button><input type="text" id="quantity2" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
 			                            </div>
 			                        </td>
 			                        <td>7,500원</td>
@@ -297,6 +297,7 @@
     						*/
     						
     						var actionForm =$("#payForm");
+    						actionForm.append("<input type='hidden' value='" + rsp.pg_tid + "' name='payTid'>");
     						actionForm.append("<input type='hidden' value='" + rsp.paid_amount + "' name='price'>");
     						actionForm.append("<input type='hidden' value='" + rsp.pay_method + "' name='payMethod'>");
     						actionForm.submit();

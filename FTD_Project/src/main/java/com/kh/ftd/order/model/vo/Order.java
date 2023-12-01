@@ -18,7 +18,7 @@ public class Order {
 	private int price; 				//	PRICE		NUMBER
 	private String zipCode;			//	ZIP_CODE	NUMBER
 	private String address; 		//	ADDRESS		VARCHAR2(100 BYTE)
-	private String detailAddress; 	//	DETAIL_		ADDRESS	VARCHAR2(100 BYTE)
+	private String detailAddress; 	//	DETAIL_ADDRESS	VARCHAR2(100 BYTE)
 	private String request; 		//	REQUEST		VARCHAR2(200 BYTE)
 	private String payTid; 			//	PAY_TID		VARCHAR2(100 BYTE)
 	private String payMethod;		//	PAY_METHOD	VARCHAR2(100 BYTE)
