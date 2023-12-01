@@ -19,6 +19,7 @@ public class Member {
 	private String phone;		//	PHONE	VARCHAR2(13 BYTE)
 	private String address;		//	ADDRESS	VARCHAR2(100 BYTE)
 	private String gender;		//	GENDER	CHAR(1 BYTE)
-	private String status;		//	STATUS	DATE
-	
+	private String status;			//	STATUS	DATE
+	private String zipCode;    		 // 	VARCHAR2(5 BYTE)
+	private String detailAddress;	// DETAIL_ADDRESS	VARCHAR2(100 BYTE)
 }
