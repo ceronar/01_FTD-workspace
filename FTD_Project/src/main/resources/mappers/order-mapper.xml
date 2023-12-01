@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="orderMapper">
+
+	<resultMap id="orderResultSet" type="order">
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="ORDER_NAME" property="orderName" />
+		<result column="PHONE" property="phone" />
+		<result column="PRICE" property="price" />
+		<result column="ZIP_CODE" property="zipCode" />
+		<result column="ADDRESS" property="address" />
+		<result column="DETAIL_ADDRESS" property="detailAddress" />
+		<result column="REQUEST" property="request" />
+		<result column="PAY_TID" property="payTid" />
+		<result column="PAY_METHOD" property="payMethod" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="PAY_CANCEL" property="payCancel" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	
+	<insert id="paySuccess" parameterType="order">
+		INSERT INTO MEMBER(ORDER_NO, MEMBER_NO, ORDER_NAME, PHONE, PRICE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, REQUEST, PAY_TID, PAY_METHOD)
+				    VALUES(SEQ_ONO.NEXTVAL, #{memberNo}, #{orderName}, #{phone}, #{price}, #{zipCode}, #{address}, #{detailAddress}, #{request}, #{payTid}, #{payMethod})
+	</insert>
+
+</mapper>

@@ -14,18 +14,18 @@
 	        <jsp:include page="common/sidebar.jsp" />
 	        
 	        <div class="main-div">
-	            <jsp:include page="common/header.jsp" />
-
-	           
-	            		
-	            <div class="content">메인 컨텐츠<br>
-	            
-	            
-	            <a href="list.se">가게</a>
-	            <a href="plist.bo">홍보</a>
-
-	            </div>
-	            <jsp:include page="common/footer.jsp" />
+		        <jsp:include page="common/header.jsp" />
+	
+		           
+		            		
+		        <div class="content">메인 컨텐츠<br>
+		            
+		            
+		        	<a href="list.se">가게</a>
+		            <a href="plist.bo">홍보</a>
+	
+		        </div>
+		        <jsp:include page="common/footer.jsp" />
 	        </div> 
 	              
         </div>

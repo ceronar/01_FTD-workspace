@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- 구글 recaptcha2 -->
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
+
     <style>
         body {  
             font-family: Arial, sans-serif;
@@ -115,9 +117,10 @@
         .phone{
         width: 80px;
         }
-        #address{ /* 주소입력칸 */
+        #address, #zipCode, #detailAddress{ /* 주소입력칸 */
             width: 300px;
         }
+        
         .nessesary{ color: red; } /* 별 표시 */
 
 
@@ -272,12 +275,32 @@
                     </div>
                     </td>
                 </tr>
+
+                <tr>
+                    <th><span class="nessesary">*</span>우편번호</th>
+                    <td colspan="3">
+                        <div style="display: flex;">
+                            <input type="text" id="zipCode" name="zipCode" required class="postcodify_postcode5 form-control form-control" value="" />
+                            <button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px;">검색</button>
+                        </div>
+                    </td>
+                </tr>
+                
                 <tr>
                     <th><span class="nessesary">*</span>주소</th>
                     <td colspan="3">
-                        <input type="text" id="address" name="address" required class="form-control form-control">
+                        <input type="text" id="address" name="address" required class="postcodify_address form-control form-control">
                     </td>
                 </tr>
+
+                <tr>
+                    <th><span class="nessesary">*</span>상세주소</th>
+                    <td colspan="3">
+                        <input type="text" id="detailAddress" name="detailAddress" required class="postcodify_details form-control form-control" value="" />
+                    </td>
+                </tr>
+
+
                 <tr>
                     <th><span class="nessesary">*</span> 성별</th>
                     <td colspan="3">
@@ -341,6 +364,10 @@
         </div>
 
     </form>
+        <!-- jQuery와 Postcodify를 로딩한다 -->
+    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+        <!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+    <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
     
     <script> // 아이디 중복체크
     	function duplicateCheck() {
