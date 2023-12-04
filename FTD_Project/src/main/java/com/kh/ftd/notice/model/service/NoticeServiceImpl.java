@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.notice.model.dao.NoticeDao;
 import com.kh.ftd.notice.model.vo.Notice;
+import com.kh.ftd.notice.model.vo.NoticeFile;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
@@ -31,10 +32,14 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int insertNotice(Notice n) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.insertNotice(sqlSession, n);
 	}
 
+	@Override
+	public int insertFile(NoticeFile nf) {
+		return noticeDao.insertFile(sqlSession, nf);
+	}
+	
 	@Override
 	public int increaseNoticeCount(int noticeNo) {
 		// TODO Auto-generated method stub
@@ -58,5 +63,6 @@ public class NoticeServiceImpl implements NoticeService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

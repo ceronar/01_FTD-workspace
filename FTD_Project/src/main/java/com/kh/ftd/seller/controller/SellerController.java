@@ -1,11 +1,14 @@
 package com.kh.ftd.seller.controller;
 
 import java.util.ArrayList;
-
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import com.google.gson.Gson;
 import com.kh.ftd.seller.model.service.SellerService;
@@ -18,6 +21,9 @@ public class SellerController {
 	@Autowired
 	private SellerService sellerService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@RequestMapping("list.se")
 	public String sellerList() {
 		
@@ -27,7 +33,7 @@ public class SellerController {
 	@ResponseBody
 	@RequestMapping(value = "ajaxSelectSellerList.se" , produces = "application/json; charset=UTF-8")
 	public String ajaxSelectSellerList(int page, int pageSize) {
-		
+	
 		// 마켓 리스트
 		ArrayList<Seller> sList = sellerService.ajaxSelectSellerList();
 		
@@ -89,7 +95,38 @@ public class SellerController {
 		}
 		
 		return new Gson().toJson(resultList);
-
-		
 	}
+	
+	@RequestMapping("loginForm.se")
+	public String sellerLoginForm() {
+		return "seller/sellerLogin";
+	}
+	
+	@RequestMapping("login.se")
+	public ModelAndView loginSeller(Seller s, ModelAndView mv, HttpSession session) {
+		Seller loginSeller = sellerService.loginSeller(s);
+		if(loginSeller != null && bcryptPasswordEncoder.matches(s.getSellerPwd(), loginSeller.getSellerPwd())) { 
+			// 로그인 성공
+			session.setAttribute("loginSeller", loginSeller);
+			session.setAttribute("alertMsg", "로그인에 성공했습니다.");
+			mv.setViewName("redirect:/");
+		} else { 
+			// 로그인 실패
+			mv.addObject("errorMsg", "로그인 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("logout.se")
+	public String logoutSeller(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	@RequestMapping("sellerPage")
+	public String sellerPage() {
+		return "seller/sellerPage";
+	}
+	
 }

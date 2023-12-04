@@ -76,5 +76,12 @@
 		   AND S.SELLER_NO = #{sellerNo}
 	</select>
 	
-	
+	<!-- 로그인용 쿼리문 -->
+	<select id="loginSeller" parameterType="seller" resultMap="sellerResultSet">
+	 SELECT *
+	   FROM SELLER
+	  WHERE SELLER_ID = #{sellerId}
+	    AND DELETE_DATE IS NULL
+	</select>
+
 </mapper>

@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.ftd.review.model.vo.Review;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.kh.ftd.seller.model.vo.Seller;
 
 @Repository
 public class SellerDao {
@@ -36,4 +40,9 @@ public class SellerDao {
 		
 		return sqlSession.selectOne("sellerMapper.ajaxSelectSubscribe", sellerNo);
 	}
+
+	public Seller loginSeller(SqlSession sqlSession, Seller s) {
+		return sqlSession.selectOne("sellerMapper.loginSeller", s);
+	}
+
 }

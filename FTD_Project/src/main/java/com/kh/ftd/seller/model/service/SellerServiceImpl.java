@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ftd.review.model.vo.Review;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.kh.ftd.seller.model.dao.SellerDao;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
@@ -22,39 +26,39 @@ public class SellerServiceImpl implements SellerService{
 	
 	@Override
 	public Seller loginSeller(Seller s) {
-		// TODO Auto-generated method stub
-		return null;
+		return sellerDao.loginSeller(sqlSession, s);
 	}
 
 	@Override
 	public int insertSeller(Seller s) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int updateSeller(Seller s) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int deleteSeller(String sellerId) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int sellerIdCheck(String checkId) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	public ArrayList<Seller> selectSellerList() {
+		return null;
+	}
+	
 	@Override
 	public ArrayList<Seller> ajaxSelectSellerList() {
 		
 		return sellerDao.ajaxSelectSellerList(sqlSession);
 	}
+
 
 	@Override
 	public SellerFile ajaxSelectSellerFileList(int sellerNo) {
