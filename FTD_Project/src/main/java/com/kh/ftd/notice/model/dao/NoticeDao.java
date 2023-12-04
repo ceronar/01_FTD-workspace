@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.notice.model.vo.Notice;
+import com.kh.ftd.notice.model.vo.NoticeFile;
 
 @Repository
 public class NoticeDao {
@@ -24,6 +25,14 @@ public class NoticeDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeList", null, rowBounds);
+	}
+
+	public int insertNotice(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.insert("noticeMapper.insertNotice", n);
+	}
+	
+	public int insertFile(SqlSessionTemplate sqlSession, NoticeFile nf) {
+		return sqlSession.insert("noticeMapper.insertFile", nf);
 	}
 	
 }

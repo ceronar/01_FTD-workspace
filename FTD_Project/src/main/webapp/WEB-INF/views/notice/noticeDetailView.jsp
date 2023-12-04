@@ -103,20 +103,22 @@
             float:right;
         }
     </style>
-    
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>   
 </head>
 <body>
     <div class="container">
         <h1>게시글 상세보기</h1>
         <div class="post">
             <h2>[공지사항] 저희 사이트 정상영업합니다</h2>
-            <div class="notice-info">
+            <div class="notice-info">  
                 <p>작성자: admin | 작성일: 2023-11-23</p>
             </div>
             <div class="post-content">
                 <p>안녕하세요, 저희 사이트는 현재 정상적으로 운영 중입니다. 추가적인 공지사항이 있으면 알려드리겠습니다.</p>
                 <p>감사합니다.</p>
-                <img src="resources/pngwing.com (1).png">
+                
             </div>
             <div class="post-img">
                 <a href="">
@@ -149,5 +151,6 @@
             </form>
         </div>
     </div>
+
 </body>
 </html>
