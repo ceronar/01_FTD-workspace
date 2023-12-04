@@ -60,33 +60,36 @@
             height: 500px;
         }
     </style>
-
+	<!-- summernote 사용시 활성화 
     <script src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
-	
+	 -->
 </head>
 <body>
     <div class="container">
         <h1>공지사항 작성</h1>
 	
-        <form method="post">
+        <form id="enrollForm" method="post" action="insert.no" enctype="multipart/form-data">
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" required>
 
             <label for="content">내용:</label>
-            <textarea id="summernote" name="editordata"></textarea>
+            <textarea id="content" name="content" required></textarea>
+            <!-- summernote용 textarea 
+            	textarea id="summernote" name="editordata"></textarea> 
+            -->
 
             <!-- 파일 선택 버튼 -->
 
-            <input type="file" name="file">
+            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
 
             <div align="center">
                 <input type="submit" value="게시글 등록">
             </div>
         </form>
     </div>
-    <!-- summernote 사용시 필요한 스크립트
+    <!-- summernote 사용시 활성화
     <script type="text/javascript">
 	    $(document).ready(function() {
 	    	//여기 아래 부분
