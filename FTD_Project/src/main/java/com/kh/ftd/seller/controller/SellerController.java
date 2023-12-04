@@ -37,9 +37,7 @@ public class SellerController {
 	}
 	
 	@RequestMapping("login.se")
-	public ModelAndView sellerLogin(Seller s, ModelAndView mv, HttpSession session) {
-		System.out.println(s.getSellerPwd());
-		System.out.println(bcryptPasswordEncoder.encode(s.getSellerPwd()));
+	public ModelAndView loginSeller(Seller s, ModelAndView mv, HttpSession session) {
 		Seller loginSeller = sellerService.loginSeller(s);
 		if(loginSeller != null && bcryptPasswordEncoder.matches(s.getSellerPwd(), loginSeller.getSellerPwd())) { 
 			// 로그인 성공
@@ -52,6 +50,17 @@ public class SellerController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	@RequestMapping("logout.se")
+	public String logoutSeller(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	@RequestMapping("sellerPage")
+	public String sellerPage() {
+		return "seller/sellerPage";
 	}
 	
 }

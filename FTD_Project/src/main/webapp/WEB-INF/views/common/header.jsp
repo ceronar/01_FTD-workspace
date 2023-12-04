@@ -43,14 +43,16 @@
 	            <c:choose>
 	            	<%-- 구매자 로그인 후 --%>
 	            	<c:when test="${ not empty sessionScope.loginUser }">
+	            		<a href="myPage.me">마이페이지</a> | 
 			            <a href="logout.me">로그아웃</a>
 	            	</c:when>
 	            	
 	            	<%-- 판매자 로그인 후 --%>
-	            	<c:when test="">
+	            	<c:when test="${ not empty sessionScope.loginSeller }">
+	            		<a href="sellerPage">내 가게 정보</a> | 
+	            		<a href="logout.se">로그아웃</a>
+	            	</c:when>
 	            	
-	            	</c:when>            	
-	
 					<%-- 로그인 전 --%>
 	            	<c:otherwise>
 			            <a href="loginForm.me">로그인</a> |
