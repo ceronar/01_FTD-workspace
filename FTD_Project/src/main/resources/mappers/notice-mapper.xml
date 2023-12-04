@@ -11,6 +11,15 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
+	<resultMap id="noticeFileResultSet" type="noticeFile">
+		<result column="FILE_NO" property="fileNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+	</resultMap>
+	
 	<select id="selectNoticeCount" resultType="_int">
         SELECT COUNT(*)
 		  FROM NOTICE
@@ -26,5 +35,25 @@
 		 WHERE DELETE_DATE IS NULL
 		 ORDER BY NOTICE_NO DESC
 	</select>
+	
+	<insert id="insertNotice" parameterType="notice">
+		INSERT INTO NOTICE(NOTICE_NO
+		                , NOTICE_TITLE
+		                , NOTICE_CONTENT)
+		           VALUES(SEQ_NNO.NEXTVAL
+		                , #{noticeTitle}
+		                , #{noticeContent})
+	</insert>
+	
+	<insert id="insertFile" parameterType="noticeFile">
+		INSERT INTO NOTICE_FILE(FILE_NO
+							  , NOTICE_NO
+							  , ORIGIN_NAME
+							  , CHANGE_NAME)
+					 	 VALUES(SEQ_NFNO.NEXTVAL
+					 	 	  , SEQ_NNO.CURRVAL
+					 	 	  , #{originName}
+					 	 	  , #{changeName})
+	</insert>
 
 </mapper>

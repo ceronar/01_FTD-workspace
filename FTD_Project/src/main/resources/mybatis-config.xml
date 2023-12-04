@@ -22,6 +22,7 @@
 		
 		<typeAlias type="com.kh.ftd.notice.model.vo.Notice" alias="notice" />
 		<typeAlias type="com.kh.ftd.inquiry.model.vo.Inquiry" alias="inquiry" />
+		<typeAlias type="com.kh.ftd.notice.model.vo.NoticeFile" alias="noticeFile"/>
 		
 		<typeAlias type="com.kh.ftd.order.model.vo.Order" alias="order" />
 

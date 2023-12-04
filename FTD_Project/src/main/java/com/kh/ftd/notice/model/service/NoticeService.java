@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.notice.model.vo.Notice;
+import com.kh.ftd.notice.model.vo.NoticeFile;
 
 public interface NoticeService {
 
@@ -15,6 +16,9 @@ public interface NoticeService {
 	
 	// 게시글 작성하기
 	int insertNotice(Notice n);
+	
+	// 게시글 첨부파일 넣기
+	int insertFile(NoticeFile nf);
 	
 	// 게시글 조회수 증가
 	int increaseNoticeCount(int noticeNo);
