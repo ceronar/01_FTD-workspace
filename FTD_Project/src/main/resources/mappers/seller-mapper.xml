@@ -1,1 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="sellerMapper">
+
+	<resultMap id="sellerResultSet" type="seller">
+		<result column="SELLER_NO" property="sellerNo" />
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="SELLER_ID" property="sellerId" />
+		<result column="SELLER_PWD" property="sellerPwd" />
+		<result column="SELLER_NAME" property="sellerName" />
+		<result column="COMPANY_NO" property="companyNo" />
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="ACCOUNT_NO" property="accountNo" />
+		<result column="DELETE_DATE" property="deleteDate" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="ACCEPT_DATE" property="acceptDate" />
+		<result column="REFUSE_REASON" property="refuseReason" />
+	</resultMap>
+	
+	<!-- 로그인용 쿼리문 -->
+	<select id="loginSeller" parameterType="seller" resultMap="sellerResultSet">
+	 SELECT *
+	   FROM SELLER
+	  WHERE SELLER_ID = #{sellerId}
+	    AND DELETE_DATE IS NULL
+	</select>
+</mapper>

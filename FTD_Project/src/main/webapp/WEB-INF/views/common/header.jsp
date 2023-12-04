@@ -18,7 +18,7 @@
 <!-- Semantic UI theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 
-<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/header.css?version=1.2" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -53,7 +53,8 @@
 	
 					<%-- 로그인 전 --%>
 	            	<c:otherwise>
-			            <a href="loginForm.me">로그인</a>	
+			            <a href="loginForm.me">로그인</a> |
+			            <a href="loginForm.se">판매자 로그인</a>	
 	            	</c:otherwise>         	
 	            </c:choose>	
 			</div>	
