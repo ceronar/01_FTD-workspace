@@ -33,7 +33,7 @@ html {
 	box-sizing: border-box;
 	/* border: 4px solid rgb(85, 85, 85); 위쪽(top)만 0으로 수정 */
 	border-radius: 8px;
-	box-shadow: 0 0 5px rgba(249, 248, 248, 0.797);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	text-align: center;
 
   }
@@ -70,7 +70,7 @@ html {
 	padding: 20px;
 	box-sizing: border-box;
 	/* border: 1px solid rgb(85, 85, 85); 위쪽(top)만 0으로 수정 */
-	border-top: 2px solid lightgray;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	margin: 0; /* content의 마진 제거 */
 }
 
