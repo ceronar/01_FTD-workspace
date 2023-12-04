@@ -1,1 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="sellerMapper">
+	
+	<resultMap id="sellerResultSet" type="seller">
+		<result column="SELLER_NO" property="sellerNo"/>
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_PWD" property="sellerPwd"/>
+		<result column="SELLER_NAME" property="sellerName"/>
+		<result column="COMPANY_NO" property="companyNo"/>
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="ADDRESS" property="address"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ACCOUNT_NO" property="accountNo"/>
+		<result column="DELETE_DATE" property="deleteDate"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="ACCEPT_DATE" property="acceptDate"/>
+		<result column="REFUSE_REASON" property="refuseReason"/>
+	</resultMap>
+	
+	<resultMap id="sellerFileResultSet" type="sellerFile">
+		<result column="FILE_NO" property="fileNo"/>
+		<result column="SELLER_NO" property="sellerNo" />
+		<result column="ORIGINAL_NAME" property="originalName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate"/>
+	</resultMap>
+	
+	<!-- 판매자 마켓 리스트 조회 -->
+	<!-- 나중에 조건절에 승인일 추가하기 -->
+	<select id="ajaxSelectSellerList" resultMap="sellerResultSet">	
+		SELECT * 
+		  FROM SELLER
+		 WHERE DELETE_DATE IS NULL
+		 ORDER BY SELLER_NO DESC		 			
+	</select>
+	
+	<!-- 판매자 마켓 파일 조회 -->
+	<select id="ajaxSelectSellerFileList" resultMap="sellerFileResultSet" parameterType="_int">
+		SELECT *
+		  FROM SELLER_FILE
+		 WHERE SELLER_NO = #{sellerNo}
+		   AND DELETE_DATE IS NULL
+	</select>
+	
+	<select id="ajaxSelectStarRating" resultType="_int" parameterType="_int">
+		SELECT NVL(TRUNC(AVG(STAR_RATING), 2), 0.0)
+		  FROM REVIEW R
+		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
+		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+		 WHERE G.SELLER_NO = #{sellerNo}
+		   AND G.DELETE_DATE IS NULL
+		   AND R.DELETE_DATE IS NULL
+		   AND M.STATUS IS NULL	
+	</select>
+	
+	<select id="ajaxSelectReviews" resultType="_int" parameterType="_int">
+		SELECT NVL(COUNT(R.REV_NO), 0)
+		  FROM REVIEW R
+		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
+		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+		 WHERE G.SELLER_NO = #{sellerNo}
+		   AND G.DELETE_DATE IS NULL
+		   AND R.DELETE_DATE IS NULL
+		   AND M.STATUS IS NULL
+	</select>
+	
+	<select id="ajaxSelectSubscribe" resultType="_int" parameterType="_int">
+		SELECT NVL(COUNT(S.MEMBER_NO), 0) 
+		  FROM SUBSCRIBE S
+		  JOIN MEMBER M ON (S.MEMBER_NO = M.MEMBER_NO)
+		 WHERE M.STATUS IS NULL
+		   AND S.SELLER_NO = #{sellerNo}
+	</select>
+	
+	<!-- 로그인용 쿼리문 -->
+	<select id="loginSeller" parameterType="seller" resultMap="sellerResultSet">
+	 SELECT *
+	   FROM SELLER
+	  WHERE SELLER_ID = #{sellerId}
+	    AND DELETE_DATE IS NULL
+	</select>
+
+</mapper>

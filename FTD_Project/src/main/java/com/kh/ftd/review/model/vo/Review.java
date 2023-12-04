@@ -20,7 +20,7 @@ public class Review {
 	private String revContent;		//	REV_CONTENT
 	private int count;				//	COUNT
 	private int starRatting;		//	STAR_RATING
-	private Date createDate;		//	CREATE_DATE
-	private Date deleteDate;		//	DELETE_DATE
+	private String createDate;		//	CREATE_DATE
+	private String deleteDate;		//	DELETE_DATE
 
 }

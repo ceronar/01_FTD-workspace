@@ -134,9 +134,51 @@
 	}
 	
 
-
-	
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	
+	// 페이지 로딩시 불러올 리스트 개수 변수 설정
+	var page = 1;
+	var pageSize = 20; // 초기 로딩 시 20개씩 불러오기
+	
+	 $(document).ready(function () {
+	        
+		 	ajaxSelectSellerList();
+
+	        $(window).scroll(function () {
+	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+	                
+	            	page++;	         
+	            	ajaxSelectSellerList();
+	            }
+	        });
+	    });
+	
+	 function ajaxSelectSellerList() {
+	      
+	        $.ajax({
+	            url : 'ajaxSelectSellerList.se',
+	            type: 'get',
+	            data: { page: page, pageSize: pageSize },
+	            success: function(result) {
+	            	
+	            	console.log("ajax 통신 성공");
+	            	console.log(result);
+	            	
+	                data.forEach(function () {
+	                    $('#legacyContainer').append('<p>' + val + '</p>');
+	                });
+
+	            },
+	            error : function() {
+	            	console.log("ajax 통신 실패");
+	            }
+	        });
+	    }
+
+</script>
+
 </head>
 <body>
 	<div class="wrapper">
@@ -148,7 +190,10 @@
 	            <jsp:include page="../common/header.jsp" />
 	            
 	            <div class="content">
-
+	            
+	             <!-- 테스트 -->
+				<div id="legacyContainer"></div>
+				
 	            <div class="store-filter"></div>
 
 				<br><br>

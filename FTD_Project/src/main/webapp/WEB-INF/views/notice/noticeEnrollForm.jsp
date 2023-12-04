@@ -60,22 +60,24 @@
             height: 500px;
         }
     </style>
+    
 	<!-- summernote 사용시 활성화 
     <script src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
 	 -->
+	 
 </head>
 <body>
     <div class="container">
         <h1>공지사항 작성</h1>
 	
         <form id="enrollForm" method="post" action="insert.no" enctype="multipart/form-data">
-            <label for="title">제목:</label>
-            <input type="text" id="title" name="title" required>
+            <label for="noticeTitle">제목:</label>
+            <input type="text" id="noticeTitle" name="noticeTitle" required>
 
             <label for="content">내용:</label>
-            <textarea id="content" name="content" required></textarea>
+            <textarea id="noticeContent" name="noticeContent" required></textarea>
             <!-- summernote용 textarea 
             	textarea id="summernote" name="editordata"></textarea> 
             -->

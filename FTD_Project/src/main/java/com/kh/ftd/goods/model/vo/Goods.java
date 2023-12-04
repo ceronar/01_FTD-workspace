@@ -18,6 +18,7 @@ public class Goods {
 	private String origin; 			//	ORIGIN	VARCHAR2(100 BYTE)
 	private int price; 				//	PRICE	NUMBER
 	private String createDate; 		//	CREATE_DATE	DATE
+	private String deleteDate;      // DELETE_DATE	DATE
 	private String expiration; 		//	EXPIRATION_DATE	DATE
 	private int stock; 				//	STOCK	NUMBER
 }
