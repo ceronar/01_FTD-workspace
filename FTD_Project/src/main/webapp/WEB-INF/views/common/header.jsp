@@ -53,7 +53,8 @@
 	
 					<%-- 로그인 전 --%>
 	            	<c:otherwise>
-			            <a href="loginForm.me">로그인</a>	
+			            <a href="loginForm.me">로그인</a> |
+			            <a href="loginForm.se">판매자 로그인</a>	
 	            	</c:otherwise>         	
 	            </c:choose>	
 			</div>	
