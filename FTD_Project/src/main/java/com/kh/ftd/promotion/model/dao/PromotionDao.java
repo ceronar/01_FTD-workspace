@@ -41,6 +41,21 @@ public class PromotionDao {
 		return sqlSession.selectOne("promotionMapper.selectPromotionReplyCount", promotionNo);
 	}
 
+	public int increaseCount(SqlSessionTemplate sqlSession, int promotionNo) {
+		
+		return sqlSession.update("promotionMapper.increaseCount",promotionNo);
+	}
+
+	public Promotion selectPromotion(SqlSessionTemplate sqlSession, int promotionNo) {
+	
+		return sqlSession.selectOne("promotionMapper.selectPromotion",promotionNo);
+	}
+
+	public ArrayList<PromotionFile> selectPromotionFileList2(SqlSessionTemplate sqlSession, int promotionNo) {
+		
+		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionFileList2",promotionNo);
+	}
+
 	
 	
 

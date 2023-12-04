@@ -128,7 +128,7 @@
             color: black;
         }
 
-        #profile> #profile_1,
+        .profile> #profile_1,
         #profile_2 {
             display: inline-block;
             vertical-align: top; /* Align to the top */
@@ -320,18 +320,19 @@
                 // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
                 
                 data.forEach(function (val) {
-                	
+                	let a = val[0].promotionNo;
                     $('.promotion').append(
                     		
                    
                   	 '<div>'
-                   +  '<div id="profile">'
+                   +  '<div class="profile">'
                    +	'<div id="profile_1" style="width : 50px; height : 50px;">'
                    +	  '<img src="" alt="">'
                    +	'</div>'
                    +	'<div id="profile_2">'
                    +	  '<span>'
                    +		val[1].companyName
+
                    +	  '</span>'
                    +	  '<div id="profile_2_2">'
                    +		'<span>'
@@ -341,16 +342,15 @@
                    +	  '</div>'
                    +	'</div>'
                    +  '</div>'
-                   +  '<a href="pdlist.bo">'
-                   +	'<div style="margin-left : 35px">'
-                   +	   '<h2>판매</h2>'
-                   +		val[0].promotionContent
-                   +  '</a>'
                    + '</div>'
                    
 	               +  '<div>'
+	               +'<div class="detail">'
+	               +'<input type="hidden" value="' + val[0].promotionNo + '">'
+                   +	'<div style="margin-left : 35px">'
+                   +	   '<h2>판매</h2>'
+                   +		val[0].promotionContent 
 	               +    '<div class="product_image">'
-	               +        '<a href="pdlist.bo">'
 	               +            '<div>'
 	               +                '<div id="product_image_1">'
 	               +                    '<img src="" >'
@@ -364,8 +364,8 @@
 	               +                    '</div>'
 	               +                '</div>'
 	               +            '</div>'
-	               +        '</a>'
 	               +    '</div>'
+	               + '</div>'
 	               +    '<div class="product_options">'
 	               +        '<div>'
 	               +            '<div class="swiper-wrapper">'
@@ -419,6 +419,21 @@
         });
     }
 
+    </script>
+    	
+    <script>
+	    $(function() {
+			
+			$(".promotion").on('click', '.detail', function(e) {
+				
+				
+				let pno = e.currentTarget.children.item(0).value;
+				
+				// console.log(bno);
+				
+				 location.href = "pdlist.bo?pno=" + pno;
+			});
+		});
     </script>
     <title>홍보(리스트)</title>
 </head>

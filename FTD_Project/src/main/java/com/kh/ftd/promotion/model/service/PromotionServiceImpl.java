@@ -62,14 +62,20 @@ public class PromotionServiceImpl implements PromotionService{
 
 	@Override
 	public int increaseCount(int promotionNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return promotionDao.increaseCount(sqlSession,promotionNo);
 	}
 
 	@Override
 	public Promotion selectPromotion(int promotionNo) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return promotionDao.selectPromotion(sqlSession, promotionNo);
+	}
+	
+	@Override
+	public ArrayList<PromotionFile> selectPromotionFileList2(int promotionNo) {
+		
+		return promotionDao.selectPromotionFileList2(sqlSession, promotionNo);
 	}
 
 	@Override
@@ -83,6 +89,8 @@ public class PromotionServiceImpl implements PromotionService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 	
 }

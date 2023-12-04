@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -29,9 +29,43 @@ public class PromotionController {
 	}
 	
 	@RequestMapping(value = "pdlist.bo")
-	public String promotionDetailView() {
+	public ModelAndView  promotionDetailView(int pno, ModelAndView mv) {
 		
-		return "promotion/promotionDetailView";
+		ArrayList<PromotionFile> pfList = new ArrayList<PromotionFile>();
+		System.out.println(pno);
+		
+		//1. 해당 게시글의 조회수 증가용 서비스 호출
+				int result = promotionService.increaseCount(pno);
+				
+				// 2. 조회수 증가에 성공했다면 해당 게시글 상세조회 서비스 호출
+				if(result > 0) { // 성공
+					
+					System.out.println("성공");
+					
+					//이 홍보게시글의 내용 , 조횟수
+					Promotion p = promotionService.selectPromotion(pno);
+					//System.out.println(p);
+					
+					//이 홍보게시글의 사진
+					pfList = promotionService.selectPromotionFileList2(pno);
+					//System.out.println(pfList);
+					
+					// 조회된 데이터를 담아서 상세보기 페이지로 포워딩
+					mv.addObject("p", p)
+					  .setViewName("promotion/promotionDetailView"); 
+					// /WEB-INF/views/board/boardDetailView.jsp
+					
+				} else { // 실패
+					
+					// 에러문구를 담아서 에러페이지로 포워딩
+					mv.addObject("errorMsg", "게시글 상세조회 실패")
+					  .setViewName("common/errorPage");
+				}
+				
+				return mv;
+		
+		
+		
 	}
 	
 	@ResponseBody
@@ -131,11 +165,11 @@ public class PromotionController {
 	        	
 	        	//System.out.println(arrList);
 	        	arrList2.add(arrList);
-	        	System.out.println(i);
+	        	//System.out.println(i); // 순서대로 0~4 5개라쳣을때
 	    		
   }
 	        //System.out.println(arrList2);
-	        System.out.println("*"+arrList2.size());
+	       // System.out.println("*"+arrList2.size()); //띄워질요소사이즈
 
 		// Gson gson = new Gson();
 		// return gson.toJson(list);

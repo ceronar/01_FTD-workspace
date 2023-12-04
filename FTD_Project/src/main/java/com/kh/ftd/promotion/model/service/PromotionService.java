@@ -37,8 +37,11 @@ public interface PromotionService {
 		// 홍보리스트 조회수 증가
 		int increaseCount(int promotionNo);
 		
-		// 홍보리스트 상세조회
+		// 홍보리스트 내용상세조회
 		Promotion selectPromotion(int promotionNo);
+		
+		// 홍보리스트 파일상세조회
+		ArrayList<PromotionFile> selectPromotionFileList2(int promotionNo);
 
 	// 댓글 리스트 조회 서비스 
 	ArrayList<PromotionReply> selectPromotionReplyList(int promotionNo);
