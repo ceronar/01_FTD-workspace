@@ -42,14 +42,17 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	@Override
 	public int increaseNoticeCount(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.increaseNoticeCount(sqlSession, noticeNo);
 	}
 
 	@Override
 	public Notice selectNotice(int noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return noticeDao.selectNotice(sqlSession, noticeNo);
+	}
+	
+	@Override
+	public ArrayList<NoticeFile> selectNoticeFile(int noticeNo) {
+		return noticeDao.selectNoticeFile(sqlSession, noticeNo);
 	}
 
 	@Override
@@ -63,6 +66,5 @@ public class NoticeServiceImpl implements NoticeService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 }
