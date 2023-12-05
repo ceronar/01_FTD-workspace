@@ -175,6 +175,17 @@ public class SellerController {
 	@RequestMapping("update.se")
 	public void updateSeller(Seller s, HttpServletRequest upFile) {
 		
+		int result = sellerService.updateSeller(s);
+		
+		if(result > 0) {
+			
+			Seller updateSel = sellerService.loginSeller(s);
+			
+			
+			
+		}
+		
+		
 	}
 	
 }
