@@ -26,5 +26,6 @@ public class Seller {
 	private String enrollDate;	//	ENROLL_DATE		DATE
 	private String acceptDate;	//	ACCEPT_DATE		DATE
 	private String refuseReason;//	REFUSE_REASON	VARCHAR2(30 BYTE)
+	private String changeName; 	//  판매자 이미지 path
 	
 }

@@ -79,9 +79,11 @@
 	<!-- 로그인용 쿼리문 -->
 	<select id="loginSeller" parameterType="seller" resultMap="sellerResultSet">
 	 SELECT *
-	   FROM SELLER
+	   FROM SELLER S
+	   LEFT JOIN SELLER_FILE F USING (SELLER_NO)
 	  WHERE SELLER_ID = #{sellerId}
-	    AND DELETE_DATE IS NULL
+	    AND S.DELETE_DATE IS NULL
+	    AND F.DELETE_DATE IS NULL
 	</select>
 
 </mapper>

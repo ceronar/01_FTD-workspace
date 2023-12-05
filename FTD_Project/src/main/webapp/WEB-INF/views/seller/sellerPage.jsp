@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Information</title>
     <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
     <%--
         body {
@@ -43,7 +46,7 @@
         }
       --%>
       .content {
-		height: 1100px;
+		height: 1400px;
       }
       
       label {
@@ -94,26 +97,72 @@
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
       
+      #previewImage {
+      	width: 300px;
+      	height: 300px;
+      }
+      
+      .profile-table {
+		width: 100%;
+		box-sizing: border-box;
+		border: 1px solid gray;
+ 	 	border-collapse: collapse;
+ 	 	border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 8px;
+	  }
+	  
+	  .modal-header {
+	  	display: flex;
+	  	justify-content: space-between;
+	  	align-items: center;
+	  }
+	  .modal-header>button {
+	  	background-color: rgba(0,0,0,0);
+		border: none;
+		cursor: pointer;
+	  }
+	  
+	  .material-symbols-outlined {
+		color: gray;
+		font-variation-settings:
+		  'FILL' 0,
+		  'wght' 400,
+		  'GRAD' 0,
+		  'opsz' 24
+		}
+      
     </style>
 </head>
 <body>
 
 <!-- Seller Information Section -->
 	<div class="wrapper">
-        <div class="center-div">  
-         
+        <div class="center-div">
 	        <jsp:include page="../common/sidebar.jsp" />
-	        
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
-	
-		           
-		            		
 		        <div class="content">
 			    <h1>판매자 정보</h1>
-				    <form action="update.se" method="post">
+				    <form action="update.se" method="post" enctype="multipart/form-data">
 				    	<input type="hidden" name="sellerNo" value="${ sessionScope.loginSeller.sellerNo }">
 				    	
+				    	<label for="profilePicture">프로필 이미지:</label>
+				        <div class="profile-picture">
+				        	<table class="profile-table">
+				        		<tr height="300px">
+				        			<td width="50%">
+				        				<c:if test="${!empty requestScope.loginSeller.changeName }">
+				        					<img id="previewImage" alt="Preview" src="${ requestScope.loginSeller.changeName }">
+				        				</c:if> 
+				        				<c:if test="${empty requestScope.loginSeller.changeName }">
+				        					<img id="previewImage" alt="Preview" src="${pageContext.request.contextPath}/resources/images/sample/default.png">
+				        				</c:if>
+				        			</td>
+				        			<td width="50%"><input type="file" name="upFile" id="profilePicture" accept="image/*"></td>
+				        		</tr>
+				        	</table>
+				        </div>
 				        <label for="companyName">상호명:</label>
 				        <input type="text" id="companyName" name="companyName" value="${ sessionScope.loginSeller.companyName }" readonly required>
 						<br><br>
@@ -146,7 +195,7 @@
 				        <br><br>
 						<button type="submit">정보 변경</button>
 				        <button type="button" onclick="openModal('passwordModal')">비밀번호 변경</button><br><br>
-				        <button type="button" onclick="openModal('withdrawalModal')">탈퇴하기</button>
+				        <button type="button" onclick="openModal('deleteModal')">탈퇴하기</button>
 				    </form>
 			    </div>
 		        <jsp:include page="../common/footer.jsp" />
@@ -159,21 +208,83 @@
 <!-- Change Password Modal -->
 <div id="passwordModal" class="overlay">
     <div class="modal">
-        <h2>Change Password</h2>
-        <!-- Add form or content for changing password -->
-        <button onclick="closeModal('passwordModal')">Close</button>
+        <!-- Modal Header -->
+	          <div class="modal-header">
+	            <h4 class="modal-title">비밀번호 변경</h4>
+	            <button type="button" class="close" data-dismiss="modal" onclick="closeModal('passwordModal')"><span class="material-symbols-outlined">close</span></button>
+	          </div>
+	    
+	          <!-- Modal body -->
+	          <div class="modal-body">
+	            <form action="updatePwd.se" method="post">
+	                 <input type="hidden" name="memberId" value="${ sessionScope.loginSeller.sellerNo }">
+	                 
+	                <table>
+	                    <tr>
+	                        <td>현재 비밀번호</td>
+	                        <td>
+	                            <input type="password" name="sellerPwd" required>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>변경할 비밀번호</td>
+	                        <td>
+	                        	<input type="password" name="updatePwd" required>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>변경할 비밀번호 재입력</td>
+	                        <td>
+	                            <input type="password" name="checkPwd" required>
+	                        </td>
+	                    </tr>
+	                </table>
+	                <br>
+	                <button type="submit" class="btn btn-secondary btn-sm" onclick="return validatePwd();">비밀번호 변경</button>
+	            </form>
+	            
+	            <script>
+	                function validatePwd() {
+	                    if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+	                        alert("비밀번호가 일치하지 않습니다.");
+	                        return false;
+	                    }
+	                    return true;
+	                }
+	            </script>
+	          </div>
     </div>
 </div>
 
-<!-- Withdrawal Modal -->
-<div id="withdrawalModal" class="overlay">
+<!-- 탈퇴 Modal -->
+<div id="deleteModal" class="overlay">
     <div class="modal">
-        <h2>Withdrawal</h2>
-        <!-- Add form or content for withdrawal -->
-        <button onclick="closeModal('withdrawalModal')">Close</button>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">회원탈퇴</h4>
+          <button type="button" class="close" data-dismiss="modal" onclick="closeModal('deleteModal')"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <b>
+              탈퇴 후 복구가 불가능합니다. <br>
+              정말로 탈퇴하시겠습니까? <br><br>
+          </b>
+          <form action="delete.se" method="post">
+              <!-- 탈퇴 시 : 비밀번호 확인 -->
+              <table>
+                  <tr>
+                      <td>비밀번호</td>
+                      <td>
+                          <input type="password" name="sellerPwd" required>
+                      </td>
+              </table>
+              <br>
+              <button type="submit" class="btn btn-secondary btn-sm">탈퇴하기</button>
+          </form>
+        </div>
     </div>
 </div>
-
 <script>
     // JavaScript functions to open and close modals
     function openModal(modalId) {
@@ -183,6 +294,22 @@
     function closeModal(modalId) {
         document.getElementById(modalId).style.display = 'none';
     }
+    
+ 	// Preview profile picture
+    document.getElementById('profilePicture').addEventListener('change', function (event) {
+        const previewImage = document.getElementById('previewImage');
+        const fileInput = event.target;
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImage.src = '';
+        }
+    });
 </script>
 
 </body>

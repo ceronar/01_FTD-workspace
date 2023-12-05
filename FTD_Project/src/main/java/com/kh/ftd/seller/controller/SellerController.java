@@ -1,14 +1,16 @@
 package com.kh.ftd.seller.controller;
 
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import com.google.gson.Gson;
 import com.kh.ftd.seller.model.service.SellerService;
@@ -127,6 +129,11 @@ public class SellerController {
 	@RequestMapping("sellerPage")
 	public String sellerPage() {
 		return "seller/sellerPage";
+	}
+	
+	@RequestMapping("update.se")
+	public void updateSeller(Seller s, HttpServletRequest upFile) {
+		
 	}
 	
 }
