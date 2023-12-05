@@ -45,4 +45,9 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.loginSeller", s);
 	}
 
+	public int insertSeller(SqlSessionTemplate sqlSession, Seller s) {
+
+		return sqlSession.insert("sellerMapper.insertSeller", s);
+	}
+
 }

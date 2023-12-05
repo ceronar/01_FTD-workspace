@@ -85,5 +85,35 @@
 	    AND S.DELETE_DATE IS NULL
 	    AND F.DELETE_DATE IS NULL
 	</select>
+	
+	<!-- 회원가입용 쿼리문 -->
+	<insert id="insertSeller"
+			parameterType="seller">
+		INSERT INTO SELLER(SELLER_NO,
+						   COMPANY_NAME,
+						   SELLER_ID,
+						   SELLER_PWD,
+						   SELLER_NAME,
+						   COMPANY_NO,
+						   BUSINESS_NO,
+						   ADDRESS,
+						   EMAIL,
+						   PHONE,
+						   ACCOUNT_NO						  
+						   )
+					VALUES(SEQ_SNO.NEXTVAL
+						 , #{companyName}
+						 , #{sellerId}
+						 , #{sellerPwd}
+						 , #{sellerName}
+						 , #{companyNo}
+						 , #{businessNo}
+						 , #{address}
+						 , #{email}
+						 , #{phone}
+						 , #{accountNo}
+						 )
+	
+	</insert>
 
 </mapper>
