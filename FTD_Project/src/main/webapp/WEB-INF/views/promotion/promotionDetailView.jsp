@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,6 +138,45 @@
             font-size : 15px;
             color : rgb(143, 143, 143);
         }
+            main > .count {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        main > div span:last-child {
+            margin-left: auto;
+        }
+        
+         /* 댓글 스타일 */
+        .comment {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .comment p {
+            margin: 5px 0;
+        }
+        .comment > hr{
+        
+        	
+        }
+        
+        .delete{
+        	float : right;
+            padding: 8px 20px;
+            border: none;
+            background-color: #2ecc71;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+            margin: 10px 5px;
+        }
+        .delete:hover {
+            background-color: #27ae60;
+        }
+
     </style>
     <title>홍보(리스트)</title>
 </head>
@@ -146,15 +186,18 @@
     </header>
 
     <main>
-        <div><span>판매</span></div>
+        <div class="count">
+        <span>판매</span>
+        <span>조회수 ${requestScope.p.count}</span>
+        </div>
         <div class="profile">
             <div class="profile_1">
-                <img src="https://placekitten.com/50/50" alt="Profile Image">
+                <img src="${sellerFile.changeName }" alt="Profile Image">
             </div>
             <div class="profile_2">
-                <span>100년 수산</span>
+                <span>${requestScope.seller.companyName}</span>
                     <div id="profile_2_2">
-                        <span>경북 포항</span>
+                        <span>${requestScope.seller.address }</span>
                         <!-- 지역 -->
                         <span>* 17분 전</span>
                         <!-- 몇분전인지-->
@@ -169,7 +212,9 @@
 
         <div id="content">
             
-            dsad
+            ${requestScope.p.promotionContent}
+			
+
 
         </div>
 
@@ -180,15 +225,15 @@
     <main>
         <div class="profile">
             <div class="profile_1">
-                <img src="https://placekitten.com/50/50" alt="Profile Image">
+                <img src="${sellerFile.changeName }" alt="Profile Image">
             </div>
             <div class="profile_2">
                 <span>100년 수산</span>
                 <div>
                     <span>
-                        <span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i>4.18</span>
+                        <span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i>${requestScope.starRating}</span>
                     </span>
-                    <span>후기 49 <i class="fas fa-chevron-right"></i></span>
+                    <span>후기 ${requestScope.reviewCount } <i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
         </div>
@@ -198,11 +243,19 @@
         <div>
             <span>
                 <span><i class="far fa-comment"></i></span> 댓글</span>
-                <span> 0 </span>
+                <span> ${requestScope.replyList} </span>
             </span>
         </div>
         <div>
             <input type="text" value="댓글을 남겨보세요">
+             <div class="comment">
+            <c:forEach var="r" items="${ requestScope.prList }">
+             	<hr>
+                <button class="delete">삭제</button>
+                <p>${r.replyContent}</p>
+                <p class="reply-info">작성자: ${r.memberNo } | 작성일: ${r.createDate }</p>
+             </c:forEach>
+            </div>
             <button>입력</button>
         </div>
     </main>

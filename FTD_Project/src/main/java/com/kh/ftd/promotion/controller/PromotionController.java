@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
+import com.kh.ftd.promotion.model.vo.PromotionReply;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
 
@@ -31,8 +32,9 @@ public class PromotionController {
 	@RequestMapping(value = "pdlist.bo")
 	public ModelAndView  promotionDetailView(int pno, ModelAndView mv) {
 		
-		ArrayList<PromotionFile> pfList = new ArrayList<PromotionFile>();
-		System.out.println(pno);
+
+		
+		//System.out.println(pno); 이 게시글의 번호가 뽑힘
 		
 		//1. 해당 게시글의 조회수 증가용 서비스 호출
 				int result = promotionService.increaseCount(pno);
@@ -46,16 +48,45 @@ public class PromotionController {
 					Promotion p = promotionService.selectPromotion(pno);
 					//System.out.println(p);
 					
-					//이 홍보게시글의 사진
-					pfList = promotionService.selectPromotionFileList2(pno);
+					//즉, sellerNo 구할수있음
+					int sno = p.getSellerNo();
+					
+					//이 홍보게시글의 사진 //슬라이드 형식?
+					ArrayList<PromotionFile> pfList = promotionService.selectPromotionFileList2(pno);
 					//System.out.println(pfList);
 					
+					//이 홍보게시글의 댓글
+					ArrayList<PromotionReply> prList = promotionService.selectPromotionReplyList(pno);
+					//System.out.println(prList);
+					
+					//이 홍보게시글의 댓글개수
+					int replyList =  promotionService.PromotionReplyCount(pno);
+					
+					//이 홍보게시글 마켓,지역
+					Seller seller = promotionService.selectSellerList(sno);
+					//System.out.println(seller);
+					
+					//이 홍보게시글 마켓 프로필
+					SellerFile sellerFile = promotionService.selectSellerFileProfileList(sno);
+					//System.out.println(sellerFile);
+					
+					//이 홍보게시글의 별점
+					double starRating = promotionService.marketStarRating(sno);
+					//System.out.println(starRating);
+					
+					//이 마켓의 후기 갯수
+					int reviewCount = promotionService.reviewCount(sno);
+					//System.out.println(reviewCount);
+					
+					
 					// 조회된 데이터를 담아서 상세보기 페이지로 포워딩
-					mv.addObject("p", p)
+					mv.addObject("p", p).addObject("pfList", pfList).addObject("prList",prList).addObject("seller",seller)
+					.addObject("sellerFile",sellerFile).addObject("starRating",starRating).addObject("replyList", replyList)
+					.addObject("reviewCount", reviewCount)
 					  .setViewName("promotion/promotionDetailView"); 
 					// /WEB-INF/views/board/boardDetailView.jsp
 					
-				} else { // 실패
+				} else { // 실패a
 					
 					// 에러문구를 담아서 에러페이지로 포워딩
 					mv.addObject("errorMsg", "게시글 상세조회 실패")
@@ -74,7 +105,7 @@ public class PromotionController {
 		
 		
 		int promotionNo = 0;
-		String sellerNo = "";
+		int sellerNo = 0;
 		
 		
 		

@@ -41,6 +41,12 @@
 			<div><img></div>
 			<div>
 	            <c:choose>
+	            	<%-- 관리자 로그인인 경우 --%>
+	            	<c:when test="${ sessionScope.loginUser.memberId eq 'admin' }">
+	            		<a href="menu.ad">관리자 페이지</a> | 
+	            		<a href="logout.me">로그아웃</a>
+	            	</c:when>
+	            	
 	            	<%-- 구매자 로그인 후 --%>
 	            	<c:when test="${ not empty sessionScope.loginUser }">
 	            		<a href="myPage.me">마이페이지</a> | 

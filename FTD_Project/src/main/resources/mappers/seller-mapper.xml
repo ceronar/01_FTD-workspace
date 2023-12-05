@@ -46,7 +46,7 @@
 		   AND DELETE_DATE IS NULL
 	</select>
 	
-	<select id="ajaxSelectStarRating" resultType="_int" parameterType="_int">
+	<select id="ajaxSelectStarRating" resultType="_double" parameterType="_int">
 		SELECT NVL(TRUNC(AVG(STAR_RATING), 2), 0.0)
 		  FROM REVIEW R
 		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)

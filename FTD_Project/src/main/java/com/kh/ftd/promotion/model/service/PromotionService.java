@@ -16,10 +16,10 @@ public interface PromotionService {
 		ArrayList<Promotion> selectPromotionList();
 	
 		//홍보리스트 판매자조회(마켓이름조회)
-		Seller selectSellerList(String sellerNo);		
+		Seller selectSellerList(int sellerNo);		
 		
 		//홍보리스트 마켓프로필사진조회
-		SellerFile selectSellerFileProfileList(String sellerNo);
+		SellerFile selectSellerFileProfileList(int sellerNo);
 		
 		//홍보리스트 사진조회
 		PromotionFile selectPromotionFileList(int promotionNo);
@@ -42,12 +42,20 @@ public interface PromotionService {
 		
 		// 홍보리스트 파일상세조회
 		ArrayList<PromotionFile> selectPromotionFileList2(int promotionNo);
-
+		
+		// 이 마켓의 평균별점조회
+		double marketStarRating(int sellerNo);
+		
+		// 이 마켓의 후기갯수조회
+		int reviewCount(int sellerNo);
+		
 	// 댓글 리스트 조회 서비스 
 	ArrayList<PromotionReply> selectPromotionReplyList(int promotionNo);
 		
 	// 댓글 작성 서비스 
 	int insertPromotionReply(PromotionReply pr);
+
+
 
 
 
