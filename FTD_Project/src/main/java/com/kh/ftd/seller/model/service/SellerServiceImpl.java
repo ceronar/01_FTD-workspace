@@ -31,7 +31,7 @@ public class SellerServiceImpl implements SellerService{
 
 	@Override
 	public int insertSeller(Seller s) {
-		return 0;
+		return sellerDao.insertSeller(sqlSession, s);
 	}
 
 	@Override

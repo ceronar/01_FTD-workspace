@@ -8,10 +8,7 @@
     <title>회원가입</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- 구글 recaptcha2 -->
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-
-
+    
     <style>
         body {  
             font-family: Arial, sans-serif;
@@ -309,18 +306,6 @@
                         <input type="radio" id="Female" value="F" name="gender">
                         <label for="Female">여자</label> &nbsp;&nbsp;
                     </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td>
-                  
-                    </td>
-                    <script>
-                        function onGoogle() {
-                            if (grecaptcha.getResponse().length == 0) { alert('reCAPTCHA를 확인해 주세요.'); return false; }
-                            return true;
-                        }
-                    </script>
                 </tr>
             </table>
         </div>
