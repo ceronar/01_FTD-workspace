@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -123,6 +124,46 @@ public class SellerController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping("insertSellerForm.se")
+	public String insertSellerForm() {
+		return "seller/insertSeller";
+	}
+	
+	@RequestMapping(value = "insertSeller.se", produces = "text/html; charset=UTF-8")
+	public String insertSeller(Seller s,
+							   Model model,
+							   HttpSession session) {
+		System.out.println(s);
+		
+		String encPwd = bcryptPasswordEncoder.encode(s.getSellerPwd());
+		
+		
+		
+		System.out.println(encPwd);
+		
+		s.setSellerPwd(encPwd);
+		
+		
+		
+		int result = sellerService.insertSeller(s);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "회원가입 성공");
+			
+			return "redirect:/";
+		
+		} else {
+			
+			model.addAttribute("errorMsg", "회원가입 실패");
+			
+			return "common/errorPage";
+			
+		}
+		
+	}
+	
 	
 	@RequestMapping("sellerPage")
 	public String sellerPage() {
