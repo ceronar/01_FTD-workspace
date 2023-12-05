@@ -99,6 +99,14 @@ public class PromotionController {
 		
 	}
 	
+	@RequestMapping(value = "enrollForm.bo")
+	public String enrollForm() {
+		
+		return "promotion/promotionEnrollForm";
+	}
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "getLegacyData.bo" , produces = "application/json; charset=UTF-8")
 	public String ajaxpromotionListView(int page, int size) {
