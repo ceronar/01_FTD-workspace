@@ -55,6 +55,7 @@
 		<result column="REPLY_CONTENT" property="replyContent"/>
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate"/>
+		<result column="MEMBER_ID" property="memberNo"/>
 	</resultMap>
 	
 	
@@ -72,18 +73,20 @@
 	    JOIN SELLER S ON P.SELLER_NO = S.SELLER_NO
 	WHERE 
 	    S.DELETE_DATE IS NULL
+	AND
+		P.DELETE_DATE IS NULL
 	ORDER BY 
 	    P.PROMOTION_NO DESC
 	</select>
 	
-	<select id="selectSellerList" resultMap="sellerResultSet" parameterType="string">
+	<select id="selectSellerList" resultMap="sellerResultSet" parameterType="_int">
 		SELECT *
 		FROM SELLER
 		WHERE SELLER_NO = #{sellerNo} 
 		AND DELETE_DATE IS NULL
 	</select>
 	
-	<select id="selectSellerFileProfileList" resultMap="sellerFileResultSet" parameterType="string">
+	<select id="selectSellerFileProfileList" resultMap="sellerFileResultSet" parameterType="_int">
 		SELECT *
 		FROM SELLER_FILE
 		WHERE SELLER_NO = #{sellerNo} 
@@ -124,6 +127,32 @@
 		WHERE PROMOTION_NO = #{promotionNo}
 		AND DELETE_DATE IS NULL
 	</select>
+	
+	<select id="selectPromotionReplyList" resultMap="promotionReplyResultSet" parameterType="_int">
+		SELECT P.REPLY_NO,
+			   P.PROMOTION_NO,
+			   M.MEMBER_ID,
+			   P.REPLY_CONTENT,
+			   P.CREATE_DATE,
+			   P.DELETE_DATE
+		FROM PROMOTION_REPLY P
+		JOIN MEMBER M ON M.MEMBER_NO = P.MEMBER_NO
+		WHERE PROMOTION_NO = #{promotionNo}
+		AND P.DELETE_DATE IS NULL
+	</select>
+	
+	<select id="reviewCount" resultType="_int" parameterType="_int">
+		SELECT COUNT(REV_NO)
+		  FROM REVIEW R
+		  JOIN GOODS G ON(R.GOOD_NO = G.GOOD_NO)
+		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+		 WHERE G.SELLER_NO = 1
+		   AND M.STATUS IS NULL
+		   AND R.DELETE_DATE IS NULL
+		   AND G.DELETE_DATE IS NULL
+	</select>
+
+	
 	
 	
 </mapper>

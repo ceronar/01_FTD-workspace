@@ -309,9 +309,7 @@
             	console.log("통신성공!!!");
             	console.log(data);
             	
-            	
-     
-            	
+
                 // Remove skeleton UI
                 $('.skeleton').remove();
                 

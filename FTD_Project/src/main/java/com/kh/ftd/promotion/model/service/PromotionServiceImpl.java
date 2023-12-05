@@ -29,14 +29,14 @@ public class PromotionServiceImpl implements PromotionService{
 	}
 	
 	@Override
-	public Seller selectSellerList(String sellerNo) {
+	public Seller selectSellerList(int sellerNo) {
 		// 
 		return promotionDao.selectSellerList(sqlSession,sellerNo);
 	}
 
 
 	@Override
-	public SellerFile selectSellerFileProfileList(String sellerNo) {
+	public SellerFile selectSellerFileProfileList(int sellerNo) {
 	
 		return promotionDao.selectSellerFileProfileList(sqlSession,sellerNo);
 	}
@@ -80,8 +80,20 @@ public class PromotionServiceImpl implements PromotionService{
 
 	@Override
 	public ArrayList<PromotionReply> selectPromotionReplyList(int promotionNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return promotionDao.selectPromotionReplyList(sqlSession,promotionNo);
+	}
+	
+	@Override
+	public double marketStarRating(int sellerNo) {
+		
+		return promotionDao.marketStarRating(sqlSession,sellerNo);
+	}
+	
+	@Override
+	public int reviewCount(int sellerNo) {
+		
+		return promotionDao.reviewCount(sqlSession,sellerNo);
 	}
 
 	@Override
@@ -89,6 +101,10 @@ public class PromotionServiceImpl implements PromotionService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
+
 
 
 
