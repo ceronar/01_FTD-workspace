@@ -5,12 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -82,8 +78,7 @@ public class NoticeController {
 			if(!upfile[i].getOriginalFilename().equals("")) {
 				
 				String changeName = saveFile(upfile[i], session);
-				
-				// 8. 원본명, 서버에 업로드된 수정파일명을 Board b 에 이어서 담기
+
 				nf.setOriginName(upfile[i].getOriginalFilename());
 				nf.setChangeName("resources/uploadFiles/notice/" + changeName);
 				nf.setNoticeNo(n.getNoticeNo());
@@ -136,9 +131,7 @@ public class NoticeController {
 //			System.out.println(nf);
 			
 			// 조회된 데이터를 담아서 상세보기 페이지로 포워딩
-			mv.addObject("n", n).addObject("nf", nf)
-			  .setViewName("notice/noticeDetailView"); 
-
+			mv.addObject("n", n).addObject("nf", nf).setViewName("notice/noticeDetailView"); 
 			
 		} else { // 실패
 			
@@ -148,6 +141,52 @@ public class NoticeController {
 		}
 		
 		return mv;
+	}
+	
+	@RequestMapping(value="delete.no", method=RequestMethod.POST)
+	public String deleteBoard(String nno,
+							  String filePath,
+							  Model model,
+							  HttpSession session) {
+		
+		// bno 에는 post 방식으로 넘겨받은 글번호가 들어가있음
+		
+		System.out.println("nno " + nno);
+		System.out.println(filePath);
+		// 삭제 요청
+//		int result = noticeService.deleteNotice(nno);
+//		
+//		if(result > 0) { // 삭제 성공
+//			// => alert 문구를 담아 게시판 리스트 페이지로 url 재요청
+//			
+//			// 기존에 첨부파일이 있었을 경우
+//			// 서버로부터 해당 첨부파일 삭제하기
+//			
+//			// filePath 라는 매개변수에는
+//			// 기존에 첨부파일이 있었을 경우 수정파일명
+//			// 기존에 첨부파일이 없었을 경우 "" 이 들어가 있음
+//			if(!filePath.equals("")) {
+//				// 기존에 첨부파일이 있었을 경우
+//				// => 해당 파일을 삭제처리
+//				
+//				// 해당 파일이 실제 저장되어있는 경로 알아내기
+//				String realPath = session.getServletContext()
+//								.getRealPath(filePath);
+//				
+//				new File(realPath).delete();
+//			}
+//			
+//			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+//			
+//			return "redirect:/list.bo";
+//			
+//		} else { // 삭제 실패
+//			// => 에러문구를 담아서 에러페이지로 포워딩
+//			
+//			model.addAttribute("errorMsg", "게시글 삭제 실패");
+//			
+			return "common/errorPage";
+//		}
 	}
 	
 	// ----------------------------------------------

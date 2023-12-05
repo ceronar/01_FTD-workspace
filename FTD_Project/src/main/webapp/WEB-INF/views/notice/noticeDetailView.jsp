@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+		body {
+			height : 100%;
+		}
+		
+		
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -44,7 +49,7 @@
             height: 100px;
         }
 
-        .btn button {
+        .btn a {
             padding: 8px 20px;
             border: none;
             background-color: #2ecc71;
@@ -53,7 +58,7 @@
             border-radius: 3px;
         }
 
-        .btn button:hover {
+        .btn a:hover {
             background-color: #27ae60;
         }
 
@@ -65,19 +70,27 @@
             height: 30px;
 
         }
-        .btn button {
+        .btn a {
             float : right;
             margin: 0px 5px; /* 버튼 사이의 여백 조절 */
+            text-decoration: none;
 
         }
-
+		.slider img {
+			height : 480px;
+			width : 480px;
+		}
+		
     </style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
-	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+
+	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
 </head>
 <body>
@@ -88,26 +101,69 @@
 		        <jsp:include page="../common/header.jsp" />
 			        <div class="content">
 				        <div class="container">
-					        <h1>게시글 상세보기</h1>
+					        <h1>공지사항</h1>
 					        <div class="post">
 					            <h2>${ requestScope.n.noticeTitle }</h2>
 					            <div class="notice-info">  
-					                <p>작성자: admin | 작성일: 2023-11-23</p>
+					                <p>작성일: ${requestScope.n.createDate }</p>
 					            </div>
-					            
+					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq 1}">
+
+					        	<div class="btn">
+						            <a onclick="postFormSubmit(1)">수정</a>
+						            <a onclick="postFormSubmit(2)">삭제</a>
+					        	</div>
+						        	
+
+						        	<form action="" id="postForm" method="post">
+					                	<input type="hidden" name="nno" id="nno" 
+					                				value="${ requestScope.n.noticeNo }">
+										<c:forEach var="f" items="${ requestScope.nf }">
+						                	<input type="text" name="filePath" id="filePath"
+						                				value="${ f.changeName }">
+					                	</c:forEach>
+					                </form>
+
+						        	<script>
+					                	function postFormSubmit(num) {
+					                		
+					                		// num 값에 따라 위의 form 태그에 action 속성을 부여한 후
+					                		// submit 시키기
+					                		
+					                		if(num == 1) { 
+					                			// num == 1 일 경우 : 수정하기 버튼을 클릭한 상태
+					                			
+					                			$("#postForm").attr("action", "updateForm.no").submit();
+					                			
+					                		} else {
+					                			// num == 2 일 경우 : 삭제하기 버튼을 클릭한 상태
+					                			
+					                			$("#postForm").attr("action", "delete.no").submit();
+					                			
+					                			// jQuery 의 submit() 메소드 : 해당 form 의 submit 버튼을 누르는 효과
+					                		}
+					                	}
+					                </script>
+					        	</c:if>
 					            <div class="post-content">
+					            <section id="cont_center">
 					            	<article class="column col4">
-						            	<div class="slider">
-						            		<c:forEach var="nf" items="${ requestScope.nf }">
-												<div>
-					                                <figure>
-					                                    <img src="/ftd/${ nf.changeName }" alt="이미지1">
-					                                </figure>
-									            </div>
-								            </c:forEach>
-								            <div>"${ requestScope.nf }"</div>
-										</div>	
-									</article>	                
+					            		<c:if test="${ not empty requestScope.nf }">
+							            	<div class="slider">
+							            		<c:forEach var="nf" items="${ requestScope.nf }">
+													<div id="img-slider" align="center">
+						                                <figure>
+						                                    <img src="/ftd/${ nf.changeName }" alt="이미지1">
+						                                </figure>
+										            </div>
+									            </c:forEach>
+											</div>	
+										</c:if>
+										<br><br><br><br>
+										<div>"${ requestScope.n.noticeContent }"</div>
+										<br><br><br><br>
+									</article>	
+								</section>
 					            </div>
 					            <!-- 
 					            <div class="post-img">
@@ -120,36 +176,34 @@
 					             -->
 					            
 					        </div>
-					
-					        <div class="btn">
-					            <button>수정</button>
-					            <button>삭제</button>
-					        </div>
+					        
 					    </div>
 			        <br>
 		        </div>
 		        <jsp:include page="../common/footer.jsp" />
 	        </div> 
-	        <script type="text/javascript">
-	        $(".slider").slick({
-				dots: true,
-				autoplay: true,
-				autoplaySpeed: 3000,
-				arrows: true,
-				responsive: [
-				    {
-					    breakpoint: 768,
-					    settings: {
-					        autoplay: false,
-				      	}
-				    }
-				]
-			});
-	        </script>
+
 	              
         </div>
     </div>
     
+					            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		            	        <script type="text/javascript">
+						        $(".slider").slick({
+									dots: true,
+									autoplay: true,
+									autoplaySpeed: 3000,
+									arrows: true,
+									responsive: [
+									    {
+										    breakpoint: 768,
+										    settings: {
+										        autoplay: false,
+									      	}
+									    }
+									]
+								});
+						        </script>
 
 </body>
 </html>
