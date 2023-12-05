@@ -51,7 +51,6 @@
             background-color: #27ae60;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -88,12 +87,12 @@
 				                </tbody>
 				            </table>
 				        </div>
-						<c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.userNo eq 1 }"> 
+
 					        <div class="btn">
 					            <a onclick="deleteSelected()">삭제</a>
 					            <a href="enrollForm.no">작성</a>
 					        </div>
-				        </c:if>
+
 				    </div>
 				    <script>
 				    	// 공지사항 번호를 nno 로 받아 해당 상세 페이지로 넘어가는 스크립트
@@ -102,8 +101,8 @@
 							$("#noticeList>tbody>tr").click(function() {
 				
 								let nno = $(this).children(".noticeNo").text();
-								
-								location.href = "list.no?nno=" + nno;
+								console.log(nno);
+								location.href = "detail.no?nno=" + nno;
 							});
 						});
 				    

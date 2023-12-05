@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,7 +85,7 @@ public class NoticeController {
 				
 				// 8. 원본명, 서버에 업로드된 수정파일명을 Board b 에 이어서 담기
 				nf.setOriginName(upfile[i].getOriginalFilename());
-				nf.setChangeName("resources/uploadFiles/" + changeName);
+				nf.setChangeName("resources/uploadFiles/notice/" + changeName);
 				nf.setNoticeNo(n.getNoticeNo());
 				// System.out.println(nf);
 				noticeService.insertFile(nf);
@@ -96,6 +97,7 @@ public class NoticeController {
 		// Board b : 제목, 작성자아이디, 내용, 원본파일명, 수정파일명
 		// 넘어온 첨부파일이 없었을 경우 (if문을 거치지 않았기 때문)
 		// Board b : 제목, 작성자아이디, 내용
+		
 		
 		if(result > 0) { // 게시글 작성 성공
 			// => alert 문구를 담고
@@ -113,6 +115,39 @@ public class NoticeController {
 			// /WEB-INF/views/common/errorPage.jsp
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("detail.no")
+	public ModelAndView selectNotice(int nno, 
+									ModelAndView mv) {
+		
+		// 1. 해당 게시글의 조회수 증가용 서비스 호출
+		int result = noticeService.increaseNoticeCount(nno);
+		
+		// 2. 조회수 증가에 성공했다면 해당 게시글 상세조회 서비스 호출
+		if(result > 0) { // 성공
+			
+			Notice n = noticeService.selectNotice(nno);
+			
+			ArrayList<NoticeFile> nf = noticeService.selectNoticeFile(nno);
+			
+//			System.out.println(n);
+
+//			System.out.println(nf);
+			
+			// 조회된 데이터를 담아서 상세보기 페이지로 포워딩
+			mv.addObject("n", n).addObject("nf", nf)
+			  .setViewName("notice/noticeDetailView"); 
+
+			
+		} else { // 실패
+			
+			// 에러문구를 담아서 에러페이지로 포워딩
+			mv.addObject("errorMsg", "게시글 상세조회 실패")
+			  .setViewName("common/errorPage");
+		}
+		
+		return mv;
 	}
 	
 	// ----------------------------------------------

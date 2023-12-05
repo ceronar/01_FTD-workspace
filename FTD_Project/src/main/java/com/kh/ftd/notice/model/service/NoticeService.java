@@ -26,6 +26,8 @@ public interface NoticeService {
 	// 게시글 상세조회
 	Notice selectNotice(int noticeNo);
 	
+	ArrayList<NoticeFile> selectNoticeFile(int noticeNo);
+	
 	// 게시글 삭제
 	int deleteNotice(int noticeNo);
 	

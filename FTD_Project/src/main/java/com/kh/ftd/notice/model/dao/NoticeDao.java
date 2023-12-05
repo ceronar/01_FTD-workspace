@@ -34,5 +34,18 @@ public class NoticeDao {
 	public int insertFile(SqlSessionTemplate sqlSession, NoticeFile nf) {
 		return sqlSession.insert("noticeMapper.insertFile", nf);
 	}
+
+	public int increaseNoticeCount(SqlSessionTemplate sqlSession, int noticeNo) {
+		return sqlSession.update("noticeMapper.increaseNoticeCount", noticeNo);
+	}
+	
+	public Notice selectNotice(SqlSessionTemplate sqlSession, int noticeNo) {
+		
+		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
+	}
+
+	public ArrayList<NoticeFile> selectNoticeFile(SqlSessionTemplate sqlSession, int noticeNo) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeFile", noticeNo);
+	}
 	
 }

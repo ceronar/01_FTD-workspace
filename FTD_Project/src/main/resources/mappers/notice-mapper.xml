@@ -55,5 +55,33 @@
 					 	 	  , #{originName}
 					 	 	  , #{changeName})
 	</insert>
+	
+	<update id="increaseNoticeCount" parameterType="_int">
+		UPDATE NOTICE
+		   SET COUNT = COUNT + 1
+		 WHERE NOTICE_NO = #{noticeNo}
+		   AND DELETE_DATE IS NULL
+	</update>
+	
+	<select id="selectNotice" parameterType="_int" resultMap="noticeResultSet">
+		SELECT NOTICE_NO
+		     , NOTICE_TITLE
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , NOTICE_CONTENT
+		  FROM NOTICE
+		 WHERE NOTICE_NO = #{noticeNo}
+		   AND DELETE_DATE IS NULL
+	</select>
+	
+	<select id="selectNoticeFile" parameterType="_int" resultMap="noticeFileResultSet">
+		SELECT FILE_NO
+			 , NOTICE_NO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+			 , CREATE_DATE
+		  FROM NOTICE_FILE
+		 WHERE DELETE_DATE IS NULL
+		   AND NOTICE_NO = #{noticeNo}
+	</select>
 
 </mapper>
