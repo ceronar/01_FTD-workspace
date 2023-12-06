@@ -21,6 +21,8 @@ public class OrderController {
 	@RequestMapping(value = "paySuccess")
 	public void paySuccess(Order order, int[] goodNo, int[] goodCount) {
 		
+		System.out.println(order);
+		
 		int result1 = orderService.paySuccess(order);
 		
 		for(int i = 0; i < goodNo.length; i++) {

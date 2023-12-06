@@ -5,168 +5,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
     <title>관리자 페이지</title>
-    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-	<script>
-	  google.charts.load('current', {packages: ['corechart']});
-	  
-	  google.charts.setOnLoadCallback(drawUserChart);
-	  google.charts.setOnLoadCallback(drawEachBoard);
-	  google.charts.setOnLoadCallback(drawWeekBoard);
-	  google.charts.setOnLoadCallback(drawWeekSales);
-	  
-	  
-	  
-	  
-	  
-	</script>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- 아이콘 관련 -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+	
     <style>
-        h2 {
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .dashboard { height: 150px; }
-        
-        .dashboard>div { 
-            height: 100%;
-            width: 33.3%;
-            float: left;
-        }
-
-        /* dashboard 스타일 */
-        
-        .dashboard_box { display: flex; } 
-        .dashboard_box>div {
-            border: 1px solid lightgreen;
-            background-color: lawngreen;
-            width: 250px; 
-            height: 100px; 
-            border-radius: 11px; 
-            display: flex; 
-            margin: auto;
-        }
-        
-        /* dashboard 테두리 */
-        .dashboard_box>div>div { 
-            background-color: white; 
-            width: 255px; 
-            border-radius: 10px; 
-            margin-left: 5px; 
-            display: flex; 
-        }
-        
-        .dashboard_box>div>div>div { height: 45px; width:80%; margin: auto; }
-        
-        .dash-info {
-            font-size: 15px; font-weight: bolder;
-        }
-
-        .dash-charts>div {
-            float: left
-        }
-
-        /* 차트 스타일 */
-        .chart { 
-            width: 580px;
-            height: 580px; 
-            display: flex; 
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid lightgray;
-            box-sizing: border-box;
-        }
-        
-        .chart>div {
-            height: 100%;
-            width: 100%;
-            float: left;
-            background-color: white;
-        }
-        
-        #chartdiv {
-            margin: auto;
-            width: 80%;
-            height: 80%;
-        }
-
-        #chartdiv2 {
-            margin: auto;
-            width: 80%;
-            height: 80%;
-        }
+    	/* 상단 nav바 */
+    	.nav-container {
+			background-color: white;
+			width: 100%;
+			height: 60px;
+			box-shadow: 0px 2px 2px 2px #eee;
+			display: flex;
+			justify-content: space-between;
+		}
+		
+		.search-box {
+			display: inline-flex;
+			align-items: center;
+			margin-left: 100px;
+		}
+		
+		.search-box-input {
+			padding: 5px;
+			border-radius: 5px 0px 0px 5px;
+			border: 1px solid lightgrey;
+			width: 150px;
+			transition: width 1s;
+		}
+		
+		.search-box-input:focus {
+			width:300px;
+		}
+		
+		.search-box-btn {
+			background-color: #343940;
+			color: white;
+			border: none;
+			border-radius: 0px 5px 5px 0px;
+			height: 36px;
+			width: 40px;
+			padding: 5px;
+		}
+		
+		.notification {
+			display: flex;
+			margin-right: 20px;
+			align-items: center;
+		}
+		
+		.notification-icon {
+			font-size: x-large;
+			margin-left: 60px;
+			color: #808080;
+			margin-bottom: 20px;
+		}
+		
+		.notification-badge {
+			position: relative;
+			left: 15px;
+			top: 16px;
+			background-color: #DC3545;
+			width: 20px;
+			height: 20px;
+			border-radius: 5px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			font-size: small;
+			font-weight: 600;
+		}
+		
+		#notification-name {
+			margin-left: 40px;
+			color: grey;
+		}
+		
+		.home-btn > a{
+			text-decoration: none;
+			font-size: 40px;
+			font-weight: bold;
+			margin-left: 50px;
+			color: black;
+		}
+		
+		/* 좌측 메뉴 */
+		.ani-navbar {
+			background-color: #494CB4;
+			color: white;
+			width: 200px;
+			height: 100%;
+			padding: 25px;
+			position: fixed;
+			z-index: 5;
+			transition: all 1s;
+			text-align: center;
+			transform: translateX(-150px);
+		}
+		
+		.ani-navbar:hover {
+			transform: translateX(0px);
+			transition: all 0.5s;
+		}
+		
+		.ani-navbar-menu {
+			display: flex;
+			align-items: center;
+			padding: 15px;
+		}
+		
+		.ani-navbar-menu p {
+			margin: 0;
+			margin-left: 10px;
+		}
+		
+		.ani-navbar-menu p a {
+			color: black;
+		}
+		
+		.ani-navbar i {
+			transition: all 0.5s;
+			transform: translateX(125px);
+		}
+		
+		.ani-navbar:hover i {
+			transform: translateX(0px);
+		}
+		
+		/* 아이콘 관련 */
+		.material-symbols-outlined {
+		  font-variation-settings:
+		  'FILL' 0,
+		  'wght' 400,
+		  'GRAD' 0,
+		  'opsz' 24
+		}
     </style>
 </head>
 <body>
-
-<div>
 	<div class="wrapper">
-        <div class="center-div">  
-	        <jsp:include page="adminSidebar.jsp" />
-	        <div class="main-div">
-		        <jsp:include page="../common/header.jsp" />
-                <!-- 컨텐츠 시작 -->
-		        <div class="content">
-					<h2>관리자 페이지</h2>
-
-				    <div class="dashboard">
-				        <div class="dashboard_box">
-                            <div>
-                                <div>
-                                    <div class="dash-info">
-                                        총 회원 수 <br>
-                                        <output name="totalMember"></output> 명
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dashboard_box">
-                            <div>
-                                <div>
-                                    <div class="dash-info">
-                                        누적 전체 게시글 수 <br>
-                                        <output name="totalBoard"></output> 개
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dashboard_box">
-                            <div>
-                                <div>
-                                    <div class="dash-info">
-                                        전체 매출 <br>
-                                        <output name="totalSales"></output> 원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-				    </div>
-                    <hr>
-                    <br>
-				    <div class="dash-charts">
-				        <div class="chart">
-                            <div id="userChart"></div>
-                        </div>
-                        <div class="chart">
-                            <div id="eachBoard"></div>
-                        </div>
-                        <div class="chart">
-                            <div id="weekBoard"></div>
-                        </div>
-                        <div class="chart">
-                            <div id="weekSales"></div>
-                        </div>
-				    </div>
-				
-				</div>
-                <!-- 컨텐츠 끝 -->
-		        <jsp:include page="../common/footer.jsp" />
-	        </div> 
-        </div>
-    </div>
-</div>
-
+		<!-- 상단 nav 바 -->
+		<nav class="nav-container">
+			
+			<div class="home-btn">
+				<a href="${pageContext.request.contextPath}">FTD</a>
+			</div>
+			
+	    	<div class="search-box">
+	        	<input type="text" class="search-box-input" placeholder="Search" />
+	        	<button class="search-box-btn">
+	        		<span class="material-symbols-outlined">search</span>
+	        	</button>
+	      	</div>
+	
+	      	<div class="notification">
+	        	<div class="notification-icon">
+	          		<span class="notification-badge">5</span>
+	          		<i class="fa-solid fa-bell"></i>
+	        	</div>
+	        	<div class="notification-icon">
+	          		<span class="notification-badge">9</span>
+	          		<i class="fa-solid fa-envelope"></i>
+	        	</div>
+	        	<span id="notification-name">관리자</span>
+	      	</div>
+	    </nav>
+	
+		<!-- 좌측 메뉴 -->
+		<nav class="ani-navbar">
+	      <div class="ani-navbar-menu">
+	      	<span class="material-symbols-outlined ani-navbar-menu__icon">dashboard</span>
+	        <p><a href="#">대시보드</a></p>
+	      </div>
+	      <div class="ani-navbar-menu ani-navbar-menu__icon">
+	        <span class="material-symbols-outlined">group</span>
+	        <p><a href="#">회원 관리</a></p>
+	      </div>
+	      <div class="ani-navbar-menu ani-navbar-menu__icon">
+	        <span class="material-symbols-outlined">campaign</span>
+	        <p><a href="#">공지 관리</a></p>
+	      </div>
+	      <div class="ani-navbar-menu ani-navbar-menu__icon">
+	        <span class="material-symbols-outlined">assignment</span>
+	        <p><a href="#">게시판 관리</a></p>
+	      </div>
+	      <div class="ani-navbar-menu ani-navbar-menu__icon">
+	        <span class="material-symbols-outlined">store</span>
+	        <p><a href="#">마켓 관리</a></p>
+	      </div>
+	    </nav>
+	    
+	    <!-- Dashboard -->
+	    <div class="container">
+	      <h4 class="my-4">Dashboard</h4>
+	      <div class="row">
+	        <div class="col-lg-3">
+	          <div class="card monthly">
+	            <div class="card-body d-flex justify-content-between">
+	              <div>
+	                <p class="card-text mb-2">전체 회원 수</p>
+	                <h4>${ requestScope.totalUser } 명</h4>
+	              </div>
+	              <span class="material-symbols-outlined"
+	              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
+	              		group
+	              </span>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col-lg-3">
+	          <div class="card annual">
+	            <div class="card-body d-flex justify-content-between">
+	              <div>
+	                <p class="card-text mb-2">누적 전체 게시글 수</p>
+	                <h4>${ requestScope.totalBoard } 개</h4>
+	              </div>
+	              <span class="material-symbols-outlined"
+	              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
+	              		assignment
+	              </span>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col-lg-3">
+	          <div class="card tasks">
+	            <div class="card-body d-flex justify-content-between">
+	              <div>
+	                <p class="card-text mb-2">전체 매출</p>
+	                <h4>${ requestScope.totalSales } 원</h4>
+	              </div>
+	              <span class="material-symbols-outlined"
+	              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
+	              		attach_money
+	              </span>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    
+	    <!-- chart와 task -->
+	    <div class="container mt-3">
+	      <div class="row">
+	        <div class="col-lg-8">
+	          <div class="card-header h5">Earning Overview</div>
+	          <div class="card-body"><canvas id="myChart"></canvas></div>
+	        </div>
+	        <div class="col-lg-4">
+	          <div class="card">
+	            <div class="card-header h5">Tasks</div>
+	            <ul class="list-group list-group-flush">
+	              <li class="list-group-item">Borrowed Items</li>
+	              <li class="list-group-item">Trello requests</li>
+	              <li class="list-group-item">Marked Comments</li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June"],
+          datasets: [
+            {
+              label: "Monthly",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+              fill: true,
+              tension: 0.2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
 </body>
 </html>
