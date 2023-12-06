@@ -384,15 +384,17 @@
                                 + val[0].promotionContent
                                 + '<div class="product_image">'
                                 + '<div>'
+                                <c:if>
                                 + '<div id="product_image_1">'
                                 + '<img src="'+ val[3][0].changeName +'" >'
                                 + '</div>'
                                 + '<div id="product_image_2">'
                                 + '<div id="product_image_2_1">'
-                                + '<img src="'+ val[3][1].changeName +'">'
+                                + '<img src="'+ val[3][1].changeName +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
                                 + '</div>'
                                 + '<div id="product_image_2_2">'
                                 + '<img src="'+ val[3][2].changeName +'">'
+                                
                                 + '</div>'
                                 + '</div>'
                                 + '</div>'
