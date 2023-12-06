@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -140,13 +145,9 @@ public class SellerController {
 		
 		String encPwd = bcryptPasswordEncoder.encode(s.getSellerPwd());
 		
-		
-		
 		System.out.println(encPwd);
 		
 		s.setSellerPwd(encPwd);
-		
-		
 		
 		int result = sellerService.insertSeller(s);
 		
@@ -161,31 +162,74 @@ public class SellerController {
 			model.addAttribute("errorMsg", "회원가입 실패");
 			
 			return "common/errorPage";
-			
 		}
-		
 	}
-	
 	
 	@RequestMapping("sellerPage")
 	public String sellerPage() {
 		return "seller/sellerPage";
 	}
 	
-	@RequestMapping("update.se")
-	public void updateSeller(Seller s, HttpServletRequest upFile) {
-		
-		int result = sellerService.updateSeller(s);
-		
-		if(result > 0) {
-			
-			Seller updateSel = sellerService.loginSeller(s);
-			
-			
-			
-		}
-		
-		
-	}
+	@RequestMapping(value = "update.se", method = RequestMethod.POST)
+    public String updateSeller(
+            Seller s,
+            Model model,
+            HttpSession session,
+            @RequestPart("upFile") MultipartFile upfile) {
+        
+        if (upfile != null && !upfile.isEmpty()) {
+            
+            String imageUrl = handleFileUpload(upfile);
+
+            s.setChangeName(imageUrl);
+        }
+        
+        sellerService.updateSeller(s);
+        session.removeAttribute("loginSeller");
+        session.setAttribute("loginSeller", s);
+        session.setAttribute("alertMsg", "회원정보 변경 성공했습니다.");
+        return "redirect:/sellerPage"; 
+    }
+
+    
+    private String handleFileUpload(MultipartFile file) {
+        
+        String uploadDirectory = "/path/to/upload/directory";
+        
+        String fileName = file.getOriginalFilename();
+        
+        String filePath = uploadDirectory + "/" + fileName;
+
+        return "/images/" + fileName; 
+    }
+
 	
+	
+	@GetMapping("/find-id1")
+	public String sellerId(HttpSession session) {
+		if(session.getAttribute("loginUser") != null) { // 로그인상태
+			
+			session.setAttribute("alertMsg", "이미 로그인 되어있습니다.");
+			
+			return "redirect:/";
+		}
+		else {
+			return "seller/sellerIdFind";
+		}
+	}	
+	
+	@PostMapping("/found-id1")
+	public String findIdByEmail(String email, Model model) {
+		
+		String foundId = sellerService.findSellerIdByEmail(email);
+		
+		if (foundId != null) {
+			model.addAttribute("foundId", foundId);
+			return "seller/found-id";
+			
+		} else {
+			model.addAttribute("error", "님 이거 이메일 못찾음");
+			return "seller/found-id";
+		}
+	}
 }

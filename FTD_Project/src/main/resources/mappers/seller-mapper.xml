@@ -113,7 +113,34 @@
 						 , #{phone}
 						 , #{accountNo}
 						 )
-	
 	</insert>
+
+	<!-- 회원정보수정용 쿼리문 -->
+	
+	<update id="updateSeller"
+		 	parameterType="seller">
+		UPDATE SELLER
+		   SET SELLER_NAME = #{sellerName}
+		   	 , COMPANY_NAME = #{companyName}
+		   	 , COMPANY_NO = #{companyNo}
+		   	 , EMAIL = #{email}
+		   	 , PHONE = #{phone}
+		   	 , BUSINESS_NO = #{businessNo}
+		   	 , ADDRESS = #{address}
+		   	 , ACCOUNT_NO = #{accountNo}
+		WHERE SELLER_ID = #{sellerId}
+		  AND DELETE_DATE IS NULL
+	</update>
+
+
+
+	<!-- ID찾기(이메일기반) -->
+	<select id="findId" 
+			parameterType="string" 
+			resultType="string">
+			SELECT SELLER_ID 
+			FROM SELLER 
+			WHERE EMAIL=#{email} AND DELETE_DATE IS NULL
+	</select>
 
 </mapper>

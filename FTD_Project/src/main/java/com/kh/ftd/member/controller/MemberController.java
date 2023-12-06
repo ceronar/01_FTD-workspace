@@ -218,8 +218,6 @@ public class MemberController {
 			model.addAttribute("error", "님 이거 이메일 못찾음");
 			return "member/found-id";
 		}
-		
 	}
-	
 	
 }
