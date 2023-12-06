@@ -83,5 +83,13 @@
 		 WHERE DELETE_DATE IS NULL
 		   AND NOTICE_NO = #{noticeNo}
 	</select>
+	
+
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE NOTICE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE NOTICE_NO = #{noticeNo}
+	</update>
+
 
 </mapper>

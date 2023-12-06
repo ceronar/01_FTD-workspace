@@ -116,7 +116,7 @@
 						        	
 
 						        	<form action="" id="postForm" method="post">
-					                	<input type="hidden" name="nno" id="nno" 
+					                	<input type="text" id="nno" name="nno"
 					                				value="${ requestScope.n.noticeNo }">
 										<c:forEach var="f" items="${ requestScope.nf }">
 						                	<input type="text" name="filePath" id="filePath"
@@ -187,23 +187,23 @@
         </div>
     </div>
     
-					            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-		            	        <script type="text/javascript">
-						        $(".slider").slick({
-									dots: true,
-									autoplay: true,
-									autoplaySpeed: 3000,
-									arrows: true,
-									responsive: [
-									    {
-										    breakpoint: 768,
-										    settings: {
-										        autoplay: false,
-									      	}
-									    }
-									]
-								});
-						        </script>
+			            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+            	        <script type="text/javascript">
+				        $(".slider").slick({
+							dots: true,
+							autoplay: true,
+							autoplaySpeed: 3000,
+							arrows: true,
+							responsive: [
+							    {
+								    breakpoint: 768,
+								    settings: {
+								        autoplay: false,
+							      	}
+							    }
+							]
+						});
+				        </script>
 
 </body>
 </html>

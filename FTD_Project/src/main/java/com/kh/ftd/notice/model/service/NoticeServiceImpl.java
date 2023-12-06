@@ -57,8 +57,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int deleteNotice(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.deleteNotice(sqlSession, noticeNo);
 	}
 
 	@Override

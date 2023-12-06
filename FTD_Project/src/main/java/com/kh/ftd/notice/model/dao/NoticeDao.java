@@ -47,5 +47,11 @@ public class NoticeDao {
 	public ArrayList<NoticeFile> selectNoticeFile(SqlSessionTemplate sqlSession, int noticeNo) {
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeFile", noticeNo);
 	}
+
+	public int deleteNotice(SqlSessionTemplate sqlSession, int noticeNo) {
+		return sqlSession.update("noticeMapper.deleteNotice", noticeNo);
+	}
+	
+	
 	
 }
