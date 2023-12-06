@@ -38,4 +38,8 @@ public interface SellerService {
 	
 	// 판매자 마켓 찜 수 조회 (select)
 	int ajaxSelectSubscribe(int sellerNo);
+	
+	// 판매자 아이디 찾기 (selesct)
+	String findSellerIdByEmail(String email);
+
 }

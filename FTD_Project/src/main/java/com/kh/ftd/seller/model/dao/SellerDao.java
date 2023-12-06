@@ -50,4 +50,14 @@ public class SellerDao {
 		return sqlSession.insert("sellerMapper.insertSeller", s);
 	}
 
+	public String findId(SqlSessionTemplate sqlSession, String email) {
+
+		return sqlSession.selectOne("sellerMapper.findId", email);
+	}
+
+	public int updateSeller(SqlSessionTemplate sqlSession, Seller s) {
+
+		return sqlSession.update("sellerMapper.updateSeller", s);
+	}
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,11 +74,12 @@
         <h1>공지사항 수정</h1>
 	
         <form id="updateForm" method="post" action="update.no" enctype="multipart/form-data">
+        <input type="hidden" id="noticeNo" name="noticeNo" value="${ requestScope.n.noticeNo }">
             <label for="noticeTitle">제목:</label>
-            <input type="text" id="noticeTitle" name="noticeTitle" value="${ requestScope.n. }" required>
+            <input type="text" id="noticeTitle" name="noticeTitle" value="${ requestScope.n.noticeTitle }" required>
 
             <label for="content">내용:</label>
-            <textarea id="noticeContent" name="noticeContent" required></textarea>
+            <textarea id="noticeContent" name="noticeContent" required>${requestScope.n.noticeContent }</textarea>
             <!-- summernote용 textarea 
             	textarea id="summernote" name="editordata"></textarea> 
             -->
@@ -86,9 +88,25 @@
 
             <input type="file" id="upfile" class="upfile" name="upfile" multiple>
 
+            <div class="file-list">
+				<c:if test="${ not empty requestScope.nf }">
+	                현재 업로드된 파일 : 
+	                <br>
+	                <c:forEach var="nf" items="${ requestScope.nf }">
+		                <a href="${ nf.changeName }" 
+		                   download="${ nf.originName }">
+						${ nf.originName }
+						</a>&nbsp
+						<!-- 기존의 첨부파일이 있다라는 뜻 -->
+						<input type="text" name="originName" value="${ nf.originName }">
+						<input type="text" name="changeName" value="${ nf.changeName }">
+	                </c:forEach>
+	            </c:if>
+            </div>
             <div align="center">
                 <input type="submit" value="게시글 등록">
             </div>
+            
         </form>
     </div>
     <!-- summernote 사용시 활성화

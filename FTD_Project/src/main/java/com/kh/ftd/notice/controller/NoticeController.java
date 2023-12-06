@@ -87,16 +87,8 @@ public class NoticeController {
 			}
 		}
 		
-		// 이 시점 기준으로
-		// 넘어온 첨부파일이 있었을 경우 (if문을 거쳤기 때문)
-		// Board b : 제목, 작성자아이디, 내용, 원본파일명, 수정파일명
-		// 넘어온 첨부파일이 없었을 경우 (if문을 거치지 않았기 때문)
-		// Board b : 제목, 작성자아이디, 내용
-		
 		
 		if(result > 0) { // 게시글 작성 성공
-			// => alert 문구를 담고
-			//    list.bo 로 url 재요청
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
 			
@@ -106,8 +98,7 @@ public class NoticeController {
 			// => 에러문구를 담아서 에러페이지로 포워딩
 			
 			model.addAttribute("errorMsg", "게시글 등록 실패");
-			
-			// /WEB-INF/views/common/errorPage.jsp
+
 			return "common/errorPage";
 		}
 	}
@@ -175,6 +166,8 @@ public class NoticeController {
 							.getRealPath(list[i]);
 					
 					new File(realPath).delete();
+					
+					noticeService.deleteNoticeFile(nno);
 				}
 			}
 			
@@ -186,6 +179,113 @@ public class NoticeController {
 			// => 에러문구를 담아서 에러페이지로 포워딩
 			
 			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	@PostMapping("updateForm.no")
+	public String updateForm(int nno, Model model) {
+		
+		Notice n = noticeService.selectNotice(nno);
+		ArrayList<NoticeFile> nf = noticeService.selectNoticeFile(nno);
+		
+		model.addAttribute("n", n);
+		model.addAttribute("nf", nf);
+		
+		// /WEB-INF/views/board/boardUpdateForm.jsp
+		return "notice/noticeUpdateForm";
+	}
+	
+	@PostMapping("update.no")
+	public String updateNotice(Notice n, 
+							  NoticeFile nf,
+							  MultipartFile[] upfile,
+							  HttpSession session,
+							  String[] originName,
+							  String[] changeName,
+							  Model model) {
+		
+//		for(MultipartFile i : upfile) {
+//			System.out.println(i);
+//		}
+		
+//		System.out.println(n);
+		
+//		System.out.println(nno);
+		
+		// 새로 넘어온 첨부파일이 있을 경우
+		// upfile 의 filename 속성값이 빈문자열과 일치하지 않을 경우
+		
+		if(!upfile[0].getOriginalFilename().equals("")) {
+				
+			// case1. 기존에 첨부파일이 있었을 경우
+			// => 기존의 첨부파일을 찾아서 서버로부터 삭제
+			//	  (기존 첨부파일의 수정파일명이 필요함)
+			if(originName != null) {
+				for(String i : changeName) {
+					
+					String realPath = session.getServletContext().getRealPath(i);
+					new File(realPath).delete();
+					
+					noticeService.deleteNoticeFile(n.getNoticeNo());
+					
+				}
+				
+			}
+			
+			// case1. 기존에 첨부파일이 있었을 경우
+			// case2. 기존에 첨부파일이 없었을 경우
+			// 공통코드로써
+			// => 새로 넘어온 첨부파일을 파일명 수정 후 업로드
+			for(MultipartFile i : upfile) {
+				String rechangeName = saveFile(i, session);
+				
+				nf.setOriginName(i.getOriginalFilename());
+				nf.setChangeName("resources/uploadFiles/notice/" + rechangeName);
+				nf.setNoticeNo(n.getNoticeNo());
+				
+				noticeService.insertFile(nf);
+			}
+		}
+		
+		/*
+		 * * 이 시점 기준으로
+		 * b 에 무조건 담겨있는 내용
+		 * boardNo, boardTitle, boardContent
+		 * 
+		 * 1. 새로 첨부된 파일 X, 기존 첨부파일 X
+		 * => originName : null
+		 *    changeName : null
+		 * 
+		 * 2. 새로 첨부된 파일 X, 기존 첨부파일 O
+		 * => originName : 기존첨부파일의 원본명 
+		 * 	  changeName : 기존첨부파일의 수정명
+		 * 
+		 * 3. 새로 첨부된 파일 O, 기존 첨부파일 X
+		 * => originName : 새로 첨부된 파일의 원본명
+		 *    changeName : 새로 첨부된 파일의 수정명
+		 * 
+		 * 4. 새로 첨부된 파일 O, 기존 첨부파일 O
+		 * => originName : 새로 첨부된 파일의 원본명
+		 *    changeName : 새로 첨부된 파일의 수정명
+		 */
+		
+		// Service 단으로 b 를 보내면서 update 요청
+		int result = noticeService.updateNotice(n);
+		
+		if(result > 0) { // 수정 성공
+			// => alert 문구를 담아서 
+			//	  게시판 상세보기 페이지로 url 재요청
+			
+			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
+			
+			return "redirect:/detail.no?nno=" +  n.getNoticeNo();
+			
+		} else { // 수정 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "게시글 수정 실패");
 			
 			return "common/errorPage";
 		}
