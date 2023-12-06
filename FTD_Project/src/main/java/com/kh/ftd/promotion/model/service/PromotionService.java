@@ -30,7 +30,9 @@ public interface PromotionService {
 	
 		
 	//홍보리스트 작성하기 서비스
-	int insertPromotion(Promotion p);
+		int insertPromotion(Promotion p);
+	
+		int insertFile(PromotionFile pf);
 	
 	// 홍보리스트 상세조회 서비스
 	
