@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <style>
-
+	
 	/* 전체 div */
 	.store {
 		width: 100%;
@@ -16,7 +16,7 @@
 
 	/* 테스트 */
 	.store div {
-		/* border: 1px solid black; */
+		border: 1px solid black;
 	}
 
 	/* store div 공통 css */
@@ -36,7 +36,7 @@
 	}
 
 	.store-img {
-		width: 25%;
+		width: 200px;
 		height: 100%;		
 	}
 	
@@ -74,17 +74,17 @@
 	}
 
 	.store-title-img {
-		width: 15%;
+		width: 10%;
 	}
 
 	.store-name {
-		width: 55%;
+		width: 45%;
 		font-size: 25px;
 		font-weight: bolder;
 	}
 
 	.store-address {
-		width: 30%;
+		width: 45%;
 		color: rgb(38, 40, 40);
 	}
 
@@ -133,21 +133,23 @@
 		width: 20%;
 	}
 	
+	
+	
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 	
 	// 페이지 로딩시 불러올 리스트 개수 변수 설정
-	var page = 1;
-	var pageSize = 20; // 초기 로딩 시 20개씩 불러오기
+	var page = 0;
+	var pageSize = 10; // 초기 로딩 시 20개씩 불러오기
 	
 	 $(document).ready(function () {
 	        
 		 	ajaxSelectSellerList();
 
 	        $(window).scroll(function () {
-	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 10) {
 	                
 	            	page++;	         
 	            	ajaxSelectSellerList();
@@ -165,10 +167,38 @@
 	            	
 	            	console.log("ajax 통신 성공");
 	            	console.log(result);
-	            	
-	                data.forEach(function () {
-	                    $('#legacyContainer').append('<p>' + val + '</p>');
+	                   		
+	                result.forEach(function (item, index) {
+	                    $('.content').append(
+							
+	                    	'<div class="store">'
+	        					+'<div class="store-no">' + (index + (page * pageSize))  + '</div>'
+	        					+ '<div class="store-img"><img src= ""></div>'
+	        					+ '<div class="store-content">'	
+	        						
+	        					 	+ '<div class="store-title">'
+	        							+ '<div class="store-title-img">'+ '아이콘' + '</div>'
+	        							+ '<div class="store-name">' + item[0].companyName + '</div>'
+	        							+ '<div class="store-address">'+ item[0].address + '</div>'
+	        						+ '</div>'
+	        				
+	        						+ '<div class="store-goods">'+ item[0] + '</div>'
+	
+	        						+ '<div class="store-detail">'
+	        							+ '<div class="store-star">' + '별이미지' + '</div>'
+	        							+ '<div class="store-rating">' + item[2] + '</div>'
+	        							+ '<div class="store-review">(' + item[3] + ')</div>'
+	        							+ '<div class="store-person">' + '사람이미지' + '</div>'
+	        							+ '<div class="store-subscribe">' + item[4] + '</div>'
+	        						+ '</div>'
+	        					+ '</div>'   
+	                    	+'</div>'
+	                    	+ '<br><br>'
+	                    );
+	                             
 	                });
+	                
+	           
 
 	            },
 	            error : function() {
@@ -191,43 +221,11 @@
 	            
 	            <div class="content">
 	            
-	             <!-- 테스트 -->
-				<div id="legacyContainer"></div>
+		            <div class="store-filter"></div>
+	
 				
-	            <div class="store-filter"></div>
+		        </div>
 
-				<br><br>
-	          
-	            <div class="store">
-					<div class="store-no">1</div>
-					<div class="store-img"><img src="${pageContext.request.contextPath}/resources/images/sample/test.png"></div>
-					<div class="store-content">	
-						
-						<div class="store-title">
-							<div class="store-title-img">이미지</div>
-							<div class="store-name">가게</div>
-							<div class="store-address">가게 주소</div>
-						</div>
-				
-						<div class="store-goods">가게 정보</div>
-
-						<div class="store-detail">
-							<div class="store-star">별이미지</div>
-							<div class="store-rating">별점</div>
-							<div class="store-review">(리뷰 수)</div>
-							<div class="store-person">사람이미지</div>
-							<div class="store-subscribe">찜</div>
-						</div>
-					</div>   
-    			</div>
-    			<!-- 다른 가게들도 유사한 형식으로 추가 가능 -->
-	            
-	            
-	            <!-- ======================================= -->
-	                    
-	            </div>
-	            
-	            <jsp:include page="../common/footer.jsp" />
 	        </div>             
         </div>
     </div>
