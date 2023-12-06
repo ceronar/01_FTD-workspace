@@ -59,6 +59,12 @@ public class PromotionServiceImpl implements PromotionService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public int insertFile(PromotionFile pf) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public int increaseCount(int promotionNo) {
@@ -101,6 +107,8 @@ public class PromotionServiceImpl implements PromotionService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 
 

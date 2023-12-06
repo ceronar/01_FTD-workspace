@@ -102,26 +102,23 @@
             resize: vertical; /* Allow vertical resizing */
         }
 
-        #profile_3 {
-            margin-left: auto; /* Move to the right */
-        }
 
-        #profile_3 button {
-            background-color: transparent;
-            color: #2ECC71;
-            border: 1px solid #2ECC71;
-            padding: 10px;
+        <!-- a태그 버튼 -->
+         .btn > a {
+            float : right;
+            padding: 8px 20px;
+            border: none;
+            background-color: #2ecc71;
+            color: #fff;
             cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-            display: inline-block;
-            margin-right: 10px;
+            border-radius: 3px;
+            margin: 10px 5px;
+            text-decoration: none;
         }
 
-        #profile_3 button:hover {
-            background-color: #27AE60;
-            color: #ffffff;
-        }
+        .btn a:hover {
+            background-color: #27ae60;        
+         }
     </style>
     <title>글 작성</title>
 </head>
@@ -133,20 +130,37 @@
     <main>
         <div class="profile">
             <div class="profile_1">
-                <img src="https://placekitten.com/50/50" alt="Profile Image">
+                <img src="${requestScope.sellerFile.changeName}" alt="Profile Image">
             </div>
             <div class="profile_2">
-                <span>100년 수산</span>
+                <span>${requestScope.seller.companyName}</span>
                 <div>
-                    <span>경남 통영</span>*
+                    <span>${requestScope.seller.address}</span>*
                     <span>17분전</span>
                 </div>
             </div>
          
         </div>
 
-        <textarea placeholder="글을 작성해주세요..."></textarea>
-        <button>글 작성하기</button>
+       <div>
+         <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
+         
+            <label for="content">내용:</label>
+            <textarea id="promotionContent" name="promotionContent" required></textarea>
+            <!-- summernote용 textarea 
+            	textarea id="summernote" name="editordata"></textarea> 
+            -->
+
+            <!-- 파일 선택 버튼 -->
+
+            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
+
+            <div align="center">
+                <input type="submit" value="게시글 등록">
+            </div>
+        </form>
+       </div>
+       
     </main>
 
     <script>
