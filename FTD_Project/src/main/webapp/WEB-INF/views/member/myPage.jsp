@@ -1,79 +1,181 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<!-- Add Bootstrap CSS link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-    <!-- Add your custom styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>member Information</title>
+    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-        /* Add custom styles for the modal */
-        .modal-content {
-            background-color: #f8f9fa; /* Light gray background */
-            color: #495057; /* Text color */
+    <%--
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .center-div {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 1080px;
+            margin: auto;
         }
         
-        .modal-header {
-            background-color: #007bff; /* Primary color for header */
-            color: #fff; /* Text color for header */
+        .main-div {
+        	width: 800px;
+        	margin: auto;
         }
         
-        .modal-body {
-            padding: 20px; /* Add padding to the modal body */
+        h2 {
+            color: #333;
         }
-        
-        .modal-footer {
-            background-color: #f8f9fa; /* Light gray background for footer */
-            justify-content: center; /* Center align the buttons */
-        }
-    </style>
 
+        form {
+            display: grid;
+            gap: 10px;
+        }
+      --%>
+      .content {
+		height: 1400px;
+      }
+      
+      label {
+          font-weight: bold;
+          color: #555;
+          font-size: 18px; 
+      }
+      
+      input {
+          width: 100%;
+          padding: 8px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 20px;
+      }
+      
+      button {
+          background-color: #4caf50;
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+      }
+      button:hover {
+          background-color: #45a049;
+      }
+      /* Style for modal overlay */
+      .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          align-items: center;
+          justify-content: center;
+      }
+
+      /* Style for modal content */
+      .modal {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      #previewImage {
+      	width: 300px;
+      	height: 300px;
+      }
+      
+      .profile-table {
+		width: 100%;
+		box-sizing: border-box;
+		border: 1px solid gray;
+ 	 	border-collapse: collapse;
+ 	 	border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 8px;
+	  }
+	  
+	  .modal-header {
+	  	display: flex;
+	  	justify-content: space-between;
+	  	align-items: center;
+	  }
+	  .modal-header>button {
+	  	background-color: rgba(0,0,0,0);
+		border: none;
+		cursor: pointer;
+	  }
+	  
+	  .material-symbols-outlined {
+		color: gray;
+		font-variation-settings:
+		  'FILL' 0,
+		  'wght' 400,
+		  'GRAD' 0,
+		  'opsz' 24
+		}
+      
+    </style>
 </head>
 <body>
-    
-    <jsp:include page="../common/header.jsp" />
 
-    <div class="content">
-        <br><br>
-        <div class="innerOuter">
-            <h2>마이페이지</h2>
-            <br>
-
-            <form action="update.me" method="post">
-                <div class="form-group">
-                    <label for="memberId">* 아이디 : </label>
-                    <input type="text" class="form-control" id="memberId" value="${ sessionScope.loginUser.memberId }" name="memberId" readonly> <br>
-
-                    <label for="memberName">* 이름 : </label>
-                    <input type="text" class="form-control" id="memberName" value="${ sessionScope.loginUser.memberName }" name="memberName" required> <br>
-
-                    <label for="email"> &nbsp; 이메일 : </label>
-                    <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email"> <br>
-
-                    <label for="phone"> &nbsp; 폰번호 : </label>
-                    <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone"> <br>
+<!-- member Information Section -->
+	<div class="wrapper">
+        <div class="center-div">
+	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+		        <div class="content">
+			    <h1>판매자 정보</h1>
+				    <form action="update.me" method="post" >
+				    	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+				    	
+				        <label for="memberId">* 아이디 : </label>
+                        <input type="text" class="form-control" id="memberId" value="${ sessionScope.loginUser.memberId }" name="memberId" readonly> <br>
+                        <br><br>
+                        <label for="memberName">* 이름 : </label>
+                        <input type="text" class="form-control" id="memberName" value="${ sessionScope.loginUser.memberName }" name="memberName" required> <br>
+                        <br><br>
+                        <label for="email"> &nbsp; 이메일 : </label>
+                        <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email"> <br>
+                        <br><br>
+                        <label for="phone"> &nbsp; 폰번호 : </label>
+                        <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone"> <br>
+                        <br><br>
+                        <label for="zipCode"> &nbsp; 우편번호 : </label>
+                        <input type="text" class="form-control" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode"> <br>
+                        <br><br>
+                        <label for="address"> &nbsp; 주소 : </label>
+                        <input type="text" class="form-control" id="address" value="${ sessionScope.loginUser.address }" name="address"> <br>
+                        <br><br>
+                        <label for="detailAddress"> &nbsp; 상세주소 : </label>
+                        <input type="text" class="form-control" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
+                        <br><br>
                     
-                    <label for="zipCode"> &nbsp; 우편번호 : </label>
-                    <input type="text" class="form-control" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode"> <br>
-
-                    <label for="address"> &nbsp; 주소 : </label>
-                    <input type="text" class="form-control" id="address" value="${ sessionScope.loginUser.address }" name="address"> <br>
-                    
-                    <label for="detailAddress"> &nbsp; 상세주소 : </label>
-                    <input type="text" class="form-control" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
-                   
-                   
-                    <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
-                    <input type="radio" id="Male" value="M" name="gender">
-                    <label for="Male">남자</label> &nbsp;&nbsp;
-                    <input type="radio" id="Female" value="F" name="gender">
-                    <label for="Female">여자</label> &nbsp;&nbsp;
-                    
-                    <script>
+                        <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
+                        <input type="radio" id="Male" value="M" name="gender">
+                        <label for="Male">남자</label> &nbsp;&nbsp;
+                        <input type="radio" id="Female" value="F" name="gender">
+                        <label for="Female">여자</label> &nbsp;&nbsp;
+                        
+                        <script>
                     	$(function() {
                     		
                     		
@@ -83,57 +185,127 @@
                     											.attr("checked", true);
                     		}
                     	});
-                    </script>
-                </div> 
-                <br>
-                <div class="btns" align="center">
-                    <button type="submit" class="btn btn-primary">수정하기</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
-                </div>
-            </form>
-        </div>
-        <br><br>
-        
-    </div>
-
-    <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
-    <div class="modal fade" id="deleteForm">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">회원탈퇴</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <form action="delete.me" method="post">
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div align="center">
-                            탈퇴 후 복구가 불가능합니다. <br>
-                            정말로 탈퇴 하시겠습니까? <br>
-                        </div>
-                        <br>
-                            <label for="memberPwd" class="mr-sm-2">Password : </label>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memberPwd" name="memberPwd"> <br>
-                    		<input type="hidden" name="memberId" value="${ sessionScope.loginUser.memberId }">
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer" align="center">
-                        <button type="submit" class="btn btn-danger">탈퇴하기</button>
-                    </div>
-                </form>
-            </div>
+                    	</script>
+                        
+						<button type="submit">정보 변경</button>
+				        <button type="button" onclick="openModal('passwordModal')">비밀번호 변경</button><br><br>
+				        <button type="button" onclick="openModal('deleteModal')">탈퇴하기</button>
+				    </form>
+			    </div>
+		        <jsp:include page="../common/footer.jsp" />
+	        </div> 
+	              
         </div>
     </div>
-
-    <jsp:include page="../common/footer.jsp" />
 	
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!-- Change Password Modal -->
+<div id="passwordModal" class="overlay">
+    <div class="modal">
+        <!-- Modal Header -->
+	          <div class="modal-header">
+	            <h4 class="modal-title">비밀번호 변경</h4>
+	            <button type="button" class="close" data-dismiss="modal" onclick="closeModal('passwordModal')"><span class="material-symbols-outlined">close</span></button>
+	          </div>
+	    
+	          <!-- Modal body -->
+	          <div class="modal-body">
+	            <form action="updatePwd.me" method="post">
+	                 <input type="hidden" name="memberId" value="${ sessionScope.loginUser.memberNo }">
+	                 
+	                <table>
+	                    <tr>
+	                        <td>현재 비밀번호</td>
+	                        <td>
+	                            <input type="password" name="memberPwd" required>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>변경할 비밀번호</td>
+	                        <td>
+	                        	<input type="password" name="updatePwd" required>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td>변경할 비밀번호 재입력</td>
+	                        <td>
+	                            <input type="password" name="checkPwd" required>
+	                        </td>
+	                    </tr>
+	                </table>
+	                <br>
+	                <button type="submit" class="btn btn-secondary btn-sm" onclick="return validatePwd();">비밀번호 변경</button>
+	            </form>
+	            
+	            <script>
+	                function validatePwd() {
+	                    if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+	                        alert("비밀번호가 일치하지 않습니다.");
+	                        return false;
+	                    }
+	                    return true;
+	                }
+	            </script>
+	          </div>
+    </div>
+</div>
+
+<!-- 탈퇴 Modal -->
+<div id="deleteModal" class="overlay">
+    <div class="modal">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">회원탈퇴</h4>
+          <button type="button" class="close" data-dismiss="modal" onclick="closeModal('deleteModal')"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <b>
+              탈퇴 후 복구가 불가능합니다. <br>
+              정말로 탈퇴하시겠습니까? <br><br>
+          </b>
+          <form action="delete.me" method="post">
+              <!-- 탈퇴 시 : 비밀번호 확인 -->
+              <table>
+                  <tr>
+                      <td>비밀번호</td>
+                      <td>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memberPwd" name="memberPwd"> <br>
+                            <input type="hidden" name="memberId" value="${ sessionScope.loginUser.memberId }">
+                      </td>
+              </table>
+              <br>
+              <button type="submit" class="btn btn-secondary btn-sm">탈퇴하기</button>
+          </form>
+        </div>
+    </div>
+</div>
+<script>
+    // JavaScript functions to open and close modals
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+    
+ 	// Preview profile picture
+    document.getElementById('profilePicture').addEventListener('change', function (event) {
+        const previewImage = document.getElementById('previewImage');
+        const fileInput = event.target;
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImage.src = '';
+        }
+    });
+</script>
 
 </body>
 </html>
