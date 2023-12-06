@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!DOCTYPE html>
     <html>
 
@@ -482,7 +483,7 @@
 				            		
 				        <div class="content">
 				        
-		   <main>
+		   
                     <!-- 내용은 여전히 동일하게 유지 -->
 
 
@@ -495,9 +496,12 @@
                             <a href="">필터</a>
                         </div>
 
+					 <c:if test="${ not empty sessionScope.loginSeller }"> 
                         <div align="rigth">
-                            <a href="enrollForm.bo">글작성</a>
+                            <a href="enrollForm.bo?sno=${sessionScope.loginSeller.sellerNo}">글작성</a>
                         </div>
+                     </c:if>
+                        
                     </div>
                     <div align="center">
                         <ul>
@@ -515,7 +519,7 @@
                     
                 
             
-        </main>
+        
 				        
 				        
 				        <br>
@@ -525,7 +529,7 @@
 				            <a href="plist.bo">홍보</a>
 			
 				        </div>
-				        <jsp:include page="../common/footer.jsp" />
+				        
 			        </div> 
 			              
 		        </div>

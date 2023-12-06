@@ -36,7 +36,7 @@ public class SellerServiceImpl implements SellerService{
 
 	@Override
 	public int updateSeller(Seller s) {
-		return 0;
+		return sellerDao.updateSeller(sqlSession, s);
 	}
 
 	@Override
@@ -90,5 +90,10 @@ public class SellerServiceImpl implements SellerService{
 		return sellerDao.ajaxSelectSellerMarketList(sqlSession, sellerNo);
 	}
 	
+	
+	@Override
+    public String findSellerIdByEmail(String email) {
+        return sellerDao.findId(sqlSession, email);
+    }
 
 }

@@ -1,11 +1,20 @@
 package com.kh.ftd.promotion.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -42,7 +51,7 @@ public class PromotionController {
 				// 2. 조회수 증가에 성공했다면 해당 게시글 상세조회 서비스 호출
 				if(result > 0) { // 성공
 					
-					System.out.println("성공");
+					//System.out.println("성공");
 					
 					//이 홍보게시글의 내용 , 조횟수
 					Promotion p = promotionService.selectPromotion(pno);
@@ -100,10 +109,66 @@ public class PromotionController {
 	}
 	
 	@RequestMapping(value = "enrollForm.bo")
-	public String enrollForm() {
+	public String enrollForm(int sno, Model mv) {
+		
+		Seller seller = promotionService.selectSellerList(sno);
+		SellerFile sellerFile = promotionService.selectSellerFileProfileList(sno);
+		
+		mv.addAttribute("seller", seller);
+		mv.addAttribute("sellerFile", sellerFile);
 		
 		return "promotion/promotionEnrollForm";
 	}
+	
+	
+	@PostMapping(value = "insert.bo")
+	public String insertPromotion(Promotion p,
+								MultipartFile upfile[],
+								HttpSession session,
+								PromotionFile pf) {
+		
+int result = promotionService.insertPromotion(p);
+		
+		for(int i = 0; i < upfile.length; i++) {
+			if(!upfile[i].getOriginalFilename().equals("")) {
+				
+				String changeName = saveFile(upfile[i], session);
+
+				pf.setOriginalName(upfile[i].getOriginalFilename());
+				pf.setChangeName("resources/uploadFiles/promotion/" + changeName);
+				// System.out.println(nf);
+				promotionService.insertFile(pf);
+			}
+		}
+		
+		// 이 시점 기준으로
+		// 넘어온 첨부파일이 있었을 경우 (if문을 거쳤기 때문)
+		// Board b : 제목, 작성자아이디, 내용, 원본파일명, 수정파일명
+		// 넘어온 첨부파일이 없었을 경우 (if문을 거치지 않았기 때문)
+		// Board b : 제목, 작성자아이디, 내용
+		
+		
+		if(result > 0) { // 게시글 작성 성공
+			// => alert 문구를 담고
+			//    list.bo 로 url 재요청
+			
+			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+			
+			return "redirect:/plist.bo";
+			
+		} else { // 게시글 작성 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			//model.addAttribute("errorMsg", "게시글 등록 실패");
+			
+			// /WEB-INF/views/common/errorPage.jsp
+			return "common/errorPage";
+		}
+		
+		
+	}
+	
+	
 	
 	
 	
@@ -214,6 +279,58 @@ public class PromotionController {
 		// return gson.toJson(list);
 		
 	        return new Gson().toJson(arrList2);
+	}
+	
+	
+	
+	// ----------------------------------------------
+
+	// 현재 넘어온 첨부파일 그 자체를 서버의 폴더에 저장시키는 역할
+	// 스프링의 Controller 클래스에는 
+	// 무조건 요청을 받아주는 메소드만 만들 필요가 없음!!
+	public String saveFile(MultipartFile upfile,
+						   HttpSession session) {
+		String changeName = null;
+		// 파일명 수정 작업 진행 후 서버로 업로드 시키기
+		// 예) "bono.jpg" => "2023110810223012345.jpg"
+		// 1. 원본파일명 뽑아오기 ("bono.jpg")
+		String originName = upfile.getOriginalFilename();
+		
+		// 2. 시간 형식을 문자열로 뽑아내기
+		// "20231108102230" (년월일시분초)
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss")
+												.format(new Date());
+		
+		// 3. 뒤에 붙을 5자리 랜덤수 뽑기 (10000 ~ 99999)
+		int ranNum = (int)(Math.random() * 90000 + 10000);
+		
+		// 4. 원본파일명으로 부터 확장자명을 뽑아오기
+		// ".jpg"
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		// 5. 모두 이어 붙이기
+		changeName = currentTime + ranNum + ext;
+		
+		// 6. 업로드 하고자 하는 물리적인 경로 알아내기
+		String savePath = session.getServletContext()
+				.getRealPath("/resources/uploadFiles/notice/");
+		
+		// 7. 경로와 수정파일명을 합체 후 파일을 업로드 해주기
+//		 System.out.println("originName : " + originName);
+//		 System.out.println("changeName : " + changeName);
+//		 System.out.println("savePate : " + savePath);
+		try {
+			
+			upfile.transferTo(new File(savePath + changeName));
+		
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		// 8. 만들어진 수정파일명을 문자열로 리턴
+		return changeName;
 	}
 	
 	

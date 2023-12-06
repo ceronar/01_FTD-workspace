@@ -219,8 +219,8 @@ public class MemberController {
 			model.addAttribute("error", "님 이거 이메일 못찾음");
 			return "member/found-id";
 		}
-		
 	}
+	
 	
 	@RequestMapping(value = "ajaxSelectSubscribe.se" , produces = "application/json; charset=UTF-8")
 	public void ajaxSelectSubscribe(int memberNo, int sellerNo) {
@@ -234,6 +234,5 @@ public class MemberController {
 		Subscribe resultSub = memberService.ajaxSelectSubscribe(subscribe);
 		
 	}
-	
 	
 }

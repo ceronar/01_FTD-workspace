@@ -107,5 +107,11 @@
 	</update>
 	
 	<!-- ID찾기(이메일기반) -->
-	<select id="findId" parameterType="string" resultType="string">SELECT MEMBER_ID FROM MEMBER WHERE EMAIL=#{email} AND STATUS IS NULL</select>
+	<select id="findId" 
+			parameterType="string" 
+			resultType="string">
+			SELECT MEMBER_ID 
+			FROM MEMBER 
+			WHERE EMAIL=#{email} AND STATUS IS NULL
+	</select>
 </mapper>

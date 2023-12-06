@@ -87,9 +87,7 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 
-	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<!-- 슬라이드 외부 css -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
 </head>
@@ -116,10 +114,10 @@
 						        	
 
 						        	<form action="" id="postForm" method="post">
-					                	<input type="hidden" name="nno" id="nno" 
+					                	<input type="hidden" id="nno" name="nno"
 					                				value="${ requestScope.n.noticeNo }">
 										<c:forEach var="f" items="${ requestScope.nf }">
-						                	<input type="text" name="filePath" id="filePath"
+						                	<input type="hidden" name="filePath" id="filePath"
 						                				value="${ f.changeName }">
 					                	</c:forEach>
 					                </form>
@@ -146,6 +144,7 @@
 					                </script>
 					        	</c:if>
 					            <div class="post-content">
+					            <!-- 슬라이드 화면 -->
 					            <section id="cont_center">
 					            	<article class="column col4">
 					            		<c:if test="${ not empty requestScope.nf }">
@@ -160,7 +159,7 @@
 											</div>	
 										</c:if>
 										<br><br><br><br>
-										<div>"${ requestScope.n.noticeContent }"</div>
+										<div>${ requestScope.n.noticeContent }</div>
 										<br><br><br><br>
 									</article>	
 								</section>
@@ -186,24 +185,24 @@
 	              
         </div>
     </div>
-    
-					            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-		            	        <script type="text/javascript">
-						        $(".slider").slick({
-									dots: true,
-									autoplay: true,
-									autoplaySpeed: 3000,
-									arrows: true,
-									responsive: [
-									    {
-										    breakpoint: 768,
-										    settings: {
-										        autoplay: false,
-									      	}
-									    }
-									]
-								});
-						        </script>
+    				<!-- 슬라이드 스크립트 -->
+			            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+            	        <script type="text/javascript">
+				        $(".slider").slick({
+							dots: true,
+							autoplay: true,
+							autoplaySpeed: 3000,
+							arrows: true,
+							responsive: [
+							    {
+								    breakpoint: 768,
+								    settings: {
+								        autoplay: false,
+							      	}
+							    }
+							]
+						});
+				        </script>
 
 </body>
 </html>

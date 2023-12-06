@@ -55,4 +55,14 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.ajaxSelectSellerMarketList", sellerNo);
 	}
 
+	public String findId(SqlSessionTemplate sqlSession, String email) {
+
+		return sqlSession.selectOne("sellerMapper.findId", email);
+	}
+
+	public int updateSeller(SqlSessionTemplate sqlSession, Seller s) {
+
+		return sqlSession.update("sellerMapper.updateSeller", s);
+	}
+
 }
