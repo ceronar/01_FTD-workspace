@@ -143,50 +143,52 @@ public class NoticeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="delete.no", method=RequestMethod.POST)
-	public String deleteBoard(String nno,
+	@RequestMapping("delete.no")
+	public String deleteNotice(int nno,
 							  String filePath,
 							  Model model,
 							  HttpSession session) {
 		
 		// bno 에는 post 방식으로 넘겨받은 글번호가 들어가있음
+
+		String[] list = filePath.split(",");
 		
-		System.out.println("nno " + nno);
-		System.out.println(filePath);
 		// 삭제 요청
-//		int result = noticeService.deleteNotice(nno);
-//		
-//		if(result > 0) { // 삭제 성공
-//			// => alert 문구를 담아 게시판 리스트 페이지로 url 재요청
-//			
-//			// 기존에 첨부파일이 있었을 경우
-//			// 서버로부터 해당 첨부파일 삭제하기
-//			
-//			// filePath 라는 매개변수에는
-//			// 기존에 첨부파일이 있었을 경우 수정파일명
-//			// 기존에 첨부파일이 없었을 경우 "" 이 들어가 있음
-//			if(!filePath.equals("")) {
-//				// 기존에 첨부파일이 있었을 경우
-//				// => 해당 파일을 삭제처리
-//				
-//				// 해당 파일이 실제 저장되어있는 경로 알아내기
-//				String realPath = session.getServletContext()
-//								.getRealPath(filePath);
-//				
-//				new File(realPath).delete();
-//			}
-//			
-//			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
-//			
-//			return "redirect:/list.bo";
-//			
-//		} else { // 삭제 실패
-//			// => 에러문구를 담아서 에러페이지로 포워딩
-//			
-//			model.addAttribute("errorMsg", "게시글 삭제 실패");
-//			
+		int result = noticeService.deleteNotice(nno);
+		
+		if(result > 0) { // 삭제 성공
+			// => alert 문구를 담아 게시판 리스트 페이지로 url 재요청
+			
+			// 기존에 첨부파일이 있었을 경우
+			// 서버로부터 해당 첨부파일 삭제하기
+			
+			// filePath 라는 매개변수에는
+			// 기존에 첨부파일이 있었을 경우 수정파일명
+			// 기존에 첨부파일이 없었을 경우 "" 이 들어가 있음
+			if(!filePath.equals("")) {
+				// 기존에 첨부파일이 있었을 경우
+				// => 해당 파일을 삭제처리
+				
+				// 해당 파일이 실제 저장되어있는 경로 알아내기
+				for(int i = 0; i < list.length; i++) {
+					String realPath = session.getServletContext()
+							.getRealPath(list[i]);
+					
+					new File(realPath).delete();
+				}
+			}
+			
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:/list.no";
+			
+		} else { // 삭제 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
 			return "common/errorPage";
-//		}
+		}
 	}
 	
 	// ----------------------------------------------

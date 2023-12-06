@@ -87,12 +87,10 @@
 				                </tbody>
 				            </table>
 				        </div>
-
 					        <div class="btn">
 					            <a onclick="deleteSelected()">삭제</a>
 					            <a href="enrollForm.no">작성</a>
 					        </div>
-
 				    </div>
 				    <script>
 				    	// 공지사항 번호를 nno 로 받아 해당 상세 페이지로 넘어가는 스크립트

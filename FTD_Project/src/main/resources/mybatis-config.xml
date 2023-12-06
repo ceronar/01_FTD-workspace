@@ -44,6 +44,7 @@
 		<!-- <mapper resource="/mappers/inquiry-mapper.xml" /> -->
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/seller-mapper.xml"/>
+		<mapper resource="/mappers/admin-mapper.xml"/>
 	</mappers>
 	<!--  
 		주의사항 : mapper 파일이 없는데도 미리 등록하면 FileNotFoundException 발생
