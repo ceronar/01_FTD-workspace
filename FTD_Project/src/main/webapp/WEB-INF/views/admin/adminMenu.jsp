@@ -27,11 +27,12 @@
             text-align: center;
             margin-top: 50px;
         }
+        
         .dashboard { height: 150px; }
         
         .dashboard>div { 
             height: 100%;
-            width: 25%;
+            width: 33.3%;
             float: left;
         }
 
@@ -117,16 +118,6 @@
                                     <div class="dash-info">
                                         총 회원 수 <br>
                                         <output name="totalMember"></output> 명
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dashboard_box">
-                            <div>
-                                <div>
-                                    <div class="dash-info">
-                                        일일 가입자 수 <br>
-                                        <output name="dayMember"></output> 명
                                     </div>
                                 </div>
                             </div>
