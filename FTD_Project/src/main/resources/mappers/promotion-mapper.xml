@@ -152,6 +152,26 @@
 		   AND G.DELETE_DATE IS NULL
 	</select>
 
+	<insert id="insertPromotion" parameterType="promotion">
+		INSERT INTO PROMOTION(PROMOTION_NO
+                        , SELLER_NO
+		                , PROMOTION_CONTENT)
+		           VALUES(SEQ_PNO.NEXTVAL
+                        , #{sellerNo}
+		                , #{promotionContent})
+	</insert>
+	
+	<insert id="insertFile" parameterType="promotion">
+		INSERT INTO PROMOTION_FILE(FILE_NO
+							  , PROMOTION_NO
+							  , ORIGINAL_NAME
+							  , CHANGE_NAME)
+					 	 VALUES(SEQ_PFNO.NEXTVAL
+					 	 	  , SEQ_PNO.CURRVAL
+					 	 	  , #{originalName}
+					 	 	  , #{changeName})
+	</insert>
+	
 	
 	
 	

@@ -352,7 +352,7 @@
                         // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
 
                         data.forEach(function (val) {
-
+								console.log(val);
                             $('.promotion').append(
 
 
@@ -385,14 +385,14 @@
                                 + '<div class="product_image">'
                                 + '<div>'
                                 + '<div id="product_image_1">'
-                                + '<img src="" >'
+                                + '<img src="'+ val[3][0].changeName +'" >'
                                 + '</div>'
                                 + '<div id="product_image_2">'
                                 + '<div id="product_image_2_1">'
-                                + '<img src="">'
+                                + '<img src="'+ val[3][1].changeName +'">'
                                 + '</div>'
                                 + '<div id="product_image_2_2">'
-                                + '<img src="">'
+                                + '<img src="'+ val[3][2].changeName +'">'
                                 + '</div>'
                                 + '</div>'
                                 + '</div>'

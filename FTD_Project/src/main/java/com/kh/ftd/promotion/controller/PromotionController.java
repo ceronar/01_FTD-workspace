@@ -125,9 +125,12 @@ public class PromotionController {
 	public String insertPromotion(Promotion p,
 								MultipartFile upfile[],
 								HttpSession session,
-								PromotionFile pf) {
+								PromotionFile pf,
+								Model model) {
+		//System.out.println(p);
 		
-int result = promotionService.insertPromotion(p);
+		int result = promotionService.insertPromotion(p);
+		//System.out.println(result);
 		
 		for(int i = 0; i < upfile.length; i++) {
 			if(!upfile[i].getOriginalFilename().equals("")) {
@@ -193,7 +196,7 @@ int result = promotionService.insertPromotion(p);
 		ArrayList<SellerFile> sfList = new ArrayList<SellerFile>();
 		
 		//홍보리스트 사진조회 어레이 리스트
-		ArrayList<PromotionFile> pfList = new ArrayList<PromotionFile>();
+		ArrayList<Object> pfList = new ArrayList<Object>();
 		
 		//댓글 개수 담을 곳
 		ArrayList<Object> rList = new ArrayList<Object>();
@@ -226,7 +229,7 @@ int result = promotionService.insertPromotion(p);
 		sfList.add(sellerFileList);
 		
 		//홍보리스트 사진조회 리스트
-		PromotionFile pFileList = promotionService.selectPromotionFileList(promotionNo);
+		ArrayList<PromotionFile> pFileList = promotionService.selectPromotionFileList(promotionNo);
 		//System.out.println(pFileList);
 		pfList.add(pFileList);
 		
@@ -313,7 +316,7 @@ int result = promotionService.insertPromotion(p);
 		
 		// 6. 업로드 하고자 하는 물리적인 경로 알아내기
 		String savePath = session.getServletContext()
-				.getRealPath("/resources/uploadFiles/notice/");
+				.getRealPath("/resources/uploadFiles/promotion/");
 		
 		// 7. 경로와 수정파일명을 합체 후 파일을 업로드 해주기
 //		 System.out.println("originName : " + originName);
