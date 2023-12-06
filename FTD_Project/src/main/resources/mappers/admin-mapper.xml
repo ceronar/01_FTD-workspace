@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
 	
+
 	<select id="totalMember" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
@@ -14,4 +15,5 @@
 		 WHERE DELETE_DATE IS NULL
 	</select>
 	
+
 </mapper>

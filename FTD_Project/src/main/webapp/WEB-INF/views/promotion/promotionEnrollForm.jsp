@@ -144,7 +144,8 @@
 
        <div>
          <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
-         
+         	
+         	<input type="hidden" name="sellerNo" value="${requestScope.seller.sellerNo}">
             <label for="content">내용:</label>
             <textarea id="promotionContent" name="promotionContent" required></textarea>
             <!-- summernote용 textarea 
