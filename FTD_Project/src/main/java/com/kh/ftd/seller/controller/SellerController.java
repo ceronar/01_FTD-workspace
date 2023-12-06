@@ -55,14 +55,16 @@ public class SellerController {
 		
 		// 마켓 총 리스트 수
 		int totalList = sList.size();
-		System.out.println(totalList);
+		// System.out.println(totalList);
 		
-		int endPage = Math.min(page * pageSize, totalList);		
+		int startPage = page * pageSize;
+		
+		int endPage = Math.min(startPage + pageSize, totalList);		
 		
 		for(Seller s : sList) {
 			
 			int sellerNo = s.getSellerNo();
-			System.out.println(sellerNo);
+			// System.out.println(sellerNo);
 			
 			// 마켓 파일
 			SellerFile sellerFile = sellerService.ajaxSelectSellerFileList(sellerNo);
@@ -83,7 +85,7 @@ public class SellerController {
 		
 		ArrayList<Object> resultList = new ArrayList<>();
 		
-		for (int i = 0; i < endPage; i++) {
+		for (int i = startPage; i < endPage; i++) {
 			
 			ArrayList<Object> arrList = new ArrayList<>();
 			
@@ -95,7 +97,10 @@ public class SellerController {
 			
 			// 마켓 전체 리스트
 			resultList.add(arrList);		
-		}
+			
+		}	
+		System.out.println(startPage);
+		System.out.println(endPage);
 		
 		return new Gson().toJson(resultList);
 	}
