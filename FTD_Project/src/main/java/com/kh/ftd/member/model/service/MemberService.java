@@ -3,6 +3,7 @@ package com.kh.ftd.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.ftd.member.model.vo.Member;
+import com.kh.ftd.member.model.vo.Subscribe;
 
 public interface MemberService {
 	
@@ -27,5 +28,6 @@ public interface MemberService {
 	// 이메일로 아이디 찾기 
 	String findMemberIdByEmail(String email);
 
-	
+	// 구매자 마켓 찜 조회 (select)
+	Subscribe ajaxSelectSubscribe(Subscribe subscribe);
 }

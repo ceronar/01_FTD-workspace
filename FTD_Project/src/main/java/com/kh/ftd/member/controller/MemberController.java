@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ftd.member.model.service.MemberService;
 import com.kh.ftd.member.model.vo.Member;
+import com.kh.ftd.member.model.vo.Subscribe;
 
 @Controller
 public class MemberController {
@@ -218,6 +219,19 @@ public class MemberController {
 			model.addAttribute("error", "님 이거 이메일 못찾음");
 			return "member/found-id";
 		}
+		
+	}
+	
+	@RequestMapping(value = "ajaxSelectSubscribe.se" , produces = "application/json; charset=UTF-8")
+	public void ajaxSelectSubscribe(int memberNo, int sellerNo) {
+		
+		System.out.println(memberNo + "멤버");
+		System.out.println(sellerNo + "판매자");
+		
+		// 회원의 마켓 찜 조회
+		Subscribe subscribe = new Subscribe(memberNo, sellerNo);
+				
+		Subscribe resultSub = memberService.ajaxSelectSubscribe(subscribe);
 		
 	}
 	
