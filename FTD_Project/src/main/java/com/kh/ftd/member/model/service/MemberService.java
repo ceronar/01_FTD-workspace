@@ -23,6 +23,9 @@ public interface MemberService {
 	
 	// 관리자 파트 - 구매자 회원 목록 조회 (select)
 	ArrayList<Member> selectMemberList();
+	
+	// 이메일로 아이디 찾기 
+	String findMemberIdByEmail(String email);
 
 	
 }

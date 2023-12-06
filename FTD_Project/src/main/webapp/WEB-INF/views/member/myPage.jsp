@@ -45,21 +45,28 @@
 
             <form action="update.me" method="post">
                 <div class="form-group">
-                    <label for="memberId">* ID : </label>
+                    <label for="memberId">* 아이디 : </label>
                     <input type="text" class="form-control" id="memberId" value="${ sessionScope.loginUser.memberId }" name="memberId" readonly> <br>
 
-                    <label for="memberName">* Name : </label>
+                    <label for="memberName">* 이름 : </label>
                     <input type="text" class="form-control" id="memberName" value="${ sessionScope.loginUser.memberName }" name="memberName" required> <br>
 
-                    <label for="email"> &nbsp; Email : </label>
+                    <label for="email"> &nbsp; 이메일 : </label>
                     <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email"> <br>
 
-                    <label for="phone"> &nbsp; Phone : </label>
+                    <label for="phone"> &nbsp; 폰번호 : </label>
                     <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone"> <br>
                     
-                    <label for="address"> &nbsp; Address : </label>
+                    <label for="zipCode"> &nbsp; 우편번호 : </label>
+                    <input type="text" class="form-control" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode"> <br>
+
+                    <label for="address"> &nbsp; 주소 : </label>
                     <input type="text" class="form-control" id="address" value="${ sessionScope.loginUser.address }" name="address"> <br>
                     
+                    <label for="detailAddress"> &nbsp; 상세주소 : </label>
+                    <input type="text" class="form-control" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
+                   
+                   
                     <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
                     <input type="radio" id="Male" value="M" name="gender">
                     <label for="Male">남자</label> &nbsp;&nbsp;

@@ -8,10 +8,7 @@
     <title>회원가입</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- 구글 recaptcha2 -->
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-
-
+    
     <style>
         body {  
             font-family: Arial, sans-serif;
@@ -109,13 +106,13 @@
         
         #domain{ width: 140px; } /* 이메일 계정명 */
         #domainText{ width: 140px; }
-        #email{ width: 150px; }
+        #email1{ width: 140px; }
 
         /* 휴대폰번호 입력칸 */
         #phone{ width: 90px;
         }
         .phone{
-        width: 80px;
+        width: 300px;
         }
         #address, #zipCode, #detailAddress{ /* 주소입력칸 */
             width: 300px;
@@ -248,15 +245,8 @@
                 <tr>
                     <th><span class="nessesary">*</span> 휴대폰번호</th>
                     <td>
-                    <div style="display:flex; width: 300px;">
-                        <select id="phone" name="phone"  class="phone form-control form-control">
-                            <option selected>SKT</option>
-                            <option>KT</option>
-                            <option>LG U+</option>
-                        </select>
-                        <input type="text" name="memberPhone1" class="phone form-control form-control" required>
-                        <input type="text" name="memberPhone2" class="phone form-control form-control" required>
-                        <input type="text" name="memberPhone2" class="phone form-control form-control" required>
+                    <div style="display:flex; width: 300px;">                
+                        <input type="text" name="phone" class="phone form-control form-control" required>                     
                     </div>
                     </td>
                 </tr>
@@ -264,7 +254,8 @@
                     <th><span class="nessesary">*</span> 이메일</th>
                     <td colspan="3">
                     <div style="display:flex; width: 500px;">
-                        <input type="text" id="email" name="email" required class="form-control form-control">@
+                    	<input type="hidden" id="email"  name="email">
+                        <input type="text" id="email1" name="email1" required class="form-control form-control">@
                         <input type="text"  id="domainText" name="domain" class="email form-control form-control" required>
                         <select id="domain" class="email form-control form-control">
                             <option selected>직접입력</option>
@@ -309,18 +300,6 @@
                         <input type="radio" id="Female" value="F" name="gender">
                         <label for="Female">여자</label> &nbsp;&nbsp;
                     </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td>
-                  
-                    </td>
-                    <script>
-                        function onGoogle() {
-                            if (grecaptcha.getResponse().length == 0) { alert('reCAPTCHA를 확인해 주세요.'); return false; }
-                            return true;
-                        }
-                    </script>
                 </tr>
             </table>
         </div>
@@ -384,7 +363,7 @@
     		data : { checkId : $memberId.val() },
     		success : function(result) {
     			
-    			if(result == "N"){		// 사용불가
+    			if(result == "NNNNN"){		// 사용불가
     				pText.text("이미 사용중인 아이디입니다.").css("color", "red", "");
     				$memberId.focus();
     			} else {		// 사용가능 				
@@ -419,7 +398,13 @@
     		
     	}
     </script>
-    
+    	
+    	<script type="text/javascript">
+    		function name() {
+				
+			}
+    	</script>
+    	
     <script> // 유효성 검사
     		function validate () {
         		
@@ -448,6 +433,12 @@
         			$("memberName").select();
         			return false;
         		}
+        		
+        		let email1 = $("#email1").val();
+        		let email2 = $("#domainText").val();
+        		let email = email1 + "@" + email2;
+        		$("#email").val(email);
+        		
         		
         		return true;
         		

@@ -9,7 +9,7 @@ import com.kh.ftd.member.model.vo.Member;
 public class MemberDao {
 
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
-		// System.out.println("디에이오도착");
+		
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 
@@ -31,5 +31,9 @@ public class MemberDao {
 	public int deleteMember(SqlSessionTemplate sqlSession, String memberId) {
 		
 		return sqlSession.update("memberMapper.deleteMember", memberId);
+	}
+
+	public String findId(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.findId", email);
 	}
 }

@@ -33,7 +33,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member m) {
-		// TODO Auto-generated method stub
 		return memberDao.updateMember(sqlSession, m);
 	}
 
@@ -54,5 +53,10 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
+	@Override
+    public String findMemberIdByEmail(String email) {
+        return memberDao.findId(sqlSession, email);
+    }
 }

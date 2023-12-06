@@ -97,7 +97,7 @@
 
                   <div class="form-group-etc">
                     <a href="insertForm.me">회원가입</a> 
-                    <a href="">ID / PW 찾기</a>
+                    <a href="find-id">ID / PW 찾기</a>
                   </div>
         </form>
 	</div>

@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-        }
-
+		body {
+			height : 100%;
+		}
+		
+		
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -40,28 +39,6 @@
             color: #888;
         }
 
-        /* 댓글 영역 스타일 */
-        .reply-area {
-            margin-top: 30px;
-            padding-top: 20px;
-        }
-
-        /* 댓글 스타일 */
-        .comment {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .comment p {
-            margin: 5px 0;
-        }
-
-        /* 댓글 입력창 스타일 */
-        .comment-form {
-            margin-top: 20px;
-        }
-
         .comment-form textarea {
             width: calc(100% - 20px);
             padding: 8px;
@@ -72,7 +49,7 @@
             height: 100px;
         }
 
-        button {
+        .btn a {
             padding: 8px 20px;
             border: none;
             background-color: #2ecc71;
@@ -81,76 +58,152 @@
             border-radius: 3px;
         }
 
-        button:hover {
+        .btn a:hover {
             background-color: #27ae60;
         }
 
         img {
             width : 100%;
-            height : 100%;
         }
         .btn {
 
             height: 30px;
 
         }
-        .btn button {
+        .btn a {
             float : right;
             margin: 0px 5px; /* 버튼 사이의 여백 조절 */
+            text-decoration: none;
 
         }
-        .reply-area button {
-            float:right;
-        }
+		.slider img {
+			height : 480px;
+			width : 480px;
+		}
+		
     </style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>   
+    <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
+
+	<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
 </head>
 <body>
-    <div class="container">
-        <h1>게시글 상세보기</h1>
-        <div class="post">
-            <h2>[공지사항] 저희 사이트 정상영업합니다</h2>
-            <div class="notice-info">  
-                <p>작성자: admin | 작성일: 2023-11-23</p>
-            </div>
-            <div class="post-content">
-                <p>안녕하세요, 저희 사이트는 현재 정상적으로 운영 중입니다. 추가적인 공지사항이 있으면 알려드리겠습니다.</p>
-                <p>감사합니다.</p>
-                
-            </div>
-            <div class="post-img">
-                <a href="">
-                    originalName.jpg
-                </a>
-                <br>
-                <br>
-            </div>
-            
-        </div>
+	<div class="wrapper">
+        <div class="center-div">  
+	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+			        <div class="content">
+				        <div class="container">
+					        <h1>공지사항</h1>
+					        <div class="post">
+					            <h2>${ requestScope.n.noticeTitle }</h2>
+					            <div class="notice-info">  
+					                <p>작성일: ${requestScope.n.createDate }</p>
+					            </div>
+					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq 1}">
 
-        <div class="btn">
-            <button>수정</button>
-            <button>삭제</button>
-        </div>
-        
-        <div class="reply-area">
-            <h2>댓글</h2>
-            <!-- 댓글 목록 -->
-            <div class="comment">
-                <button>삭제</button>
-                <p>댓글 내용이 여기에 표시됩니다.</p>
-                <p class="reply-info">작성자: user01 | 작성일: 2023-11-24</p>
-            </div>
+					        	<div class="btn">
+						            <a onclick="postFormSubmit(1)">수정</a>
+						            <a onclick="postFormSubmit(2)">삭제</a>
+					        	</div>
+						        	
 
-            <!-- 댓글 입력창 -->
-            <form class="comment-form">
-                <textarea placeholder="댓글을 입력하세요" required></textarea>
-                <button class="reply-btn">댓글작성</button>
-            </form>
+						        	<form action="" id="postForm" method="post">
+					                	<input type="hidden" name="nno" id="nno" 
+					                				value="${ requestScope.n.noticeNo }">
+										<c:forEach var="f" items="${ requestScope.nf }">
+						                	<input type="text" name="filePath" id="filePath"
+						                				value="${ f.changeName }">
+					                	</c:forEach>
+					                </form>
+
+						        	<script>
+					                	function postFormSubmit(num) {
+					                		
+					                		// num 값에 따라 위의 form 태그에 action 속성을 부여한 후
+					                		// submit 시키기
+					                		
+					                		if(num == 1) { 
+					                			// num == 1 일 경우 : 수정하기 버튼을 클릭한 상태
+					                			
+					                			$("#postForm").attr("action", "updateForm.no").submit();
+					                			
+					                		} else {
+					                			// num == 2 일 경우 : 삭제하기 버튼을 클릭한 상태
+					                			
+					                			$("#postForm").attr("action", "delete.no").submit();
+					                			
+					                			// jQuery 의 submit() 메소드 : 해당 form 의 submit 버튼을 누르는 효과
+					                		}
+					                	}
+					                </script>
+					        	</c:if>
+					            <div class="post-content">
+					            <section id="cont_center">
+					            	<article class="column col4">
+					            		<c:if test="${ not empty requestScope.nf }">
+							            	<div class="slider">
+							            		<c:forEach var="nf" items="${ requestScope.nf }">
+													<div id="img-slider" align="center">
+						                                <figure>
+						                                    <img src="/ftd/${ nf.changeName }" alt="이미지1">
+						                                </figure>
+										            </div>
+									            </c:forEach>
+											</div>	
+										</c:if>
+										<br><br><br><br>
+										<div>"${ requestScope.n.noticeContent }"</div>
+										<br><br><br><br>
+									</article>	
+								</section>
+					            </div>
+					            <!-- 
+					            <div class="post-img">
+					                <a href="">
+					                    originalName.jpg
+					                </a>
+					                <br>
+					                <br>
+					            </div>
+					             -->
+					            
+					        </div>
+					        
+					    </div>
+			        <br>
+		        </div>
+		        <jsp:include page="../common/footer.jsp" />
+	        </div> 
+
+	              
         </div>
     </div>
+    
+					            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		            	        <script type="text/javascript">
+						        $(".slider").slick({
+									dots: true,
+									autoplay: true,
+									autoplaySpeed: 3000,
+									arrows: true,
+									responsive: [
+									    {
+										    breakpoint: 768,
+										    settings: {
+										        autoplay: false,
+									      	}
+									    }
+									]
+								});
+						        </script>
 
 </body>
 </html>
