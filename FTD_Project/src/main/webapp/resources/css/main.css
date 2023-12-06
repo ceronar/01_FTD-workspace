@@ -65,7 +65,6 @@ html {
 
 .content {
 	width: 100%; /* content 영역 크기 조정 */
-	height: 800px;
 	background-color: #ffffff;
 	padding: 20px;
 	box-sizing: border-box;

@@ -178,6 +178,10 @@
         }
 
     </style>
+    
+    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <title>홍보(리스트)</title>
 </head>
 <body>
@@ -212,9 +216,32 @@
 
         <div id="content">
             
-            ${requestScope.p.promotionContent}
+          <section id="cont_center">
+          		<!-- 슬라이드 사진들 -->
+            	<article class="column col4">
+            		<c:if test="${ not empty requestScope.pfList }">
+		            	<div class="slider">
+		            		<c:forEach var="pf" items="${ requestScope.pfList }">
+								<div id="img-slider" align="center">
+	                                <figure>
+	                                    <img src="/ftd/${ pf.changeName }" >
+	                                </figure>
+					            </div>
+				            </c:forEach>
+						</div>	
+					</c:if>
+					<br><br>
+					
+					<!-- 내용 -->
+					<div align="center"> "${requestScope.p.promotionContent}"</div>
+					
+					<br><br><br><br>
+				</article>	
+				
+			</section>
+            
+           
 			
-
 
         </div>
 
@@ -260,9 +287,25 @@
         </div>
     </main>
 
-    <script>
-        // ... (unchanged) ...
-    </script>
+
+<!-- 슬라이드 -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		            	        <script type="text/javascript">
+						        $(".slider").slick({
+									dots: true,
+									autoplay: true,
+									autoplaySpeed: 3000,
+									arrows: true,
+									responsive: [
+									    {
+										    breakpoint: 768,
+										    settings: {
+										        autoplay: false,
+									      	}
+									    }
+									]
+								});
+						        </script>
 </body>
 
 </html>

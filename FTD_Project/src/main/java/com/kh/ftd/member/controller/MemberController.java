@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -188,6 +190,35 @@ public class MemberController {
 			
 			return "redirect:/myPage.me";
 		}	
+	}
+	
+	@GetMapping("/find-id")
+	public String memberId(HttpSession session) {
+		if(session.getAttribute("loginUser") != null) { // 로그인상태
+			
+			session.setAttribute("alertMsg", "이미 로그인 되어있습니다.");
+			
+			return "redirect:/";
+		}
+		else {
+			return "member/memberIdFind";
+		}
+	}	
+	
+	@PostMapping("/found-id")
+	public String findIdByEmail(String email, Model model) {
+		
+		String foundId = memberService.findMemberIdByEmail(email);
+		
+		if (foundId != null) {
+			model.addAttribute("foundId", foundId);
+			return "member/found-id";
+			
+		} else {
+			model.addAttribute("error", "님 이거 이메일 못찾음");
+			return "member/found-id";
+		}
+		
 	}
 	
 	
