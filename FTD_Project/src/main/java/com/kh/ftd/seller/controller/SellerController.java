@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
@@ -32,12 +33,14 @@ public class SellerController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+	// 판매자 마켓 페이지 이동
 	@RequestMapping("list.se")
 	public String sellerList() {
 		
 		return "seller/sellerListView";
 	}
 	
+	// 판매자 리스트 조회
 	@ResponseBody
 	@RequestMapping(value = "ajaxSelectSellerList.se" , produces = "application/json; charset=UTF-8")
 	public String ajaxSelectSellerList(int page, int pageSize) {
@@ -76,7 +79,7 @@ public class SellerController {
 			sfList.add(sellerFile);
 			
 			// 마켓 평균 별점
-			int starRating = sellerService.ajaxSelectStarRating(sellerNo);
+			double starRating = sellerService.ajaxSelectStarRating(sellerNo);
 			starList.add(starRating);
 			
 			// 마켓 리뷰 수
@@ -84,7 +87,7 @@ public class SellerController {
 			reviewList.add(reviews);
 			
 			// 마켓 찜 수
-			int subscribe = sellerService.ajaxSelectSubscribe(sellerNo);
+			int subscribe = sellerService.ajaxSelectSubscribeCount(sellerNo);
 			subscribeList.add(subscribe);
 		}
 		
@@ -109,6 +112,48 @@ public class SellerController {
 		
 		return new Gson().toJson(resultList);
 	}
+	
+	// 판매자 마켓 상세 페이지 이동
+	@RequestMapping("sdlist.se")
+	public ModelAndView sellerDetailView(int sno, ModelAndView mv) {
+		
+		
+		int sellerNo = sno;
+		
+		mv.addObject("sellerNo", sellerNo).setViewName("seller/sellerDetailView");
+		
+		return mv;
+	}
+
+	
+	// 마켓 조회
+	@ResponseBody
+	@RequestMapping(value = "ajaxSelectSellerMarketList.se" , produces = "application/json; charset=UTF-8")
+	public String ajaxSelectSellerMarketList(int sellerNo) {
+		
+		System.out.println(sellerNo);
+		
+		// 마켓 리스트
+		Seller sList = sellerService.ajaxSelectSellerMarketList(sellerNo);
+		
+		// 마켓 평균 별점
+		double starRating = sellerService.ajaxSelectStarRating(sellerNo);
+		
+		// 마켓 리뷰 수
+		int reviews = sellerService.ajaxSelectReviews(sellerNo);
+		
+		// 마켓 찜 수
+		int subscribe = sellerService.ajaxSelectSubscribeCount(sellerNo);
+		
+		ArrayList<Object> resultList = new ArrayList<>();
+		
+		resultList.add(sList);
+		resultList.add(starRating);
+		resultList.add(reviews);
+		resultList.add(subscribe);
+			
+		return new Gson().toJson(resultList);
+	}	
 	
 	@RequestMapping("loginForm.se")
 	public String sellerLoginForm() {

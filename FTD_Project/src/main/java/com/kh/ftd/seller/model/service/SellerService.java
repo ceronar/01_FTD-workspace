@@ -31,14 +31,17 @@ public interface SellerService {
 	SellerFile ajaxSelectSellerFileList(int sellerNo);
 	
 	// 판매자 마켓 평균 별점 조회 (select)
-	int ajaxSelectStarRating(int sellerNo);
+	double ajaxSelectStarRating(int sellerNo);
 	
 	// 판매자 마켓 리뷰 수 조회 (select)
 	int ajaxSelectReviews(int sellerNo);
 	
 	// 판매자 마켓 찜 수 조회 (select)
-	int ajaxSelectSubscribe(int sellerNo);
+	int ajaxSelectSubscribeCount(int sellerNo);
 	
+	// 판매자 마켓 상세 조회 (select)
+	Seller ajaxSelectSellerMarketList(int sellerNo);
+		
 	// 판매자 아이디 찾기 (selesct)
 	String findSellerIdByEmail(String email);
 

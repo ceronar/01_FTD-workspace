@@ -3,4 +3,17 @@
 <mapper namespace="adminMapper">
 	
 
+	<select id="totalMember" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE STATUS IS NULL
+	</select>
+	
+	<select id="totalSeller" resultType="_int">
+		SELECT COUNT(*)
+		  FROM SELLER
+		 WHERE DELETE_DATE IS NULL
+	</select>
+	
+
 </mapper>

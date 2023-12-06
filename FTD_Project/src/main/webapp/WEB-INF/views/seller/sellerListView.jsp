@@ -145,14 +145,12 @@
 	var pageSize = 10; // 초기 로딩 시 20개씩 불러오기
 	
 	 $(document).ready(function () {
-	        
-		 	ajaxSelectSellerList();
 
 	        $(window).scroll(function () {
-	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 10) {
+	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
 	                
-	            	page++;	         
 	            	ajaxSelectSellerList();
+	            	page++;	         
 	            }
 	        });
 	    });
@@ -165,14 +163,16 @@
 	            data: { page: page, pageSize: pageSize },
 	            success: function(result) {
 	            	
-	            	console.log("ajax 통신 성공");
+	            	console.log("ajax 통신 성공");	    
 	            	console.log(result);
-	                   		
+	            	
 	                result.forEach(function (item, index) {
-	                    $('.content').append(
+	                    
+	                	$('.content').append(
 							
 	                    	'<div class="store">'
-	        					+'<div class="store-no">' + (index + (page * pageSize))  + '</div>'
+	                    		+ '<input type="hidden" value="' + item[0].sellerNo + '">'
+	        					// + '<div class="store-no">' + ((index + 1) + (page * pageSize))  + '</div>'
 	        					+ '<div class="store-img"><img src= ""></div>'
 	        					+ '<div class="store-content">'	
 	        						
@@ -230,7 +230,22 @@
         </div>
     </div>
 
-	
+	<script>
+            $(function () {
+            	
+            	ajaxSelectSellerList();    
+
+                $(".content").on('click', '.store', function (e) {
+
+
+                    let sno = e.currentTarget.children.item(0).value;
+
+                    console.log(sno);
+
+                    location.href = "sdlist.se?sno=" + sno;
+                });
+            });
+	</script>
 
 </body>
 </html>
