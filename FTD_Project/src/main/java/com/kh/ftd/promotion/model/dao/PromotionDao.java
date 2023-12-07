@@ -32,9 +32,9 @@ public class PromotionDao {
 		return sqlSession.selectOne("promotionMapper.selectSellerFileProfileList", sellerNo);
 	}
 
-	public PromotionFile selectPromotionFileList(SqlSessionTemplate sqlSession, int promotionNo) {
+	public ArrayList<PromotionFile> selectPromotionFileList(SqlSessionTemplate sqlSession, int promotionNo) {
 		
-		return sqlSession.selectOne("promotionMapper.selectPromotionFileList", promotionNo);
+		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionFileList", promotionNo);
 	}
 
 	public int selectPromotionReplyCount(SqlSessionTemplate sqlSession, int promotionNo) {
@@ -70,6 +70,16 @@ public class PromotionDao {
 	public int reviewCount(SqlSessionTemplate sqlSession, int sellerNo) {
 		
 		return sqlSession.selectOne("promotionMapper.reviewCount", sellerNo);
+	}
+
+	public int insertPromotion(SqlSessionTemplate sqlSession, Promotion p) {
+		
+		return sqlSession.insert("promotionMapper.insertPromotion", p);
+	}
+
+	public int insertFile(SqlSessionTemplate sqlSession, PromotionFile pf) {
+		
+		return sqlSession.insert("promotionMapper.insertFile", pf);
 	}
 
 	

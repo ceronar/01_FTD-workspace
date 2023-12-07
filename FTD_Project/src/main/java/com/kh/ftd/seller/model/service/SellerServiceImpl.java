@@ -41,7 +41,10 @@ public class SellerServiceImpl implements SellerService{
 
 	@Override
 	public int deleteSeller(String sellerId) {
-		return 0;
+		
+		System.out.println(sellerId);
+		
+		return sellerDao.deleteSeller(sqlSession, sellerId);
 	}
 
 	@Override
@@ -67,7 +70,7 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	@Override
-	public int ajaxSelectStarRating(int sellerNo) {
+	public double ajaxSelectStarRating(int sellerNo) {
 		
 		return sellerDao.ajaxSelectStarRating(sqlSession, sellerNo);
 	}
@@ -79,9 +82,15 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	@Override
-	public int ajaxSelectSubscribe(int sellerNo) {
+	public int ajaxSelectSubscribeCount(int sellerNo) {
 		
-		return sellerDao.ajaxSelectSubscribe(sqlSession, sellerNo);
+		return sellerDao.ajaxSelectSubscribeCount(sqlSession, sellerNo);
+	}
+
+	@Override
+	public Seller ajaxSelectSellerMarketList(int sellerNo) {
+		
+		return sellerDao.ajaxSelectSellerMarketList(sqlSession, sellerNo);
 	}
 	
 	

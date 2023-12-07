@@ -22,7 +22,7 @@ public interface PromotionService {
 		SellerFile selectSellerFileProfileList(int sellerNo);
 		
 		//홍보리스트 사진조회
-		PromotionFile selectPromotionFileList(int promotionNo);
+		ArrayList<PromotionFile> selectPromotionFileList(int promotionNo);
 		
 		//홍보리스트 댓글조회
 		int PromotionReplyCount(int promotionNo); 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ftd.member.model.dao.MemberDao;
 import com.kh.ftd.member.model.vo.Member;
+import com.kh.ftd.member.model.vo.Subscribe;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -59,4 +60,12 @@ public class MemberServiceImpl implements MemberService {
     public String findMemberIdByEmail(String email) {
         return memberDao.findId(sqlSession, email);
     }
+
+	@Override
+	public Subscribe ajaxSelectSubscribe(Subscribe subscribe) {
+		
+		return memberDao.ajaxSelectSubscribe(sqlSession, subscribe);
+	}
+	
+	
 }

@@ -4,6 +4,12 @@
     display: block;
 }
 
+.title-name > a {
+	text-decoration: none;
+	font-size: 50px;
+	font-weight: bold;
+}
+
 .title-div > div {
     width: 100%;
     display: inline;

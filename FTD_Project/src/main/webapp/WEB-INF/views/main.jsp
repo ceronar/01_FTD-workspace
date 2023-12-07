@@ -17,7 +17,6 @@
 		        <jsp:include page="common/header.jsp" />
 	
 		           
-		            		
 		        <div class="content">메인 컨텐츠<br>
 		            
 		            

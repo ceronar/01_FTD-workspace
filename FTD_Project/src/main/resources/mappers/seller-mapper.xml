@@ -68,12 +68,19 @@
 		   AND M.STATUS IS NULL
 	</select>
 	
-	<select id="ajaxSelectSubscribe" resultType="_int" parameterType="_int">
+	<select id="ajaxSelectSubscribeCount" resultType="_int" parameterType="_int">
 		SELECT NVL(COUNT(S.MEMBER_NO), 0) 
 		  FROM SUBSCRIBE S
 		  JOIN MEMBER M ON (S.MEMBER_NO = M.MEMBER_NO)
 		 WHERE M.STATUS IS NULL
 		   AND S.SELLER_NO = #{sellerNo}
+	</select>
+	
+	<select id="ajaxSelectSellerMarketList" resultMap="sellerResultSet" parameterType="_int">
+		SELECT * 
+		  FROM SELLER
+		 WHERE DELETE_DATE IS NULL
+		   AND SELLER_NO = #{sellerNo}
 	</select>
 	
 	<!-- 로그인용 쿼리문 -->
@@ -132,7 +139,15 @@
 		  AND DELETE_DATE IS NULL
 	</update>
 
-
+	<!-- 회원탈퇴용 쿼리문 -->
+	<update id="deleteSeller"
+			parameterType="string">
+		UPDATE SELLER
+		   SET DELETE_DATE = SYSDATE
+		 WHERE SELLER_ID = #{sellerId}
+			
+	</update>
+	
 
 	<!-- ID찾기(이메일기반) -->
 	<select id="findId" 

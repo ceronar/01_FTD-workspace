@@ -42,7 +42,7 @@ public class PromotionServiceImpl implements PromotionService{
 	}
 
 	@Override
-	public PromotionFile selectPromotionFileList(int promotionNo) {
+	public ArrayList<PromotionFile> selectPromotionFileList(int promotionNo) {
 	
 		return promotionDao.selectPromotionFileList(sqlSession,promotionNo);
 	}
@@ -56,14 +56,14 @@ public class PromotionServiceImpl implements PromotionService{
 
 	@Override
 	public int insertPromotion(Promotion p) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return promotionDao.insertPromotion(sqlSession,p);
 	}
 	
 	@Override
 	public int insertFile(PromotionFile pf) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return promotionDao.insertFile(sqlSession,pf);
 	}
 
 	@Override

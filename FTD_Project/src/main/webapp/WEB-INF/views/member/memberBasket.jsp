@@ -163,7 +163,13 @@
 			font-size: 16px;
 			resize: none;
 		}
-
+		
+		.buyAllItems, .buyItem {
+			height: 25px;
+			width: 25px;
+			margin: auto;
+		}
+		
     </style>
 </head>
 <body>
@@ -178,6 +184,7 @@
 		        		<input type="hidden" name="orderName" value="${ sessionScope.loginUser.memberName }"/>
 						<input type="hidden" name="phone" value="${sessionScope.loginUser.phone }"/>
 						<input type="hidden" name="zipCode" value="${ sessionScope.loginUser.zipCode }"/>
+						<input type="hidden" name="address" value="${ sessionScope.loginUser.address }"/>
 						<input type="hidden" name="detailAddress" value="${sessionScope.loginUser.detailAddress }"/>
 			            <!-- 장바구니 내용 -->
 			            <h2>장바구니</h2>

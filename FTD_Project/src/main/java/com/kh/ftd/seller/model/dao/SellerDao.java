@@ -26,7 +26,7 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.ajaxSelectSellerFileList", sellerNo);
 	}
 	
-	public int ajaxSelectStarRating(SqlSessionTemplate sqlSession, int sellerNo) {
+	public double ajaxSelectStarRating(SqlSessionTemplate sqlSession, int sellerNo) {
 		
 		return sqlSession.selectOne("sellerMapper.ajaxSelectStarRating", sellerNo);
 	}
@@ -36,9 +36,9 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.ajaxSelectReviews", sellerNo);
 	}
 	
-	public int ajaxSelectSubscribe(SqlSessionTemplate sqlSession, int sellerNo) {
+	public int ajaxSelectSubscribeCount(SqlSessionTemplate sqlSession, int sellerNo) {
 		
-		return sqlSession.selectOne("sellerMapper.ajaxSelectSubscribe", sellerNo);
+		return sqlSession.selectOne("sellerMapper.ajaxSelectSubscribeCount", sellerNo);
 	}
 
 	public Seller loginSeller(SqlSession sqlSession, Seller s) {
@@ -49,6 +49,11 @@ public class SellerDao {
 
 		return sqlSession.insert("sellerMapper.insertSeller", s);
 	}
+	
+	public Seller ajaxSelectSellerMarketList(SqlSessionTemplate sqlSession, int sellerNo) {
+		
+		return sqlSession.selectOne("sellerMapper.ajaxSelectSellerMarketList", sellerNo);
+	}
 
 	public String findId(SqlSessionTemplate sqlSession, String email) {
 
@@ -58,6 +63,11 @@ public class SellerDao {
 	public int updateSeller(SqlSessionTemplate sqlSession, Seller s) {
 
 		return sqlSession.update("sellerMapper.updateSeller", s);
+	}
+
+	public int deleteSeller(SqlSessionTemplate sqlSession, String sellerId) {
+		
+		return sqlSession.update("sellerMapper.deleteSeller", sellerId);
 	}
 
 }
