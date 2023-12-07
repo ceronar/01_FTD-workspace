@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.ftd.admin.model.service.AdminService;
-import com.kh.ftd.member.model.service.MemberService;
-import com.kh.ftd.seller.model.service.SellerService;
 
 @Controller
 public class AdminController {
@@ -20,16 +18,14 @@ public class AdminController {
 		
 		// 전체 회원 수
 		int totalUser = adminService.totalMember() + adminService.totalSeller();
-		// 일일 가입 회원 수
-		int dayMember;
 		// 누적 전체 게시글 수
-		int totalBoard;
+		int totalBoard = adminService.totalMemberBoard() + adminService.totalSellerBoard();
 		// 누적 전체 매출
-		int totalSales;
+		int totalSales = adminService.totalSales();
 		
-		System.out.println(totalUser);
-		
-		
+		model.addAttribute("totalUser", totalUser)
+			 .addAttribute("totalBoard", totalBoard)
+			 .addAttribute("totalSales", totalSales);
 		
 		return "admin/adminMenu";
 	}

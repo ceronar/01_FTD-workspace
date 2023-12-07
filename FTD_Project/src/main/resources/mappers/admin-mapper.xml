@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
 	
-
 	<select id="totalMember" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
@@ -15,5 +14,26 @@
 		 WHERE DELETE_DATE IS NULL
 	</select>
 	
+	<select id="totalMemberBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER M
+		  LEFT JOIN REVIEW R ON M.MEMBER_NO = R.MEMBER_NO
+		  LEFT JOIN INQUIRY I ON M.MEMBER_NO = I.MEMBER_NO
+		 WHERE R.DELETE_DATE IS NULL
+		   AND I.DELETE_DATE IS NULL
+		   AND (REV_NO IS NOT NULL OR INQ_NO IS NOT NULL)
+	</select>
+	
+	<select id="totalSellerBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PROMOTION
+		 WHERE DELETE_DATE IS NULL
+	</select>
 
+	<select id="totalSales" resultType="_int">
+		SELECT SUM(PRICE)
+		  FROM "ORDER"
+		 WHERE PAY_CANCEL IS NULL
+	</select>
+	
 </mapper>

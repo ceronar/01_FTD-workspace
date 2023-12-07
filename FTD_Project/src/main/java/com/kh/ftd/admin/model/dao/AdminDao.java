@@ -14,16 +14,18 @@ public class AdminDao {
 		return sqlSession.selectOne("adminMapper.totalSeller");
 	}
 
-	public int dayMember(SqlSession sqlSession) {
-		return 0;
+	public int totalMemberBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.totalMemberBoard");
 	}
 
-	public int totalBoard(SqlSession sqlSession) {
-		return 0;
+	public int totalSellerBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.totalSellerBoard");
 	}
 
 	public int totalSales(SqlSession sqlSession) {
-		return 0;
+		return sqlSession.selectOne("adminMapper.totalSales");
 	}
+
+
 
 }

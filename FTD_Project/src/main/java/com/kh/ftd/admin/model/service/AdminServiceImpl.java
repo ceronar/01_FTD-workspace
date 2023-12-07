@@ -26,14 +26,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int totalBoard() {
-		return adminDao.totalBoard(sqlSession);
+	public int totalMemberBoard() {
+		return adminDao.totalMemberBoard(sqlSession);
+	}
+
+	@Override
+	public int totalSellerBoard() {
+		return adminDao.totalSellerBoard(sqlSession);
 	}
 
 	@Override
 	public int totalSales() {
 		return adminDao.totalSales(sqlSession);
 	}
+
+
 
 
 }
