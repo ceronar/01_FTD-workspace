@@ -104,5 +104,17 @@
 		 WHERE NOTICE_NO = #{noticeNo}
 		   AND DELETE_DATE IS NULL
 	</update>
-
+	
+	<update id="deleteNoticeList" parameterType="string">
+		UPDATE NOTICE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE NOTICE_NO IN (${nnoList})
+	</update>
+	
+	<update id="deleteNoticeFileList" parameterType="string">
+		UPDATE NOTICE_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE NOTICE_NO IN (${nnoList})
+	</update>
+	
 </mapper>

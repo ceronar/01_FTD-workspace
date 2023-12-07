@@ -59,6 +59,16 @@ public class NoticeDao {
 	public int deleteNoticeFile(SqlSessionTemplate sqlSession, int noticeNo) {
 		return sqlSession.update("noticeMapper.deleteNoticeFile", noticeNo);
 	}
+
+	public int deleteNoticeList(SqlSessionTemplate sqlSession, String nnoList) {
+		System.out.println(nnoList);
+		return sqlSession.update("noticeMapper.deleteNoticeList", nnoList);
+	}
+
+	public int deleteNoticeFileList(SqlSessionTemplate sqlSession, String nnoList) {
+		
+		return sqlSession.update("noticeMapper.deleteNoticeFileList", nnoList);
+	}
 	
 	
 	

@@ -150,7 +150,7 @@
 					            		<c:if test="${ not empty requestScope.nf }">
 							            	<div class="slider">
 							            		<c:forEach var="nf" items="${ requestScope.nf }">
-													<div id="img-slider" align="center">
+													<div  id="img-slider" align="center">
 						                                <figure>
 						                                    <img src="/ftd/${ nf.changeName }" alt="이미지1">
 						                                </figure>
@@ -186,23 +186,23 @@
         </div>
     </div>
     				<!-- 슬라이드 스크립트 -->
-			            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-            	        <script type="text/javascript">
-				        $(".slider").slick({
-							dots: true,
-							autoplay: true,
-							autoplaySpeed: 3000,
-							arrows: true,
-							responsive: [
-							    {
-								    breakpoint: 768,
-								    settings: {
-								        autoplay: false,
-							      	}
-							    }
-							]
-						});
-				        </script>
+		            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+           	        <script type="text/javascript">
+			        $(".slider").slick({
+						dots: true,
+						autoplay: true,
+						autoplaySpeed: 3000,
+						arrows: true,
+						responsive: [
+						    {
+							    breakpoint: 768,
+							    settings: {
+							        autoplay: false,
+						      	}
+						    }
+						]
+					});
+			        </script>
 
 </body>
 </html>
