@@ -177,7 +177,7 @@ public class PromotionController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getLegacyData.bo" , produces = "application/json; charset=UTF-8")
-	public String ajaxpromotionListView(int page, int size) {
+	public String ajaxpromotionListView(int page, int size, Model m) {
 		
 		
 		int promotionNo = 0;
@@ -232,7 +232,7 @@ public class PromotionController {
 		ArrayList<PromotionFile> pFileList = promotionService.selectPromotionFileList(promotionNo);
 		//System.out.println(pFileList);
 		pfList.add(pFileList);
-		
+	
 		//각 홍보리스트 댓글갯수
 		int replyList =  promotionService.PromotionReplyCount(promotionNo);
 		//System.out.println(replyList); 
@@ -248,7 +248,7 @@ public class PromotionController {
 		//System.out.println(pfList);
 		//System.out.println(rList);
 		
-		
+		//System.out.println(pfCount);
 
 		
 	
