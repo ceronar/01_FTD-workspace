@@ -226,8 +226,8 @@
 	    
 	          <!-- Modal body -->
 	          <div class="modal-body">
-	            <form action="updatePwd.me" method="post">
-	                 <input type="hidden" name="memberId" value="${ sessionScope.loginUser.memberNo }">
+	            <form action="updatePwd.me" method="post" onsubmit="return validatePwd();"">
+	                 <input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
 	                 
 	                <table>
 	                    <tr>
@@ -250,13 +250,13 @@
 	                    </tr>
 	                </table>
 	                <br>
-	                <button type="submit" class="btn btn-secondary btn-sm" onclick="return validatePwd();">비밀번호 변경</button>
+	                <button type="submit" class="btn btn-secondary btn-sm">비밀번호 변경</button>
 	            </form>
 	            
 	            <script>
 	                function validatePwd() {
 	                    if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
-	                        alert("비밀번호가 일치하지 않습니다.");
+	                        alert("비밀번호가 일치하지 않습니다1.");
 	                        return false;
 	                    }
 	                    return true;
