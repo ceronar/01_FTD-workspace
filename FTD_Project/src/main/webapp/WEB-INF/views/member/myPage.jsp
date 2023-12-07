@@ -159,7 +159,7 @@
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
-			    <h1>판매자 정보</h1>
+			    <h1>구매자 정보</h1>
 				    <form action="update.me" method="post" >
 				    	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
 				    	
