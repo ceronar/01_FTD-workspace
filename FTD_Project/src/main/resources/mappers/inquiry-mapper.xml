@@ -14,15 +14,8 @@
 		<result column="RESPONSE_CONTENT" property="resopnseContent" />
 		<result column="RESPONSE_DATE" property="responseDate" />
 	</resultMap>
-
-	<select id="selectInquiryCount" parameterType="string" resultType="_int">
-        SELECT COUNT(*)
-		  FROM INQUIRY
-		 WHERE DELETE_DATE IS NULL
-		   AND SELLER_NO = #{sellerNo}
-	</select>
 	
-	<select id="selectInquiryList" parameterType="string" resultMap="inquiryResultSet">
+	<select id="selectInquiryList" parameterType="_int" resultMap="inquiryResultSet">
 		SELECT INQ_NO
 		     , MEMBER_NO
 		     , INQ_TITLE
