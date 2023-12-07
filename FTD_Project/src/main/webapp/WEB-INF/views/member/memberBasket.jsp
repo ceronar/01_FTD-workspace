@@ -213,7 +213,7 @@
 			                        <td>사과 1.5kg 한박스</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(1, -1)">-</button><input type="text" id="quantity1" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
+			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
 			                        </td>
 			                        <td>5,000원</td>
@@ -228,7 +228,7 @@
 			                        <td>배 1.5kg 한박스</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(2, -1)">-</button><input type="text" id="quantity2" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
+			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
 			                        </td>
 			                        <td>7,500원</td>
@@ -250,7 +250,7 @@
 			                </div>
 			                <img src="/ftd/resources/images/sample/kakaoPay02.png" />
 			                <!-- 결제 버튼 -->
-			                <button class="kakaoPay" type="submit" id="pay">카카오페이 결제하기</button>
+			                <button class="kakaoPay" type="submit" id="pay" onclick="return false;">카카오페이 결제하기</button>
 			            </div>
 		            </form>
 		        </div>
@@ -280,13 +280,17 @@
  		var IMP = window.IMP;
          IMP.init('imp48134478'); //가맹점 식별코드
          $('#pay').on('click', function(e) {
+        	let buyName = $(".buyItem:checked").eq(0).parent().parent().children('td:eq(2)').text();
+        	if(($(".buyItem:checked").length - 1) > 0) {
+        		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
+        	}
      		e.preventDefault();
      		if($(".buyItem:checked").length > 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
     				  pay_method: "card", // 생략가능
     				  merchant_uid: 'merchant_' + new Date().getTime(), // 상점에서 생성한 고유 주문번호
-    				  name: "주문명:결제테스트",						// 상품명
+    				  name: buyName,									// 상품명
     				  amount: 1004,										// 가격
     				  buyer_email: "test@portone.io",					// 구매자 이메일
     				  buyer_name: "구매자이름",							// 구매자 이름
@@ -320,35 +324,29 @@
      			alert("상품을 하나 이상 선택해주세요.");
      		}
      	});
-         
-      	// let amountValue = 
-     	
-        // 가상의 상품 삭제 함수
-        /*
-        function removeItem(itemId) {
-            // 여기에 상품 삭제 로직을 추가하세요.
-            alert('상품이 장바구니에서 삭제되었습니다.');
-        }
-      	*/
 
         // 수량 조절 함수
-        function adjustQuantity(itemId, change) {
-            var quantityElement = document.getElementById('quantity' + itemId);
-            var currentQuantity = parseInt(quantityElement.value);
-            var newQuantity = currentQuantity + change;
-             
+        $(".quantity-button").on('click', e => {
+            let quantityElement = e.target.parentElement.children.item(1); // input 수량 객체
+            let currentQuantity = parseInt(quantityElement.value); // 수량
+            let newQuantity = currentQuantity + parseInt(e.target.value);
+            
             if (newQuantity >= 1) {
                 quantityElement.value = newQuantity;
                 // 여기에 수량 변경 로직을 추가하세요.
             } else {
                 alert('수량은 1 이상이어야 합니다.');
             }
-        }
+        });
       	
       	$(".deleteBtn").on('click', e => {
       		// console.log(e);
-      		let goodNo = e;
+      		// let goodNo = e.target.parentElement.parentElement.parentElement.children.item(0).children.item(0).value; // ㄷㄷ
+      		let parentTrTag = e.target;
+      		for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
+      		let goodNo = parentTrTag.children.item(0).children.item(0).value;
       		console.log(goodNo);
+      		// memberNo, goodNo ajax로 보내고 delete
       	});
       	
      });

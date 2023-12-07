@@ -233,7 +233,7 @@
 					<br><br>
 					
 					<!-- 내용 -->
-					<div align="center"> "${requestScope.p.promotionContent}"</div>
+					<div align="center"> ${requestScope.p.promotionContent}</div>
 					
 					<br><br><br><br>
 				</article>	
