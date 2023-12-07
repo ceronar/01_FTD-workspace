@@ -56,7 +56,7 @@
       }
       
       input {
-          width: 100%;
+         
           padding: 8px;
           box-sizing: border-box;
           border: 1px solid #ccc;
@@ -131,7 +131,23 @@
 		  'GRAD' 0,
 		  'opsz' 24
 		}
-      
+        .Gender {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    .Gender label {
+        margin-right: 10px; /* Adjust as needed for spacing between labels and radio buttons */
+        font-size: 18px;
+        color: #555;
+    }
+
+    .Gender input {
+        margin-right: 5px; /* Adjust as needed for spacing between radio buttons */
+    }
+
     </style>
 </head>
 <body>
@@ -143,7 +159,7 @@
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
-			    <h1>판매자 정보</h1>
+			    <h1>구매자 정보</h1>
 				    <form action="update.me" method="post" >
 				    	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
 				    	
@@ -168,13 +184,11 @@
                         <label for="detailAddress"> &nbsp; 상세주소 : </label>
                         <input type="text" class="form-control" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
                         <br><br>
-                    
-                        <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
-                        <input type="radio" id="Male" value="M" name="gender">
-                        <label for="Male">남자</label> &nbsp;&nbsp;
-                        <input type="radio" id="Female" value="F" name="gender">
-                        <label for="Female">여자</label> &nbsp;&nbsp;
-                        
+                    <div class="Gender">
+                        <label for=""> &nbsp; Gender : </label>
+                        <label for="Male">남자</label><input type="radio" id="Male" value="M" name="gender">
+                        <label for="Female">여자</label><input type="radio" id="Female" value="F" name="gender">
+                    </div>    
                         <script>
                     	$(function() {
                     		
@@ -187,6 +201,8 @@
                     	});
                     	</script>
                         
+                        <br><br>
+
 						<button type="submit">정보 변경</button>
 				        <button type="button" onclick="openModal('passwordModal')">비밀번호 변경</button><br><br>
 				        <button type="button" onclick="openModal('deleteModal')">탈퇴하기</button>

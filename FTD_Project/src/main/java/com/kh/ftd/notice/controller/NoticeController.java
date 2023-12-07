@@ -162,10 +162,6 @@ public class NoticeController {
 				
 				// 해당 파일이 실제 저장되어있는 경로 알아내기
 				for(int i = 0; i < list.length; i++) {
-					String realPath = session.getServletContext()
-							.getRealPath(list[i]);
-					
-					new File(realPath).delete();
 					
 					noticeService.deleteNoticeFile(nno);
 				}
@@ -187,6 +183,7 @@ public class NoticeController {
 	@PostMapping("updateForm.no")
 	public String updateForm(int nno, Model model) {
 		
+		
 		Notice n = noticeService.selectNotice(nno);
 		ArrayList<NoticeFile> nf = noticeService.selectNoticeFile(nno);
 		
@@ -206,17 +203,10 @@ public class NoticeController {
 							  String[] changeName,
 							  Model model) {
 		
-//		for(MultipartFile i : upfile) {
-//			System.out.println(i);
-//		}
-		
-//		System.out.println(n);
-		
-//		System.out.println(nno);
+		int result = 1;
 		
 		// 새로 넘어온 첨부파일이 있을 경우
 		// upfile 의 filename 속성값이 빈문자열과 일치하지 않을 경우
-		
 		if(!upfile[0].getOriginalFilename().equals("")) {
 				
 			// case1. 기존에 첨부파일이 있었을 경우
@@ -224,9 +214,6 @@ public class NoticeController {
 			//	  (기존 첨부파일의 수정파일명이 필요함)
 			if(originName != null) {
 				for(String i : changeName) {
-					
-					String realPath = session.getServletContext().getRealPath(i);
-					new File(realPath).delete();
 					
 					noticeService.deleteNoticeFile(n.getNoticeNo());
 					
@@ -245,34 +232,11 @@ public class NoticeController {
 				nf.setChangeName("resources/uploadFiles/notice/" + rechangeName);
 				nf.setNoticeNo(n.getNoticeNo());
 				
-				noticeService.insertFile(nf);
+				result *= noticeService.insertFile(nf);
 			}
 		}
-		
-		/*
-		 * * 이 시점 기준으로
-		 * b 에 무조건 담겨있는 내용
-		 * boardNo, boardTitle, boardContent
-		 * 
-		 * 1. 새로 첨부된 파일 X, 기존 첨부파일 X
-		 * => originName : null
-		 *    changeName : null
-		 * 
-		 * 2. 새로 첨부된 파일 X, 기존 첨부파일 O
-		 * => originName : 기존첨부파일의 원본명 
-		 * 	  changeName : 기존첨부파일의 수정명
-		 * 
-		 * 3. 새로 첨부된 파일 O, 기존 첨부파일 X
-		 * => originName : 새로 첨부된 파일의 원본명
-		 *    changeName : 새로 첨부된 파일의 수정명
-		 * 
-		 * 4. 새로 첨부된 파일 O, 기존 첨부파일 O
-		 * => originName : 새로 첨부된 파일의 원본명
-		 *    changeName : 새로 첨부된 파일의 수정명
-		 */
-		
 		// Service 단으로 b 를 보내면서 update 요청
-		int result = noticeService.updateNotice(n);
+		result *= noticeService.updateNotice(n);
 		
 		if(result > 0) { // 수정 성공
 			// => alert 문구를 담아서 
@@ -290,6 +254,30 @@ public class NoticeController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("delete.li")
+	public String deleteList(String nnoList,
+							 HttpSession session,
+							 Model model) {
+
+		int result = noticeService.deleteNoticeList(nnoList);
+		noticeService.deleteNoticeFileList(nnoList);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:/list.no";
+		} else {
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+			
+		}
+		
+	}
+	
 	
 	// ----------------------------------------------
 
@@ -324,9 +312,6 @@ public class NoticeController {
 				.getRealPath("/resources/uploadFiles/notice/");
 		
 		// 7. 경로와 수정파일명을 합체 후 파일을 업로드 해주기
-//		 System.out.println("originName : " + originName);
-//		 System.out.println("changeName : " + changeName);
-//		 System.out.println("savePate : " + savePath);
 		try {
 			
 			upfile.transferTo(new File(savePath + changeName));

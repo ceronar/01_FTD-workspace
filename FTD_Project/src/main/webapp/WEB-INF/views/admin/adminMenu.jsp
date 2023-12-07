@@ -105,14 +105,14 @@
 		.ani-navbar {
 			background-color: #494CB4;
 			color: white;
-			width: 200px;
+			width: 220px;
 			height: 100%;
 			padding: 25px;
 			position: fixed;
 			z-index: 5;
 			transition: all 1s;
 			text-align: center;
-			transform: translateX(-150px);
+			transform: translateX(-170px);
 		}
 		
 		.ani-navbar:hover {
@@ -129,18 +129,20 @@
 		.ani-navbar-menu p {
 			margin: 0;
 			margin-left: 10px;
+			font-size: 18px;
 		}
 		
 		.ani-navbar-menu p a {
 			color: black;
+			font-weight: bold;
 		}
 		
-		.ani-navbar i {
-			transition: all 0.5s;
-			transform: translateX(125px);
+		.ani-navbar .ani-navbar-menu__icon {
+			transition: all 0.6s;
+			transform: translateX(140px);
 		}
 		
-		.ani-navbar:hover i {
+		.ani-navbar:hover .ani-navbar-menu__icon {
 			transform: translateX(0px);
 		}
 		
@@ -171,14 +173,14 @@
 	      	</div>
 	
 	      	<div class="notification">
-	        	<div class="notification-icon">
+	        	<!-- <div class="notification-icon">
 	          		<span class="notification-badge">5</span>
 	          		<i class="fa-solid fa-bell"></i>
 	        	</div>
 	        	<div class="notification-icon">
 	          		<span class="notification-badge">9</span>
 	          		<i class="fa-solid fa-envelope"></i>
-	        	</div>
+	        	</div> -->
 	        	<span id="notification-name">관리자</span>
 	      	</div>
 	    </nav>
@@ -187,22 +189,22 @@
 		<nav class="ani-navbar">
 	      <div class="ani-navbar-menu">
 	      	<span class="material-symbols-outlined ani-navbar-menu__icon">dashboard</span>
-	        <p><a href="#">대시보드</a></p>
+	        <p><a href="menu.ad">대시보드</a></p>
 	      </div>
-	      <div class="ani-navbar-menu ani-navbar-menu__icon">
-	        <span class="material-symbols-outlined">group</span>
+	      <div class="ani-navbar-menu">
+	        <span class="material-symbols-outlined ani-navbar-menu__icon">group</span>
 	        <p><a href="#">회원 관리</a></p>
 	      </div>
-	      <div class="ani-navbar-menu ani-navbar-menu__icon">
-	        <span class="material-symbols-outlined">campaign</span>
+	      <div class="ani-navbar-menu">
+	        <span class="material-symbols-outlined ani-navbar-menu__icon">campaign</span>
 	        <p><a href="#">공지 관리</a></p>
 	      </div>
-	      <div class="ani-navbar-menu ani-navbar-menu__icon">
-	        <span class="material-symbols-outlined">assignment</span>
+	      <div class="ani-navbar-menu">
+	        <span class="material-symbols-outlined ani-navbar-menu__icon">assignment</span>
 	        <p><a href="#">게시판 관리</a></p>
 	      </div>
-	      <div class="ani-navbar-menu ani-navbar-menu__icon">
-	        <span class="material-symbols-outlined">store</span>
+	      <div class="ani-navbar-menu">
+	        <span class="material-symbols-outlined ani-navbar-menu__icon">store</span>
 	        <p><a href="#">마켓 관리</a></p>
 	      </div>
 	    </nav>
@@ -260,18 +262,20 @@
 	    <div class="container mt-3">
 	      <div class="row">
 	        <div class="col-lg-8">
-	          <div class="card-header h5">Earning Overview</div>
-	          <div class="card-body"><canvas id="myChart"></canvas></div>
+	          <div class="card-header h5">회원 비율</div>
+	          <div class="card-body"><canvas id="userChart"></canvas></div>
 	        </div>
-	        <div class="col-lg-4">
-	          <div class="card">
-	            <div class="card-header h5">Tasks</div>
-	            <ul class="list-group list-group-flush">
-	              <li class="list-group-item">Borrowed Items</li>
-	              <li class="list-group-item">Trello requests</li>
-	              <li class="list-group-item">Marked Comments</li>
-	            </ul>
-	          </div>
+	        <div class="col-lg-8">
+	          <div class="card-header h5">각 게시판 글 수</div>
+	          <div class="card-body"><canvas id="eachBoard"></canvas></div>
+	        </div>
+	        <div class="col-lg-8">
+	          <div class="card-header h5">일주일간 일일 글 작성 수</div>
+	          <div class="card-body"><canvas id="weekBoard"></canvas></div>
+	        </div>
+	        <div class="col-lg-8">
+	          <div class="card-header h5">일주일간 일일 매출</div>
+	          <div class="card-body"><canvas id="weekSales"></canvas></div>
 	        </div>
 	      </div>
 	    </div>
@@ -279,8 +283,83 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      var ctx = document.getElementById("myChart").getContext("2d");
-      var myChart = new Chart(ctx, {
+      var ctx1 = document.getElementById("userChart").getContext("2d");
+      var userChart = new Chart(ctx1, {
+        type: "line",
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June"],
+          datasets: [
+            {
+              label: "Monthly",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+              fill: true,
+              tension: 0.2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+      var ctx2 = document.getElementById("eachBoard").getContext("2d");
+      var eachBoard = new Chart(ctx2, {
+        type: "line",
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June"],
+          datasets: [
+            {
+              label: "Monthly",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+              fill: true,
+              tension: 0.2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+      var ctx3 = document.getElementById("weekBoard").getContext("2d");
+      var weekBoard = new Chart(ctx3, {
+        type: "line",
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June"],
+          datasets: [
+            {
+              label: "Monthly",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+              fill: true,
+              tension: 0.2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+      var ctx4 = document.getElementById("weekSales").getContext("2d");
+      var weekSales = new Chart(ctx4, {
         type: "line",
         data: {
           labels: ["January", "February", "March", "April", "May", "June"],

@@ -76,4 +76,14 @@ public class NoticeServiceImpl implements NoticeService{
 		return noticeDao.deleteNoticeFile(sqlSession, noticeNo);
 	}
 
+	@Override
+	public int deleteNoticeList(String nnoList) {
+		return noticeDao.deleteNoticeList(sqlSession, nnoList);
+	}
+
+	@Override
+	public int deleteNoticeFileList(String nnoList) {
+		return noticeDao.deleteNoticeFileList(sqlSession, nnoList);
+	}
+
 }
