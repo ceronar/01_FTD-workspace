@@ -22,15 +22,10 @@ public class InquiryServiceImpl implements InquiryService{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-//	@Override
-//	public int selectInquiryCount(String sellerNo) {
-//		return inquiryDao.selectInquiryCount(sqlSession, sellerNo);
-//	}
-//
-//	@Override
-//	public ArrayList<Inquiry> selectInquiryList(PageInfo pi, String sellerNo) {
-//		return inquiryDao.selectInquiryList(sqlSession, pi, sellerNo);
-//	}
+	@Override
+	public ArrayList<Inquiry> ajaxSelectInquiryList(int sellerNo) {
+		return inquiryDao.ajaxSelectInquiryList(sqlSession, sellerNo);
+	}
 	
 	@Override
 	public int insertNotice(Inquiry i) {
@@ -79,6 +74,7 @@ public class InquiryServiceImpl implements InquiryService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	
 

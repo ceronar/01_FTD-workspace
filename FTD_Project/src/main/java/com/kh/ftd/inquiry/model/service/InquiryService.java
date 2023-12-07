@@ -11,11 +11,8 @@ import com.kh.ftd.inquiry.model.vo.InquiryReply;
 public interface InquiryService {
 	
 
-	// 총 게시글 갯수
-//	int selectInquiryCount(String sellerNo);
-//	
-//	// 게시글 리스트 조회
-//	ArrayList<Inquiry> selectInquiryList(PageInfo pi, String sellerNo);
+	// 게시글 전체조회
+	ArrayList<Inquiry> ajaxSelectInquiryList(int sellerNo);
 	
 	// 게시글 작성하기
 	int insertNotice(Inquiry i);
@@ -40,4 +37,5 @@ public interface InquiryService {
 	
 	// 댓글 작성 서비스
 	int insertReply(InquiryReply r);
+	
 }
