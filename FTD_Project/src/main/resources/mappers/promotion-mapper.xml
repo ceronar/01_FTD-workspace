@@ -121,12 +121,7 @@
 		AND DELETE_DATE IS NULL
 	</select>
 	
-	<select id="selectPromotionFileList2" resultMap="promotionFileResultSet" parameterType="_int">
-		SELECT *
-		FROM PROMOTION_FILE
-		WHERE PROMOTION_NO = #{promotionNo}
-		AND DELETE_DATE IS NULL
-	</select>
+	
 	
 	<select id="selectPromotionReplyList" resultMap="promotionReplyResultSet" parameterType="_int">
 		SELECT P.REPLY_NO,
@@ -172,7 +167,40 @@
 					 	 	  , #{changeName})
 	</insert>
 	
+	<insert id="updateFile" parameterType="promotion">
+		INSERT INTO PROMOTION_FILE(FILE_NO
+							  , PROMOTION_NO
+							  , ORIGINAL_NAME
+							  , CHANGE_NAME)
+					 	 VALUES(SEQ_PFNO.NEXTVAL
+					 	 	  , #{promotionNo}
+					 	 	  , #{originalName}
+					 	 	  , #{changeName})
+	</insert>
 	
+	<update id="deletePromotionFile" parameterType="_int">
+		UPDATE PROMOTION_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE PROMOTION_NO = #{promotionNo}
+	</update>
 	
+	<update id="updatePromotion" parameterType="promotion">
+		UPDATE PROMOTION
+		   SET PROMOTION_CONTENT = #{promotionContent}
+		 WHERE PROMOTION_NO = #{promotionNo}
+		   AND DELETE_DATE IS NULL
+	</update>
+	
+<update id="deletePromotion" parameterType="_int">
+		UPDATE PROMOTION
+		   SET DELETE_DATE = SYSDATE
+		 WHERE PROMOTION_NO = #{pno}
+	</update>
+	
+	<update id="deleteNoticeFile" parameterType="_int">
+		UPDATE PROMOTION_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE PROMOTION_NO = #{pno}
+	</update>
 	
 </mapper>

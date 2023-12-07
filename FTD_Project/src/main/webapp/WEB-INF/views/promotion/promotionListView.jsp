@@ -183,51 +183,56 @@
                 padding-left: 0px;
             }
 
-            #product_image_1 {
+            .product_image_1 {
                 height: 300px;
                 width: 400px;
 
                 border-radius: 50px 0px 0px 50px;
             }
 
-            #product_image_1>img {
+            .product_image_1>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 50px 0px 0px 50px;
+     
 
             }
 
-            #product_image_2 {
+            .product_image_2 {
                 height: 300px;
                 width: 294px;
+                  border: 2px solid white;
 
             }
 
-            #product_image_2>div {
+            .product_image_2>div {
                 height: 50%;
                 width: 100%;
 
 
             }
 
-            #product_image_2>#product_image_2_1 {
+            .product_image_2>.product_image_2_1 {
                 border-radius: 0px 50px 0px 0px;
             }
 
-            #product_image_2>#product_image_2_1>img {
+            .product_image_2>.product_image_2_1>img {
                 border-radius: 0px 50px 0px 0px;
+                  border: 2px solid white;
+                
             }
 
-            #product_image_2>#product_image_2_2 {
+            .product_image_2>.product_image_2_2 {
                 border-radius: 0px 0px 50px 0px;
             }
 
-            #product_image_2>#product_image_2_2>img {
+            .product_image_2>.product_image_2_2>img {
                 border-radius: 0px 0px 50px 0px;
+                  border: 2px solid white;
             }
 
 
-            #product_image_2 img {
+            .product_image_2 img {
                 width: 100%;
                 height: 100%;
             }
@@ -237,8 +242,8 @@
                 color: rgb(143, 143, 143);
             }
 
-            .product_image #product_image_1,
-            #product_image_2 {
+            .product_image .product_image_1,
+            .product_image_2 {
                 display: inline-block;
             }
 
@@ -306,6 +311,54 @@
                 margin-right: 10px;
                 /* Adjust the margin as needed */
             }
+            
+            /* 파일 두개일때 */
+/*--------------------------------------------------------*/
+            .product2_image_1 {
+                height: 300px;
+                width: 350px; 
+                border-radius: 50px 0px 0px 50px;
+                 border: 2px solid white;
+            }
+
+            .product2_image_1>img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50px 0px 0px 50px;
+                
+            }
+
+            .product2_image_2 {
+                height: 300px;
+                width: 350px;
+                border-radius: 0px 50px 50px 0px;
+                 border: 2px solid white;
+            }
+            .product2_image_2>img {
+                width: 100%;
+                height: 100%;
+                border-radius: 0px 50px 50px 0px;
+            }
+            
+           
+/*--------------------------------------------------------*/
+
+/* 파일 한개일때 */
+            .product1_image_1 {
+                height: 300px;
+                width: 650px;
+                
+                border-radius: 50px 50px 50px 50px;
+            }
+
+            .product1_image_1>img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50px 50px 50px 50px;
+         
+            }
+
+/*--------------------------------------------------------*/
         </style>
         <script>
             var page = 0;
@@ -352,11 +405,9 @@
                         // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
 
                         data.forEach(function (val) {
-								console.log(val);
-                            $('.promotion').append(
+							
 
-
-                                '<div>'
+                       let str  ='<div>'
                                 + '<div class="profile">'
                                 + '<div id="profile_1" style="width : 50px; height : 50px;">'
                                 + '<img src="" alt="">'
@@ -381,25 +432,53 @@
                                 + '<input type="hidden" value="' + val[0].promotionNo + '">'
                                 + '<div style="margin-left : 35px">'
                                 + '<h2>판매</h2>'
-                                + val[0].promotionContent
-                                + '<div class="product_image">'
-                                + '<div>'
-                                <c:if>
-                                + '<div id="product_image_1">'
-                                + '<img src="'+ val[3][0].changeName +'" >'
-                                + '</div>'
-                                + '<div id="product_image_2">'
-                                + '<div id="product_image_2_1">'
-                                + '<img src="'+ val[3][1].changeName +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
-                                + '</div>'
-                                + '<div id="product_image_2_2">'
-                                + '<img src="'+ val[3][2].changeName +'">'
+                                + val[0].promotionContent;
                                 
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>'
+                            if(val[3].length == 3){
+                            	  str += '<div class="product_image">'
+  	                                + '<div>'
+  	                                + '<div class="product_image_1">'
+  	                                + '<img src="'+ val[3][0].changeName +'" >'
+  	                                + '</div>'
+  	                                + '<div class="product_image_2">'
+  	                                + '<div class="product_image_2_1">'
+  	                                + '<img src="'+ val[3][1].changeName +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
+  	                                + '</div>'
+  	                                + '<div class="product_image_2_2">'
+  	                                + '<img src="'+ val[3][2].changeName +'">'
+  	                                + '</div>'
+  	                                + '</div>'
+  	                                + '</div>'
+  	                                + '</div>';
+                            }else if(val[3].length == 2){
+                            	
+                            str +=	'<div class="product_image">'
+                                + '<div style="display : flex;">'
+                                    + '<div class="product2_image_1">'
+                                       +  '<img src="'+ val[3][0].changeName +'" >'
+                                    + '</div>'
+                                   + '<div class="product2_image_2">'
+                                        + '<img src="'+ val[3][1].changeName +'">'
+                                     +'</div>'
+                                 +'</div>'
+                      			+  '</div>'
+                    		        	  
+                            }else if(val[3].length == 1){
+                            	
+                            str += '<div class="product_image">'
+                                +'<div>'
+                                    +'<div class="product1_image_1">'
+                                       + '<img src="'+ val[3][0].changeName +'" >'
+                                   + '</div>'
+                               + '</div>'
+                       + '</div>'
+                            	
+                            }else{
+                            	
+                            	
+                            }
+                    
+                                str += '</div>'
                                 + '<div class="product_options">'
                                 + '<div>'
                                 + '<div class="swiper-wrapper">'
@@ -427,16 +506,11 @@
                                 + '</span>'
                                 + '</div>'
 
-                                + '<hr>'
+                                + '<hr>';
 
 
-
-
-
-
-
-                            );
-
+                                $('.promotion').append(str);
+								
                         });
 
 

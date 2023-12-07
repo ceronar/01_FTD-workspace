@@ -23,6 +23,7 @@ public class AdminController {
 		// 누적 전체 매출
 		int totalSales = adminService.totalSales();
 		
+		
 		model.addAttribute("totalUser", totalUser)
 			 .addAttribute("totalBoard", totalBoard)
 			 .addAttribute("totalSales", totalSales);
@@ -30,5 +31,8 @@ public class AdminController {
 		return "admin/adminMenu";
 	}
 	
-	
+	@RequestMapping("user.ad")
+	public String userAdminPage() {
+		return "admin/userAdminPage";
+	}
 }

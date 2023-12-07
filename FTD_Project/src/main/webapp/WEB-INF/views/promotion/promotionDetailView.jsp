@@ -208,8 +208,10 @@
                     </div>
             </div>
             <div id="profile_3">
-                <button style="width : 50px"><i class="fas fa-store"></i></button>
-                <button>마켓 찜</button>
+                <a style="width : 50px"><i class="fas fa-store"></i></a>
+                <a>마켓 찜</a>
+                <a href="updateForm.bo?pno=${requestScope.p.promotionNo}">수정하기</a>
+                <a href="delete.bo?pno=${requestScope.p.promotionNo}">삭제하기</a>
             </div>
         </div>
 
@@ -233,7 +235,7 @@
 					<br><br>
 					
 					<!-- 내용 -->
-					<div align="center"> "${requestScope.p.promotionContent}"</div>
+					<div align="center"> ${requestScope.p.promotionContent}</div>
 					
 					<br><br><br><br>
 				</article>	

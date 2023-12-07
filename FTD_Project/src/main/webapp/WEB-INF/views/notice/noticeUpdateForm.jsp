@@ -98,8 +98,8 @@
 						${ nf.originName }
 						</a>&nbsp
 						<!-- 기존의 첨부파일이 있다라는 뜻 -->
-						<input type="text" name="originName" value="${ nf.originName }">
-						<input type="text" name="changeName" value="${ nf.changeName }">
+						<input type="hidden" name="originName" value="${ nf.originName }">
+						<input type="hidden" name="changeName" value="${ nf.changeName }">
 	                </c:forEach>
 	            </c:if>
             </div>

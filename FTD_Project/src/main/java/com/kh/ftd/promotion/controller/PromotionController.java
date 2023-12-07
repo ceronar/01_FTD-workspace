@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.ftd.notice.model.vo.Notice;
+import com.kh.ftd.notice.model.vo.NoticeFile;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -61,7 +63,7 @@ public class PromotionController {
 					int sno = p.getSellerNo();
 					
 					//이 홍보게시글의 사진 //슬라이드 형식?
-					ArrayList<PromotionFile> pfList = promotionService.selectPromotionFileList2(pno);
+					ArrayList<PromotionFile> pfList = promotionService.selectPromotionFileList(pno);
 					//System.out.println(pfList);
 					
 					//이 홍보게시글의 댓글
@@ -171,13 +173,145 @@ public class PromotionController {
 		
 	}
 	
+	@RequestMapping(value = "updateForm.bo")
+	public String updateForm(int pno, Model mv) {
+		
+		Promotion p = promotionService.selectPromotion(pno);
+		ArrayList<PromotionFile> pf = promotionService.selectPromotionFileList(pno);
+		Seller seller = promotionService.selectSellerList(p.getSellerNo());
+		SellerFile sellerFile = promotionService.selectSellerFileProfileList(p.getSellerNo());
+		
+		System.out.println(p);
+		mv.addAttribute("seller", seller);
+		mv.addAttribute("sellerFile", sellerFile);
+		mv.addAttribute("p", p);
+		mv.addAttribute("pf", pf);
+		
+		// /WEB-INF/views/board/boardUpdateForm.jsp
+		return "promotion/promotionUpdateForm";
+	}
+	
+	@PostMapping(value = "update.bo")
+	public String updatePromotion(Promotion p,
+								MultipartFile reupfile[],
+								HttpSession session,
+								PromotionFile pf,
+								Model model,
+								String[] originalName,
+								String[] changeName) {
+		// 새로 넘어온 첨부파일이 있을 경우
+		// upfile 의 filename 속성값이 빈문자열과 일치하지 않을 경우
+		int result = 1;
+		System.out.println(p);
+		System.out.println(pf);
+		System.out.println(originalName);
+		System.out.println(changeName);
+		if(!reupfile[0].getOriginalFilename().equals("")) {
+			
+			
+			// case1. 기존에 첨부파일이 있었을 경우
+			// => 기존의 첨부파일을 찾아서 서버로부터 삭제
+			//	  (기존 첨부파일의 수정파일명이 필요함)
+			if(originalName != null) {
+				for(String i : changeName) {
+					
+					promotionService.deletePromotionFile(p.getPromotionNo());
+				}
+			}
+		
+			
+			// case1. 기존에 첨부파일이 있었을 경우
+			// case2. 기존에 첨부파일이 없었을 경우
+			// 공통코드로써
+			// => 새로 넘어온 첨부파일을 파일명 수정 후 업로드
+		for(MultipartFile i : reupfile) {
+			String rechangeName = saveFile(i, session);
+			
+			pf.setOriginalName(i.getOriginalFilename());
+			pf.setChangeName("resources/uploadFiles/promotion/" + rechangeName);
+			
+			System.out.println(pf);
+			
+			result *= promotionService.updateFile(pf);
+		}
+	}
+		// Service 단으로 b 를 보내면서 update 요청
+		result *= promotionService.updatePromotion(p);
+		
+		if(result > 0) { // 게시글 작성 성공
+			// => alert 문구를 담고
+			//    promotionDetailView.bo 로 url 재요청
+			
+			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
+			
+			return "redirect:/pdlist.bo?pno=" + p.getPromotionNo();
+			
+		} else { // 게시글 작성 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "게시글 수정 실패");
+			
+			// /WEB-INF/views/common/errorPage.jsp
+			return "common/errorPage";
+		}
+		
+		
+	}
+	
+	@RequestMapping("delete.bo")
+	public String deleteNotice(int pno,
+							  String filePath,
+							  Model model,
+							  HttpSession session) {
+		
+		// bno 에는 post 방식으로 넘겨받은 글번호가 들어가있음
+		System.out.println(pno);
+		System.out.println(filePath); //지금 널이담김 노티스 디테일뷰 보면서 수정해야뎀
+		String[] list = filePath.split(",");
+		
+		// 삭제 요청
+		int result = promotionService.deletePromotion(pno);
+		
+		if(result > 0) { // 삭제 성공
+			// => alert 문구를 담아 게시판 리스트 페이지로 url 재요청
+			
+			// 기존에 첨부파일이 있었을 경우
+			// 서버로부터 해당 첨부파일 삭제하기
+			
+			// filePath 라는 매개변수에는
+			// 기존에 첨부파일이 있었을 경우 수정파일명
+			// 기존에 첨부파일이 없었을 경우 "" 이 들어가 있음
+			if(!filePath.equals("")) {
+				// 기존에 첨부파일이 있었을 경우
+				// => 해당 파일을 삭제처리
+				
+				// 해당 파일이 실제 저장되어있는 경로 알아내기
+				for(int i = 0; i < list.length; i++) {
+					
+					promotionService.deleteNoticeFile(pno);
+				}
+			}
+			
+			session.setAttribute("alertMsg", "성공적으로 글이 삭제되었습니다.");
+			
+			return "redirect:/plist.bo";
+			
+		} else { // 삭제 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
 	
 	
 	
 	
 	@ResponseBody
 	@RequestMapping(value = "getLegacyData.bo" , produces = "application/json; charset=UTF-8")
-	public String ajaxpromotionListView(int page, int size) {
+	public String ajaxpromotionListView(int page, int size, Model m) {
 		
 		
 		int promotionNo = 0;
@@ -232,7 +366,7 @@ public class PromotionController {
 		ArrayList<PromotionFile> pFileList = promotionService.selectPromotionFileList(promotionNo);
 		//System.out.println(pFileList);
 		pfList.add(pFileList);
-		
+	
 		//각 홍보리스트 댓글갯수
 		int replyList =  promotionService.PromotionReplyCount(promotionNo);
 		//System.out.println(replyList); 
@@ -248,7 +382,7 @@ public class PromotionController {
 		//System.out.println(pfList);
 		//System.out.println(rList);
 		
-		
+		//System.out.println(pfCount);
 
 		
 	
