@@ -240,7 +240,53 @@ public class SellerController {
         session.setAttribute("alertMsg", "회원정보 변경 성공했습니다.");
         return "redirect:/sellerPage"; 
     }
-
+	
+	@RequestMapping("delete.se")
+	public String deleteSeller(String sellerId,
+							   String sellerPwd,
+							   HttpSession session,
+							   Model model) {
+		
+		String encPwd = ((Seller)session.getAttribute("loginSeller")).getSellerPwd();
+		
+		if(bcryptPasswordEncoder.matches(sellerPwd, encPwd)) {
+			
+			int result = sellerService.deleteSeller(sellerId);
+			
+			if(result > 0) {
+				
+				session.removeAttribute("loginSeller");
+				
+				session.setAttribute("alertMsg", "성공적으로 탈퇴했습니다. 감사했습니다.");
+				
+				System.out.println(sellerId);
+				System.out.println(sellerPwd);
+				
+				return "redirect:/";
+				
+			} else {
+				
+				model.addAttribute("errorMsg", "회원탈퇴실패");
+				
+				return "common/errorPage";
+				
+			}
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못입력했습니다. 다시 한번 확인해주세요");
+			
+			return "redirect:/sellerPage";
+			
+		}
+		
+	}
+	
+	
+	
+	// 아이디 중복체크 만들어야함 
+	
+	
     
     private String handleFileUpload(MultipartFile file) {
         
@@ -252,7 +298,8 @@ public class SellerController {
 
         return "/images/" + fileName; 
     }
-
+    
+    
 	
 	
 	@GetMapping("/find-id1")

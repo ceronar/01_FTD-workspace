@@ -276,7 +276,8 @@
                   <tr>
                       <td>비밀번호</td>
                       <td>
-                          <input type="password" name="sellerPwd" required>
+                         <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="sellerPwd" name="sellerPwd"> <br>
+                         <input type="hidden" name="sellerId" value="${ sessionScope.loginSeller.sellerId }">
                       </td>
               </table>
               <br>

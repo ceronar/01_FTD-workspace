@@ -41,7 +41,10 @@ public class SellerServiceImpl implements SellerService{
 
 	@Override
 	public int deleteSeller(String sellerId) {
-		return 0;
+		
+		System.out.println(sellerId);
+		
+		return sellerDao.deleteSeller(sqlSession, sellerId);
 	}
 
 	@Override

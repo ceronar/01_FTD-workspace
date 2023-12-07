@@ -139,7 +139,15 @@
 		  AND DELETE_DATE IS NULL
 	</update>
 
-
+	<!-- 회원탈퇴용 쿼리문 -->
+	<update id="deleteSeller"
+			parameterType="string">
+		UPDATE SELLER
+		   SET DELETE_DATE = SYSDATE
+		 WHERE SELLER_ID = #{sellerId}
+			
+	</update>
+	
 
 	<!-- ID찾기(이메일기반) -->
 	<select id="findId" 

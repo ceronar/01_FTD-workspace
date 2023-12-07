@@ -65,4 +65,9 @@ public class SellerDao {
 		return sqlSession.update("sellerMapper.updateSeller", s);
 	}
 
+	public int deleteSeller(SqlSessionTemplate sqlSession, String sellerId) {
+		
+		return sqlSession.update("sellerMapper.deleteSeller", sellerId);
+	}
+
 }
