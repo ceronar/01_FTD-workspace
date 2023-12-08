@@ -67,9 +67,21 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public Subscribe ajaxSelectSubscribe(Subscribe subscribe) {
+	public Subscribe ajaxSelectSubscribe(Subscribe subscribeNo) {
 		
-		return memberDao.ajaxSelectSubscribe(sqlSession, subscribe);
+		return memberDao.ajaxSelectSubscribe(sqlSession, subscribeNo);
+	}
+
+	@Override
+	public int ajaxDeleteSubscribe(Subscribe checkSubscribe) {
+		
+		return memberDao.ajaxDeleteSubscribe(sqlSession, checkSubscribe);
+	}
+
+	@Override
+	public int ajaxInsertSubscribe(Subscribe subscribeNo) {
+		
+		return memberDao.ajaxInsertSubscribe(sqlSession, subscribeNo);
 	}
 
 	

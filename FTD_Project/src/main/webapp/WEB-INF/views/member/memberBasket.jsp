@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,7 +196,7 @@
 			                    	<th>이미지</th>
 			                        <th>상품명</th>
 			                        <th>수량</th>
-			                        <th>가격</th>
+			                        <th width="150">가격</th>
 			                        <th>삭제</th>
 			                    </tr>
 			                </thead>
@@ -215,6 +216,7 @@
 			                        	<div class="quantity-buttons">
 			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
+			                            <input type="hidden" class="price" value="5000">
 			                        </td>
 			                        <td>5,000원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
@@ -230,6 +232,7 @@
 			                        	<div class="quantity-buttons">
 			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
+			                            <input type="hidden" class="price" value="7500">
 			                        </td>
 			                        <td>7,500원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
@@ -245,10 +248,10 @@
 				            	<textarea class="requestBox" name="request" rows="2" cols="20" placeholder="주문시 요청할 사항 입력"></textarea>
 							</div>
 			                <div>
-			                    <p><strong class="deliver">배송비: 5,000원</strong></p>
-			                    <p><strong class="amount">총 가격: 20,500원</strong></p>
+			                    <p><strong>배송비: <span id="deliver">0</span>원</strong></p>
+			                    <p><strong>총 가격: <span id="totalPrice">0</span>원</strong></p>
 			                </div>
-			                <img src="/ftd/resources/images/sample/kakaoPay02.png" />
+			                <img src="${pageContext.request.contextPath}/resources/images/sample/kakaoPay02.png" />
 			                <!-- 결제 버튼 -->
 			                <button class="kakaoPay" type="submit" id="pay" onclick="return false;">카카오페이 결제하기</button>
 			            </div>
@@ -263,10 +266,41 @@
 
 
 	<script>
+		// JavaScript to calculate total price
+	    document.addEventListener("DOMContentLoaded", function () {
+	        updateTotalPrice();
+	
+	        // Listen for changes in checkboxes and quantity inputs
+	        var checkboxes = document.querySelectorAll('.buyItem, .quantity-input');
+	        checkboxes.forEach(function (checkbox) {
+	            checkbox.addEventListener('change', updateTotalPrice);
+	        });
+	    });
+	
+	    function updateTotalPrice() {
+	        var total = 0;
+	
+	        // Iterate over each checkbox with class 'buyItem'
+	        var checkboxes = document.querySelectorAll('.buyItem');
+	        checkboxes.forEach(function (checkbox) {
+	            if (checkbox.checked) {
+	                var quantityInput = checkbox.parentElement.parentElement.querySelector('.quantity-input');
+	                var quantity = parseInt(quantityInput.value, 10);
+	                var price = parseInt(checkbox.parentElement.parentElement.querySelector('.price').value);
+	                total += quantity * price;
+	            }
+	        });
+	
+	        // Update the total price display
+	        var totalPriceDisplay = document.getElementById('totalPrice');
+	        totalPriceDisplay.textContent = total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	    }
+		
      $(function () {
 		// 전체 상품 선택 함수
 		$(".buyAllItems").change(function(){
  			$(".buyItem").prop('checked', $(".buyAllItems").is(":checked"));
+ 			updateTotalPrice()
  		});
  		
  		$(".buyItem").click(function() {
@@ -284,19 +318,20 @@
         	if(($(".buyItem:checked").length - 1) > 0) {
         		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
         	}
+        	let totalPrice = document.getElementById('totalPrice').innerText.split(',').join("");
      		e.preventDefault();
      		if($(".buyItem:checked").length > 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
-    				  pay_method: "card", // 생략가능
-    				  merchant_uid: 'merchant_' + new Date().getTime(), // 상점에서 생성한 고유 주문번호
-    				  name: buyName,									// 상품명
-    				  amount: 1004,										// 가격
-    				  buyer_email: "test@portone.io",					// 구매자 이메일
-    				  buyer_name: "구매자이름",							// 구매자 이름
-    				  buyer_tel: "010-1234-5678",						// 전화번호
-    				  buyer_addr: "서울특별시 강남구 삼성동",			// 주소
-    				  buyer_postcode: "123-456"							// 우편번호
+    				  pay_method: "card", 									// 생략가능
+    				  merchant_uid: 'merchant_' + new Date().getTime(), 	// 상점에서 생성한 고유 주문번호
+    				  name: buyName,										// 상품명
+    				  amount: totalPrice,									// 가격
+    				  buyer_email: "${ sessoinScope.loginUser.email }",		// 구매자 이메일
+    				  buyer_name: "${ sessionScope.loginUser.memberName }",	// 구매자 이름
+    				  buyer_tel: "${ sessionScope.loginUser.phone }",		// 전화번호
+    				  buyer_addr: "${ sessionScope.loginUser.address }",	// 주소
+    				  buyer_postcode: "${ sessionScope.loginUser.zipCode }"	// 우편번호
     				}, function(rsp) {
     					console.log(rsp);
     					if (rsp.success) {
@@ -329,11 +364,15 @@
         $(".quantity-button").on('click', e => {
             let quantityElement = e.target.parentElement.children.item(1); // input 수량 객체
             let currentQuantity = parseInt(quantityElement.value); // 수량
-            let newQuantity = currentQuantity + parseInt(e.target.value);
-            
+            let newQuantity = currentQuantity + parseInt(e.target.value); // 변경 될 수량
+            let goodPrice = e.target.parentElement.nextSibling.nextSibling.value; // 상품의 개별 가격
+            let quantityPrice = e.target.parentElement.parentElement.nextSibling.nextSibling; // 변경 후 표시될 가격 위치
+            let newPrice = newQuantity * goodPrice; // 변경 후 가격 * 수량
             if (newQuantity >= 1) {
                 quantityElement.value = newQuantity;
                 // 여기에 수량 변경 로직을 추가하세요.
+                quantityPrice.innerText = newPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원";
+                updateTotalPrice();
             } else {
                 alert('수량은 1 이상이어야 합니다.');
             }
@@ -348,6 +387,8 @@
       		console.log(goodNo);
       		// memberNo, goodNo ajax로 보내고 delete
       	});
+      	
+      	
       	
      });
     </script>
