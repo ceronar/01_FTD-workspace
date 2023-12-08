@@ -213,9 +213,9 @@
 			                        	<div class="quantity-buttons">
 			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="${ c.count }" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
-			                            <input type="hidden" class="price" value="${ c.price }">
+			                            <input type="hidden" class="price" name="goodPrice" value="${ c.price }">
 			                        </td>
-			                        <td> 원</td>
+			                        <td>${ c.price }원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
 			                    </tr>
 			                    </c:forEach>
@@ -270,6 +270,7 @@
 	                var quantity = parseInt(quantityInput.value, 10);
 	                var price = parseInt(checkbox.parentElement.parentElement.querySelector('.price').value);
 	                total += quantity * price;
+	                total += 2500;
 	            }
 	        });
 	
@@ -281,6 +282,7 @@
 		
      $(function () {
     	 updateTotalPrice();
+    	 
 		// 전체 상품 선택 함수
 		$(".buyAllItems").change(function(){
  			$(".buyItem").prop('checked', $(".buyAllItems").is(":checked"));
@@ -302,10 +304,10 @@
         	if(($(".buyItem:checked").length - 1) > 0) {
         		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
         	}
-        	let totalPrice = Number(document.getElementById('totalPrice').innerText.split(',').join("")) + Number(document.getElementById('deliver').innerText.split(',').join(""));
+        	let totalPrice = Number(document.getElementById('totalPrice').innerText.split(',').join(""));
         	console.log(totalPrice);
      		e.preventDefault();
-     		if($(".buyItem:checked").length < 0){
+     		if($(".buyItem:checked").length > 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
     				  pay_method: "card", 									// 생략가능
@@ -370,7 +372,24 @@
       		for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
       		let goodNo = parentTrTag.children.item(0).children.item(0).value;
       		console.log(goodNo);
-      		// memberNo, goodNo ajax로 보내고 delete
+      		// memberNo, goodNo ajax로 보내고 parentTrTag 제거
+      		$.ajax({
+      			url : "ajaxDeleteCart.me",
+      			type : "get",
+      			data : {
+      				memberNo : ${ sessionScope.loginUser.memberNo },
+      				goodNo : goodNo
+      			},
+      			success : function(result) { 
+					if(result == "success") {
+						parentTrTag.remove();
+						alertify.success('삭제 완료');
+					}
+				},
+				error : function() {
+					console.log(" ajax 통신 실패")
+				}
+      		});
       	});
       	
       	

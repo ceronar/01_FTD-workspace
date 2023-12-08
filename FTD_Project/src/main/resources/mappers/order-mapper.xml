@@ -31,8 +31,8 @@
 	</resultMap>
 	
 	<insert id="paySuccess" parameterType="order">
-		INSERT INTO "ORDER"(ORDER_NO, MEMBER_NO, ORDER_NAME, PHONE, PRICE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, REQUEST, PAY_TID, PAY_METHOD, PAY_DATE, STATUS)
-				     VALUES(SEQ_ONO.NEXTVAL, #{memberNo}, #{orderName}, #{phone}, #{price}, #{zipCode}, #{address}, #{detailAddress}, #{request}, #{payTid}, #{payMethod}, SYSDATE, 'Y')
+		INSERT INTO "ORDER"(ORDER_NO, MEMBER_NO, ORDER_NAME, PHONE, PRICE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, REQUEST, PAY_TID, PAY_METHOD)
+				     VALUES(SEQ_ONO.NEXTVAL, #{memberNo}, #{orderName}, #{phone}, #{price}, #{zipCode}, #{address}, #{detailAddress}, #{request}, #{payTid}, #{payMethod})
 	</insert>
 	
 	<select id="memberBasketList" parameterType="_int" resultMap="cartResultSet">
@@ -44,5 +44,31 @@
 		   AND STATUS = 'N'
 		   AND G.STOCK > 0
 	</select>
+	
+	<select id="selectPeyNumber" parameterType="order" resultType="_int">
+		SELECT ORDER_NO
+		  FROM "ORDER"
+		 WHERE PAY_TID = #{payTid}
+	</select>
+	
+	<insert id="insertOrderGoods" parameterType="orderGoods">
+		INSERT INTO ORDER_GOODS(ORDER_DETAIL_NO, ORDER_NO, GOOD_NO, "COUNT", PRICE)
+                         VALUES(SEQ_OGNO.NEXTVAL, #{orderNo}, #{goodNo}, #{count}, #{price})
+	</insert>
+	
+	<update id="updateBuyCart" parameterType="cart">
+		UPDATE CART
+		   SET STATUS = 'Y'
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND GOOD_NO = #{goodNo}
+	</update>
+	
+	<delete id="ajaxDeleteCart" parameterType="cart">
+		DELETE
+		  FROM CART
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND GOOD_NO = #{goodNo}
+		   AND STATUS = 'N'
+	</delete>
 	
 </mapper>

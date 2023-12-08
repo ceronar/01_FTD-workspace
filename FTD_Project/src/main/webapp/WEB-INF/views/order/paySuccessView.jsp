@@ -51,7 +51,10 @@
 <!-- Payment Complete Page -->
 <div>
     <h2>결제 완료</h2>
-    <p>귀하의 결제가 성공적으로 처리되었습니다. 구입 주셔서 감사합니다!</p>
+    <p>
+    	귀하의 결제가 성공적으로 처리되었습니다. <br> 
+    	구입 주셔서 감사합니다!
+    </p>
 
     <!-- Button to go home -->
     <button onclick="goHome()">메인으로</button>
