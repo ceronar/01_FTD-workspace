@@ -31,6 +31,7 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
+	// 로그인 폼
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
 		
@@ -122,6 +123,7 @@ public class MemberController {
 		}
 	}
 	
+	// 비밀번호 변경
 	@PostMapping(value="updatePwd.me")
 	public String updatePwd(Member m, Model model, HttpSession session, String memberPwd, String updatePwd) {
 		if(bcryptPasswordEncoder.matches(memberPwd, ((Member)(session.getAttribute("loginUser"))).getMemberPwd())) {
@@ -133,7 +135,7 @@ public class MemberController {
 			
 			if(result > 0) {
 				// 이게 맞을 경우
-				session.setAttribute("alertMsg","맞음");
+				session.setAttribute("alertMsg","성공적으로 비밀번호가 수정되었습니다.");
 				
 				return "redirect:/";
 				

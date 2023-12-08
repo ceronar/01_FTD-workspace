@@ -44,5 +44,8 @@ public interface SellerService {
 		
 	// 판매자 아이디 찾기 (selesct)
 	String findSellerIdByEmail(String email);
+	
+	// 판매자 비밀번호 변경
+	int updateSellerPwd(Seller s);
 
 }
