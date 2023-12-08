@@ -153,6 +153,8 @@
 		
 		ajaxSelectSellerMarketList();
 		
+		ajaxSelectSubscribe();
+		
 	});
 	
 	function ajaxSelectSellerMarketList() {
@@ -197,7 +199,40 @@
             }
             
 		});
+				
+	}
+
+	function ajaxSelectSubscribe() {
 		
+		$.ajax({
+			url : 'ajaxSelectSubscribe.se',
+			type: 'get',
+			data : { memberNo : ${sessionScope.loginUser.memberNo }, sellerNo : ${requestScope.sellerNo}},
+			success: function(result) {
+				
+				console.log(result);
+				
+				if(result == "btn btn-secondary") {
+					
+					$("#subscribe").attr('class', result);
+					
+					$("#subscribe").attr("disabled", true);
+					
+				} else {
+					
+					$("#subscribe").attr('class', result);
+					
+					$("#subscribe").attr("disabled", false);
+				}
+				
+			},
+			error : function() {
+				
+				console.log("ajax 통신 실패");
+			}
+			
+		
+		});
 	}
 	
 	
@@ -246,11 +281,23 @@
     	$(".store").on("click", "#subscribe", () => {
 
     		$.ajax({
-    			url : "ajaxSelectSubscribe.se",
+    			url : "ajaxClickSubscribe.se",
 				type : "get",
 				data : { memberNo : ${sessionScope.loginUser.memberNo }, sellerNo : ${requestScope.sellerNo}},
 				success : result => {
 					
+	            	if(result == "btn btn-secondary") {
+	            		
+	            		$("#subscribe").attr('class', result);
+	            		
+	            		$("#subscribe").attr("disabled", true);
+	            		
+	            	} else {
+	            		
+	            		$("#subscribe").attr('class', result);
+	            		
+	            		$("#subscribe").attr("disabled", false);
+	            	}
 					
 					
 				},
@@ -264,10 +311,7 @@
     	});
     	
     });
-
-    		
-
-    
+  
     </script>
     
 </body>

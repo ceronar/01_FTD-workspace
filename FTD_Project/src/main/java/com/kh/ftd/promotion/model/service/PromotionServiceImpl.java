@@ -65,6 +65,38 @@ public class PromotionServiceImpl implements PromotionService{
 		
 		return promotionDao.insertFile(sqlSession,pf);
 	}
+	
+	@Override
+	public int deletePromotionFile(int promotionNo) {
+		
+		return promotionDao.deletePromotionFile(sqlSession,promotionNo);
+	}
+	
+	@Override
+	public int updatePromotion(Promotion p) {
+		
+		return promotionDao.updatePromotion(sqlSession,p);
+	}
+	
+	@Override
+	public int updateFile(PromotionFile pf) {
+		
+		return promotionDao.updateFile(sqlSession, pf);
+	}
+
+	
+	@Override
+	public int deletePromotion(int pno) {
+
+		return promotionDao.deletePromotion(sqlSession, pno);
+	}
+
+	@Override
+	public int deleteNoticeFile(int pno) {
+
+		return promotionDao.deleteNoticeFile(sqlSession, pno);
+	}
+
 
 	@Override
 	public int increaseCount(int promotionNo) {
@@ -78,11 +110,7 @@ public class PromotionServiceImpl implements PromotionService{
 		return promotionDao.selectPromotion(sqlSession, promotionNo);
 	}
 	
-	@Override
-	public ArrayList<PromotionFile> selectPromotionFileList2(int promotionNo) {
-		
-		return promotionDao.selectPromotionFileList2(sqlSession, promotionNo);
-	}
+	
 
 	@Override
 	public ArrayList<PromotionReply> selectPromotionReplyList(int promotionNo) {
@@ -107,6 +135,12 @@ public class PromotionServiceImpl implements PromotionService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
+
+	
+	
+	
 
 	
 

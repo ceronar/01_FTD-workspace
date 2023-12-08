@@ -1,6 +1,9 @@
 package com.kh.ftd.member.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ftd.member.model.vo.Member;
@@ -8,6 +11,9 @@ import com.kh.ftd.member.model.vo.Subscribe;
 
 @Repository
 public class MemberDao {
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		
@@ -37,9 +43,29 @@ public class MemberDao {
 	public String findId(SqlSessionTemplate sqlSession, String email) {
 		return sqlSession.selectOne("memberMapper.findId", email);
 	}
-	
-	public Subscribe ajaxSelectSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribe) {
 		
-		return sqlSession.selectOne("memberMapper.ajaxSelectSubscribe", subscribe);
+	public Subscribe ajaxSelectSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribeNo) {
+		
+		return sqlSession.selectOne("memberMapper.ajaxSelectSubscribe", subscribeNo);
 	}
+	
+	public int ajaxDeleteSubscribe(SqlSessionTemplate sqlSession, Subscribe checkSubscribe) {
+		
+		return sqlSession.delete("memberMapper.ajaxDeleteSubscribe", checkSubscribe);
+	}
+	
+	public int ajaxInsertSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribeNo) {
+		
+		return sqlSession.insert("memberMapper.ajaxInsertSubscribe", subscribeNo);
+	}
+	
+	public String selectEncPw(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectEncPw", memberNo);
+	}
+
+	public int updatePwd(SqlSessionTemplate sqlSession2, Member m) {
+		
+		return sqlSession.update("memberMapper.updatePwd", m);
+	}
+		
 }

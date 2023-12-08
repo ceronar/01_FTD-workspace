@@ -52,10 +52,6 @@ public class PromotionDao {
 		return sqlSession.selectOne("promotionMapper.selectPromotion",promotionNo);
 	}
 
-	public ArrayList<PromotionFile> selectPromotionFileList2(SqlSessionTemplate sqlSession, int promotionNo) {
-		
-		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionFileList2",promotionNo);
-	}
 
 	public ArrayList<PromotionReply> selectPromotionReplyList(SqlSessionTemplate sqlSession, int promotionNo) {
 		
@@ -81,6 +77,35 @@ public class PromotionDao {
 		
 		return sqlSession.insert("promotionMapper.insertFile", pf);
 	}
+
+	public int deletePromotionFile(SqlSessionTemplate sqlSession, int promotionNo) {
+		
+		return sqlSession.update("promotionMapper.deletePromotionFile", promotionNo);
+	}
+
+	public int updatePromotion(SqlSessionTemplate sqlSession, Promotion p) {
+		
+		return sqlSession.update("promotionMapper.updatePromotion",p);
+	}
+
+	public int updateFile(SqlSessionTemplate sqlSession, PromotionFile pf) {
+
+		return sqlSession.insert("promotionMapper.updateFile",pf);
+	}
+
+	public int deletePromotion(SqlSessionTemplate sqlSession, int pno) {
+	
+		return sqlSession.update("promotionMapper.deletePromotion",pno);	//mapper 작성안함
+	}
+	
+
+
+	public int deleteNoticeFile(SqlSessionTemplate sqlSession, int pno) {
+		
+		return sqlSession.update("promotionMapper.deleteNoticeFile",pno);  //mapper 작성안함
+	}
+	
+	
 
 	
 	

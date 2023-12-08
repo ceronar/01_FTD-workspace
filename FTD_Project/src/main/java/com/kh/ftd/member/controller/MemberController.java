@@ -1,5 +1,7 @@
 package com.kh.ftd.member.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.ftd.member.model.service.MemberService;
 import com.kh.ftd.member.model.vo.Member;
@@ -32,11 +37,10 @@ public class MemberController {
 		return "member/memberLogin";
 	}
 	
+	// 로그인
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
 		
-		System.out.println(m.getMemberId());
-		System.out.println(m.getMemberPwd());
 		
 		Member loginUser = memberService.loginMember(m);
 		
@@ -69,6 +73,7 @@ public class MemberController {
 	}
 	
 	
+	// 로그아웃
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -76,12 +81,15 @@ public class MemberController {
 		
 		return "redirect:/";	
 	}
+	
+	
 	@RequestMapping("insertForm.me")
 	public String insertForm() {
 		return "member/memberInsert";
 	}
 	
 	
+	// 비밀번호 암호화
 	@RequestMapping(value = "insert.me", produces = "text/html; charset=UTF-8")
 	public String insertMember(Member m, 
 							   Model model, 
@@ -114,12 +122,51 @@ public class MemberController {
 		}
 	}
 	
+	@PostMapping(value="updatePwd.me")
+	public String updatePwd(Member m, Model model, HttpSession session, String memberPwd, String updatePwd) {
+		if(bcryptPasswordEncoder.matches(memberPwd, ((Member)(session.getAttribute("loginUser"))).getMemberPwd())) {
+			String encPwd = bcryptPasswordEncoder.encode(updatePwd);
+			
+			m.setMemberPwd(encPwd);
+			
+			int result = memberService.updatePwd(m);
+			
+			if(result > 0) {
+				// 이게 맞을 경우
+				session.setAttribute("alertMsg","맞음");
+				
+				return "redirect:/";
+				
+			} else {
+				
+				model.addAttribute("errorMsg","로직 에러 발생");
+				
+				return "common/errorPage";
+			}
+		}
+		
+		else {
+			
+			model.addAttribute("errorMsg","비밀번호가 일치하지 않습니다.");
+			
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
+	
+	
+	
+	// 마이페이지
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		
 		return "member/myPage";
 	
 	}
+	
+	// 회원정보 수정
 	@RequestMapping("update.me")
 	public String updateMember(Member m, Model model, HttpSession session) {
 		
@@ -145,6 +192,10 @@ public class MemberController {
 		}
 	}
 	
+	
+	
+
+	// 중복확인
 	@ResponseBody
 	@RequestMapping("idCheck.me")
 	public String idCheck(String checkId) {
@@ -154,6 +205,7 @@ public class MemberController {
 		return (count > 0 ) ? "NNNNN" : "NNNNY";
 	}
 	
+	// 회원탈퇴
 	@RequestMapping("delete.me")
 	public String deleteMember(String memberId,
 							   String memberPwd,
@@ -193,6 +245,9 @@ public class MemberController {
 		}	
 	}
 	
+	
+	
+	// 아이디 찾기
 	@GetMapping("/find-id")
 	public String memberId(HttpSession session) {
 		if(session.getAttribute("loginUser") != null) { // 로그인상태
@@ -205,7 +260,6 @@ public class MemberController {
 			return "member/memberIdFind";
 		}
 	}	
-	
 	@PostMapping("/found-id")
 	public String findIdByEmail(String email, Model model) {
 		
@@ -221,18 +275,83 @@ public class MemberController {
 		}
 	}
 	
-	
+	// 2023-12-07 천재영
+	// 회원의 마켓 찜 조회
 	@RequestMapping(value = "ajaxSelectSubscribe.se" , produces = "application/json; charset=UTF-8")
-	public void ajaxSelectSubscribe(int memberNo, int sellerNo) {
+	public String ajaxSelectSubscribe(Subscribe subscribeNo) {
 		
-		System.out.println(memberNo + "멤버");
-		System.out.println(sellerNo + "판매자");
+		System.out.println(subscribeNo);
 		
-		// 회원의 마켓 찜 조회
-		Subscribe subscribe = new Subscribe(memberNo, sellerNo);
+		// 회원의 마켓 찜 조회		
+		Subscribe checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
+		
+		System.out.println(checkSubscribe);
+		
+		// 결과 담을 변수 셋팅
+		String subscribeColor = "";
+		
+		// 회원의 마켓 찜 조회 후 조건문
+		if(checkSubscribe != null) { // 조회 결과가 있을 경우
+			
+			subscribeColor = "btn btn-secondary";
+			
+		} else { // 조회 결과가 없을 경우
+			
+			subscribeColor = "btn btn-primary";
+		}
+		
+		System.out.println(checkSubscribe);
+		
+		return subscribeColor;
+	}
+	
+	// 회원의 마켓 찜 클릭 ( 조회 후 삭제 및 추가)
+	@ResponseBody
+	@RequestMapping(value = "ajaxClickSubscribe.se" , produces = "application/json; charset=UTF-8")
+	public String ajaxClickSubscribe(Subscribe subscribeNo, Model model) {
+		
+		System.out.println("멤버 : " + subscribeNo.getMemberNo());
+		System.out.println("판매자 : " + subscribeNo.getSellerNo());
+		
+		// 회원의 마켓 찜 조회		
+		Subscribe checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
+		
+		System.out.println(checkSubscribe);
+		
+		String subscribeColor = "";
 				
-		Subscribe resultSub = memberService.ajaxSelectSubscribe(subscribe);
+		// 회원의 마켓 찜 조회 후 조건문
+		if(checkSubscribe != null) { // 조회 결과가 있을 경우
+			
+			// 회원의 마켓 찜 삭제
+			int deleteSubscribe = memberService.ajaxDeleteSubscribe(checkSubscribe);
+			
+			if(deleteSubscribe > 0) { // 삭제 성공
+				
+				subscribeColor = "btn btn-primary";
+								
+			} else { // 삭제 실패
+				
+				model.addAttribute("errorMsg", "회원님의 마켓 찜 삭제가 실패했습니다.");
+			}
+			
+			
+		} else { // 조회 결과가 없을 경우
+			
+			// 회원의 마켓 찜 추가
+			int insertSubscribe = memberService.ajaxInsertSubscribe(subscribeNo);
+			
+			if(insertSubscribe > 0) { // 추가 성공
+				
+				subscribeColor = "btn btn-secondary";
+				
+			} else { // 추가 실패
+				
+				model.addAttribute("errorMsg", "회원님의 마켓 찜 추가가 실패했습니다.");
+			}
+		}
 		
+		return subscribeColor;
 	}
 	
 }

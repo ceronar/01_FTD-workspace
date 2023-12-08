@@ -51,7 +51,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ArrayList<Member> selectMemberList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -60,12 +59,30 @@ public class MemberServiceImpl implements MemberService {
     public String findMemberIdByEmail(String email) {
         return memberDao.findId(sqlSession, email);
     }
-
+	
 	@Override
-	public Subscribe ajaxSelectSubscribe(Subscribe subscribe) {
-		
-		return memberDao.ajaxSelectSubscribe(sqlSession, subscribe);
+	public int updatePwd(Member m) {
+		return memberDao.updatePwd(sqlSession, m);
 	}
 	
+	
+	@Override
+	public Subscribe ajaxSelectSubscribe(Subscribe subscribeNo) {
+		
+		return memberDao.ajaxSelectSubscribe(sqlSession, subscribeNo);
+	}
+
+	@Override
+	public int ajaxDeleteSubscribe(Subscribe checkSubscribe) {
+		
+		return memberDao.ajaxDeleteSubscribe(sqlSession, checkSubscribe);
+	}
+
+	@Override
+	public int ajaxInsertSubscribe(Subscribe subscribeNo) {
+		
+		return memberDao.ajaxInsertSubscribe(sqlSession, subscribeNo);
+	}
+
 	
 }

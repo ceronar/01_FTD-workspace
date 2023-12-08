@@ -20,19 +20,10 @@
 	}
 
 	/* store div 공통 css */
-	.store-no, .store-img, .store-content {
+	.store-img, .store-content {
 		height: 100%;
 		float: left;
 		box-sizing: border-box;
-	}
-	
-	.store-no {
-		width: 10%;
-		height: 100%;
-		text-align: center;
-		line-height: 200px;
-		font-size: 20px;
-		font-weight: bolder;
 	}
 
 	.store-img {
@@ -49,7 +40,7 @@
 	}
 
 	.store-content {
-		width: 65%;
+		width: 75%;
 	}
 
 	/* store-content 공통 css */
@@ -172,7 +163,6 @@
 							
 	                    	'<div class="store">'
 	                    		+ '<input type="hidden" value="' + item[0].sellerNo + '">'
-	        					// + '<div class="store-no">' + ((index + 1) + (page * pageSize))  + '</div>'
 	        					+ '<div class="store-img"><img src= ""></div>'
 	        					+ '<div class="store-content">'	
 	        						
@@ -202,6 +192,7 @@
 
 	            },
 	            error : function() {
+	            	
 	            	console.log("ajax 통신 실패");
 	            }
 	        });
