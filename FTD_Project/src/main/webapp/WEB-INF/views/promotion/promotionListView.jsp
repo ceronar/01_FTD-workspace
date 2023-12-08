@@ -571,7 +571,7 @@
                             <a href="">필터</a>
                             <a href="">필터</a>
                         </div>
-
+					<!--  로그인한 판매자만 글작성할수있게 조건문 -->
 					 <c:if test="${ not empty sessionScope.loginSeller }"> 
                         <div align="rigth">
                             <a href="enrollForm.bo?sno=${sessionScope.loginSeller.sellerNo}">글작성</a>

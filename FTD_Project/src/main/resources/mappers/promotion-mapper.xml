@@ -203,4 +203,18 @@
 		 WHERE PROMOTION_NO = #{pno}
 	</update>
 	
+	<insert id="insertPromotionReply" parameterType="promotionReply">
+		INSERT INTO PROMOTION_REPLY(REPLY_NO
+							  , PROMOTION_NO
+							  , MEMBER_NO
+							  , REPLY_CONTENT
+							  , CREATE_DATE)
+					 	 VALUES(SEQ_PRNO.NEXTVAL
+					 	 	  , #{promotionNo}
+					 	 	  , #{memberNo}
+					 	 	  , #{replyContent}
+					 	 	  , SYSDATE)
+			
+	</insert>
+	
 </mapper>

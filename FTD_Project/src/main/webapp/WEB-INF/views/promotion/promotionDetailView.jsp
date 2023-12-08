@@ -112,11 +112,12 @@
 
 
         
-        #profile_3 {
-            margin-left: auto; /* Move to the right */
+        .profile_3 {
+       	display :flex;
+       	margin-left: auto;
         }
 
-        #profile_3 button {
+        .profile_3_1 button {
             background-color: transparent;
             color: #0c7c4b;
             border: 1px solid #0c7c4b;
@@ -129,7 +130,7 @@
             margin-right: 10px;
         }
 
-        #profile_3 button:hover {
+        .profile_3_1 button:hover {
             background-color: #0c7c4b;
             color: #ffffff;
         }
@@ -163,20 +164,14 @@
         	
         }
         
-        .delete{
-        	float : right;
-            padding: 8px 20px;
-            border: none;
-            background-color: #2ecc71;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 10px 5px;
-        }
-        .delete:hover {
-            background-color: #27ae60;
-        }
+   .reply-info {
+   		display : flex;
+   }
+   .replyOption {
+   		margin-left: auto;
+   }
 
+		
     </style>
     
     <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -207,12 +202,58 @@
                         <!-- 몇분전인지-->
                     </div>
             </div>
-            <div id="profile_3">
-                <a style="width : 50px"><i class="fas fa-store"></i></a>
-                <a>마켓 찜</a>
-                <a href="updateForm.bo?pno=${requestScope.p.promotionNo}">수정하기</a>
-                <a href="delete.bo?pno=${requestScope.p.promotionNo}">삭제하기</a>
-            </div>
+            
+            <div class="profile_3">
+	             <div class="profile_3_1">
+	             <a style="width : 50px"><i class="fas fa-store"></i></a>
+	             <a>마켓 찜</a>
+	             </div>
+           </div> 
+           
+           <!-- 판매자가 로그인했을때 자기 마켓에만 보기게끔 조건문 -->
+           
+             <c:if test="${ not empty sessionScope.loginSeller and sessionScope.loginSeller.sellerNo eq requestScope.p.sellerNo}">
+           <div class="profile_3">
+	             <div class="profile_3_1">
+	             <a style="width : 50px"><i class="fas fa-store"></i></a>
+	             <a>마켓 찜</a>
+	             </div>
+	             <div class="profile_3_1">
+	               
+	                <a onclick="postFormSubmit(1)">수정</a>
+		            <a onclick="postFormSubmit(2)">삭제</a>
+	             </div>
+           </div> 
+            <form action="" id="postForm" method="post">
+               	<input type="hidden" id="pno" name="pno"
+               				value="${ requestScope.p.promotionNo }">
+				<c:forEach var="f" items="${ requestScope.pfList }">
+                	<input type="hidden" name="filePath" id="filePath"
+                				value="${ f.changeName }">
+               	</c:forEach>
+            </form>
+
+        	<script>
+               	function postFormSubmit(num) {
+               		
+               		// num 값에 따라 위의 form 태그에 action 속성을 부여한 후
+               		// submit 시키기
+               		
+               		if(num == 1) { 
+               			// num == 1 일 경우 : 수정하기 버튼을 클릭한 상태
+               			
+               			$("#postForm").attr("action", "updateForm.bo").submit();
+               			
+               		} else {
+               			// num == 2 일 경우 : 삭제하기 버튼을 클릭한 상태
+               			
+               			$("#postForm").attr("action", "delete.bo").submit();
+               			
+               			// jQuery 의 submit() 메소드 : 해당 form 의 submit 버튼을 누르는 효과
+               		}
+               	}
+               </script>
+               </c:if>
         </div>
 
 
@@ -276,17 +317,63 @@
             </span>
         </div>
         <div>
-            <input type="text" value="댓글을 남겨보세요">
+        	<form action="insertReply.bo" method="post">
+            <input type="text" value="댓글을 남겨보세요" name="replyContent">
+            <input type="hidden" value="${requestScope.p.promotionNo }" name="promotionNo">
+            <input type="hidden" value="${sessionScope.loginUser.memberNo }" name="memberNo">
              <div class="comment">
             <c:forEach var="r" items="${ requestScope.prList }">
-             	<hr>
-                <button class="delete">삭제</button>
-                <p>${r.replyContent}</p>
-                <p class="reply-info">작성자: ${r.memberNo } | 작성일: ${r.createDate }</p>
+             	<hr>            	
+             		        	
+                	<p>${r.replyContent}</p>
+               <div>
+                <div class="reply-info">
+                <input type="hidden" value="${ r.replyNo }">
+                	<div>
+                	작성자: ${r.memberNo } | 작성일: ${r.createDate }
+                	</div>
+                	<div class="replyOption">
+                	<a class="update" onclick="postFormReplySubmit(3, ${ r.replyNo })">수정</a>
+	                <a class="delete" onclick="postFormReplySubmit(4, ${ r.replyNo })">삭제</a> 
+	                </div>
+                </div>
+	           
+	           </div>        
              </c:forEach>
             </div>
-            <button>입력</button>
+            <button type="submit">입력</button>
+            </form>
         </div>
+        
+       		 <form action="" id="postFormReply" method="post">
+               	<input type="hidden" id="prno" name="prno" value="">
+				<c:forEach var="f" items="${ requestScope.pfList }">
+                	<input type="hidden" name="filePath" id="filePath"
+                				value="${ f.changeName }">
+               	</c:forEach>
+            </form>
+
+        	<script>
+               	function postFormReplySubmit(num, t) {
+               		
+               		// num 값에 따라 위의 form 태그에 action 속성을 부여한 후
+               		// submit 시키기
+               		
+               		if(num == 3) { 
+               			// num == 3 일 경우 : 수정하기 버튼을 클릭한 상태
+               			$("#prno").val(t);
+               			$("#postForm").attr("action", "updateReplyForm.bo").submit();
+               			
+               		} if(num == 4) {
+               			// num == 4 일 경우 : 삭제하기 버튼을 클릭한 상태
+               			$("#prno").val(t);
+               			$("#postForm").attr("action", "delete.bo").submit();
+               			
+               			// jQuery 의 submit() 메소드 : 해당 form 의 submit 버튼을 누르는 효과
+               		}
+               	}
+          </script>
+        
     </main>
 
 
