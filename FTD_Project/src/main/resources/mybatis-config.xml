@@ -27,7 +27,7 @@
 		<typeAlias type="com.kh.ftd.notice.model.vo.NoticeFile" alias="noticeFile"/>
 		
 		<typeAlias type="com.kh.ftd.order.model.vo.Order" alias="order" />
-
+		<typeAlias type="com.kh.ftd.order.model.vo.Cart" alias="cart" />
 
 	</typeAliases>
 	
