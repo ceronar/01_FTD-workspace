@@ -169,7 +169,7 @@
 				        $("#noticeList>tbody>tr td:not(:first-child)").click(function() {
 				            let nno = $(this).siblings(".noticeNo").text();
 				            console.log(nno);
-				            location.href = "detail.no";
+				            location.href = "detail.no?nno=" + nno;
 				        });
 				    });
 				   $(document).ready(function() {

@@ -34,7 +34,16 @@
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
 	
-
+	<!-- 1회성 successMsg 출력 코드 -->
+	<c:if test="${ not empty sessionScope.alertMsg }">
+		<script>
+			alertify.success('${ sessionScope.successMsg }');
+		</script>
+		
+		<!-- session 의 successMsg 지우기 -->
+		<c:remove var="successMsg" scope="session" />
+	</c:if>
+	
 	<div class="header">
 
 		<div class="title-div">

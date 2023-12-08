@@ -133,7 +133,7 @@
 		}
 		
 		.ani-navbar-menu p a {
-			color: black;
+			color: white;
 			font-weight: bold;
 		}
 		
@@ -154,6 +154,10 @@
 		  'GRAD' 0,
 		  'opsz' 24
 		}
+		
+		.cont {
+			margin-left: 100px;
+		}
     </style>
 </head>
 <body>
@@ -173,14 +177,6 @@
 	      	</div>
 	
 	      	<div class="notification">
-	        	<!-- <div class="notification-icon">
-	          		<span class="notification-badge">5</span>
-	          		<i class="fa-solid fa-bell"></i>
-	        	</div>
-	        	<div class="notification-icon">
-	          		<span class="notification-badge">9</span>
-	          		<i class="fa-solid fa-envelope"></i>
-	        	</div> -->
 	        	<span id="notification-name">관리자</span>
 	      	</div>
 	    </nav>
@@ -193,99 +189,101 @@
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">group</span>
-	        <p><a href="#">회원 관리</a></p>
+	        <p><a href="user.ad">회원 관리</a></p>
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">campaign</span>
-	        <p><a href="#">공지 관리</a></p>
+	        <p><a href="notice.ad">공지 관리</a></p>
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">assignment</span>
-	        <p><a href="#">게시판 관리</a></p>
+	        <p><a href="board.ad">게시판 관리</a></p>
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">store</span>
-	        <p><a href="#">마켓 관리</a></p>
+	        <p><a href="market.ad">마켓 관리</a></p>
 	      </div>
 	    </nav>
 	    
 	    <!-- Dashboard -->
-	    <div class="container">
-	      <h4 class="my-4">Dashboard</h4>
-	      <div class="row">
-	        <div class="col-lg-3">
-	          <div class="card monthly">
-	            <div class="card-body d-flex justify-content-between">
-	              <div>
-	                <p class="card-text mb-2">전체 회원 수</p>
-	                <h4>${ requestScope.totalUser } 명</h4>
-	              </div>
-	              <span class="material-symbols-outlined"
-	              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
-	              		group
-	              </span>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-lg-3">
-	          <div class="card annual">
-	            <div class="card-body d-flex justify-content-between">
-	              <div>
-	                <p class="card-text mb-2">누적 전체 게시글 수</p>
-	                <h4>${ requestScope.totalBoard } 개</h4>
-	              </div>
-	              <span class="material-symbols-outlined"
-	              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
-	              		assignment
-	              </span>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-lg-3">
-	          <div class="card tasks">
-	            <div class="card-body d-flex justify-content-between">
-	              <div>
-	                <p class="card-text mb-2">전체 매출</p>
-	                <h4>${ requestScope.totalSales } 원</h4>
-	              </div>
-	              <span class="material-symbols-outlined"
-	              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
-	              		attach_money
-	              </span>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	    
-	    <!-- chart와 task -->
-	    <div class="container mt-3">
-	      <div class="row">
-	        <div class="col-lg-8">
-	          <div class="card-header h5">회원 비율</div>
-	          <div class="card-body"><canvas id="userChart"></canvas></div>
-	        </div>
-	        <div class="col-lg-8">
-	          <div class="card-header h5">각 게시판 글 수</div>
-	          <div class="card-body"><canvas id="eachBoard"></canvas></div>
-	        </div>
-	        <div class="col-lg-8">
-	          <div class="card-header h5">일주일간 일일 글 작성 수</div>
-	          <div class="card-body"><canvas id="weekBoard"></canvas></div>
-	        </div>
-	        <div class="col-lg-8">
-	          <div class="card-header h5">일주일간 일일 매출</div>
-	          <div class="card-body"><canvas id="weekSales"></canvas></div>
-	        </div>
-	      </div>
-	    </div>
+	    <div class="cont">
+		    <div class="container">
+		      <h4 class="my-4">Dashboard</h4>
+		      <div class="row">
+		        <div class="col-lg-3">
+		          <div class="card monthly">
+		            <div class="card-body d-flex justify-content-between">
+		              <div>
+		                <p class="card-text mb-2">전체 회원 수</p>
+		                <h4>${ requestScope.totalUser } 명</h4>
+		              </div>
+		              <span class="material-symbols-outlined"
+		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
+		              		group
+		              </span>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-3">
+		          <div class="card annual">
+		            <div class="card-body d-flex justify-content-between">
+		              <div>
+		                <p class="card-text mb-2">누적 전체 게시글 수</p>
+		                <h4>${ requestScope.totalBoard } 개</h4>
+		              </div>
+		              <span class="material-symbols-outlined"
+		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
+		              		assignment
+		              </span>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-lg-3">
+		          <div class="card tasks">
+		            <div class="card-body d-flex justify-content-between">
+		              <div>
+		                <p class="card-text mb-2">전체 매출</p>
+		                <h4>${ requestScope.totalSales } 원</h4>
+		              </div>
+		              <span class="material-symbols-outlined"
+		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
+		              		attach_money
+		              </span>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		    
+		    <!-- chart -->
+		    <div class="container mt-3">
+		      <div class="row">
+		        <div class="col-lg-8">
+		          <div class="card-header h5">회원 비율</div>
+		          <div class="card-body"><canvas id="userChart"></canvas></div>
+		        </div>
+		        <div class="col-lg-8">
+		          <div class="card-header h5">각 게시판 글 수</div>
+		          <div class="card-body"><canvas id="eachBoard"></canvas></div>
+		        </div>
+		        <div class="col-lg-8">
+		          <div class="card-header h5">일주일간 일일 글 작성 수</div>
+		          <div class="card-body"><canvas id="weekBoard"></canvas></div>
+		        </div>
+		        <div class="col-lg-8">
+		          <div class="card-header h5">일주일간 일일 매출</div>
+		          <div class="card-body"><canvas id="weekSales"></canvas></div>
+		        </div>
+		      </div>
+		    </div>
+		</div>
 	</div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       var ctx1 = document.getElementById("userChart").getContext("2d");
       var userChart = new Chart(ctx1, {
-        type: "line",
+        type: "pie",
         data: {
           labels: ["January", "February", "March", "April", "May", "June"],
           datasets: [
@@ -310,7 +308,7 @@
       });
       var ctx2 = document.getElementById("eachBoard").getContext("2d");
       var eachBoard = new Chart(ctx2, {
-        type: "line",
+        type: "bar",
         data: {
           labels: ["January", "February", "March", "April", "May", "June"],
           datasets: [

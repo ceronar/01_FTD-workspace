@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,7 +196,7 @@
 			                    	<th>이미지</th>
 			                        <th>상품명</th>
 			                        <th>수량</th>
-			                        <th>가격</th>
+			                        <th width="150">가격</th>
 			                        <th>삭제</th>
 			                    </tr>
 			                </thead>
@@ -213,8 +214,9 @@
 			                        <td>사과 1.5kg 한박스</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(1, -1)">-</button><input type="text" id="quantity1" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(1, 1)">+</button>
+			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
+			                            <input type="hidden" class="price" value="5000">
 			                        </td>
 			                        <td>5,000원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
@@ -228,8 +230,9 @@
 			                        <td>배 1.5kg 한박스</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" onclick="adjustQuantity(2, -1)">-</button><input type="text" id="quantity2" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" onclick="adjustQuantity(2, 1)">+</button>
+			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
+			                            <input type="hidden" class="price" value="7500">
 			                        </td>
 			                        <td>7,500원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
@@ -245,12 +248,12 @@
 				            	<textarea class="requestBox" name="request" rows="2" cols="20" placeholder="주문시 요청할 사항 입력"></textarea>
 							</div>
 			                <div>
-			                    <p><strong class="deliver">배송비: 5,000원</strong></p>
-			                    <p><strong class="amount">총 가격: 20,500원</strong></p>
+			                    <p><strong>배송비: <span id="deliver">0</span>원</strong></p>
+			                    <p><strong>총 가격: <span id="totalPrice">0</span>원</strong></p>
 			                </div>
-			                <img src="/ftd/resources/images/sample/kakaoPay02.png" />
+			                <img src="${pageContext.request.contextPath}/resources/images/sample/kakaoPay02.png" />
 			                <!-- 결제 버튼 -->
-			                <button class="kakaoPay" type="submit" id="pay">카카오페이 결제하기</button>
+			                <button class="kakaoPay" type="submit" id="pay" onclick="return false;">카카오페이 결제하기</button>
 			            </div>
 		            </form>
 		        </div>
@@ -263,6 +266,36 @@
 
 
 	<script>
+		// JavaScript to calculate total price
+	    document.addEventListener("DOMContentLoaded", function () {
+	        updateTotalPrice();
+	
+	        // Listen for changes in checkboxes and quantity inputs
+	        var checkboxes = document.querySelectorAll('.buyItem, .quantity-input');
+	        checkboxes.forEach(function (checkbox) {
+	            checkbox.addEventListener('change', updateTotalPrice);
+	        });
+	    });
+	
+	    function updateTotalPrice() {
+	        var total = 0;
+	
+	        // Iterate over each checkbox with class 'buyItem'
+	        var checkboxes = document.querySelectorAll('.buyItem');
+	        checkboxes.forEach(function (checkbox) {
+	            if (checkbox.checked) {
+	                var quantityInput = checkbox.parentElement.parentElement.querySelector('.quantity-input');
+	                var quantity = parseInt(quantityInput.value, 10);
+	                var price = parseInt(checkbox.parentElement.parentElement.querySelector('.price').value);
+	                total += quantity * price;
+	            }
+	        });
+	
+	        // Update the total price display
+	        var totalPriceDisplay = document.getElementById('totalPrice');
+	        totalPriceDisplay.textContent = total.toFixed(0);
+	    }
+		
      $(function () {
 		// 전체 상품 선택 함수
 		$(".buyAllItems").change(function(){
@@ -280,13 +313,17 @@
  		var IMP = window.IMP;
          IMP.init('imp48134478'); //가맹점 식별코드
          $('#pay').on('click', function(e) {
+        	let buyName = $(".buyItem:checked").eq(0).parent().parent().children('td:eq(2)').text();
+        	if(($(".buyItem:checked").length - 1) > 0) {
+        		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
+        	}
      		e.preventDefault();
      		if($(".buyItem:checked").length > 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
     				  pay_method: "card", // 생략가능
     				  merchant_uid: 'merchant_' + new Date().getTime(), // 상점에서 생성한 고유 주문번호
-    				  name: "주문명:결제테스트",						// 상품명
+    				  name: buyName,									// 상품명
     				  amount: 1004,										// 가격
     				  buyer_email: "test@portone.io",					// 구매자 이메일
     				  buyer_name: "구매자이름",							// 구매자 이름
@@ -320,36 +357,36 @@
      			alert("상품을 하나 이상 선택해주세요.");
      		}
      	});
-         
-      	// let amountValue = 
-     	
-        // 가상의 상품 삭제 함수
-        /*
-        function removeItem(itemId) {
-            // 여기에 상품 삭제 로직을 추가하세요.
-            alert('상품이 장바구니에서 삭제되었습니다.');
-        }
-      	*/
 
         // 수량 조절 함수
-        function adjustQuantity(itemId, change) {
-            var quantityElement = document.getElementById('quantity' + itemId);
-            var currentQuantity = parseInt(quantityElement.value);
-            var newQuantity = currentQuantity + change;
-             
+        $(".quantity-button").on('click', e => {
+            let quantityElement = e.target.parentElement.children.item(1); // input 수량 객체
+            let currentQuantity = parseInt(quantityElement.value); // 수량
+            let newQuantity = currentQuantity + parseInt(e.target.value); // 변경 될 수량
+            let goodPrice = e.target.parentElement.nextSibling.nextSibling.value; // 상품의 개별 가격
+            let quantityPrice = e.target.parentElement.parentElement.nextSibling.nextSibling; // 변경 후 표시될 가격 위치
+            let newPrice = newQuantity * goodPrice; // 변경 후 가격 * 수량
             if (newQuantity >= 1) {
                 quantityElement.value = newQuantity;
                 // 여기에 수량 변경 로직을 추가하세요.
+                quantityPrice.innerText = newPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원";
+                updateTotalPrice();
             } else {
                 alert('수량은 1 이상이어야 합니다.');
             }
-        }
+        });
       	
       	$(".deleteBtn").on('click', e => {
       		// console.log(e);
-      		let goodNo = e;
+      		// let goodNo = e.target.parentElement.parentElement.parentElement.children.item(0).children.item(0).value; // ㄷㄷ
+      		let parentTrTag = e.target;
+      		for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
+      		let goodNo = parentTrTag.children.item(0).children.item(0).value;
       		console.log(goodNo);
+      		// memberNo, goodNo ajax로 보내고 delete
       	});
+      	
+      	
       	
      });
     </script>

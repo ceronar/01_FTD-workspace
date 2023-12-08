@@ -183,51 +183,56 @@
                 padding-left: 0px;
             }
 
-            #product_image_1 {
+            .product_image_1 {
                 height: 300px;
                 width: 400px;
 
                 border-radius: 50px 0px 0px 50px;
             }
 
-            #product_image_1>img {
+            .product_image_1>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 50px 0px 0px 50px;
+     
 
             }
 
-            #product_image_2 {
+            .product_image_2 {
                 height: 300px;
                 width: 294px;
+                  border: 2px solid white;
 
             }
 
-            #product_image_2>div {
+            .product_image_2>div {
                 height: 50%;
                 width: 100%;
 
 
             }
 
-            #product_image_2>#product_image_2_1 {
+            .product_image_2>.product_image_2_1 {
                 border-radius: 0px 50px 0px 0px;
             }
 
-            #product_image_2>#product_image_2_1>img {
+            .product_image_2>.product_image_2_1>img {
                 border-radius: 0px 50px 0px 0px;
+                  border: 2px solid white;
+                
             }
 
-            #product_image_2>#product_image_2_2 {
+            .product_image_2>.product_image_2_2 {
                 border-radius: 0px 0px 50px 0px;
             }
 
-            #product_image_2>#product_image_2_2>img {
+            .product_image_2>.product_image_2_2>img {
                 border-radius: 0px 0px 50px 0px;
+                  border: 2px solid white;
             }
 
 
-            #product_image_2 img {
+            .product_image_2 img {
                 width: 100%;
                 height: 100%;
             }
@@ -237,8 +242,8 @@
                 color: rgb(143, 143, 143);
             }
 
-            .product_image #product_image_1,
-            #product_image_2 {
+            .product_image .product_image_1,
+            .product_image_2 {
                 display: inline-block;
             }
 
@@ -308,48 +313,45 @@
             }
             
             /* 파일 두개일때 */
-            #2product_image_1 {
+/*--------------------------------------------------------*/
+            .product2_image_1 {
                 height: 300px;
-                width: 350px;
-                border: 1px solid black;
+                width: 350px; 
                 border-radius: 50px 0px 0px 50px;
-                 border: 1px solid black;
+                 border: 2px solid white;
             }
 
-            #2product_image_1>img {
+            .product2_image_1>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 50px 0px 0px 50px;
                 
             }
 
-            #2product_image_2 {
+            .product2_image_2 {
                 height: 300px;
                 width: 350px;
-                border: 1px solid black;
                 border-radius: 0px 50px 50px 0px;
-                 border: 1px solid black;
+                 border: 2px solid white;
             }
-            #2product_image_2>img {
+            .product2_image_2>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 0px 50px 50px 0px;
             }
             
-             .product_image #2product_image_1, #2product_image_2 {
-                display: inline-block;
-            }
+           
 /*--------------------------------------------------------*/
 
 /* 파일 한개일때 */
-            #1product_image_1 {
+            .product1_image_1 {
                 height: 300px;
                 width: 650px;
                 
                 border-radius: 50px 50px 50px 50px;
             }
 
-            #1product_image_1>img {
+            .product1_image_1>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 50px 50px 50px 50px;
@@ -435,14 +437,14 @@
                             if(val[3].length == 3){
                             	  str += '<div class="product_image">'
   	                                + '<div>'
-  	                                + '<div id="product_image_1">'
+  	                                + '<div class="product_image_1">'
   	                                + '<img src="'+ val[3][0].changeName +'" >'
   	                                + '</div>'
-  	                                + '<div id="product_image_2">'
-  	                                + '<div id="product_image_2_1">'
+  	                                + '<div class="product_image_2">'
+  	                                + '<div class="product_image_2_1">'
   	                                + '<img src="'+ val[3][1].changeName +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
   	                                + '</div>'
-  	                                + '<div id="product_image_2_2">'
+  	                                + '<div class="product_image_2_2">'
   	                                + '<img src="'+ val[3][2].changeName +'">'
   	                                + '</div>'
   	                                + '</div>'
@@ -451,11 +453,11 @@
                             }else if(val[3].length == 2){
                             	
                             str +=	'<div class="product_image">'
-                                + '<div>'
-                                    + '<div id="2product_image_1">'
+                                + '<div style="display : flex;">'
+                                    + '<div class="product2_image_1">'
                                        +  '<img src="'+ val[3][0].changeName +'" >'
                                     + '</div>'
-                                   + '<div id="2product_image_2">'
+                                   + '<div class="product2_image_2">'
                                         + '<img src="'+ val[3][1].changeName +'">'
                                      +'</div>'
                                  +'</div>'
@@ -465,7 +467,7 @@
                             	
                             str += '<div class="product_image">'
                                 +'<div>'
-                                    +'<div id="1product_image_1">'
+                                    +'<div class="product1_image_1">'
                                        + '<img src="'+ val[3][0].changeName +'" >'
                                    + '</div>'
                                + '</div>'
@@ -473,15 +475,9 @@
                             	
                             }else{
                             	
-                            	str +='<div>ㅎㅇ</div>';
                             	
                             }
-                              
-	                          
-	                      
-	                          
-	                
-                            
+                    
                                 str += '</div>'
                                 + '<div class="product_options">'
                                 + '<div>'
@@ -511,11 +507,6 @@
                                 + '</div>'
 
                                 + '<hr>';
-
-
-
-
-
 
 
                                 $('.promotion').append(str);

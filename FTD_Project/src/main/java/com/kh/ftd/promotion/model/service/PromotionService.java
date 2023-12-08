@@ -33,7 +33,23 @@ public interface PromotionService {
 		int insertPromotion(Promotion p);
 	
 		int insertFile(PromotionFile pf);
-	
+		
+	//홍보리스트 수정하기 서비스
+		
+		int deletePromotionFile(int promotionNo);
+		
+		int updatePromotion(Promotion p);
+		
+		int updateFile(PromotionFile pf);
+
+	//홍보리스트 삭제하기 서비스
+		
+		int deletePromotion(int pno);
+		
+		int deleteNoticeFile(int pno);
+
+		
+		
 	// 홍보리스트 상세조회 서비스
 	
 		// 홍보리스트 조회수 증가
@@ -42,8 +58,6 @@ public interface PromotionService {
 		// 홍보리스트 내용상세조회
 		Promotion selectPromotion(int promotionNo);
 		
-		// 홍보리스트 파일상세조회
-		ArrayList<PromotionFile> selectPromotionFileList2(int promotionNo);
 		
 		// 이 마켓의 평균별점조회
 		double marketStarRating(int sellerNo);
@@ -56,6 +70,15 @@ public interface PromotionService {
 		
 	// 댓글 작성 서비스 
 	int insertPromotionReply(PromotionReply pr);
+
+	
+
+
+	
+	
+	
+
+	
 
 
 
