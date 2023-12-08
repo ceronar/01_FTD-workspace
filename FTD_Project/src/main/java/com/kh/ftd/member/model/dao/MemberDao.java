@@ -38,8 +38,18 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.findId", email);
 	}
 	
-	public Subscribe ajaxSelectSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribe) {
+	public Subscribe ajaxSelectSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribeNo) {
 		
-		return sqlSession.selectOne("memberMapper.ajaxSelectSubscribe", subscribe);
+		return sqlSession.selectOne("memberMapper.ajaxSelectSubscribe", subscribeNo);
+	}
+	
+	public int ajaxDeleteSubscribe(SqlSessionTemplate sqlSession, Subscribe checkSubscribe) {
+		
+		return sqlSession.delete("memberMapper.ajaxDeleteSubscribe", checkSubscribe);
+	}
+	
+	public int ajaxInsertSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribeNo) {
+		
+		return sqlSession.insert("memberMapper.ajaxInsertSubscribe", subscribeNo);
 	}
 }

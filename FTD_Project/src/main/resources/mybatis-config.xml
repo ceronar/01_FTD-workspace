@@ -16,6 +16,8 @@
 
 		<typeAlias type="com.kh.ftd.seller.model.vo.Seller" alias="seller" />
 		<typeAlias type="com.kh.ftd.seller.model.vo.SellerFile" alias="sellerFile"/>
+		<typeAlias type="com.kh.ftd.member.model.vo.Subscribe" alias="subscribe"/>
+		
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
 		<!-- 11/29 성광 12:51분 판매자 별칭추가 -->

@@ -221,18 +221,84 @@ public class MemberController {
 		}
 	}
 	
-	
+	// 2023-12-07 천재영
+	// 회원의 마켓 찜 조회
+	@ResponseBody
 	@RequestMapping(value = "ajaxSelectSubscribe.se" , produces = "application/json; charset=UTF-8")
-	public void ajaxSelectSubscribe(int memberNo, int sellerNo) {
+	public String ajaxSelectSubscribe(Subscribe subscribeNo) {
 		
-		System.out.println(memberNo + "멤버");
-		System.out.println(sellerNo + "판매자");
+		System.out.println(subscribeNo);
 		
-		// 회원의 마켓 찜 조회
-		Subscribe subscribe = new Subscribe(memberNo, sellerNo);
+		// 회원의 마켓 찜 조회		
+		Subscribe checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
+		
+		System.out.println(checkSubscribe);
+		
+		// 결과 담을 변수 셋팅
+		String subscribeColor = "";
+		
+		// 회원의 마켓 찜 조회 후 조건문
+		if(checkSubscribe != null) { // 조회 결과가 있을 경우
+			
+			subscribeColor = "btn btn-secondary";
+			
+		} else { // 조회 결과가 없을 경우
+			
+			subscribeColor = "btn btn-primary";
+		}
+		
+		System.out.println(checkSubscribe);
+		
+		return subscribeColor;
+	}
+	
+	// 회원의 마켓 찜 클릭 ( 조회 후 삭제 및 추가)
+	@ResponseBody
+	@RequestMapping(value = "ajaxClickSubscribe.se" , produces = "application/json; charset=UTF-8")
+	public String ajaxClickSubscribe(Subscribe subscribeNo, Model model) {
+		
+		System.out.println("멤버 : " + subscribeNo.getMemberNo());
+		System.out.println("판매자 : " + subscribeNo.getSellerNo());
+		
+		// 회원의 마켓 찜 조회		
+		Subscribe checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
+		
+		System.out.println(checkSubscribe);
+		
+		String subscribeColor = "";
 				
-		Subscribe resultSub = memberService.ajaxSelectSubscribe(subscribe);
+		// 회원의 마켓 찜 조회 후 조건문
+		if(checkSubscribe != null) { // 조회 결과가 있을 경우
+			
+			// 회원의 마켓 찜 삭제
+			int deleteSubscribe = memberService.ajaxDeleteSubscribe(checkSubscribe);
+			
+			if(deleteSubscribe > 0) { // 삭제 성공
+				
+				subscribeColor = "btn btn-primary";
+								
+			} else { // 삭제 실패
+				
+				model.addAttribute("errorMsg", "회원님의 마켓 찜 삭제가 실패했습니다.");
+			}
+			
+			
+		} else { // 조회 결과가 없을 경우
+			
+			// 회원의 마켓 찜 추가
+			int insertSubscribe = memberService.ajaxInsertSubscribe(subscribeNo);
+			
+			if(insertSubscribe > 0) { // 추가 성공
+				
+				subscribeColor = "btn btn-secondary";
+				
+			} else { // 추가 실패
+				
+				model.addAttribute("errorMsg", "회원님의 마켓 찜 추가가 실패했습니다.");
+			}
+		}
 		
+		return subscribeColor;
 	}
 	
 }
