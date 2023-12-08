@@ -216,8 +216,8 @@
 	    
 	          <!-- Modal body -->
 	          <div class="modal-body">
-	            <form action="updatePwd.se" method="post">
-	                 <input type="hidden" name="memberId" value="${ sessionScope.loginSeller.sellerNo }">
+	            <form action="updateSellerPwd.se" method="post">
+	                 <input type="hidden" name="sellerNo" value="${ sessionScope.loginSeller.sellerNo }">
 	                 
 	                <table>
 	                    <tr>
@@ -229,7 +229,7 @@
 	                    <tr>
 	                        <td>변경할 비밀번호</td>
 	                        <td>
-	                        	<input type="password" name="updatePwd" required>
+	                        	<input type="password" name="updateSellerPwd" required>
 	                        </td>
 	                    </tr>
 	                    <tr>
@@ -245,7 +245,7 @@
 	            
 	            <script>
 	                function validatePwd() {
-	                    if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+	                    if($("input[name=updateSellerPwd]").val() != $("input[name=checkPwd]").val()) {
 	                        alert("비밀번호가 일치하지 않습니다.");
 	                        return false;
 	                    }

@@ -201,43 +201,25 @@
 			                    </tr>
 			                </thead>
 			                <tbody>
-			                	<!-- 마켓반복 -->
-			                	<tr>
-			                		<td colspan="6" class="marketName"><h3>마켓 1</h3></td>
-			                	</tr>
 			                	<!-- 상품반복 -->
+			                	<c:forEach var="c" items="${ requestScope.list }">
 			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="1" /></td>
+			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="${ c.goodNo }" /></td>
 			                        <td>
-			                            <img src="resources/images/sample/224427_132949_129.jpg" alt="상품사진" class="product-image">
+			                            <img src="${ c.changeName }" alt="상품사진" class="product-image">
 			                        </td>
-			                        <td>사과 1.5kg 한박스</td>
+			                        <td>${ c.goodTitle }</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
+			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="${ c.count }" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
-			                            <input type="hidden" class="price" value="5000">
+			                            <input type="hidden" class="price" value="${ c.price }">
 			                        </td>
-			                        <td>5,000원</td>
+			                        <td> 원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
 			                    </tr>
+			                    </c:forEach>
 			                    <!-- 상품반복 -->
-			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="2" /></td>
-			                        <td>
-			                            <img src="resources/images/sample/202005072145_500.jpg" alt="상품사진" class="product-image">
-			                        </td>
-			                        <td>배 1.5kg 한박스</td>
-			                        <td class="quantity-outer">
-			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
-			                            </div>
-			                            <input type="hidden" class="price" value="7500">
-			                        </td>
-			                        <td>7,500원</td>
-			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
-			                    </tr>
-			                    <!-- 여기에 더 많은 상품 정보가 들어갈 수 있습니다. -->
 			                </tbody>
 			            </table>
 			            
@@ -294,9 +276,11 @@
 	        // Update the total price display
 	        var totalPriceDisplay = document.getElementById('totalPrice');
 	        totalPriceDisplay.textContent = total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	        $("#deliver").text(($(".buyItem:checked").length * 2500).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 	    }
 		
      $(function () {
+    	 updateTotalPrice();
 		// 전체 상품 선택 함수
 		$(".buyAllItems").change(function(){
  			$(".buyItem").prop('checked', $(".buyAllItems").is(":checked"));
@@ -318,9 +302,10 @@
         	if(($(".buyItem:checked").length - 1) > 0) {
         		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
         	}
-        	let totalPrice = document.getElementById('totalPrice').innerText.split(',').join("");
+        	let totalPrice = Number(document.getElementById('totalPrice').innerText.split(',').join("")) + Number(document.getElementById('deliver').innerText.split(',').join(""));
+        	console.log(totalPrice);
      		e.preventDefault();
-     		if($(".buyItem:checked").length > 0){
+     		if($(".buyItem:checked").length < 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
     				  pay_method: "card", 									// 생략가능

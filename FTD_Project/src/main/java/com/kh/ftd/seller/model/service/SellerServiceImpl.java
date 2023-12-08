@@ -98,5 +98,9 @@ public class SellerServiceImpl implements SellerService{
     public String findSellerIdByEmail(String email) {
         return sellerDao.findId(sqlSession, email);
     }
-
+	
+	public int updateSellerPwd(Seller s) {
+		return sellerDao.updateSellerPwd(sqlSession, s);
+	}
+	
 }
