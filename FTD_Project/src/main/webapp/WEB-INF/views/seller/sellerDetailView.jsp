@@ -200,42 +200,8 @@
 		
 	}
 	
-	// 여기부터 문의게시글 리스트조회 구문
 	
-	var page=0;
-	var pageSize = 10;
-	
-	function ajaxSelectInquiryList() {
-		$.ajax (){
-			url : 'ajaxSelectList.li',
-            type: 'get',
-            data: {sellerNo: ${requestScope.sellerNo}, page: page, Size: pageSize},
-            success: function(result) {
-            	
-            	console.log("ajax 통신 성공!");
-            	console.log("result");
-            	
-            	/*
-	           	'<table>'
-	                + '<thead>'
-	                    + '<tr>'
-	                        + '<th style="width : 5%;"><input type="checkbox" id="check-all"></th>'
-	                        + '<th style="width : 7%;">번호</th>'
-	                        + '<th style="width : 15%;">답변상태</th>'
-	                        + '<th style="width : 38%;">제목</th>'
-	                       	+ '<th style="width : 10%;">문의자</th>'
-	                        + '<th style="width : 10%">조회수</th>'
-	                        + '<th style="width : 15%;">등록일</th>'
-	                    + '</tr>'
-	                + '</thead>'
-	                + '<tbody>'
-	                + '</tbody>'
-	            + '</table>'
-            	*/
-            }
-		}
-	}
-	
+
 </script>
 </head>
 <body>
@@ -260,10 +226,9 @@
 				<div class="sub-content">
 					
 					<div class="sub-menu">
-						<a onclick="ajaxSelectInquiryList()">테스트용</a>
+						
 					</div>
-	
-	
+					
 				</div>
 
 

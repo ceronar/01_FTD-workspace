@@ -79,88 +79,88 @@
 </head>
 <body>
 
-	
-    <div class="container">
-        <h1>게시판</h1>
-        <div align="center">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width : 5%;"><input type="checkbox" id="check-all"></th>
-                        <th style="width : 7%;">번호</th>
-                        <th style="width : 15%;">답변여부</th>
-                        <th style="width : 38%;">제목</th>
-                        <th style="width : 10%;">문의자</th>
-                        <th style="width : 10%">조회수</th>
-                        <th style="width : 15%;">등록일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="i" items="${ requestScope.list }">
-                    <tr>
-                        <td><input type="checkbox" class="delete"></td>
-                        <td name="inqNo">${i.inquiryNo}</td>
-                        <td name="answerStatus">
-                        	<c:if test="${not empty i.responseContent}">
-                        		<span class="material-symbols-outlined">
-								check_circle
-								</span>
-                        	</c:if>
-                        </td>
-                        <td name="inquiryTitle">${i.inquiryTitle}</td>
-                        <td name="memberNo">${i.memberNo}</td>
-                        <td name="count">${i.count}</td>
-                        <td name="createDate">${i.createDate}</td>
-                    </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <div class="btn">
-            <button onclick="deleteSelected()">삭제</button>
-            <button>작성</button>
-        </div>
+	<div class="wraaper">
+	    <div class="container">
+	        <h1>게시판</h1>
+	        <div align="center">
+	            <table>
+	                <thead>
+	                    <tr>
+	                        <th style="width : 5%;"><input type="checkbox" id="check-all"></th>
+	                        <th style="width : 7%;">번호</th>
+	                        <th style="width : 15%;">답변여부</th>
+	                        <th style="width : 38%;">제목</th>
+	                        <th style="width : 10%;">문의자</th>
+	                        <th style="width : 10%">조회수</th>
+	                        <th style="width : 15%;">등록일</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <c:forEach var="i" items="${ requestScope.list }">
+	                    <tr>
+	                        <td><input type="checkbox" class="delete"></td>
+	                        <td name="inqNo">${i.inquiryNo}</td>
+	                        <td name="answerStatus">
+	                        	<c:if test="${not empty i.responseContent}">
+	                        		<span class="material-symbols-outlined">
+									check_circle
+									</span>
+	                        	</c:if>
+	                        </td>
+	                        <td name="inquiryTitle">${i.inquiryTitle}</td>
+	                        <td name="memberNo">${i.memberNo}</td>
+	                        <td name="count">${i.count}</td>
+	                        <td name="createDate">${i.createDate}</td>
+	                    </tr>
+	                    </c:forEach>
+	                </tbody>
+	            </table>
+	        </div>
+	        <div class="btn">
+	            <button onclick="deleteSelected()">삭제</button>
+	            <button>작성</button>
+	        </div>
+	    </div>
     </div>
     <script>
-        // "check-all" 체크박스를 클릭했을 때 모든 "delete" 클래스의 체크박스의 checked 상태 변경
-        document.getElementById("check-all").addEventListener("change", function() {
-            let deleteCheckboxes = document.querySelectorAll('.delete'); // "delete" 클래스 체크박스들을 가져옴
-            let checkAll = this.checked; // "check-all" 체크박스의 상태
+        
+        var page=0;
+    	var pageSize = 10;
 
-            deleteCheckboxes.forEach(function(checkbox) {
-                checkbox.checked = checkAll; // "delete" 클래스 체크박스들의 상태를 "check-all"에 맞게 변경
-            });
-        });
-
-        // "delete" 클래스 체크박스들의 상태가 변경될 때 "check-all" 체크박스의 상태 확인
-        document.querySelectorAll('.delete').forEach(function(checkbox) {
-            checkbox.addEventListener("change", function() {
-                let deleteCheckboxes = document.querySelectorAll('.delete'); // "delete" 클래스 체크박스들을 가져옴
-                let checkAll = document.getElementById("check-all"); // "check-all" 체크박스 요소를 가져옴
-
-                let allChecked = true;
-                deleteCheckboxes.forEach(function(checkbox) {
-                    if (!checkbox.checked) {
-                        allChecked = false;
-                    }
-                });
-
-                checkAll.checked = allChecked; // "check-all" 체크박스의 checked 상태를 변경
-            });
-        });
-        /*
-        // "삭제" 버튼 클릭 시 선택된 항목들 삭제하는 함수
-        function deleteSelected() {
-            let deleteCheckboxes = document.querySelectorAll('.delete'); // "delete" 클래스 체크박스들을 가져옴
-            let selectedItems = Array.from(deleteCheckboxes).filter(checkbox => checkbox.checked); // 선택된 체크박스들을 배열로 가져옴
-
-            // 선택된 체크박스들을 처리하는 코드 추가
-            selectedItems.forEach(function(item) {
-                // 여기에 선택된 체크박스를 삭제하는 로직을 추가하세요.
-                console.log("삭제될 아이템: ", item.getElementsByTagName("noticeNo"));
-            });
-        }
-        */
+    	function ajaxSelectInquiryList() {
+    		$.ajax (){
+    			url : 'ajaxSelectList.li',
+                type: 'post',
+                data: {sellerNo: ${requestScope.sellerNo}, page: page, Size: pageSize},
+                success: function(result) {
+                	
+                	console.log("ajax 통신 성공!");
+                	console.log("result");
+                	
+                	$(.)
+                	/*
+    	           	'<table>'
+    	                + '<thead>'
+    	                    + '<tr>'
+    	                        + '<th style="width : 5%;"><input type="checkbox" id="check-all"></th>'
+    	                        + '<th style="width : 7%;">번호</th>'
+    	                        + '<th style="width : 15%;">답변상태</th>'
+    	                        + '<th style="width : 38%;">제목</th>'
+    	                       	+ '<th style="width : 10%;">문의자</th>'
+    	                        + '<th style="width : 10%">조회수</th>'
+    	                        + '<th style="width : 15%;">등록일</th>'
+    	                    + '</tr>'
+    	                + '</thead>'
+    	                + '<tbody>'
+    	                + '</tbody>'
+    	            + '</table>'
+                	*/
+                },
+                error : function() {
+                	console.log("ajax 통신 실패");
+                }
+    		}
+    	}
     </script>
     <jsp:include page="../common/footer.jsp" />
    </body>
