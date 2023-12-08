@@ -293,13 +293,14 @@
 	
 	        // Update the total price display
 	        var totalPriceDisplay = document.getElementById('totalPrice');
-	        totalPriceDisplay.textContent = total.toFixed(0);
+	        totalPriceDisplay.textContent = total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	    }
 		
      $(function () {
 		// 전체 상품 선택 함수
 		$(".buyAllItems").change(function(){
  			$(".buyItem").prop('checked', $(".buyAllItems").is(":checked"));
+ 			updateTotalPrice()
  		});
  		
  		$(".buyItem").click(function() {
@@ -317,19 +318,20 @@
         	if(($(".buyItem:checked").length - 1) > 0) {
         		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
         	}
+        	let totalPrice = document.getElementById('totalPrice').innerText.split(',').join("");
      		e.preventDefault();
      		if($(".buyItem:checked").length > 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
-    				  pay_method: "card", // 생략가능
-    				  merchant_uid: 'merchant_' + new Date().getTime(), // 상점에서 생성한 고유 주문번호
-    				  name: buyName,									// 상품명
-    				  amount: 1004,										// 가격
-    				  buyer_email: "test@portone.io",					// 구매자 이메일
-    				  buyer_name: "구매자이름",							// 구매자 이름
-    				  buyer_tel: "010-1234-5678",						// 전화번호
-    				  buyer_addr: "서울특별시 강남구 삼성동",			// 주소
-    				  buyer_postcode: "123-456"							// 우편번호
+    				  pay_method: "card", 									// 생략가능
+    				  merchant_uid: 'merchant_' + new Date().getTime(), 	// 상점에서 생성한 고유 주문번호
+    				  name: buyName,										// 상품명
+    				  amount: totalPrice,									// 가격
+    				  buyer_email: "${ sessoinScope.loginUser.email }",		// 구매자 이메일
+    				  buyer_name: "${ sessionScope.loginUser.memberName }",	// 구매자 이름
+    				  buyer_tel: "${ sessionScope.loginUser.phone }",		// 전화번호
+    				  buyer_addr: "${ sessionScope.loginUser.address }",	// 주소
+    				  buyer_postcode: "${ sessionScope.loginUser.zipCode }"	// 우편번호
     				}, function(rsp) {
     					console.log(rsp);
     					if (rsp.success) {

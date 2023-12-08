@@ -158,6 +158,13 @@
 		.cont {
 			margin-left: 100px;
 		}
+		
+		//-- 차트 관련 --
+		.chartDiv {
+			flex: 0 0 50%;
+    		max-width: 50%;
+		}
+		
     </style>
 </head>
 <body>
@@ -258,19 +265,19 @@
 		    <!-- chart -->
 		    <div class="container mt-3">
 		      <div class="row">
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">회원 비율</div>
 		          <div class="card-body"><canvas id="userChart"></canvas></div>
 		        </div>
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">각 게시판 글 수</div>
 		          <div class="card-body"><canvas id="eachBoard"></canvas></div>
 		        </div>
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">일주일간 일일 글 작성 수</div>
 		          <div class="card-body"><canvas id="weekBoard"></canvas></div>
 		        </div>
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">일주일간 일일 매출</div>
 		          <div class="card-body"><canvas id="weekSales"></canvas></div>
 		        </div>
