@@ -33,5 +33,11 @@ public interface MemberService {
 	int updatePwd(Member m);
 	
 	// 구매자 마켓 찜 조회 (select)
-	Subscribe ajaxSelectSubscribe(Subscribe subscribe);
+	Subscribe ajaxSelectSubscribe(Subscribe subscribeNo);
+	
+	// 구매자 마켓 찜 삭제 (delete)
+	int ajaxDeleteSubscribe(Subscribe checkSubscribe);
+	
+	// 구매자 마켓 찜 추가 (insert)
+	int ajaxInsertSubscribe(Subscribe subscribeNo);
 }

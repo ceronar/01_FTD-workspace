@@ -16,6 +16,12 @@
 		<result column="DETAIL_ADDRESS" property="detailAddress" />
 	</resultMap>
 	
+	<resultMap id="subscribeResultSet" type="subscribe">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="SELLER_NO" property="sellerNo" />
+	</resultMap>
+	
+	
 	<!-- 로그인용 쿼리문 -->
 	<select id="loginMember" 
 			parameterType="member" 
@@ -114,6 +120,31 @@
 			FROM MEMBER 
 			WHERE EMAIL=#{email} AND STATUS IS NULL
 	</select>
+	
+	<!-- 마켓 찜 조회 쿼리문 -->
+	<select id="ajaxSelectSubscribe" parameterType="subscribe" resultMap="subscribeResultSet">
+		SELECT * 
+		  FROM SUBSCRIBE
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND SELLER_NO = #{sellerNo}
+			
+	</select>
+	
+	<!-- 마켓 찜 삭제 쿼리문 -->
+	<delete id="ajaxDeleteSubscribe" parameterType="subscribe">
+		DELETE
+		  FROM SUBSCRIBE
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND SELLER_NO = #{sellerNo}
+	</delete>
+	
+	<!-- 마켓 찜 추가 쿼리문 -->
+	<insert id="ajaxInsertSubscribe" parameterType="subscribe">
+		INSERT INTO SUBSCRIBE (MEMBER_NO
+	                        ,  SELLER_NO)                                      
+	                    VALUES(#{memberNo}
+	                         , #{sellerNo})	
+	</insert>
 
 	<!-- 비밀번호 변경 -->
 	<update id="updatePwd"
@@ -122,5 +153,5 @@
 		MEMBER_PWD = #{memberPwd}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-	
+
 </mapper>
