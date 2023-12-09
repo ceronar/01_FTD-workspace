@@ -1,29 +1,53 @@
 package com.kh.ftd.admin.model.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import com.kh.ftd.admin.model.vo.Chart;
 
 @Repository
 public class AdminDao {
 
-	public int totalMember(SqlSession sqlSession) {
-		return sqlSession.selectOne("adminMapper.totalMember");
+	public int countMember(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countMember");
 	}
 
-	public int totalSeller(SqlSession sqlSession) {
-		return sqlSession.selectOne("adminMapper.totalSeller");
-	}
-
-	public int totalMemberBoard(SqlSession sqlSession) {
-		return sqlSession.selectOne("adminMapper.totalMemberBoard");
-	}
-
-	public int totalSellerBoard(SqlSession sqlSession) {
-		return sqlSession.selectOne("adminMapper.totalSellerBoard");
+	public int countSeller(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countSeller");
 	}
 
 	public int totalSales(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.totalSales");
+	}
+
+	public int countReviewBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countReviewBoard");
+	}
+
+	public int countInquiryBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countInquiryBoard");
+	}
+
+	public int countPromotionBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countPromotionBoard");
+	}
+
+	public int countGoodsSellBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countGoodsSellBoard");
+	}
+
+	public int countNoticeBoard(SqlSession sqlSession) {
+		return sqlSession.selectOne("adminMapper.countNoticeBoard");
+	}
+
+	public ArrayList<Chart> dailyBoardCount(SqlSession sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.dailyBoardCount");
+	}
+
+	public ArrayList<Chart> dailyOrderPrice(SqlSession sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.dailyOrderPrice");
 	}
 
 
