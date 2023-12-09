@@ -131,7 +131,7 @@ public class SellerController {
 	@RequestMapping(value = "ajaxSelectSellerMarketList.se" , produces = "application/json; charset=UTF-8")
 	public String ajaxSelectSellerMarketList(int sellerNo) {
 		
-		System.out.println(sellerNo);
+//		System.out.println(sellerNo);
 		
 		// 마켓 리스트
 		Seller sList = sellerService.ajaxSelectSellerMarketList(sellerNo);
@@ -191,11 +191,11 @@ public class SellerController {
 	public String insertSeller(Seller s,
 							   Model model,
 							   HttpSession session) {
-		System.out.println(s);
+//		System.out.println(s);
 		
 		String encPwd = bcryptPasswordEncoder.encode(s.getSellerPwd());
 		
-		System.out.println(encPwd);
+//		System.out.println(encPwd);
 		
 		s.setSellerPwd(encPwd);
 		

@@ -152,7 +152,7 @@
 	$(document).ready(function () { 
 		
 		ajaxSelectSellerMarketList();
-		
+		console.log(${requestScope.sellerNo});
 		ajaxSelectSubscribe();
 		
 	});
@@ -189,7 +189,7 @@
 							+ '<div class="store-review-text">후기</div>'
 							+ '<div class="store-review-count">'+ result[2] + '</div>'
 						+ '</div>'
-					+ '</div>'            	
+					+ '</div>'
             	);
 	
             },
@@ -261,7 +261,10 @@
 				<div class="sub-content">
 					
 					<div class="sub-menu">
-						
+					<form action="list.in">
+						<button type="submit">테스트용</button>
+						<input type="text" name="sellerNo" id="sellerNo" value="${ requestScope.sellerNo }">
+					</form>
 					</div>
 					
 				</div>
