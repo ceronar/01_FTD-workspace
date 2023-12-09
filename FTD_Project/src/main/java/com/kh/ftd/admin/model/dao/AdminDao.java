@@ -2,10 +2,13 @@ package com.kh.ftd.admin.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ftd.admin.model.vo.Chart;
+import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.member.model.vo.Member;
 
 @Repository
 public class AdminDao {
@@ -49,7 +52,4 @@ public class AdminDao {
 	public ArrayList<Chart> dailyOrderPrice(SqlSession sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.dailyOrderPrice");
 	}
-
-
-
 }

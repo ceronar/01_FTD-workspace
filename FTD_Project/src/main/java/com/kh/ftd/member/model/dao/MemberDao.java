@@ -1,11 +1,15 @@
 package com.kh.ftd.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 
@@ -67,5 +71,15 @@ public class MemberDao {
 		
 		return sqlSession.update("memberMapper.updatePwd", m);
 	}
-		
+	
+	public ArrayList<Member> selectMemberList(SqlSession sqlSession, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberList", null, new RowBounds(offset, limit));
+	}
+
+	public Member selectMember(SqlSession sqlSession, int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectMember", memberNo);
+	}
+	
 }

@@ -153,5 +153,18 @@
 		MEMBER_PWD = #{memberPwd}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+		
+	<select id="selectMemberList" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, EMAIL, PHONE, ADDRESS, STATUS
+		  FROM MEMBER
+		 ORDER BY MEMBER_NO DESC
+	</select>
+	
+	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, EMAIL, PHONE, ADDRESS, GENDER, STATUS, ZIP_CODE, DETAIL_ADDRESS
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 </mapper>

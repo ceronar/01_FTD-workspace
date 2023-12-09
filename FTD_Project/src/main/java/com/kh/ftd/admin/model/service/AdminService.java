@@ -3,6 +3,8 @@ package com.kh.ftd.admin.model.service;
 import java.util.ArrayList;
 
 import com.kh.ftd.admin.model.vo.Chart;
+import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.member.model.vo.Member;
 
 public interface AdminService {
 	
@@ -31,8 +33,5 @@ public interface AdminService {
 	ArrayList<Chart> dailyBoardCount();
 	// 일주일간 일일 매출
 	ArrayList<Chart> dailyOrderPrice();
-	
-
-	
 	
 }
