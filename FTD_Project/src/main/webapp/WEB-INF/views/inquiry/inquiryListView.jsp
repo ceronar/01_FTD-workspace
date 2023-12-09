@@ -261,21 +261,52 @@
 				
 	}
 	
+	var page = 0;
+    var pageSize = 10;
+	
+	$(document).ready(function () {
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
+                
+            	ajaxSelectSellerList();
+            	page++;	         
+            }
+        });
+    });
+	
 	function ajaxSelectInquiryList() {
-		var page = 0;
-        var pageSize = 10;
 		
-		$.ajax({
-			url : 'ajaxSelectList.in',
-			type : 'get',
-			data : {sellerNo : ${requestScope.sellerNo}, pageSize : pageSize, page : page},
-			successs : function(result) {
-				console.log(result);
-			},
-			error : function() {
-				console.log("ajax 통신 실패!");
-			}
-		})
+		
+        $.ajax({
+            url: 'ajaxSelectList.in',
+            type: 'get',
+            data: { sellerNo: '${requestScope.sellerNo}', pageSize: pageSize, page: page },
+            success: function(result) {
+                console.log(result);
+                
+                result.forEach(function(item) {
+                    // responseDate의 값에 따라 answer에 '미답변' 또는 '답변완료'를 할당합니다.
+                    let answer = item.responseDate ? '답변완료' : '미답변';
+                    
+                    // 각 객체의 속성을 추출하여 테이블에 추가합니다.
+                    $('.list-tbody').append(
+                        '<tr>' +
+                            '<td><input type="checkbox" class="delete"></td>' +
+                            '<td name="inqNo">' + item.inqNo + '</td>' +
+                            '<td name="answer">' + answer + '</td>' +
+                            '<td>' + item.inqTitle + '</td>' +
+                            '<td>' + item.memberId + '</td>' +
+                            '<td>' + item.count + '</td>' +
+                            '<td>' + item.createDate + '</td>' +
+                        '</tr>'
+                    );
+                });
+            },
+            error: function() {
+                console.log("ajax 통신 실패!");
+            }
+        });
 	}
 
 	function ajaxSelectSubscribe() {
@@ -344,7 +375,7 @@
 					</div>
 					<div class="content">
 						<div align="center">
-                                <table>
+                                <table class="list-area">
                                     <thead>
                                         <tr>
                                             <th style="width : 5%;"><input type="checkbox" id="check-all"></th>
@@ -356,7 +387,7 @@
                                             <th style="width : 15%;">등록일</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="list-tbody">
                                     </tbody>
                                 </table>
                                 

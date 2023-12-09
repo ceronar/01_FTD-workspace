@@ -43,7 +43,7 @@
 		
 		<mapper resource="/mappers/seller-mapper.xml"/>
 		<mapper resource="/mappers/notice-mapper.xml"/>
-		<!-- <mapper resource="/mappers/inquiry-mapper.xml" /> -->
+		<mapper resource="/mappers/inquiry-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/seller-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
