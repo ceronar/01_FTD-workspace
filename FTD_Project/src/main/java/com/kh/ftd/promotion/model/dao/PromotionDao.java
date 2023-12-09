@@ -95,14 +95,19 @@ public class PromotionDao {
 
 	public int deletePromotion(SqlSessionTemplate sqlSession, int pno) {
 	
-		return sqlSession.update("promotionMapper.deletePromotion",pno);	//mapper 작성안함
+		return sqlSession.update("promotionMapper.deletePromotion",pno);	
 	}
 	
 
 
 	public int deleteNoticeFile(SqlSessionTemplate sqlSession, int pno) {
 		
-		return sqlSession.update("promotionMapper.deleteNoticeFile",pno);  //mapper 작성안함
+		return sqlSession.update("promotionMapper.deleteNoticeFile",pno); 
+	}
+
+	public int insertPromotionReply(SqlSessionTemplate sqlSession, PromotionReply pr) {
+	
+		return sqlSession.insert("promotionMapper.insertPromotionReply",pr);
 	}
 	
 	

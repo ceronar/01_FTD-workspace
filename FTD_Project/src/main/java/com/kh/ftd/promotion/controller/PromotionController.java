@@ -18,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.ftd.notice.model.vo.Notice;
-import com.kh.ftd.notice.model.vo.NoticeFile;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -419,6 +417,73 @@ public class PromotionController {
 	}
 	
 	
+	
+//-----------------------------댓글 작성 서비스---------------------------
+	
+	@RequestMapping(value="insertReply.bo")
+	public String insertPromotionReply(PromotionReply pr
+									  , Model model
+									  , HttpSession session) {
+		
+		System.out.println(pr);
+		
+		int result = promotionService.insertPromotionReply(pr);
+		
+		
+		if(result > 0) { // 댓글 작성 성공
+	
+			
+			session.setAttribute("alertMsg", "성공적으로 댓글이 작성되었습니다.");
+			
+			return "redirect:/pdlist.bo?pno=" + pr.getPromotionNo();
+			
+		} else { // 삭제 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "댓글 등록 실패");
+			
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
+	@RequestMapping(value="updateReplyForm.bo")
+	public String updatePromotionReply(Model model) {
+		
+			
+			return "promotion/promotionUpdateReplyForm";
+		}
+
+	
+	@RequestMapping(value="deleteReply.bo")
+	public String deletePromotionReply(PromotionReply prno
+									  , Model model
+									  , HttpSession session) {
+		
+		System.out.println(prno);
+		
+		
+		//int result = promotionService.deletePromotionReply(prno);
+		
+		
+//		if(result > 0) { // 댓글 작성 성공
+//	
+//			
+//			session.setAttribute("alertMsg", "성공적으로 댓글이 작성되었습니다.");
+//			
+//			return "redirect:/pdlist.bo?pno=" + pr.getPromotionNo();
+//			
+//		} else { // 삭제 실패
+//			// => 에러문구를 담아서 에러페이지로 포워딩
+//			
+//			model.addAttribute("errorMsg", "댓글 등록 실패");
+//			
+//			return "common/errorPage";
+//		}
+		return "";
+		
+	}
 	
 	// ----------------------------------------------
 
