@@ -13,10 +13,15 @@
 		<typeAlias type="com.kh.ftd.member.model.vo.Member" alias="member" />
 		<typeAlias type="com.kh.ftd.promotion.model.vo.Promotion" alias="promotion" />
 
-
+		<!-- 12/08 재영 11:10분 상품 별칭추가 -->
 		<typeAlias type="com.kh.ftd.seller.model.vo.Seller" alias="seller" />
 		<typeAlias type="com.kh.ftd.seller.model.vo.SellerFile" alias="sellerFile"/>
 		<typeAlias type="com.kh.ftd.member.model.vo.Subscribe" alias="subscribe"/>
+		<typeAlias type="com.kh.ftd.goods.model.vo.Goods" alias="goods"/>
+		<typeAlias type="com.kh.ftd.goods.model.vo.GoodsFile" alias="goodsFile"/>
+		<typeAlias type="com.kh.ftd.goods.model.vo.GoodsSell" alias="goodsSell"/>
+		<typeAlias type="com.kh.ftd.goods.model.vo.SellReply" alias="sellReply"/>
+		
 		
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
@@ -45,10 +50,11 @@
 		<mapper resource="/mappers/promotion-mapper.xml"/>
 		
 		<mapper resource="/mappers/seller-mapper.xml"/>
+		<mapper resource="/mappers/goods-mapper.xml"/>
+			
 		<mapper resource="/mappers/notice-mapper.xml"/>
 		<mapper resource="/mappers/inquiry-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
-		<mapper resource="/mappers/seller-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
 	</mappers>
 	<!--  

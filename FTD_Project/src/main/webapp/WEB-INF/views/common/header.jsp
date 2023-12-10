@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 
 <!-- JavaScript -->
@@ -17,10 +18,11 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 <!-- Semantic UI theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- google icon -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <!-- bootstrap -->
 <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"/> -->
-
-<link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/header.css?version=1.2" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -47,9 +49,10 @@
 	<div class="header">
 
 		<div class="title-div">
-			<div><img></div>
-			<div class="title-name"><a href="${pageContext.request.contextPath}">FTD</a></div>
-			<div><img></div>
+			<div class="title-logo"><img class="logo" src= "${pageContext.request.contextPath}/resources/images/sample/logo.png" onclick="location.href='${pageContext.request.contextPath}';"></div>
+			<div class="title-name"><a href="${pageContext.request.contextPath}">신선한 땅의 맛</a></div>
+			<div class="title-search"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">search</span></div>
+			<div class="title-cart"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">shopping_cart</span></div>
 			<div>
 	            <c:choose>
 	            	<%-- 관리자 로그인인 경우 --%>
@@ -72,6 +75,7 @@
 	            	
 					<%-- 로그인 전 --%>
 	            	<c:otherwise>
+	            		<span class="material-symbols-outlined">login</span>
 			            <a href="loginForm.me">로그인</a> |
 			            <a href="loginForm.se">판매자 로그인</a>	
 	            	</c:otherwise>         	
@@ -148,18 +152,19 @@
 			
 			});
 			
-			
-			
-			
-			
-			
-			
-			
 		});
 
 
 	</script>
 	
+	<script src="${pageContext.request.contextPath}/resources/js/api/apikey.js"></script>
+	<script>
+	  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+	  let apikey1 = apikey;
+	  ChannelIO('boot', {
+	    "pluginKey": apikey1
+	  });
+	</script>
 	
 </body>
 </html>

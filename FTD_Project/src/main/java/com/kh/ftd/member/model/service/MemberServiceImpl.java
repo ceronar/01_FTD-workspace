@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.member.model.dao.MemberDao;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
@@ -83,6 +84,15 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.ajaxInsertSubscribe(sqlSession, subscribeNo);
 	}
-
 	
+	// 구매자 리스트 페이징 조회
+	@Override
+	public ArrayList<Member> selectMemberList(PageInfo pi) {
+		return memberDao.selectMemberList(sqlSession, pi);
+	}
+
+	@Override
+	public Member selectMember(int memberNo) {
+		return memberDao.selectMember(sqlSession, memberNo);
+	}
 }
