@@ -178,11 +178,6 @@
 					 	 	  , #{changeName})
 	</insert>
 	
-	<update id="deletePromotionFile" parameterType="_int">
-		UPDATE PROMOTION_FILE
-		   SET DELETE_DATE = SYSDATE
-		 WHERE PROMOTION_NO = #{promotionNo}
-	</update>
 	
 	<update id="updatePromotion" parameterType="promotion">
 		UPDATE PROMOTION
@@ -197,7 +192,7 @@
 		 WHERE PROMOTION_NO = #{pno}
 	</update>
 	
-	<update id="deleteNoticeFile" parameterType="_int">
+	<update id="deletePromotionFile" parameterType="_int">
 		UPDATE PROMOTION_FILE
 		   SET DELETE_DATE = SYSDATE
 		 WHERE PROMOTION_NO = #{pno}
@@ -216,5 +211,21 @@
 					 	 	  , SYSDATE)
 			
 	</insert>
+	
+	<update id="deletePromotionReply" parameterType="promotionReply">
+		UPDATE PROMOTION_REPLY
+		   SET DELETE_DATE = SYSDATE
+		 WHERE PROMOTION_NO = #{promotionNo}
+		   AND REPLY_NO = #{replyNo}
+		   AND MEMBER_NO = #{memberNo}
+	</update>
+	
+		<update id="updatePromotionReply" parameterType="promotionReply">
+		UPDATE PROMOTION_REPLY
+		   SET REPLY_CONTENT = #{replyContent}
+	 	 WHERE PROMOTION_NO = #{promotionNo}
+		   AND REPLY_NO = #{replyNo}
+		   AND MEMBER_NO = #{memberNo}
+	</update>
 	
 </mapper>

@@ -66,11 +66,7 @@ public class PromotionServiceImpl implements PromotionService{
 		return promotionDao.insertFile(sqlSession,pf);
 	}
 	
-	@Override
-	public int deletePromotionFile(int promotionNo) {
-		
-		return promotionDao.deletePromotionFile(sqlSession,promotionNo);
-	}
+
 	
 	@Override
 	public int updatePromotion(Promotion p) {
@@ -92,9 +88,9 @@ public class PromotionServiceImpl implements PromotionService{
 	}
 
 	@Override
-	public int deleteNoticeFile(int pno) {
+	public int deletePromotionFile(int pno) {
 
-		return promotionDao.deleteNoticeFile(sqlSession, pno);
+		return promotionDao.deletePromotionFile(sqlSession, pno);
 	}
 
 
@@ -134,6 +130,18 @@ public class PromotionServiceImpl implements PromotionService{
 	public int insertPromotionReply(PromotionReply pr) {
 	
 		return promotionDao.insertPromotionReply(sqlSession, pr);
+	}
+
+	@Override
+	public int deletePromotionReply(PromotionReply prno) {
+		
+		return promotionDao.deletePromotionReply(sqlSession, prno);
+	}
+
+	@Override
+	public int updatePromotionReply(PromotionReply prno) {
+
+		return promotionDao.updatePromotionReply(sqlSession, prno);
 	}
 
 	
