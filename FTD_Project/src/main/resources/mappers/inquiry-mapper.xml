@@ -13,16 +13,19 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="RESPONSE_CONTENT" property="resopnseContent" />
 		<result column="RESPONSE_DATE" property="responseDate" />
+		<result column="MEMBER_ID" property="memberId" />
 	</resultMap>
 	
 	<select id="selectInquiryList" parameterType="_int" resultMap="inquiryResultSet">
-		SELECT INQ_NO
-		     , MEMBER_NO
-		     , INQ_TITLE
-		     , COUNT
-		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
-		     , RESPONSE_DATE
+		SELECT INQ_NO,
+		       INQUIRY.MEMBER_NO,
+		       INQ_TITLE,
+		       COUNT,
+		       TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE",
+		       RESPONSE_DATE,
+		       MEMBER.MEMBER_ID
 		  FROM INQUIRY
+		  JOIN MEMBER ON MEMBER.MEMBER_NO = INQUIRY.MEMBER_NO
 		 WHERE DELETE_DATE IS NULL
 		   AND SELLER_NO = #{sellerNo}
 		 ORDER BY INQ_NO DESC

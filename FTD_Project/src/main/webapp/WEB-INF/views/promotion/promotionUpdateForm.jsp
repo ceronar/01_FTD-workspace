@@ -159,16 +159,18 @@
 
             <input type="file" id="upfile" class="upfile" name="reupfile" multiple>
 				<c:if test="${ not empty requestScope.pf }">
-	                현재 업로드된 파일 : 
-	                <br>
+	               
+	                	<br>
+	                 현재 업로드된 파일 : 
 	                <c:forEach var="pf" items="${ requestScope.pf }">
+	                	<br>
 		                <a href="${ pf.changeName }" 
 		                   download="${ pf.originalName }">
 						${ pf.originalName }
 						</a>&nbsp
 						<!-- 기존의 첨부파일이 있다라는 뜻 -->
-						<input type="text" name="originalName" value="${ pf.originalName }">
-						<input type="text" name="changeName" value="${ pf.changeName }">
+						<input type="hidden" name="originalName" value="${ pf.originalName }">
+						<input type="hidden" name="changeName" value="${ pf.changeName }">
 	                </c:forEach>
 	            </c:if>
             <div align="center">

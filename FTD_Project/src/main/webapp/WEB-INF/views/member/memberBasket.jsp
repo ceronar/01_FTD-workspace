@@ -201,43 +201,25 @@
 			                    </tr>
 			                </thead>
 			                <tbody>
-			                	<!-- 마켓반복 -->
-			                	<tr>
-			                		<td colspan="6" class="marketName"><h3>마켓 1</h3></td>
-			                	</tr>
 			                	<!-- 상품반복 -->
+			                	<c:forEach var="c" items="${ requestScope.list }">
 			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="1" /></td>
+			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="${ c.goodNo }" /></td>
 			                        <td>
-			                            <img src="resources/images/sample/224427_132949_129.jpg" alt="상품사진" class="product-image">
+			                            <img src="${ c.changeName }" alt="상품사진" class="product-image">
 			                        </td>
-			                        <td>사과 1.5kg 한박스</td>
+			                        <td>${ c.goodTitle }</td>
 			                        <td class="quantity-outer">
 			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
+			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="${ c.count }" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
-			                            <input type="hidden" class="price" value="5000">
+			                            <input type="hidden" class="price" name="goodPrice" value="${ c.price }">
 			                        </td>
-			                        <td>5,000원</td>
+			                        <td>${ c.price }원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
 			                    </tr>
+			                    </c:forEach>
 			                    <!-- 상품반복 -->
-			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="2" /></td>
-			                        <td>
-			                            <img src="resources/images/sample/202005072145_500.jpg" alt="상품사진" class="product-image">
-			                        </td>
-			                        <td>배 1.5kg 한박스</td>
-			                        <td class="quantity-outer">
-			                        	<div class="quantity-buttons">
-			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="1" readonly><button type="button" class="quantity-button" value="1">+</button>
-			                            </div>
-			                            <input type="hidden" class="price" value="7500">
-			                        </td>
-			                        <td>7,500원</td>
-			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
-			                    </tr>
-			                    <!-- 여기에 더 많은 상품 정보가 들어갈 수 있습니다. -->
 			                </tbody>
 			            </table>
 			            
@@ -288,18 +270,23 @@
 	                var quantity = parseInt(quantityInput.value, 10);
 	                var price = parseInt(checkbox.parentElement.parentElement.querySelector('.price').value);
 	                total += quantity * price;
+	                total += 2500;
 	            }
 	        });
 	
 	        // Update the total price display
 	        var totalPriceDisplay = document.getElementById('totalPrice');
-	        totalPriceDisplay.textContent = total.toFixed(0);
+	        totalPriceDisplay.textContent = total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	        $("#deliver").text(($(".buyItem:checked").length * 2500).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 	    }
 		
      $(function () {
+    	 updateTotalPrice();
+    	 
 		// 전체 상품 선택 함수
 		$(".buyAllItems").change(function(){
  			$(".buyItem").prop('checked', $(".buyAllItems").is(":checked"));
+ 			updateTotalPrice()
  		});
  		
  		$(".buyItem").click(function() {
@@ -317,19 +304,21 @@
         	if(($(".buyItem:checked").length - 1) > 0) {
         		buyName = buyName + " 외 " + ($(".buyItem:checked").length - 1) + "개";
         	}
+        	let totalPrice = Number(document.getElementById('totalPrice').innerText.split(',').join(""));
+        	console.log(totalPrice);
      		e.preventDefault();
      		if($(".buyItem:checked").length > 0){
     				IMP.request_pay({
     				  pg: "kakaopay",
-    				  pay_method: "card", // 생략가능
-    				  merchant_uid: 'merchant_' + new Date().getTime(), // 상점에서 생성한 고유 주문번호
-    				  name: buyName,									// 상품명
-    				  amount: 1004,										// 가격
-    				  buyer_email: "test@portone.io",					// 구매자 이메일
-    				  buyer_name: "구매자이름",							// 구매자 이름
-    				  buyer_tel: "010-1234-5678",						// 전화번호
-    				  buyer_addr: "서울특별시 강남구 삼성동",			// 주소
-    				  buyer_postcode: "123-456"							// 우편번호
+    				  pay_method: "card", 									// 생략가능
+    				  merchant_uid: 'merchant_' + new Date().getTime(), 	// 상점에서 생성한 고유 주문번호
+    				  name: buyName,										// 상품명
+    				  amount: totalPrice,									// 가격
+    				  buyer_email: "${ sessoinScope.loginUser.email }",		// 구매자 이메일
+    				  buyer_name: "${ sessionScope.loginUser.memberName }",	// 구매자 이름
+    				  buyer_tel: "${ sessionScope.loginUser.phone }",		// 전화번호
+    				  buyer_addr: "${ sessionScope.loginUser.address }",	// 주소
+    				  buyer_postcode: "${ sessionScope.loginUser.zipCode }"	// 우편번호
     				}, function(rsp) {
     					console.log(rsp);
     					if (rsp.success) {
@@ -383,7 +372,24 @@
       		for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
       		let goodNo = parentTrTag.children.item(0).children.item(0).value;
       		console.log(goodNo);
-      		// memberNo, goodNo ajax로 보내고 delete
+      		// memberNo, goodNo ajax로 보내고 parentTrTag 제거
+      		$.ajax({
+      			url : "ajaxDeleteCart.me",
+      			type : "get",
+      			data : {
+      				memberNo : ${ sessionScope.loginUser.memberNo },
+      				goodNo : goodNo
+      			},
+      			success : function(result) { 
+					if(result == "success") {
+						parentTrTag.remove();
+						alertify.success('삭제 완료');
+					}
+				},
+				error : function() {
+					console.log(" ajax 통신 실패")
+				}
+      		});
       	});
       	
       	

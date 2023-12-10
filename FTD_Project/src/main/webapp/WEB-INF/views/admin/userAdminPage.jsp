@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<!-- jQuery library -->
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<!-- Popper JS -->
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<!-- Latest compiled JavaScript -->
@@ -158,6 +159,111 @@
 		.cont {
 			margin-left: 100px;
 		}
+		
+		/* 회원 페이지 모달 css */
+		/* Style for the modal container */
+        .modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Style for the modal content */
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Close button style */
+        .close-button {
+            background-color: #ddd;
+            color: #333;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+		
+		.userTable {
+			border-collapse: collapse;
+			text-align: center;
+		}
+		
+		.userTable, .userTable th, .userTable td {
+			border: 1px solid lightgray;
+			padding: 8px;
+			text-align: center;
+		}
+		
+		.userTable th {
+			background-color: #f2f2f2;
+			color: #333;
+			}
+
+		.userTable td {
+			background-color: #fff;
+			color: #555;
+		}
+		
+		.userTable>tbody:hover {
+			cursor: pointer;
+		}
+		
+		.statusBtn {
+			height: 20px;
+			width: 20px;
+			border-radius: 10px;
+			border: 1 solid black;
+		}
+		
+		.inactive {
+			background-color: red;
+		}
+		
+		.active {
+			background-color: green;
+		}
+		
+		/* ----- 페이지네이션 -----*/
+		#pagingArea {
+			width:fit-content; 
+			margin:auto;
+		}
+		
+		.pagination {
+		  display: inline-block;
+		  margin-top: 20px;
+		  border-radius: 5px;
+		}
+		
+		.pagination li {
+		  display: inline-block;
+		  margin: 0 3px;
+		}
+		
+		.pagination li a {
+		  color: #000;
+		  padding: 8px 12px;
+		  text-decoration: none;
+		  border: 1px solid #ddd;
+		  border-radius: 3px;
+		  font-weight: bold;
+		}
+		
+		.pagination li a:hover {
+		  background-color: #f5f5f5;
+		}
+		
     </style>
 </head>
 <body>
@@ -211,12 +317,149 @@
 		      	<h4 class="my-4">회원 목록</h4>
 		      	<div class="table-area">
 		      		<table class="userTable">
-		      			
+		      			<thead>
+		      				<tr>
+		      					<th hidden>번호</th>
+		      					<th width="150">아이디</th>
+		      					<th width="120">이름</th>
+		      					<th width="200">이메일</th>
+		      					<th width="150">번호</th>
+		      					<th width="280">주소</th>
+		      					<th width="70">정지</th>
+		      				</tr>
+		      			</thead>
+		      			<tbody>
+		      				<c:forEach var="m" items="${ requestScope.list }">
+								<tr>
+									<td hidden>${ m.memberNo }</td>
+			      					<td>${ m.memberId }</td>
+			      					<td>${ m.memberName }</td>
+			      					<td>${ m.email }</td>
+			      					<td>${ m.phone }</td>
+			      					<td>${ m.address }</td>
+			      					<td class="nonClick">${empty m.status ? "<button class='statusBtn active'>" : "<button class='statusBtn inactive'>" }</td>
+								</tr>
+							</c:forEach>
+		      			</tbody>
 		      		</table>
+		      		<div id="pagingArea">
+						<ul class="pagination">
+							<c:choose>
+								<c:when test="${ requestScope.pi.currentPage le 1 }">
+			                    </c:when>
+								<c:otherwise>
+								<li class="page-item">
+									<a class="page-link" href="user.ad?cpage=1">&lt;&lt;</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="user.ad?cpage=${ requestScope.pi.currentPage - 1 }">&lt;</a>
+								</li>
+								</c:otherwise>
+							</c:choose>
+							<c:forEach var="p" begin="${ requestScope.pi.startPage }" end="${ requestScope.pi.endPage }" step="1">
+			                    <li class="page-item">
+			                    	<a class="page-link" href="user.ad?cpage=${ p }">${ p }</a>
+			                    </li>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${ requestScope.pi.currentPage ge requestScope.pi.maxPage }">
+								</c:when>
+								<c:otherwise>
+								<li class="page-item">
+									<a class="page-link" href="user.ad?cpage=${ requestScope.pi.currentPage + 1 }">&gt;</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="user.ad?cpage=${ requestScope.pi.maxPage }">&gt;&gt;</a>
+								</li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+           			</div>
 		      	</div>
 		    </div>
 		</div>
 	</div>
+	
+	<!-- Modal container -->
+	<div class="modal-container detailModal" id="userDetailsModal">
+		<div class="modal-content" id="userDetailsContent">
+			<div style="display: flex; justify-content: space-between; align-items: center;">
+		        <h2>상세 정보</h2>
+		        <button type="button" class="close-button" onclick="closeModal()"><span class="material-symbols-outlined">close</span></button>
+	    	</div>
+	    	<!-- Modal content -->
+	    
+	        <!-- User details will be loaded here -->
+	    </div>
+	</div>
+	
+	<script>
+		$(function() {
+			$(".userTable>tbody>tr").on('click', e => {
+				let target = e.target;
+				let num = target.parentElement.children.item(0).innerText;
+				if(target == e.currentTarget.querySelector(".nonClick")) {
+					// 유저 상태값 변경
+					console.log("상태값 클릭");
+				} else {
+					fetchAndOpenUserDetails(num);
+				}
+			});
+		});
+		
+		$('html').click(function(e){
+			if(document.getElementById('userDetailsModal').style.display == 'flex'){
+				if($(e.target).parents('.modal-container').length < 1){
+					
+					// closeModal();
+			    }
+			}
+		});
+		
+	    function openModal() {
+	        var modal = document.getElementById('userDetailsModal');
+	        modal.style.display = 'flex';
+	    }
+	    
+	    function closeModal() {
+	        var modal = document.getElementById('userDetailsModal');
+	        modal.style.display = 'none';
+	    }
+	    
+	    function fetchAndOpenUserDetails(num) {
+	    	$.ajax({
+	            url: "userDetails.ad",
+	            method: 'get',
+	            data: {
+	            	memberNo : num
+	            },
+	            success: function (data) {
+	                // Populate modal content with user details
+	                populateModal(data);
+	                // Open the modal
+	                openModal();
+	            },
+	            error: function () {
+	                alert('사용자 상세 정보 조회 ajax 통신 실패');
+	            }
+	        });
+	    }
+	    
+	    function populateModal(userDetails) {
+	        let modalContent = $('#userDetailsContent');
+	        // Clear previous content
+	        modalContent.html('');
+	        modalContent.append('<div style="display: flex; justify-content: space-between; align-items: center;"><h2>상세 정보</h2><button type="button" class="close-button" onclick="closeModal()"><span class="material-symbols-outlined">close</span></button></div>');
+	        // Add user details to modal content
+	        for (var key in userDetails) {
+	            if (userDetails.hasOwnProperty(key)) {
+	                var pElement = document.createElement('p');
+	                pElement.innerHTML = '<strong>' + key + ' :</strong> ' + userDetails[key];
+	                modalContent.append(pElement);
+	            }
+	        }
+	    }
+	</script>
 	
 </body>
 </html>

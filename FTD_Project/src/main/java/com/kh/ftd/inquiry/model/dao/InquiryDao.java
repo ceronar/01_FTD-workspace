@@ -13,7 +13,7 @@ import com.kh.ftd.inquiry.model.vo.Inquiry;
 public class InquiryDao {
 
 	public ArrayList<Inquiry> ajaxSelectInquiryList(SqlSessionTemplate sqlSession, int sellerNo) {
-		return (ArrayList)sqlSession.selectList("inquiryMapper.ajaxSelect", sellerNo);
+		return (ArrayList)sqlSession.selectList("inquiryMapper.selectInquiryList", sellerNo);
 	}
 
 }

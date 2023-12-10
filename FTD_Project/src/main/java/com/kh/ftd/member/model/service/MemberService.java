@@ -3,6 +3,7 @@ package com.kh.ftd.member.model.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 
@@ -40,4 +41,10 @@ public interface MemberService {
 	
 	// 구매자 마켓 찜 추가 (insert)
 	int ajaxInsertSubscribe(Subscribe subscribeNo);
+	
+	// 구매자 리스트 페이징 조회
+	ArrayList<Member> selectMemberList(PageInfo pi);
+	
+	// memberNo으로 구매자 한명 정보 조회
+	Member selectMember(int memberNo);
 }

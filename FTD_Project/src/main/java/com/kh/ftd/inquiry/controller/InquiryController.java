@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.ftd.inquiry.model.service.InquiryService;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
 
@@ -16,13 +18,27 @@ public class InquiryController {
 	@Autowired
 	private InquiryService inquiryService;
 	
+	@RequestMapping("list.in")
+	public ModelAndView selectInquiryList(String sellerNo,
+										  ModelAndView mv) {
+		mv.addObject("sellerNo", sellerNo).setViewName("inquiry/inquiryListView");
+		
+//		System.out.println(sellerNo);
+		return mv;
+	}
+	
 	@ResponseBody
-	@RequestMapping(value="ajaxSelectList.in")
-	public void ajaxSelectInquiryList(int sellerNo, int page, int size) {
+	@RequestMapping(value="ajaxSelectList.in", produces = "application/json; charset=UTF-8")
+	public String ajaxSelectInquiryList(int sellerNo, String page, String pageSize) {
 		
 		int inquiryNo =0;
 		
+		System.out.println("page : " + page);
+		System.out.println("size : " + pageSize);
+		System.out.println("sellerNo : " + sellerNo);
+		
 		ArrayList<Inquiry> list = inquiryService.ajaxSelectInquiryList(sellerNo);
+		
 		
 //		int totalItems = list.size();
 //		
@@ -32,5 +48,6 @@ public class InquiryController {
 		
 		System.out.println(list);
 		
+		return new Gson().toJson(list);
 	}
 }

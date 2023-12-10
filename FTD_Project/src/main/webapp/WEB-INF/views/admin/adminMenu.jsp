@@ -158,6 +158,13 @@
 		.cont {
 			margin-left: 100px;
 		}
+		
+		//-- 차트 관련 --
+		.chartDiv {
+			flex: 0 0 50%;
+    		max-width: 50%;
+		}
+		
     </style>
 </head>
 <body>
@@ -215,7 +222,7 @@
 		            <div class="card-body d-flex justify-content-between">
 		              <div>
 		                <p class="card-text mb-2">전체 회원 수</p>
-		                <h4>${ requestScope.totalUser } 명</h4>
+		                <h4>${ requestScope.countMember + requestScope.countSeller } 명</h4>
 		              </div>
 		              <span class="material-symbols-outlined"
 		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
@@ -228,8 +235,8 @@
 		          <div class="card annual">
 		            <div class="card-body d-flex justify-content-between">
 		              <div>
-		                <p class="card-text mb-2">누적 전체 게시글 수</p>
-		                <h4>${ requestScope.totalBoard } 개</h4>
+		                <p class="card-text mb-2">누적 게시글 수</p>
+		                <h4>${ requestScope.countReview + requestScope.countInquiry + requestScope.countPromotion + requestScope.countGoodsSell + requestScope.countNotice } 개</h4>
 		              </div>
 		              <span class="material-symbols-outlined"
 		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
@@ -258,19 +265,19 @@
 		    <!-- chart -->
 		    <div class="container mt-3">
 		      <div class="row">
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">회원 비율</div>
 		          <div class="card-body"><canvas id="userChart"></canvas></div>
 		        </div>
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">각 게시판 글 수</div>
 		          <div class="card-body"><canvas id="eachBoard"></canvas></div>
 		        </div>
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">일주일간 일일 글 작성 수</div>
 		          <div class="card-body"><canvas id="weekBoard"></canvas></div>
 		        </div>
-		        <div class="col-lg-8">
+		        <div class="col-lg-8 chartDiv">
 		          <div class="card-header h5">일주일간 일일 매출</div>
 		          <div class="card-body"><canvas id="weekSales"></canvas></div>
 		        </div>
@@ -285,11 +292,11 @@
       var userChart = new Chart(ctx1, {
         type: "pie",
         data: {
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["구매자", "판매자"],
           datasets: [
             {
-              label: "Monthly",
-              data: [12, 19, 3, 5, 2, 3],
+              label: "가입자",
+              data: [${ requestScope.countMember },${ requestScope.countSeller }],
               backgroundColor: "rgba(255, 99, 132, 0.2)",
               borderColor: "rgba(255, 99, 132, 1)",
               borderWidth: 1,
@@ -310,11 +317,11 @@
       var eachBoard = new Chart(ctx2, {
         type: "bar",
         data: {
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["리뷰", "문의", "홍보", "판매", "공지"],
           datasets: [
             {
-              label: "Monthly",
-              data: [12, 19, 3, 5, 2, 3],
+              label: "작성글",
+              data: [${ requestScope.countReview },${ requestScope.countInquiry },${ requestScope.countPromotion },${ requestScope.countGoodsSell },${ requestScope.countNotice }],
               backgroundColor: "rgba(255, 99, 132, 0.2)",
               borderColor: "rgba(255, 99, 132, 1)",
               borderWidth: 1,
@@ -335,11 +342,11 @@
       var weekBoard = new Chart(ctx3, {
         type: "line",
         data: {
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["${ requestScope.dailyBoardCount[0].postingDate }", "${ requestScope.dailyBoardCount[1].postingDate }", "${ requestScope.dailyBoardCount[2].postingDate }", "${ requestScope.dailyBoardCount[3].postingDate }", "${ requestScope.dailyBoardCount[4].postingDate }", "${ requestScope.dailyBoardCount[5].postingDate }", "${ requestScope.dailyBoardCount[6].postingDate }"],
           datasets: [
             {
-              label: "Monthly",
-              data: [12, 19, 3, 5, 2, 3],
+              label: "작성글",
+              data: [${ requestScope.dailyBoardCount[0].postCount }, ${ requestScope.dailyBoardCount[1].postCount }, ${ requestScope.dailyBoardCount[2].postCount }, ${ requestScope.dailyBoardCount[3].postCount }, ${ requestScope.dailyBoardCount[4].postCount }, ${ requestScope.dailyBoardCount[5].postCount }, ${ requestScope.dailyBoardCount[6].postCount }],
               backgroundColor: "rgba(255, 99, 132, 0.2)",
               borderColor: "rgba(255, 99, 132, 1)",
               borderWidth: 1,
@@ -360,11 +367,11 @@
       var weekSales = new Chart(ctx4, {
         type: "line",
         data: {
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["${ requestScope.dailyOrderPrice[0].payDate }", "${ requestScope.dailyOrderPrice[1].payDate }", "${ requestScope.dailyOrderPrice[2].payDate }", "${ requestScope.dailyOrderPrice[3].payDate }", "${ requestScope.dailyOrderPrice[4].payDate }", "${ requestScope.dailyOrderPrice[5].payDate }", "${ requestScope.dailyOrderPrice[6].payDate }"],
           datasets: [
             {
-              label: "Monthly",
-              data: [12, 19, 3, 5, 2, 3],
+              label: "매출",
+              data: [${ requestScope.dailyOrderPrice[0].dayPayPrice }, ${ requestScope.dailyOrderPrice[1].dayPayPrice }, ${ requestScope.dailyOrderPrice[2].dayPayPrice }, ${ requestScope.dailyOrderPrice[3].dayPayPrice }, ${ requestScope.dailyOrderPrice[4].dayPayPrice }, ${ requestScope.dailyOrderPrice[5].dayPayPrice }, ${ requestScope.dailyOrderPrice[6].dayPayPrice }],
               backgroundColor: "rgba(255, 99, 132, 0.2)",
               borderColor: "rgba(255, 99, 132, 1)",
               borderWidth: 1,

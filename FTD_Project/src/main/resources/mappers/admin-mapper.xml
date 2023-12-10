@@ -2,31 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
 	
-	<select id="totalMember" resultType="_int">
+	<resultMap id="chartResultSet" type="chart">
+		<result column="POSTING_DATE" property="postingDate" />
+		<result column="POST_COUNT" property="postCount" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="DAY_PAYPRICE" property="dayPayPrice" />
+	</resultMap>
+	
+	<select id="countMember" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
 		 WHERE STATUS IS NULL
 	</select>
 	
-	<select id="totalSeller" resultType="_int">
+	<select id="countSeller" resultType="_int">
 		SELECT COUNT(*)
 		  FROM SELLER
-		 WHERE DELETE_DATE IS NULL
-	</select>
-	
-	<select id="totalMemberBoard" resultType="_int">
-		SELECT COUNT(*)
-		  FROM MEMBER M
-		  LEFT JOIN REVIEW R ON M.MEMBER_NO = R.MEMBER_NO
-		  LEFT JOIN INQUIRY I ON M.MEMBER_NO = I.MEMBER_NO
-		 WHERE R.DELETE_DATE IS NULL
-		   AND I.DELETE_DATE IS NULL
-		   AND (REV_NO IS NOT NULL OR INQ_NO IS NOT NULL)
-	</select>
-	
-	<select id="totalSellerBoard" resultType="_int">
-		SELECT COUNT(*)
-		  FROM PROMOTION
 		 WHERE DELETE_DATE IS NULL
 	</select>
 
@@ -34,6 +25,71 @@
 		SELECT SUM(PRICE)
 		  FROM "ORDER"
 		 WHERE PAY_CANCEL IS NULL
+	</select>
+	
+	<select id="countReviewBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM REVIEW
+		 WHERE DELETE_DATE IS NULL
+	</select>
+	
+	<select id="countInquiryBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM INQUIRY
+		 WHERE DELETE_DATE IS NULL
+	</select>
+		
+	<select id="countPromotionBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PROMOTION
+		 WHERE DELETE_DATE IS NULL
+	</select>
+			
+	<select id="countGoodsSellBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM GOODS_SELL
+		 WHERE DELETE_DATE IS NULL
+	</select>
+		
+	<select id="countNoticeBoard" resultType="_int">
+		SELECT COUNT(*)
+		  FROM NOTICE
+		 WHERE DELETE_DATE IS NULL
+	</select>
+	
+	<select id="dailyBoardCount" resultMap="chartResultSet">
+		  WITH DateSequence AS (SELECT TRUNC(SYSDATE - LEVEL + 1) AS DateValue
+    							  FROM DUAL
+    						   CONNECT BY LEVEL &lt;= 7)
+		SELECT TO_CHAR(DS.DateValue, 'YYYY-MM-DD') AS POSTING_DATE, NVL(COUNT(*), 0) AS POST_COUNT
+		  FROM DateSequence DS
+		  LEFT JOIN (SELECT TRUNC(CREATE_DATE) AS CREATE_DATE
+		               FROM INQUIRY
+		              UNION ALL
+		             SELECT TRUNC(CREATE_DATE) AS CREATE_DATE
+		               FROM PROMOTION
+		              UNION ALL
+		             SELECT TRUNC(CREATE_DATE) AS CREATE_DATE
+		               FROM REVIEW
+		              UNION ALL
+		             SELECT TRUNC(CREATE_DATE) AS CREATE_DATE
+		               FROM NOTICE
+		              UNION ALL
+		             SELECT TRUNC(CREATE_DATE) AS CREATE_DATE
+		               FROM GOODS_SELL) ALL_POSTS ON DS.DateValue = ALL_POSTS.CREATE_DATE
+		 GROUP BY TO_CHAR(DS.DateValue, 'YYYY-MM-DD')
+		 ORDER BY TO_CHAR(DS.DateValue, 'YYYY-MM-DD')
+	</select>
+		
+	<select id="dailyOrderPrice" resultMap="chartResultSet">
+		  WITH DateSequence AS (SELECT TRUNC(SYSDATE - LEVEL + 1) AS DateValue
+                        		FROM DUAL
+                     		CONNECT BY LEVEL &lt;= 7)
+		SELECT TO_CHAR(DS.DateValue, 'YYYY-MM-DD') AS PAY_DATE, NVL(SUM(O.PRICE), 0) AS DAY_PAYPRICE
+		  FROM DateSequence DS
+		  LEFT JOIN "ORDER" O ON TRUNC(O.PAY_DATE) = DS.DateValue
+		 GROUP BY TO_CHAR(DS.DateValue, 'YYYY-MM-DD')
+		 ORDER BY TO_CHAR(DS.DateValue, 'YYYY-MM-DD')
 	</select>
 	
 </mapper>

@@ -25,5 +25,6 @@ public class Inquiry {
 	private Date deleteDate;		//DELETE_DATE	DATE
 	private String resopnseContent;	//RESPONSE_CONTENT	VARCHAR2(4000 BYTE)
 	private Date responseDate;		//RESPONSE_DATE	DATE
+	private String memberId;	
 	
 }

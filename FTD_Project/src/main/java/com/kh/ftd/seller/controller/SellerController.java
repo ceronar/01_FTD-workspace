@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
@@ -131,7 +132,7 @@ public class SellerController {
 	@RequestMapping(value = "ajaxSelectSellerMarketList.se" , produces = "application/json; charset=UTF-8")
 	public String ajaxSelectSellerMarketList(int sellerNo) {
 		
-		System.out.println(sellerNo);
+//		System.out.println(sellerNo);
 		
 		// 마켓 리스트
 		Seller sList = sellerService.ajaxSelectSellerMarketList(sellerNo);
@@ -155,11 +156,13 @@ public class SellerController {
 		return new Gson().toJson(resultList);
 	}	
 	
+	// 로그인 폼
 	@RequestMapping("loginForm.se")
 	public String sellerLoginForm() {
 		return "seller/sellerLogin";
 	}
 	
+	// 로그인 
 	@RequestMapping("login.se")
 	public ModelAndView loginSeller(Seller s, ModelAndView mv, HttpSession session) {
 		Seller loginSeller = sellerService.loginSeller(s);
@@ -176,26 +179,29 @@ public class SellerController {
 		return mv;
 	}
 	
+	// 로그아웃
 	@RequestMapping("logout.se")
 	public String logoutSeller(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
 	
+	// 회원가입 폼
 	@RequestMapping("insertSellerForm.se")
 	public String insertSellerForm() {
 		return "seller/insertSeller";
 	}
 	
+	// 회원가입
 	@RequestMapping(value = "insertSeller.se", produces = "text/html; charset=UTF-8")
 	public String insertSeller(Seller s,
 							   Model model,
 							   HttpSession session) {
-		System.out.println(s);
+//		System.out.println(s);
 		
 		String encPwd = bcryptPasswordEncoder.encode(s.getSellerPwd());
 		
-		System.out.println(encPwd);
+//		System.out.println(encPwd);
 		
 		s.setSellerPwd(encPwd);
 		
@@ -215,11 +221,13 @@ public class SellerController {
 		}
 	}
 	
+	// 판매자 페이지
 	@RequestMapping("sellerPage")
 	public String sellerPage() {
 		return "seller/sellerPage";
 	}
 	
+	// 회원정보 변경 
 	@RequestMapping(value = "update.se", method = RequestMethod.POST)
     public String updateSeller(
             Seller s,
@@ -241,6 +249,41 @@ public class SellerController {
         return "redirect:/sellerPage"; 
     }
 	
+	// 비밀번호 변경
+	@PostMapping(value="updateSellerPwd.se")
+	public String updateSellerPwd(Seller s, Model model, HttpSession session, String sellerPwd, String updateSellerPwd) {
+		if(bcryptPasswordEncoder.matches(sellerPwd, ((Seller)(session.getAttribute("loginSeller"))).getSellerPwd())) {
+			
+			String encPwd =bcryptPasswordEncoder.encode(updateSellerPwd);
+			
+			s.setSellerPwd(encPwd);
+			
+			int result = sellerService.updateSellerPwd(s);
+			
+			if(result > 0) {
+				
+				session.setAttribute("alertMsg", "성공적으로 비밀번호가 수정되었습니다.");
+				
+				return "redirect:/";
+			} else {
+				
+				model.addAttribute("errorMsg","로직 에러 발생");
+				
+				return "common/errorPage";
+				
+			} 
+			
+		} else {
+			
+			model.addAttribute("errorMsg", "비밀번호가 일치하지 않습니다.");
+			
+			return "common/errorPage";
+			
+		}
+		
+	}
+	
+	// 회원탈퇴
 	@RequestMapping("delete.se")
 	public String deleteSeller(String sellerId,
 							   String sellerPwd,
@@ -287,7 +330,7 @@ public class SellerController {
 	// 아이디 중복체크 만들어야함 
 	
 	
-    
+    // 판매자 프로필 사진
     private String handleFileUpload(MultipartFile file) {
         
         String uploadDirectory = "/path/to/upload/directory";
@@ -301,7 +344,7 @@ public class SellerController {
     
     
 	
-	
+	// 아이디 찾기
 	@GetMapping("/find-id1")
 	public String sellerId(HttpSession session) {
 		if(session.getAttribute("loginUser") != null) { // 로그인상태
@@ -314,7 +357,6 @@ public class SellerController {
 			return "seller/sellerIdFind";
 		}
 	}	
-	
 	@PostMapping("/found-id1")
 	public String findIdByEmail(String email, Model model) {
 		

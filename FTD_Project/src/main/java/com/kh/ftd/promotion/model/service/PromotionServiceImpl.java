@@ -132,8 +132,8 @@ public class PromotionServiceImpl implements PromotionService{
 
 	@Override
 	public int insertPromotionReply(PromotionReply pr) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		return promotionDao.insertPromotionReply(sqlSession, pr);
 	}
 
 	
