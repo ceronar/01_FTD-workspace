@@ -1,7 +1,16 @@
 @charset "UTF-8";
 
+div {
+	border: 1px solid black;
+}
+
+/* header div 전체 */
 .header > div {
     display: block;
+}
+
+.title-search {
+	width: 50px;
 }
 
 .title-name > a {
@@ -16,7 +25,9 @@
     box-sizing: border-box;
 }
 
-.title-div img {
+
+
+.logo  {
     width: 100px;
     height: 100px;
     border: 1px solid black;
@@ -39,4 +50,13 @@
     color: rgb(85, 85, 85);
     /* background-color: #ccc; */
     /* border-radius: 5px; */
+}
+
+/* 구글 아이콘 */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }

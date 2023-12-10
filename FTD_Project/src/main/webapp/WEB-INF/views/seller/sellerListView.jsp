@@ -153,10 +153,7 @@
 	            type: 'get',
 	            data: { page: page, pageSize: pageSize },
 	            success: function(result) {
-	            	
-	            	console.log("ajax 통신 성공");	    
-	            	console.log(result);
-	            	
+	                      	
 	                result.forEach(function (item, index) {
 	                    
 	                	$('.content').append(
@@ -222,20 +219,20 @@
     </div>
 
 	<script>
-            $(function () {
+    	$(function () {
             	
-            	ajaxSelectSellerList();    
+        	ajaxSelectSellerList();    
 
-                $(".content").on('click', '.store', function (e) {
+            $(".content").on('click', '.store', function (e) {
 
+            	let sno = e.currentTarget.children.item(0).value;
 
-                    let sno = e.currentTarget.children.item(0).value;
+                console.log(sno);
 
-                    console.log(sno);
-
-                    location.href = "sdlist.se?sno=" + sno;
-                });
+                location.href = "sdlist.se?sno=" + sno;
+                
             });
+    	});
 	</script>
 
 </body>
