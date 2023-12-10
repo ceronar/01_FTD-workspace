@@ -444,7 +444,7 @@
 	                openModal();
 	            },
 	            error: function () {
-	                alert('사용자 상세 정보 조회 ajax 통신 실패');
+	            	console.log('사용자 상세 정보 조회 ajax 통신 실패');
 	            }
 	        });
 	    }
@@ -466,25 +466,40 @@
 	    
 	    function memberStatusChange(memberNo, target) {
 	    	
+	    	let targetClassList = target.children.item(0).classList;
+	    	// target 의 button이 class active 를 포함하고 있는지 확인
+	    	let status = "";
+	    	if(targetClassList.contains('active')){
+	    		status = "active";
+	    	} else {
+	    		status = "inactive";
+	    	}
+	    	
 	    	$.ajax({
 	            url: "memberStatusChange.ad",
 	            method: 'get',
 	            data: {
-	            	memberNo : memberNo
+	            	memberNo : memberNo,
+	            	status : status
 	            },
 	            success: function (data) {
-	                // target 의 button이 class active 를 포함하고 있는지 확인
-	                if(target.children.item(0).classList.contains('active')) {
-	                	// 성공했으니 active 제거후 inactive 부여
-			    		console.log("active");
-			    	} else {
-			    		// 성공했으니 inactive 제거후 active 부여
-			    		console.log("inactive");
-			    	}
-	                
+	            	// 'Y' or 'N' 넘어오는지 확인
+	            	if(data == "Y") {
+		                if(status == "active") {
+		                	// 성공했으니 active 제거후 inactive 부여
+		                	targetClassList.remove('active');
+		                	targetClassList.add('inactive');
+				    	} else {
+				    		// 성공했으니 inactive 제거후 active 부여
+				    		targetClassList.remove('inactive');
+				    		targetClassList.add('active');
+				    	}
+	            	} else {
+	            		console.log('사용자 상태 변경 실패');
+	            	}
 	            },
 	            error: function () {
-	                alert('사용자 상세 정보 조회 ajax 통신 실패');
+	                console.log('사용자 상태 변경 ajax 통신 실패');
 	            }
 	        });
 		}

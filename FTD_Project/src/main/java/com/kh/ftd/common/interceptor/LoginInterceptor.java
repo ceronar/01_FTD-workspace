@@ -20,9 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 		} else {
 			
-			session.setAttribute("alertMsg", "321321");
-			
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect("loginForm.me");
 			
 			return false;
 		}

@@ -20,14 +20,13 @@
 	
 	
 	<!-- 인터셉터 등록 -->
-	<!--  
 	<interceptors>
 		<interceptor>
 			<mapping path="/myPage.me" />
 			<mapping path="/enrollForm.bo"/>
 			<mapping path="/update.me"/>
+			<mapping path="/basket.me"/>
 			<beans:bean class="com.kh.ftd.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
 	</interceptors>
-	-->
 </beans:beans>

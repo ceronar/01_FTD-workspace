@@ -98,4 +98,16 @@ public class AdminController {
 		return m;
 	}
 	
+	@ResponseBody
+	@RequestMapping("memberStatusChange.ad")
+	public String ajaxMemberStatusChange(Member m) {
+		
+		int result = memberService.memberStatusChange(m);
+		if(result > 0) {
+			return "Y";
+		} else {
+			return "N";
+		}
+	}
+	
 }
