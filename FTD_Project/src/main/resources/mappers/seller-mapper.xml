@@ -165,6 +165,17 @@
 		SELLER_PWD = #{sellerPwd}
 		WHERE SELLER_NO = #{sellerNo}
 	</update>
-
+	
+	<select id="selectSellerList" resultMap="sellerResultSet">
+		SELECT SELLER_NO, SELLER_ID, SELLER_NAME, COMPANY_NAME, EMAIL, ADDRESS, DELETE_DATE
+		  FROM SELLER
+		 ORDER BY SELLER_NO DESC
+	</select>
+	
+	<select id="selectSeller" parameterType="_int" resultMap="sellerResultSet">
+		SELECT SELLER_NO, SELLER_ID, SELLER_NAME, COMPANY_NAME ,COMPANY_NO, BUSINESS_NO, EMAIL, ADDRESS, ACCOUNT_NO, PHONE, DELETE_DATE, ENROLL_DATE, REFUSE_REASON
+		  FROM SELLER
+		 WHERE SELLER_NO = #{sellerNo}
+	</select>
 
 </mapper>

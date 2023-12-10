@@ -28,5 +28,11 @@
 			<mapping path="/basket.me"/>
 			<beans:bean class="com.kh.ftd.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
+		<interceptor>
+			<mapping path="/menu.ad" />
+			<mapping path="/user.ad" />
+			<mapping path="/seller.ad" />
+			<beans:bean class="com.kh.ftd.common.interceptor.AdminInterceptor" id="adminInterceptor" />
+		</interceptor>
 	</interceptors>
 </beans:beans>
