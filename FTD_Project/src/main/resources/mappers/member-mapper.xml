@@ -8,12 +8,12 @@
 		<result column="MEMBER_PWD" property="memberPwd" />
 		<result column="MEMBER_NAME" property="memberName" />
 		<result column="EMAIL" property="email" />
-		<result column="PHONE" property="phone" />
+		<result column="ZIP_CODE" property="zipCode" />
 		<result column="ADDRESS" property="address" />
+		<result column="DETAIL_ADDRESS" property="detailAddress" />
+		<result column="PHONE" property="phone" />
 		<result column="GENDER" property="gender" />
 		<result column="STATUS" property="status" />
-		<result column="ZIP_CODE" property="zipCode" />
-		<result column="DETAIL_ADDRESS" property="detailAddress" />
 	</resultMap>
 	
 	<resultMap id="subscribeResultSet" type="subscribe">
@@ -162,7 +162,7 @@
 	</select>
 	
 	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
-		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, EMAIL, PHONE, ADDRESS, GENDER, STATUS, ZIP_CODE, DETAIL_ADDRESS
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, EMAIL, PHONE, ZIP_CODE, ADDRESS, DETAIL_ADDRESS, GENDER, STATUS
 		  FROM MEMBER
 		 WHERE MEMBER_NO = #{memberNo}
 	</select>
