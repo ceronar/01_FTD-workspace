@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,7 @@ public class NoticeController {
 		return "notice/noticeEnrollForm";
 	}
 	
+	@Transactional
 	@PostMapping("insert.no")
 	// @RequestMapping(value = "insert.bo", method = RequestMethod.POST)
 	public String insertNotice(Notice n,
@@ -71,9 +73,10 @@ public class NoticeController {
 		// System.out.println("upfile : " + upfile); // 첨부파일에 대한 정보
 		
 		
-		// => 파일명을 수정 후 서버로 업로드
+		// 내용물 업로드
 		int result = noticeService.insertNotice(n);
 		
+		// 파일 업로드
 		for(int i = 0; i < upfile.length; i++) {
 			if(!upfile[i].getOriginalFilename().equals("")) {
 				

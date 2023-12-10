@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
+import com.kh.ftd.inquiry.model.vo.InquiryFile;
+import com.kh.ftd.seller.model.vo.Seller;
 
 @Repository
 public class InquiryDao {
@@ -15,5 +17,20 @@ public class InquiryDao {
 	public ArrayList<Inquiry> ajaxSelectInquiryList(SqlSessionTemplate sqlSession, int sellerNo) {
 		return (ArrayList)sqlSession.selectList("inquiryMapper.selectInquiryList", sellerNo);
 	}
+
+	public Seller selectSeller(SqlSessionTemplate sqlSession, int sno) {
+		return sqlSession.selectOne("inquiryMapper.selectSeller", sno);
+	}
+
+	public int insertInquiry(SqlSessionTemplate sqlSession, Inquiry i) {
+		System.out.println(i);
+		return sqlSession.insert("inquiryMapper.insertInquiry", i);
+	}
+
+	public int insertInquiryFile(SqlSessionTemplate sqlSession, InquiryFile inf) {
+		return sqlSession.insert("inquiryMapper.insertInquiryFile", inf);
+	}
+	
+	
 
 }

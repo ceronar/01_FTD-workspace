@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.inquiry.model.dao.InquiryDao;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
+import com.kh.ftd.inquiry.model.vo.InquiryFile;
 import com.kh.ftd.inquiry.model.vo.InquiryReply;
+import com.kh.ftd.seller.model.vo.Seller;
 
 @Service
 @EnableTransactionManagement
@@ -28,11 +30,20 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 	
 	@Override
-	public int insertNotice(Inquiry i) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Seller sellectSeller(int sno) {
+		return inquiryDao.selectSeller(sqlSession, sno);
+	}
+	
+	@Override
+	public int insertInquiry(Inquiry i) {
+		return inquiryDao.insertInquiry(sqlSession, i);
 	}
 
+	@Override
+	public int insertInquiryFile(InquiryFile inf) {
+		return inquiryDao.insertInquiryFile(sqlSession, inf);
+	}
+	
 	@Override
 	public int increaseInquiryCount(int inquiryNo) {
 		// TODO Auto-generated method stub
@@ -40,7 +51,7 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public Inquiry selectNotice(int inquiryNo) {
+	public Inquiry selectInquiry(int inquiryNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -52,7 +63,7 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public int updateNotice(Inquiry i) {
+	public int updateInquiry(Inquiry i) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -74,6 +85,8 @@ public class InquiryServiceImpl implements InquiryService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 	

@@ -16,6 +16,33 @@
 		<result column="MEMBER_ID" property="memberId" />
 	</resultMap>
 	
+	<resultMap id="inquiryFileResultSet" type="inquiryFile">
+		<result column="FILE_NO" property="fileNo" />
+		<result column="INQ_NO" property="inquiryNo" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+	</resultMap>
+	
+	<resultMap id="sellerResultSet" type="seller">
+		<result column="SELLER_NO" property="sellerNo"/>
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_PWD" property="sellerPwd"/>
+		<result column="SELLER_NAME" property="sellerName"/>
+		<result column="COMPANY_NO" property="companyNo"/>
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="ADDRESS" property="address"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ACCOUNT_NO" property="accountNo"/>
+		<result column="DELETE_DATE" property="deleteDate"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="ACCEPT_DATE" property="acceptDate"/>
+		<result column="REFUSE_REASON" property="refuseReason"/>
+	</resultMap>
+	
 	<select id="selectInquiryList" parameterType="_int" resultMap="inquiryResultSet">
 		SELECT INQ_NO,
 		       INQUIRY.MEMBER_NO,
@@ -30,5 +57,38 @@
 		   AND SELLER_NO = #{sellerNo}
 		 ORDER BY INQ_NO DESC
 	</select>
+	
+	<select id="selectSeller" resultMap="sellerResultSet" parameterType="_int">
+		SELECT *
+		FROM SELLER
+		WHERE SELLER_NO = ${sno} 
+		AND DELETE_DATE IS NULL
+	</select>
+	
+	<insert id="insertInquiry" parameterType="inquiry">
+		INSERT INTO INQUIRY(INQ_NO
+						, SELLER_NO
+						, MEMBER_NO
+		                , INQ_TITLE
+		                , INQ_CONTENT)
+		           VALUES(SEQ_INO.NEXTVAL
+		                , #{sellerNo}
+		                , #{memberNo}
+		                , #{inqTitle}
+		                , #{inqContent})
+	</insert>
+	
+	<insert id="insertInquiryFile" parameterType="inquiryFile">
+		INSERT INTO INQUIRY_FILE(FILE_NO
+							  , INQ_NO
+							  , ORIGIN_NAME
+							  , CHANGE_NAME)
+					 	 VALUES(SEQ_IFNO.NEXTVAL
+					 	 	  , SEQ_INO.CURRVAL
+					 	 	  , #{originName}
+					 	 	  , #{changeName})
+	</insert>
+	
+	
 
 </mapper>

@@ -60,26 +60,42 @@
             height: 500px;
         }
     </style>
+    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="container">
-        <h1>게시글 작성</h1>
-
-        <form>
-            <label for="title">제목:</label>
-            <input type="text" id="title" name="title" required>
-
-            <label for="content">내용:</label>
-            <textarea id="content" name="content" rows="6" required></textarea>
-
-            <!-- 파일 선택 버튼 -->
-
-            <input type="file" name="file">
-
-            <div align="center">
-                <input type="submit" value="게시글 등록">
-            </div>
-        </form>
-    </div>
+	<div class="wrapper">
+        <div class="center-div">  
+	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+			        <div class="content">
+					    <div class="container">
+					        <h1>게시글 작성</h1>
+					
+							<form id="enrollForm" method="post" action="insert.in" enctype="multipart/form-data">
+							
+								<h2>상호명 : ${ requestScope.seller.companyName }</h2>
+					        	
+					            <h2>제목</h2>
+					            <input type="text" id="inqTitle" name="inqTitle" required>
+					
+					            <h2>내용</h2>
+					            <textarea id="inqContent" name="inqContent" rows="6" required></textarea>
+								
+								<input type="hidden" name="sellerNo" value="${ requestScope.seller.sellerNo }">
+								<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }"> 
+					            <!-- 파일 선택 버튼 -->
+					
+					            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
+					
+					            <div align="center">
+					                <input type="submit" value="게시글 등록">
+					            </div>
+					        </form>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
 </body>
 </html>
