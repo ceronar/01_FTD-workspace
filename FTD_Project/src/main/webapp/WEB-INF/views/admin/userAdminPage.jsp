@@ -337,7 +337,7 @@
 			      					<td>${ m.email }</td>
 			      					<td>${ m.phone }</td>
 			      					<td>${ m.address }</td>
-			      					<td class="nonClick">${empty m.status ? "<button class='statusBtn active'>" : "<button class='statusBtn inactive'>" }</td>
+			      					<td class="nonClick"><button type='button' class='statusBtn ${empty m.status ? "active" : "inactive" }' /></td>
 								</tr>
 							</c:forEach>
 		      			</tbody>
@@ -379,7 +379,7 @@
 		    </div>
 		</div>
 	</div>
-	
+	<br><br>
 	<!-- Modal container -->
 	<div class="modal-container detailModal" id="userDetailsModal">
 		<div class="modal-content" id="userDetailsContent">
@@ -397,12 +397,16 @@
 		$(function() {
 			$(".userTable>tbody>tr").on('click', e => {
 				let target = e.target;
-				let num = target.parentElement.children.item(0).innerText;
+				let memberNo = target.parentElement.children.item(0).innerText;
 				if(target == e.currentTarget.querySelector(".nonClick")) {
 					// 유저 상태값 변경
-					console.log("상태값 클릭");
+					memberStatusChange(memberNo, target);
+				} else if(target == e.currentTarget.querySelector(".statusBtn")) {
+					target = target.parentElement;
+					memberNo = target.parentElement.children.item(0).innerText;
+					memberStatusChange(memberNo, target);
 				} else {
-					fetchAndOpenUserDetails(num);
+					openUserDetails(memberNo);
 				}
 			});
 		});
@@ -426,12 +430,12 @@
 	        modal.style.display = 'none';
 	    }
 	    
-	    function fetchAndOpenUserDetails(num) {
+	    function openUserDetails(memberNo) {
 	    	$.ajax({
 	            url: "userDetails.ad",
 	            method: 'get',
 	            data: {
-	            	memberNo : num
+	            	memberNo : memberNo
 	            },
 	            success: function (data) {
 	                // Populate modal content with user details
@@ -459,6 +463,32 @@
 	            }
 	        }
 	    }
+	    
+	    function memberStatusChange(memberNo, target) {
+	    	
+	    	$.ajax({
+	            url: "memberStatusChange.ad",
+	            method: 'get',
+	            data: {
+	            	memberNo : memberNo
+	            },
+	            success: function (data) {
+	                // target 의 button이 class active 를 포함하고 있는지 확인
+	                if(target.children.item(0).classList.contains('active')) {
+	                	// 성공했으니 active 제거후 inactive 부여
+			    		console.log("active");
+			    	} else {
+			    		// 성공했으니 inactive 제거후 active 부여
+			    		console.log("inactive");
+			    	}
+	                
+	            },
+	            error: function () {
+	                alert('사용자 상세 정보 조회 ajax 통신 실패');
+	            }
+	        });
+		}
+	    
 	</script>
 	
 </body>
