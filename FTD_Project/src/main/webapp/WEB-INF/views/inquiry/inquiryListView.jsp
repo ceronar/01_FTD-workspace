@@ -294,17 +294,17 @@
 		            var row = '<tr>';
 		            
 		            // 조건부로 체크박스를 추가합니다.
-		            <c:if test="(${sessionScope.loginUser.memberId} eq admin)"> {
+		            <c:if test="${sessionScope.loginUser.memberId eq 'admin'}"> {
 		                row += '<td><input type="checkbox" class="delete"></td>';
 		            }
 		            </c:if>
-		            row += '<td name="inqNo">' + item.inqNo + '</td>' +
-		                '<td name="answer">' + answer + '</td>' +
-		                '<td name="inqTitle">' + item.inqTitle + '</td>' +
-		                '<td name="memberId">' + item.memberId + '</td>' +
-		                '<td name="count">' + item.count + '</td>' +
-		                '<td name="createDate">' + item.createDate + '</td>' +
-		                '</tr>';
+		            row += '<td name="inqNo" class="inqNo">' + item.inqNo + '</td>' +
+				                '<td name="answer" class="answer">' + answer + '</td>' +
+				                '<td name="inqTitle" class="inqTitle">' + item.inqTitle + '</td>' +
+				                '<td name="memberId" class="memberId">' + item.memberId + '</td>' +
+				                '<td name="count" class="count">' + item.count + '</td>' +
+				                '<td name="createDate" class="createDate">' + item.createDate + '</td>' +
+		                	'</tr>';
 		                
 		            $('.list-tbody').append(row);
 		        });
@@ -384,7 +384,7 @@
                                 <table class="list-area">
                                     <thead>
                                         <tr>
-                                        	<c:if test="(${sessionScope.loginUser.memberId} eq admin)">
+                                        	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
                                             	<th style="width : 5%;"><input type="checkbox" id="check-all"></th>
                                             </c:if>
                                             <th style="width : 7%;">번호</th>
@@ -398,7 +398,6 @@
                                     <tbody class="list-tbody">
                                     </tbody>
                                 </table>
-                                
                             </div>
                             <div class="btn">
                                 <button onclick="deleteSelected()">삭제</button>
@@ -416,7 +415,16 @@
     
     <script>
     // 문의글 상세조회 페이지 이동 스크립트
-    
+   $(document).ready(function() {
+    $('.list-area tbody').on('click', 'tr', function() {
+        // 클릭된 행에서 번호를 가져와서 ino 변수에 할당합니다.
+        var ino = $(this).find('.inqNo').text();
+        
+        // 현재 위치한 페이지에서 문의 번호(ino)를 가지고 detail.in 페이지로 이동합니다.
+        window.location.href = 'detail.in?ino=' + ino + '&sno=${requestScope.sellerNo}';
+    });
+});
+  
     // console.log(document.getElementById("subscribe"))
     
     $(function() {

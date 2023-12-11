@@ -127,7 +127,11 @@ public class InquiryController {
 		
 	}
 	
-	
+	@RequestMapping("detail.in")
+	public void selectInquiry(int ino, int sno) {
+		System.out.println("ino : " + ino);
+		System.out.println("sno : " + sno);
+	}
 	
 	
 	// ----------------------------------------------
