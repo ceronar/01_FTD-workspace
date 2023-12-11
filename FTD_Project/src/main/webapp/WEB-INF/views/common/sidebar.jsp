@@ -5,24 +5,76 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <style>
-	.sidebar > a {
-		border: 1px solid black;
-		width: 100%;
-		height: 50px;	
+	.sidebar  div {
+		/* border: 1px solid black; */
+		width: 100%;	
 		text-align: center;
-		line-height: 50px;
 	}
+  	.sidebar-menu {
+		width: 100%;
+		height: 80px;
+		margin-bottom: 5px;
+	}
+
+	.icon {
+		width: 100%;
+		height: 70%;
+	}
+
+	.icon > span {
+		line-height: 56px;
+		font-size: 40px;
+		font-weight: 100;
+		height: 100%;
+		width: 100%;
+		color: rgba(118, 118, 118, 0.792);
+	}
+
+	#home-icon, #my-icon {
+		font-size: 45px;
+	}
+
+	.text {
+		line-height: 15px;
+		width: 100%;
+		height: 30%;
+		text-align: center;
+		font-size: 15px;
+		color: rgba(118, 118, 118, 0.792);
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
 
 </style>
 </head>
 <body>
-	 <div class="sidebar">
-	     <a href="/ftd">홈</a>
-	     <a href="#">마켓</a>
-	     <a href="#">스토리</a>
-	     <a href="basket.me">장바구니</a>
-	     <a href="myPage.me">마이페이지</a>
+	<div class="sidebar">
+		<div class="sidebar-menu" onclick="location.href='${pageContext.request.contextPath}';">
+			<div class="icon"><span id="home-icon" class="material-symbols-outlined">home</span></div>
+			<div class="text">홈</div>
+		</div>
+		<div class="sidebar-menu" onclick="location.href='sellerListPage.se';">
+			<div class="icon"><span class="material-symbols-outlined">storefront</span></div>
+			<div class="text">산지마켓</div>
+		</div>
+		<div class="sidebar-menu" onclick="location.href='goodsRecommendPage.go';">
+			<div class="icon"><span class="material-symbols-outlined">local_mall</span></div>
+			<div class="text">쇼핑몰</div>
+		</div>
+		<div class="sidebar-menu" onclick="location.href='basket.me';">
+			<div class="icon"><span class="material-symbols-outlined">shopping_cart</span></div>
+			<div class="text">장바구니</div>
+		</div>
+		<div class="sidebar-menu" onclick="location.href='myPage.me';">
+			<div class="icon"><span id="my-icon" class="material-symbols-outlined">person</span></div>
+			<div class="text">MY</div>
+		</div>
+
 	</div>
 </body>
 </html>

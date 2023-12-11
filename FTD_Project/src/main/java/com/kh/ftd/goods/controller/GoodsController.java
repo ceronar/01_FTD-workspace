@@ -19,9 +19,23 @@ public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
+	// 상품 추천 페이지 이동
+	@RequestMapping("goodsRecommendPage.go")
+	public String goodsRecommendPage() {
+		
+		return "goods/goodsRecommendView";
+	}
+	
+	// 상품 베스트 페이지 이동
+	@RequestMapping("goodsBestPage.go")
+	public String goodsBestPage() {
+		
+		return "goods/goodsBestView";
+	}
+
 	// 상품 페이지 이동
-	@RequestMapping("list.go")
-	public String goodsList() {
+	@RequestMapping("goodsListPage.go")
+	public String goodsListPage() {
 		
 		return "goods/goodsListView";
 	}
@@ -34,7 +48,7 @@ public class GoodsController {
 		// 상품 리스트
 		ArrayList<Goods> gList = goodsService.ajaxSelectGoodsList();
 		
-		System.out.println(gList);
+		// System.out.println(gList);
 		
 		// 상품 판매 정보
 		ArrayList<GoodsSell> gsList = new ArrayList<>();
@@ -57,45 +71,64 @@ public class GoodsController {
 		
 		int endPage = Math.min(startPage + pageSize, totalList);		
 		
-		for(Goods g : gList) {
+		if(totalList < 0) { // 조회할 상품이 없을 경우
 			
-			int goodNo = g.getGoodNo();
-			// System.out.println(sellerNo);
+			return "조회할 상품이 없습니다.";
 			
-			// 상품 판매 정보
-			GoodsSell goodsSell = goodsService.ajaxSelectGoodsSellList(goodNo);
-			
-			int sellNo = 0; // sellNo 변수 셋팅
-			
-			if(goodsSell != null) { // 상품 판매 정보가 있을 시
-				sellNo = goodsSell.getSellNo();
-				gsList.add(goodsSell);			
-			
-			} else { // 상품 판매 정보가 없을 시
+		} else { // 조회할 상품이 있을 경우
+					
+			for(Goods g : gList) {
 				
+				int goodNo = g.getGoodNo();
+				System.out.println(goodNo);
+				
+				// 상품 판매 정보
+				GoodsSell goodsSell = goodsService.ajaxSelectGoodsSellList(goodNo);
+				
+				if(goodsSell != null) { // 상품 판매 정보가 있을 시
+					int sellNo = goodsSell.getSellNo();				
+					gsList.add(goodsSell);			
+					
+					// 상품 파일
+					GoodsFile goodsFile = goodsService.ajaxSelectGoodsFileList(sellNo);
+					if(goodsFile != null) { // 상품 파일이 있을 시
+						
+						gfList.add(goodsFile);
+						
+					} else { // 상품 파일이 없을 시
+						
+						goodsFile = new GoodsFile();
+						gfList.add(goodsFile);
+						
+					}
+					
+				} else { // 상품 판매 정보가 없을 시
+					
+					goodsSell = new GoodsSell();
+					gsList.add(goodsSell);	
+					
+					GoodsFile goodsFile = new GoodsFile();
+					gfList.add(goodsFile);
+					
+				}
+						
+				// 상품 평균 별점
+				double starRating = goodsService.ajaxSelectStarRating(goodNo);
+				starList.add(starRating);
+				
+				// 상품 댓글 수
+				int reviews = goodsService.ajaxSelectReviews(goodNo);
+				reviewList.add(reviews);
 				
 			}
 			
-			// 상품 파일
-			GoodsFile goodsFile = goodsService.ajaxSelectGoodsFileList(sellNo);
-			if(goodsFile != null) { // 상품 파일이 있을 시
-				
-				gfList.add(goodsFile);
-			
-			} else { // 상품 파일이 없을 시
-				
-				
-			}
-			
-			// 상품 평균 별점
-			double starRating = goodsService.ajaxSelectStarRating(goodNo);
-			starList.add(starRating);
-			
-			// 상품 댓글 수
-			int reviews = goodsService.ajaxSelectReviews(goodNo);
-			reviewList.add(reviews);
-	
 		}
+		
+		System.out.println(gList);		
+		System.out.println(gsList);
+		System.out.println(gfList);
+		System.out.println(starList);
+		System.out.println(reviewList);
 		
 		ArrayList<Object> resultList = new ArrayList<>();
 		
@@ -119,4 +152,11 @@ public class GoodsController {
 		return new Gson().toJson(resultList);			
 	}
 	
+	// 상품 리스트 상세 페이지 이동
+	@RequestMapping("goodsDetailPage.go")
+	public String goodsDetailPage() {
+		
+		return "goods/goodsDetailView";
+	}
+
 }

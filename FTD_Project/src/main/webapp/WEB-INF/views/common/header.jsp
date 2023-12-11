@@ -21,11 +21,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <!-- bootstrap -->
 <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"/> -->
-
-
-
-
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/header.css?version=1.2" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -54,119 +52,57 @@
 
 		<div class="title-div">
 			<div class="title-logo"><img class="logo" src= "${pageContext.request.contextPath}/resources/images/sample/logo.png" onclick="location.href='${pageContext.request.contextPath}';"></div>
-			<div class="title-name"><a href="${pageContext.request.contextPath}">신선한 땅의 맛</a></div>
+			<div class="title-name"><a href="${pageContext.request.contextPath}/">신선한 땅의 맛</a></div>
 			<div class="title-search"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">search</span></div>
 			<div class="title-cart"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">shopping_cart</span></div>
-			<div>
-	            <c:choose>
+			<div class="title-login">
+			<c:choose>
 	            	<%-- 관리자 로그인인 경우 --%>
 	            	<c:when test="${ sessionScope.loginUser.memberId eq 'admin' }">
-	            		<a href="menu.ad">관리자 페이지</a> | 
-	            		<a href="logout.me">로그아웃</a>
+	            		<span class="material-symbols-outlined" onclick="location.href='logout.me';">move_item</span>
 	            	</c:when>
 	            	
 	            	<%-- 구매자 로그인 후 --%>
 	            	<c:when test="${ not empty sessionScope.loginUser }">
-	            		<a href="myPage.me">마이페이지</a> | 
-			            <a href="logout.me">로그아웃</a>
+	            		<span class="material-symbols-outlined" onclick="location.href='logout.me';">move_item</span>
 	            	</c:when>
 	            	
 	            	<%-- 판매자 로그인 후 --%>
 	            	<c:when test="${ not empty sessionScope.loginSeller }">
-	            		<a href="sellerPage">내 가게 정보</a> | 
-	            		<a href="logout.se">로그아웃</a>
+	            		<span class="material-symbols-outlined" onclick="location.href='logout.se';">move_item</span>
 	            	</c:when>
 	            	
 					<%-- 로그인 전 --%>
 	            	<c:otherwise>
-	            		<span class="material-symbols-outlined">login</span>
-			            <a href="loginForm.me">로그인</a> |
-			            <a href="loginForm.se">판매자 로그인</a>	
+						<span class="material-symbols-outlined" onclick="location.href='loginForm.me';">account_circle</span>	
 	            	</c:otherwise>         	
-	            </c:choose>	
-			</div>	
-<!-- 
-	<h2>신선한땅의 맛</h1>
-		<div class="nav-menu">
-			<a href="list.in">홈</a>
-			<a href="#">가게 찾기</a>
-            <a href="#">상품 찾기</a>
-            <a href="plist.bo">홍보</a>
-            <c:choose>
-            	<%-- 구매자 로그인 후 --%>
-            	<c:when test="${ not empty sessionScope.loginUser }">
-	            	<a href="myPage.me">마이페이지</a>
-		            <a href="logout.me">로그아웃</a>
-            	</c:when>
-            	
-            	<%-- 판매자 로그인 후 --%>
-            	<c:when test="">
-            	
-            	</c:when>            	
-
-				<%-- 로그인 전 --%>
-            	<c:otherwise>
-		            <a href="loginForm.me">로그인</a>
-		            <a href="#">회원 가입</a>  	
-            	</c:otherwise>
-            	
-            </c:choose>
-
-		</div> -->
-		
-			<div class="nav-menu">
-				<a href="#">추천</a>
-				<a href="list.no" class="notice">공지사항</a>
-				<a href="#">고객센터</a>
-				<a href="#">회사소개</a>
-			</div>
-			
-		
+	        </c:choose>
+	        </div>
+	
 		</div>
+		
+		<div class="nav-menu" id="nav1">
+			<a href="" 	class="menu1">추천</a>
+			<a href="list.no" 					class="menu2">공지사항</a>
+			<a href="" 							class="menu3">고객센터</a>
+			<a href="" 							class="menu4">회사소개</a>
+		</div>
+		
+		<div class="nav-menu" id="nav2">
+			<a href="sellerListPage.se" 			class="menu1">판매자</a>
+			<a href="${pageContext.request.contextPath}" 								class="menu2">베스트</a>
+			<a href="${pageContext.request.contextPath}" 								class="menu3">홍보</a>
+			<a href="${pageContext.request.contextPath}" 								class="menu4">후기</a>
+		</div>
+		
+		<div class="nav-menu" id="nav3">
+			<a href="goodsRecommendPage.go" 	class="menu1">쇼핑추천</a>
+			<a href="goodsBestPage.go" 			class="menu2">베스트</a>
+			<a href="goodsListPage.go" 			class="menu3">상품</a>
+			<a href="" 							class="menu4">비고</a>
+		</div>
+		
 	</div>
-
-	<script>
-		$(document).ready(function() {
-			
-		 	$(".notice").click(function(e) {
-		 		
-				location.href = "list.no";
-			})
-			
-			// 상단 네비바 클릭시 이벤트 처리
-			$(".nav-menu a").click(function(e){
-				
-			 	e.preventDefault(); // 기본 클릭 이벤트 방지
-				
-			 	
-				// 클릭된 요소에 스타일 적용
-				$(this).css({
-					"font-size": "25px",
-				    "border-bottom": "3px solid black",
-				    "color": "black" // 글자 색상 변경
-				});
-				
-				// 나머지 요소 스타일 초기화
-		      	$(".nav-menu a").not(this).css({
-		        	"font-size": "22px",
-		        	"border-bottom": "none",
-		        	"color": "rgb(85, 85, 85)" // 다른 메뉴의 글자 색상 변경
-		      	});
-				
-			
-			});
-			
-			
-			
-			
-			
-			
-			
-			
-		});
-
-
-	</script>
 	
 	
 </body>
