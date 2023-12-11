@@ -154,9 +154,69 @@ public class GoodsController {
 	
 	// 상품 리스트 상세 페이지 이동
 	@RequestMapping("goodsDetailPage.go")
-	public String goodsDetailPage() {
+	public String goodsDetailPage(int gno) {
+		
+		// 상품 번호
+		int goodNo = gno;
+		
+		// 조회수 증가
+		int count;
+		
+		// 상품 정보
+		
+		// 상품 글 정보
+		
+		// 상품 파일 정보
 		
 		return "goods/goodsDetailView";
+	}
+	
+	// 판매자 상품 페이지 이동
+	@RequestMapping("sellerGoodsListPage.go")
+	public String sellerGoodsListPage() {
+		
+		return "goods/sellerGoodsListView";
+	}
+	
+	// 판매자 상품 글 페이지 이동
+	@RequestMapping("sellerGoodsTextListPage.go")
+	public String sellerGoodsTextListPage() {
+		
+		return "goods/sellerGoodsTextListView";
+	}
+	
+	// 판매자 상품 리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "ajaxSelectSellerGoodsList.go" , produces = "application/json; charset=UTF-8")
+	public String ajaxSelectSellerGoodsList(int page, int pageSize, int sellerNo) {
+		
+		// 판매자 상품 리스트
+		ArrayList<Goods> gList = goodsService.ajaxSelectSellerGoodsList(sellerNo);
+		
+		// 마켓 총 리스트 수
+		int totalList = gList.size();
+		// System.out.println(totalList);
+		
+		int startPage = page * pageSize;
+		
+		int endPage = Math.min(startPage + pageSize, totalList);
+		
+		ArrayList<Object> resultList = new ArrayList<>();
+		
+		for (int i = startPage; i < endPage; i++) {
+			
+			resultList.add(gList.get(i));
+			
+		}
+		
+		return new Gson().toJson(resultList);
+	}
+	
+	// 판매자 상품 등록 페이지 이동
+	@RequestMapping("sellerGoodsEnrollForm.go")
+	public String sellerGoodsEnrollFormPage() {
+		
+		return "goods/sellerGoodsEnrollForm";
 	}
 
 }
