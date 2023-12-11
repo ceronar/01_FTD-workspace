@@ -102,69 +102,84 @@
 	
 	   }
 </style>
+<link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="container">
-        <h1>게시글 상세보기</h1>
-        <div class="post">
-            <h2>Q. 오늘점심메뉴가 무엇인가요</h2>`
-            <div class="post-meta">
-                <p>작성자: admin | 작성일: 2023-11-23</p>
-            </div>
-            <div class="post-content">
-                <p>맛없으면 결식할겁니다.</p>
-                <p>감사합니다.</p>
-                <img src="resources/images.png">
-            </div>
-            <div class="post-img">
-                <a href="">
-                    첨부파일.jpg
-                </a>
-                <br>
-                <br>
-            </div>
-            
-        </div>
-
-        <div class="btn">
-            <button>문의글 수정</button>
-            <button>문의글 삭제</button>
-        </div>
+<div class="wrapper">
         
-        <div class="answer-area">
-            <h2>A.</h2>
-            <div class="post-content">
-                <p>밥 똥국 김 김치 고순조 입니다.</p>
-                <p>감사합니다.</p>
-                <img src="resources/6571f4a68812447d8977d4b027b29386_1641212709.png">
-            </div>
-            <div class="post-img">
-                <a href="">
-                    첨부파일.jpg
-                </a>
-                <br>
-                <br>
-            </div>
-        </div>
-        <div class="btn">
-            <button>답글 수정</button>
-            <button>답글 삭제</button>
-        </div>
-        <div class="reply-area">
-            <h2>댓글</h2>
-            <!-- 댓글 목록 -->
-            <div class="comment">
-                <button>삭제</button>
-                <p>댓글 내용이 여기에 표시됩니다.</p>
-                <p class="reply-info">작성자: user01 | 작성일: 2023-11-24</p>
-            </div>
-
-            <!-- 댓글 입력창 -->
-            <form class="comment-form">
-                <textarea placeholder="댓글을 입력하세요" required></textarea>
-                <button class="reply-btn">댓글작성</button>
-            </form>
-        </div>
+        <div class="center-div">  
+ 	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+	            
+	            <jsp:include page="../common/header.jsp" />
+	            
+	            <div class="content">
+				    <div class="container">
+				        <h1>게시글 상세보기</h1>
+				        <div class="post">
+				            <h2>Q. 오늘점심메뉴가 무엇인가요</h2>`
+				            <div class="post-meta">
+				                <p>작성자: admin | 작성일: 2023-11-23</p>
+				            </div>
+				            <div class="post-content">
+				                <p>맛없으면 결식할겁니다.</p>
+				                <p>감사합니다.</p>
+				                <img src="resources/images.png">
+				            </div>
+				            <div class="post-img">
+				                <a href="">
+				                    첨부파일.jpg
+				                </a>
+				                <br>
+				                <br>
+				            </div>
+				            
+				        </div>
+				
+				        <div class="btn">
+				            <button>문의글 수정</button>
+				            <button>문의글 삭제</button>
+				        </div>
+				        
+				        <div class="answer-area">
+				            <h2>A.</h2>
+				            <div class="post-content">
+				                <p>밥 똥국 김 김치 고순조 입니다.</p>
+				                <p>감사합니다.</p>
+				                <img src="resources/6571f4a68812447d8977d4b027b29386_1641212709.png">
+				            </div>
+				            <div class="post-img">
+				                <a href="">
+				                    첨부파일.jpg
+				                </a>
+				                <br>
+				                <br>
+				            </div>
+				        </div>
+				        <div class="btn">
+				            <button>답글 수정</button>
+				            <button>답글 삭제</button>
+				        </div>
+				        <div class="reply-area">
+				            <h2>댓글</h2>
+				            <!-- 댓글 목록 -->
+				            <div class="comment">
+				                <button>삭제</button>
+				                <p>댓글 내용이 여기에 표시됩니다.</p>
+				                <p class="reply-info">작성자: user01 | 작성일: 2023-11-24</p>
+				            </div>
+				
+				            <!-- 댓글 입력창 -->
+				            <form class="comment-form">
+				                <textarea placeholder="댓글을 입력하세요" required></textarea>
+				                <button class="reply-btn">댓글작성</button>
+				            </form>
+				        </div>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
     </div>
+				    
 </body>
 </html>

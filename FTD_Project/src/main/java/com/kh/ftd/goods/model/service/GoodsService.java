@@ -23,5 +23,8 @@ public interface GoodsService {
 	// 상품 마켓 리뷰 수 조회 (select)
 	int ajaxSelectReviews(int goodNo);
 	
+	// 판매자 상품 리스트 조회 (select)
+	ArrayList<Goods> ajaxSelectSellerGoodsList(int sellerNo);
+	
 	
 }

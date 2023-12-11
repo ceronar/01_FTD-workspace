@@ -50,5 +50,11 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.ajaxSelectReviews(sqlSession, goodNo);
 	}
 
+	@Override
+	public ArrayList<Goods> ajaxSelectSellerGoodsList(int sellerNo) {
+
+		return goodsDao.ajaxSelectSellerGoodsList(sqlSession, sellerNo);
+	}
+
 
 }
