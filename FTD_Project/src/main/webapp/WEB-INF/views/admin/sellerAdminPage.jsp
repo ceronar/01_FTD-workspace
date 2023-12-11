@@ -194,6 +194,23 @@
             cursor: pointer;
         }
         
+		#sellerDetailsContent textarea {
+			width: 100%;
+			height: 6.25em;
+			border: 1px solid lightgrey;
+			resize: none;
+		}
+        
+        .stop-button {
+        	background-color: red;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
         .container {
         	margin: 20px;
             padding: 20px;
@@ -207,7 +224,7 @@
             margin-right: 10px;
         }
         
-        .sellerPageButton {
+        .userPageButton {
             background-color: #494CB4;
             color: #fff;
             padding: 10px 20px;
@@ -217,28 +234,28 @@
             display: inline-block;
         }
 		
-		.userTable {
+		.sellerTable {
 			border-collapse: collapse;
 			text-align: center;
 		}
 		
-		.userTable, .userTable th, .userTable td {
+		.sellerTable, .sellerTable th, .sellerTable td {
 			border: 1px solid lightgray;
 			padding: 8px;
 			text-align: center;
 		}
 		
-		.userTable th {
+		.sellerTable th {
 			background-color: #f2f2f2;
 			color: #333;
 			}
 
-		.userTable td {
+		.sellerTable td {
 			background-color: #fff;
 			color: #555;
 		}
 		
-		.userTable>tbody:hover {
+		.sellerTable>tbody:hover {
 			cursor: pointer;
 		}
 		
@@ -256,6 +273,7 @@
 		.active {
 			background-color: green;
 		}
+		
 		
 		/* ----- 페이지네이션 -----*/
 		#pagingArea {
@@ -322,7 +340,7 @@
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">group</span>
-	        <p><a href="user.ad">회원 관리</a></p>
+	        <p><a href="seller.ad">회원 관리</a></p>
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">campaign</span>
@@ -338,34 +356,34 @@
 	      </div>
 	    </nav>
 	    
-	    <!-- userList -->
+	    <!-- sellerList -->
 	    <div class="cont">
 			<div class="container">
 		      	<h4 class="my-4">회원 목록</h4>
-		      	<button class="sellerPageButton" onclick="goToSellerAdminPage()">판매자 목록 전환</button>
+		      	<button class="userPageButton" onclick="goToUserAdminPage()">판매자 목록 전환</button>
 		      	<div class="table-area">
-		      		<table class="userTable">
+		      		<table class="sellerTable">
 		      			<thead>
 		      				<tr>
 		      					<th hidden>번호</th>
-		      					<th width="150">아이디</th>
-		      					<th width="120">이름</th>
+		      					<th width="200">상호명</th>
+		      					<th width="120">아이디</th>
+		      					<th width="100">이름</th>
 		      					<th width="200">이메일</th>
-		      					<th width="150">번호</th>
-		      					<th width="280">주소</th>
-		      					<th width="70">정지</th>
+		      					<th width="300">주소</th>
+		      					<th width="70">상태</th>
 		      				</tr>
 		      			</thead>
 		      			<tbody>
-		      				<c:forEach var="m" items="${ requestScope.list }">
+		      				<c:forEach var="s" items="${ requestScope.list }">
 								<tr>
-									<td hidden>${ m.memberNo }</td>
-			      					<td>${ m.memberId }</td>
-			      					<td>${ m.memberName }</td>
-			      					<td>${ m.email }</td>
-			      					<td>${ m.phone }</td>
-			      					<td>${ m.address }</td>
-			      					<td class="nonClick"><button type='button' class='statusBtn ${empty m.status ? "active" : "inactive" }' /></td>
+									<td hidden>${ s.sellerNo }</td>
+									<td>${ s.companyName }</td>
+			      					<td>${ s.sellerId }</td>
+			      					<td>${ s.sellerName }</td>
+			      					<td>${ s.email }</td>
+			      					<td>${ s.address }</td>
+			      					<td><button type='button' value='${ s.sellerNo }' class='statusBtn ${empty s.deleteDate ? "active" : "inactive" }' disabled /></td>
 								</tr>
 							</c:forEach>
 		      			</tbody>
@@ -377,10 +395,10 @@
 			                    </c:when>
 								<c:otherwise>
 								<li class="page-item">
-									<a class="page-link" href="user.ad?cpage=1">&lt;&lt;</a>
+									<a class="page-link" href="seller.ad?cpage=1">&lt;&lt;</a>
 								</li>
 								<li class="page-item">
-									<a class="page-link" href="user.ad?cpage=${ requestScope.pi.currentPage - 1 }">&lt;</a>
+									<a class="page-link" href="seller.ad?cpage=${ requestScope.pi.currentPage - 1 }">&lt;</a>
 								</li>
 								</c:otherwise>
 							</c:choose>
@@ -403,10 +421,10 @@
 								</c:when>
 								<c:otherwise>
 								<li class="page-item">
-									<a class="page-link" href="user.ad?cpage=${ requestScope.pi.currentPage + 1 }">&gt;</a>
+									<a class="page-link" href="seller.ad?cpage=${ requestScope.pi.currentPage + 1 }">&gt;</a>
 								</li>
 								<li class="page-item">
-									<a class="page-link" href="user.ad?cpage=${ requestScope.pi.maxPage }">&gt;&gt;</a>
+									<a class="page-link" href="seller.ad?cpage=${ requestScope.pi.maxPage }">&gt;&gt;</a>
 								</li>
 								</c:otherwise>
 							</c:choose>
@@ -418,39 +436,46 @@
 	</div>
 	<br><br>
 	<!-- Modal container -->
-	<div class="modal-container detailModal" id="userDetailsModal">
-		<div class="modal-content" id="userDetailsContent">
+	<div class="modal-container detailModal" id="sellerDetailsModal">
+		<div class="modal-content" id="sellerDetailsContent">
 			<div style="display: flex; justify-content: space-between; align-items: center;">
 		        <h2>상세 정보</h2>
 		        <button type="button" class="close-button" onclick="closeModal()"><span class="material-symbols-outlined">close</span></button>
 	    	</div>
 	    	<!-- Modal content -->
 	    
-	        <!-- User details will be loaded here -->
+	        <!-- seller details will be loaded here -->
 	    </div>
 	</div>
 	
 	<script>
 		$(function() {
-			$(".userTable>tbody>tr").on('click', e => {
+			$(".sellerTable>tbody>tr").on('click', e => {
 				let target = e.target;
-				let memberNo = target.parentElement.children.item(0).innerText;
-				if(target == e.currentTarget.querySelector(".nonClick")) {
-					// 유저 상태값 변경
-					memberStatusChange(memberNo, target);
-				} else if(target == e.currentTarget.querySelector(".statusBtn")) {
-					target = target.parentElement;
-					memberNo = target.parentElement.children.item(0).innerText;
-					memberStatusChange(memberNo, target);
-				} else {
-					openUserDetails(memberNo);
-				}
+				let sellerNo = target.parentElement.children.item(0).innerText;
+				openSellerDetails(sellerNo, target);
 			});
+			
+			$(".modal-content").on("click", ".inactiveBtn", e => {
+				let target = e.target;
+				let sellerNo = target.value;
+				let refuseReason = target.previousElementSibling.childNodes.item(2).value;
+				
+				inactiveSeller(sellerNo, refuseReason);
+			});
+			
+			$(".modal-content").on("click", ".activeBtn", e => {
+				let target = e.target;
+				let sellerNo = target.value;
+
+				activeSeller(sellerNo);
+			});
+			
 		});
 		// 이거 안됨 잘 모르겠음
 		/*
 		$('html').click(function(e){
-			if(document.getElementById('userDetailsModal').style.display == 'flex'){
+			if(document.getElementById('sellerDetailsModal').style.display == 'flex'){
 				if($(e.target).parents('.modal-container').length < 1){
 					
 					// closeModal();
@@ -459,91 +484,128 @@
 		});
 		*/
 	    function openModal() {
-	        var modal = document.getElementById('userDetailsModal');
+	        var modal = document.getElementById('sellerDetailsModal');
 	        modal.style.display = 'flex';
 	    }
 	    
 	    function closeModal() {
-	        var modal = document.getElementById('userDetailsModal');
+	        var modal = document.getElementById('sellerDetailsModal');
 	        modal.style.display = 'none';
 	    }
 	    
-	    function openUserDetails(memberNo) {
+	    function openSellerDetails(sellerNo, target) {
 	    	$.ajax({
-	            url: "userDetails.ad",
+	            url: "sellerDetails.ad",
 	            method: 'get',
 	            data: {
-	            	memberNo : memberNo
+	            	sellerNo : sellerNo
 	            },
 	            success: function (data) {
-	                // Populate modal content with user details
-	                populateModal(data);
+	                // Populate modal content with seller details
+	                populateModal(data, sellerNo, target);
 	                // Open the modal
 	                openModal();
 	            },
 	            error: function () {
-	            	console.log('사용자 상세 정보 조회 ajax 통신 실패');
+	            	console.log('판매자 상세 정보 조회 ajax 통신 실패');
 	            }
 	        });
 	    }
 	    
-	    function populateModal(userDetails) {
-	        let modalContent = $('#userDetailsContent');
+	    function populateModal(sellerDetails, sellerNo, target) {
+	        let modalContent = $('#sellerDetailsContent');
 	        // Clear previous content
 	        modalContent.html('');
 	        modalContent.append('<div style="display: flex; justify-content: space-between; align-items: center;"><h2>상세 정보</h2><button type="button" class="close-button" onclick="closeModal()"><span class="material-symbols-outlined">close</span></button></div>');
-	        // Add user details to modal content
-	        for (var key in userDetails) {
-	            if (userDetails.hasOwnProperty(key)) {
+	        
+	        // Add seller details to modal content
+	        for (var key in sellerDetails) {
+	            if (sellerDetails.hasOwnProperty(key)) {
 	                var pElement = document.createElement('p');
-	                pElement.innerHTML = '<strong>' + key + ' :</strong> ' + userDetails[key];
+	                pElement.innerHTML = '<strong>' + key + ' :</strong> ' + sellerDetails[key];
 	                modalContent.append(pElement);
 	            }
 	        }
+	        if(sellerDetails.deleteDate == null) {
+	        	modalContent.append('<div><p><strong>정지 사유:</strong><br><textarea id="refuseReason" rows="3" ></textarea></p><button value="' + sellerNo + '" class="stop-button inactiveBtn">판매자 정지</button></div>');
+	        } else {
+	        	modalContent.append('<div><button value="' + sellerNo + '" class="stop-button activeBtn">정지 해제</button></div>');
+	        }
 	    }
 	    
-	    function memberStatusChange(memberNo, target) {
+	    
+	    function inactiveSeller(sellerNo, refuseReason) {
 	    	
-	    	let targetClassList = target.children.item(0).classList;
-	    	// target 의 button이 class active 를 포함하고 있는지 확인
-	    	let status = "";
-	    	if(targetClassList.contains('active')){
-	    		status = "active";
-	    	} else {
-	    		status = "inactive";
-	    	}
-	    	
+	    	// console.log(sellerNo);
+	    	// console.log(refuseReason);
+	    	// sellerNo 로 table 에 상태버튼에서 찾아서 객체 선택
+	    	let target = selectButtonBySellerNo(sellerNo)[0];
+	    	let targetClassList = target.classList;
 	    	$.ajax({
-	            url: "memberStatusChange.ad",
+	            url: "inactiveSeller.ad",
 	            method: 'get',
 	            data: {
-	            	memberNo : memberNo,
-	            	status : status
+	            	sellerNo : sellerNo,
+	            	refuseReason : refuseReason
 	            },
 	            success: function (data) {
 	            	// 'Y' or 'N' 넘어오는지 확인
 	            	if(data == "Y") {
-		                if(status == "active") {
-		                	// 성공했으니 active 제거후 inactive 부여
-		                	targetClassList.remove('active');
-		                	targetClassList.add('inactive');
-				    	} else {
-				    		// 성공했으니 inactive 제거후 active 부여
-				    		targetClassList.remove('inactive');
-				    		targetClassList.add('active');
-				    	}
+	                	// 성공했으니 active 제거후 inactive 부여
+	                	targetClassList.remove('active');
+	                	targetClassList.add('inactive');
+	                	
+	                	closeModal();
+	                	alert("판매자 상태 변경 성공");
 	            	} else {
-	            		console.log('사용자 상태 변경 실패');
+	            		console.log('판매자 상태 변경 실패');
 	            	}
 	            },
 	            error: function () {
-	                console.log('사용자 상태 변경 ajax 통신 실패');
+	                console.log('판매자 상태 변경 ajax 통신 실패');
 	            }
 	        });
 		}
 	    
-	    function goToSellerAdminPage() {
-	    	location.href = "seller.ad";
+		function activeSeller(sellerNo) {
+	    	
+	    	// console.log(sellerNo);
+	    	// sellerNo 로 table 에 상태버튼에서 찾아서 객체 선택
+	    	let target = selectButtonBySellerNo(sellerNo)[0];
+	    	let targetClassList = target.classList;
+	    	$.ajax({
+	            url: "activeSeller.ad",
+	            method: 'get',
+	            data: {
+	            	sellerNo : sellerNo
+	            },
+	            success: function (data) {
+	            	// 'Y' or 'N' 넘어오는지 확인
+	            	if(data == "Y") {
+	            		// 성공했으니 inactive 제거후 active 부여
+	            		targetClassList.remove('inactive');
+	            		targetClassList.add('active');
+	            		
+	            		closeModal();
+	                	alert("판매자 상태 변경 성공");
+	            	} else {
+	            		console.log('판매자 상태 변경 실패');
+	            	}
+	            },
+	            error: function () {
+	                console.log('판매자 상태 변경 ajax 통신 실패');
+	            }
+	        });
+		}
+	    
+	    function selectButtonBySellerNo(sellerNo) {
+	        return $('.statusBtn').filter(function () {
+	            return $(this).val() === sellerNo;
+	        });
+	    }
+	    
+	    function goToUserAdminPage() {
+	    	location.href = "user.ad";
 		}
 	    
 	</script>

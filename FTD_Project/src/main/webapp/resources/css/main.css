@@ -28,7 +28,7 @@ html {
 	align-items: center;
 	width: 900px;
 	max-width: 1000px;
-	min-height: 300vh;
+	min-height: 300px;
 	padding: 0;
 	box-sizing: border-box;
 	/* border: 4px solid rgb(85, 85, 85); 위쪽(top)만 0으로 수정 */
@@ -40,7 +40,7 @@ html {
 
 .sidebar {
 	width: 100px; /* 사이드바 너비 설정 */
-	height: 300px;
+	height: 420px;
 	background-color: white; /* 흰색 배경 */
 	/* border-top: 4px solid rgb(85, 85, 85); 사이드바 위에 4px 보더 추가 */
 	/* margin-left: 4px solid rgb(85, 85, 85); */
@@ -49,18 +49,11 @@ html {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	padding: 20px;
 	position: sticky; /* 스크롤에 고정 */
-	top: 200px;
+	top: 160px;
 }
 
-.sidebar a {
+.sidebar div {
     display: block;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: #333;
-}
-
-.sidebar a:hover {
-    color: #f00;
 }
 
 .content {

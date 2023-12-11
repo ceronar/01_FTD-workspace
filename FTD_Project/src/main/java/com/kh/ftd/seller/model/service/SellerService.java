@@ -2,7 +2,7 @@ package com.kh.ftd.seller.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.ftd.review.model.vo.Review;
+import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
 
@@ -47,5 +47,16 @@ public interface SellerService {
 	
 	// 판매자 비밀번호 변경
 	int updateSellerPwd(Seller s);
-
+	
+	// 판매자 리스트 페이징 조회 (관리자용)
+	ArrayList<Seller> selectSellerList(PageInfo pi);
+	
+	// 판매자 상세조회
+	Seller selectSeller(int sellerNo);
+	
+	// 판매자 정지
+	int inactiveSeller(Seller s);
+	
+	// 판매자 활성화
+	int activeSeller(int sellerNo);
 }

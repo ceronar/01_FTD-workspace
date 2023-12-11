@@ -124,7 +124,24 @@
 		width: 20%;
 	}
 	
+	/* navi css */
+	#nav1 {
+	    display: none !important;
+	}
 	
+	#nav2 {
+	    display: block !important;
+	}
+	
+	#nav3 {
+	    display: none;
+	}
+	
+	.menu1 {
+		font-size: 25px;
+		border-bottom: 3px solid black;
+		color: black;
+	}
 	
 
 </style>
@@ -229,7 +246,7 @@
 
                 console.log(sno);
 
-                location.href = "sdlist.se?sno=" + sno;
+                location.href = "sellerDetailPage.se?sno=" + sno;
                 
             });
     	});

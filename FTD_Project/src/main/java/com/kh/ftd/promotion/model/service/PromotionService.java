@@ -36,7 +36,7 @@ public interface PromotionService {
 		
 	//홍보리스트 수정하기 서비스
 		
-		int deletePromotionFile(int promotionNo);
+		//int deletePromotionFile(int pno);
 		
 		int updatePromotion(Promotion p);
 		
@@ -46,7 +46,7 @@ public interface PromotionService {
 		
 		int deletePromotion(int pno);
 		
-		int deleteNoticeFile(int pno);
+		int deletePromotionFile(int pno);
 
 		
 		
@@ -70,6 +70,12 @@ public interface PromotionService {
 		
 	// 댓글 작성 서비스 
 	int insertPromotionReply(PromotionReply pr);
+
+	//댓글 삭제 서비스
+	int deletePromotionReply(PromotionReply prno);
+
+	//댓글 수정 서비스
+	int updatePromotionReply(PromotionReply prno);
 
 	
 

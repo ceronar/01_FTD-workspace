@@ -86,7 +86,7 @@
 		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
 		 WHERE G.GOOD_NO = #{goodNo}
 		   AND R.DELETE_DATE IS NULL
-		   AND M.STATUS IS NULL;
+		   AND M.STATUS IS NULL
 	</select>
 	
 </mapper>

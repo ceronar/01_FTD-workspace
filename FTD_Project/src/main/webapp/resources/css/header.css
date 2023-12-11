@@ -1,37 +1,82 @@
 @charset "UTF-8";
 
-div {
+/* div {
 	border: 1px solid black;
+} */
+
+.header {
+	width: 100%;
+	height: 150px;
 }
 
 /* header div 전체 */
-.header > div {
-    display: block;
-}
-
-.title-search {
-	width: 50px;
-}
-
-.title-name > a {
-	text-decoration: none;
-	font-size: 50px;
-	font-weight: bold;
-}
-
-.title-div > div {
+.title-div, .nav-menu {
+	display: block;
     width: 100%;
-    display: inline;
     box-sizing: border-box;
 }
 
-
-
-.logo  {
-    width: 100px;
-    height: 100px;
-    border: 1px solid black;
+.title-div {
+	height: 55%;
 }
+
+.nav-menu {
+	height: 45%;
+}
+
+/* title-div 전체 */
+.title-logo, .title-name, .title-search, .title-cart, .title-login {
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.title-logo {
+	width: 9%;
+}
+
+/* title-logo */
+.logo  {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.title-name {
+    width: 61%;
+    
+}
+
+.title-name > a {
+    display: block;
+    text-align: left;
+    padding-left: 5px;
+	text-decoration: none;
+	color : #388755;
+    font-size: 35px; 
+    line-height: 65px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.title-search {
+	width: 10%;
+}
+
+.title-cart {
+	width: 10%;
+}
+
+.title-login {
+	width: 10%;
+}
+
+.title-div  span {
+    width: 100%;
+    height: 100%;
+    line-height: 65px;
+    font-size: 30px;
+    color: rgb(85, 85, 85);
+}
+
 
 /* 네비게이션 메뉴 스타일 */
 .nav-menu {
@@ -48,6 +93,7 @@ div {
     margin: 0 5px; /* 좌우 간격 조절 */
 	font-size: 22px;
     color: rgb(85, 85, 85);
+    font-family: 'Noto Sans KR', sans-serif;
     /* background-color: #ccc; */
     /* border-radius: 5px; */
 }
@@ -59,4 +105,17 @@ div {
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+/* navi */
+#nav1 {
+    display: block;
+}
+
+#nav2 {
+    display: none;
+}
+
+#nav3 {
+    display: none;
 }

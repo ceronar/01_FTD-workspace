@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.review.model.vo.Review;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +102,26 @@ public class SellerServiceImpl implements SellerService{
 	
 	public int updateSellerPwd(Seller s) {
 		return sellerDao.updateSellerPwd(sqlSession, s);
+	}
+
+	@Override
+	public ArrayList<Seller> selectSellerList(PageInfo pi) {
+		return sellerDao.selectSellerList(sqlSession, pi);
+	}
+
+	@Override
+	public Seller selectSeller(int sellerNo) {
+		return sellerDao.selectSeller(sqlSession, sellerNo);
+	}
+
+	@Override
+	public int inactiveSeller(Seller s) {
+		return sellerDao.inactiveSeller(sqlSession, s);
+	}
+
+	@Override
+	public int activeSeller(int sellerNo) {
+		return sellerDao.activeSeller(sqlSession, sellerNo);
 	}
 	
 }

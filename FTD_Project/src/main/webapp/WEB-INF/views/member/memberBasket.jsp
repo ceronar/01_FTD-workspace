@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -23,7 +24,6 @@
             padding: 20px;
             width: 100%; /* 컨텐츠를 전체 너비로 확장 */
             box-sizing: border-box;
-            width: 1080px;
         }
 
         table {
@@ -235,7 +235,7 @@
 			                </div>
 			                <img src="${pageContext.request.contextPath}/resources/images/sample/kakaoPay02.png" />
 			                <!-- 결제 버튼 -->
-			                <button class="kakaoPay" type="submit" id="pay" onclick="return false;">카카오페이 결제하기</button>
+			                <button class="kakaoPay" type="submit" id="pay" onclick="return false;">카카오페이로<br>결제하기</button>
 			            </div>
 		            </form>
 		        </div>

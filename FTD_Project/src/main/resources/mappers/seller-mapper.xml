@@ -165,6 +165,33 @@
 		SELLER_PWD = #{sellerPwd}
 		WHERE SELLER_NO = #{sellerNo}
 	</update>
-
+	
+	<select id="selectSellerList" resultMap="sellerResultSet">
+		SELECT SELLER_NO, SELLER_ID, SELLER_NAME, COMPANY_NAME, EMAIL, ADDRESS, DELETE_DATE
+		  FROM SELLER
+		 ORDER BY SELLER_NO DESC
+	</select>
+	
+	<select id="selectSeller" parameterType="_int" resultMap="sellerResultSet">
+		SELECT SELLER_NO, SELLER_ID, SELLER_NAME, COMPANY_NAME ,COMPANY_NO, BUSINESS_NO, EMAIL, ADDRESS, ACCOUNT_NO, PHONE, DELETE_DATE, ENROLL_DATE, REFUSE_REASON
+		  FROM SELLER
+		 WHERE SELLER_NO = #{sellerNo}
+	</select>
+	
+	<!-- 판매자 정지 -->
+	<update id="inactiveSeller" parameterType="seller">
+		UPDATE SELLER 
+		   SET REFUSE_REASON = #{refuseReason}
+		     , DELETE_DATE = SYSDATE
+		 WHERE SELLER_NO = #{sellerNo}
+	</update>
+	
+	<!-- 판매자 활성화 -->
+	<update id="activeSeller" parameterType="_int">
+		UPDATE SELLER 
+		   SET REFUSE_REASON = NULL
+		     , DELETE_DATE = NULL
+		 WHERE SELLER_NO = #{sellerNo}
+	</update>
 
 </mapper>

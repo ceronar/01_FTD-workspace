@@ -34,4 +34,5 @@ public interface AdminService {
 	// 일주일간 일일 매출
 	ArrayList<Chart> dailyOrderPrice();
 	
+	
 }

@@ -35,8 +35,8 @@ public class SellerController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	// 판매자 마켓 페이지 이동
-	@RequestMapping("list.se")
-	public String sellerList() {
+	@RequestMapping("sellerListPage.se")
+	public String sellerListPage() {
 		
 		return "seller/sellerListView";
 	}
@@ -115,9 +115,8 @@ public class SellerController {
 	}
 	
 	// 판매자 마켓 상세 페이지 이동
-	@RequestMapping("sdlist.se")
-	public ModelAndView sellerDetailView(int sno, ModelAndView mv) {
-		
+	@RequestMapping("sellerDetailPage.se")
+	public ModelAndView sellerDetailPage(int sno, ModelAndView mv) {
 		
 		int sellerNo = sno;
 		
