@@ -143,4 +143,33 @@ public class AdminController {
 		
 		return s;
 	}
+	
+	@ResponseBody
+	@RequestMapping("inactiveSeller.ad")
+	public String ajaxInactiveSeller(Seller s) {
+		
+		int result = sellerService.inactiveSeller(s);
+		
+		if(result > 0) {
+			return "Y";
+		} else {
+			return "N";
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("activeSeller.ad")
+	public String ajaxActiveSeller(Seller s) {
+		
+		int result = sellerService.inactiveSeller(s);
+		
+		if(result > 0) {
+			return "Y";
+		} else {
+			return "N";
+		}
+		
+	}
+	
 }

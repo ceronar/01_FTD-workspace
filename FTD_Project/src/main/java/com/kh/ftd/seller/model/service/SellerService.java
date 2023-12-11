@@ -53,4 +53,10 @@ public interface SellerService {
 	
 	// 판매자 상세조회
 	Seller selectSeller(int sellerNo);
+	
+	// 판매자 정지
+	int inactiveSeller(Seller s);
+	
+	// 판매자 활성화
+	int activeSeller(int sellerNo);
 }

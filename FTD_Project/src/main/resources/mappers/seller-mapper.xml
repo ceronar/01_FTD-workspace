@@ -177,5 +177,21 @@
 		  FROM SELLER
 		 WHERE SELLER_NO = #{sellerNo}
 	</select>
+	
+	<!-- 판매자 정지 -->
+	<update id="inactiveSeller" parameterType="seller">
+		UPDATE SELLER 
+		   SET REFUSE_REASON = #{refuseReason}
+		     , DELETE_DATE = SYSDATE
+		 WHERE SELLER_NO = #{sellerNo}
+	</update>
+	
+	<!-- 판매자 활성화 -->
+	<update id="activeSeller" parameterType="_int">
+		UPDATE SELLER 
+		   SET REFUSE_REASON = NULL
+		     , DELETE_DATE = NULL
+		 WHERE SELLER_NO = #{sellerNo}
+	</update>
 
 </mapper>

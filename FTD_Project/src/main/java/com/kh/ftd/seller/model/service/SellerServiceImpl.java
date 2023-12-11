@@ -113,5 +113,15 @@ public class SellerServiceImpl implements SellerService{
 	public Seller selectSeller(int sellerNo) {
 		return sellerDao.selectSeller(sqlSession, sellerNo);
 	}
+
+	@Override
+	public int inactiveSeller(Seller s) {
+		return sellerDao.inactiveSeller(sqlSession, s);
+	}
+
+	@Override
+	public int activeSeller(int sellerNo) {
+		return sellerDao.activeSeller(sqlSession, sellerNo);
+	}
 	
 }

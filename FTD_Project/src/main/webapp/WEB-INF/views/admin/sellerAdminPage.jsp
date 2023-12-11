@@ -383,7 +383,7 @@
 			      					<td>${ s.sellerName }</td>
 			      					<td>${ s.email }</td>
 			      					<td>${ s.address }</td>
-			      					<td><button type='button' class='statusBtn ${empty m.status ? "active" : "inactive" }' disabled /></td>
+			      					<td><button type='button' value='${ s.sellerNo }' class='statusBtn ${empty s.deleteDate ? "active" : "inactive" }' disabled /></td>
 								</tr>
 							</c:forEach>
 		      			</tbody>
@@ -455,6 +455,22 @@
 				let sellerNo = target.parentElement.children.item(0).innerText;
 				openSellerDetails(sellerNo, target);
 			});
+			
+			$(".modal-content").on("click", ".inactiveBtn", e => {
+				let target = e.target;
+				let sellerNo = target.value;
+				let refuseReason = target.previousElementSibling.childNodes.item(2).value;
+				
+				inactiveSeller(sellerNo, refuseReason);
+			});
+			
+			$(".modal-content").on("click", ".activeBtn", e => {
+				let target = e.target;
+				let sellerNo = target.value;
+
+				activeSeller(sellerNo);
+			});
+			
 		});
 		// 이거 안됨 잘 모르겠음
 		/*
@@ -511,51 +527,82 @@
 	            }
 	        }
 	        if(sellerDetails.deleteDate == null) {
-	        	modalContent.append('<div><p><strong>정지 사유:</strong><br><textarea id="refuseReason" rows="3" ></textarea></p><input type="hidden" value="' + sellerNo + '"/><button class="stop-button" onclick="inactiveSeller(' + target + ')">판매자 정지</button></div>');
+	        	modalContent.append('<div><p><strong>정지 사유:</strong><br><textarea id="refuseReason" rows="3" ></textarea></p><button value="' + sellerNo + '" class="stop-button inactiveBtn">판매자 정지</button></div>');
 	        } else {
-	        	modalContent.append('<div><input type="hidden" value="' + sellerNo + '"/><button class="stop-button" onclick="activeSeller(' + target + ')">정지 해제</button></div>');
+	        	modalContent.append('<div><button value="' + sellerNo + '" class="stop-button activeBtn">정지 해제</button></div>');
 	        }
 	    }
 	    
-	    function inactiveSeller(target) {
+	    
+	    function inactiveSeller(sellerNo, refuseReason) {
 	    	
-	    	let targetClassList = target.children.item(0).classList;
-	    	// target 의 button이 class active 를 포함하고 있는지 확인
-	    	let status = "";
-	    	if(targetClassList.contains('active')){
-	    		status = "active";
-	    	} else {
-	    		status = "inactive";
-	    	}
-	    	
+	    	// console.log(sellerNo);
+	    	// console.log(refuseReason);
+	    	// sellerNo 로 table 에 상태버튼에서 찾아서 객체 선택
+	    	let target = selectButtonBySellerNo(sellerNo)[0];
+	    	let targetClassList = target.classList;
 	    	$.ajax({
-	            url: "sellerStatusChange.ad",
+	            url: "inactiveSeller.ad",
 	            method: 'get',
 	            data: {
 	            	sellerNo : sellerNo,
-	            	status : status
+	            	refuseReason : refuseReason
 	            },
 	            success: function (data) {
 	            	// 'Y' or 'N' 넘어오는지 확인
 	            	if(data == "Y") {
-		                if(status == "active") {
-		                	// 성공했으니 active 제거후 inactive 부여
-		                	targetClassList.remove('active');
-		                	targetClassList.add('inactive');
-				    	} else {
-				    		// 성공했으니 inactive 제거후 active 부여
-				    		targetClassList.remove('inactive');
-				    		targetClassList.add('active');
-				    	}
+	                	// 성공했으니 active 제거후 inactive 부여
+	                	targetClassList.remove('active');
+	                	targetClassList.add('inactive');
+	                	
+	                	closeModal();
+	                	alert("판매자 상태 변경 성공");
 	            	} else {
-	            		console.log('사용자 상태 변경 실패');
+	            		console.log('판매자 상태 변경 실패');
 	            	}
 	            },
 	            error: function () {
-	                console.log('사용자 상태 변경 ajax 통신 실패');
+	                console.log('판매자 상태 변경 ajax 통신 실패');
 	            }
 	        });
 		}
+	    
+		function activeSeller(sellerNo) {
+	    	
+	    	// console.log(sellerNo);
+	    	// sellerNo 로 table 에 상태버튼에서 찾아서 객체 선택
+	    	let target = selectButtonBySellerNo(sellerNo)[0];
+	    	let targetClassList = target.classList;
+	    	$.ajax({
+	            url: "activeSeller.ad",
+	            method: 'get',
+	            data: {
+	            	sellerNo : sellerNo
+	            },
+	            success: function (data) {
+	            	// 'Y' or 'N' 넘어오는지 확인
+	            	if(data == "Y") {
+	            		// 성공했으니 inactive 제거후 active 부여
+	            		targetClassList.remove('inactive');
+	            		targetClassList.add('active');
+	            		
+	            		closeModal();
+	                	alert("판매자 상태 변경 성공");
+	            	} else {
+	            		console.log('판매자 상태 변경 실패');
+	            	}
+	            },
+	            error: function () {
+	                console.log('판매자 상태 변경 ajax 통신 실패');
+	            }
+	        });
+		}
+	    
+	    function selectButtonBySellerNo(sellerNo) {
+	        return $('.statusBtn').filter(function () {
+	            return $(this).val() === sellerNo;
+	        });
+	    }
 	    
 	    function goToUserAdminPage() {
 	    	location.href = "user.ad";

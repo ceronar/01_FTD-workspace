@@ -88,4 +88,12 @@ public class SellerDao {
 		return sqlSession.selectOne("sellerMapper.selectSeller", sellerNo);
 	}
 
+	public int inactiveSeller(SqlSession sqlSession, Seller s) {
+		return sqlSession.update("sellerMapper.inactiveSeller", s);
+	}
+
+	public int activeSeller(SqlSession sqlSession, int sellerNo) {
+		return sqlSession.update("sellerMapper.activeSeller", sellerNo);
+	}
+
 }
