@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
-    <title>쇼핑몰 후기</title>
+    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -41,8 +43,10 @@
             align-items: center;
         }
 
+	
+
         .review #img_1 {
-            width: 1000px;
+            width: 860px;
             height: 300px;
             border-radius: 5%;
 
@@ -115,78 +119,170 @@
         }
    
     </style>
+          <script>
+            var page = 0;
+            var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
+
+            $(document).ready(function () {
+                loadLegacyData();
+
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                        page++;
+                        loadLegacyData();
+                    }
+                });
+            });
+
+            function loadLegacyData() {
+               
+                $.ajax({
+                    url: 'getReviewLegacyData.bo',
+                    type: 'get',
+                    data: { page: page, size: pageSize },
+                    beforeSend: function (data) {
+                        //console.log(data);
+                        // Ajax 요청 전에 로딩 애니메이션 표시
+
+                        $('#loading').show();
+
+
+                    },
+                    success: function (data) {
+
+                        console.log("통신성공!!!");
+                        console.log(data);
+
+
+                        // Remove skeleton UI
+                        $('.skeleton').remove();
+
+                        // Append legacy data to the container
+
+                        // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
+
+                        data.forEach(function (val) {
+							
+
+                       let str  = '<div class="review-content">'
+                     +  '<div id="name">'
+                     +  '<div> xxx님</div>'
+                     + ' <div><p class="review-date">xx 시간전</p></div>'
+                  	 +	'</div>'
+
+                  + '<h2>후기</h2>'
+                  + '<p>상품 받았습니다. 정말 만족스럽고 배송도 빨랐어요. 다음에 또 이용하겠습니다.</p>'
+                  + '<div>'
+                  +     '<div>'
+                          
+                  +         '<img src="" id="img_1">'
+                  +     '</div>'
+
+                  +     '<div id="review_product">'
+                  +         
+                  +         '<table border="1" id="product">'
+                  +             '<tr>'
+                  +                 '<td><img src="" id="img_2"></td>'
+                  +                 '<td width="685px;">'
+                  +                    '<div>A급 러시아 대게(선어,자숙)</div>'
+                  +                     '<div id="img_2_text_2">3kg (3미 내외)</div>'
+                  +                 '</td>'
+                  +                 '<td><i class="fas fa-chevron-right"></i></td>'
+                  +             '</tr>'
+                  +         '</table>'
+                  +     '</div>'
+
+                  +     '<div>'
+                        
+                  +         '<div id="review_footer">'
+
+                  +             '<div>'
+                  +                 '<span>'
+                  +                  '<span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> 5</span>'
+                  +                 '</span>'
+                  +             '</div>'
+
+                  +             '<div id="review_footer_2">'
+                  +                 '<span>'
+                  +                     '<span> <i class="far fa-comment"></i></span>'
+                  +                     '<span>0</span>'
+                  +                 '</span>'
+                  +             '</div>'
+                  +         '</div>'
+                  +     '</div>'
+                 +  '</div>'
+              + '</div>' ;
+
+
+                                $('.review').append(str);
+								
+                        });
+
+
+
+
+                    },
+                    complete: function () {
+                        // Ajax 요청이 완료되면 로딩 애니메이션 숨기기
+                        $('#loading').hide();
+                    },
+                    error: function () {
+                        console.log("통신실패!");
+                    }
+                });
+            }
+
+        </script>
+
+        <script>
+         /*   $(function () {
+
+                $(".promotion").on('click', '.detail', function (e) {
+
+
+                    let pno = e.currentTarget.children.item(0).value;
+
+                    // console.log(bno);
+
+                    location.href = "pdlist.bo?pno=" + pno;
+                });
+            }); */
+        </script>
+     <title>쇼핑몰 후기</title>
 </head>
 <body>
-    <header>
-        <h1>쇼핑몰 후기</h1>
-    </header>
+  
+    <div class="wrapper">
+        <div class="center-div">  
+         
+	        <jsp:include page="../common/sidebar.jsp" />
+	        
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+	
+		           
+		        <div class="content">메인 컨텐츠<br>
 
-    <main>
         <div class="review">
 
-            <div class="review-content">
-                <div id="name">
-                    <div> xxx님</div>
-                    <div><p class="review-date">xx 시간전</p></div>
-                </div>
-
-                <h2>후기</h2>
-                <p>상품 받았습니다. 정말 만족스럽고 배송도 빨랐어요. 다음에 또 이용하겠습니다.</p>
-                <div>
-                    <div>
-                        <!-- 사진 -->
-                        <img src="" id="img_1">
-                    </div>
-
-                    <div id="review_product">
-                        <!-- 상품 -->
-                        <table border="1" id="product">
-                            <tr>
-                                <td><img src="" id="img_2"></td>
-                                <td width="685px;">
-                                    <div>A급 러시아 대게(선어,자숙)</div>
-                                    <div id="img_2_text_2">3kg (3미 내외)</div>
-                                </td>
-                                <td><i class="fas fa-chevron-right"></i></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div>
-                        <!-- 별점 + 채팅-->
-                        <div id="review_footer">
-
-                            <div>
-                                <span>
-                                    <span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> 5</span>
-                                </span>
-                            </div>
-
-                            <div id="review_footer_2">
-                                <span style="margin-right : 20px;">
-                                    <span><i class="far fa-heart" style="color : pink; "></i></span>
-                                    <span>0</span>
-                                </span>
-
-                                <span>
-                                    <span> <i class="far fa-comment"></i></span>
-                                    <span>0</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+			
+           
         </div>
+        
+         <div id="loading">
+             <img src="resources/images/sample/0019.gif" alt="Loading..." />
+         </div>
 
         <!-- 추가적인 리뷰는 위와 같은 구조로 추가 가능 -->
 
-    </main>
 
-    <footer>
-        &copy; 2023 쇼핑몰 후기. All rights reserved.
-    </footer>
+       			</div>
+		      
+	        </div> 
+	              
+        </div>
+    </div>
+
 </body>
 </html>
 

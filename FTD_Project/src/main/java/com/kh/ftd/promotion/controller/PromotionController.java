@@ -79,6 +79,7 @@ public class PromotionController {
 					SellerFile sellerFile = promotionService.selectSellerFileProfileList(sno);
 					//System.out.println(sellerFile);
 					
+					//System.out.println(sno);
 					//이 홍보게시글의 별점
 					double starRating = promotionService.marketStarRating(sno);
 					//System.out.println(starRating);
@@ -108,7 +109,7 @@ public class PromotionController {
 		
 	}
 	
-	@RequestMapping(value = "enrollForm.bo")
+	@RequestMapping(value = "promoptionEnrollForm.bo")
 	public String enrollForm(int sno, Model mv) {
 		
 		Seller seller = promotionService.selectSellerList(sno);
@@ -263,8 +264,8 @@ public class PromotionController {
 							  HttpSession session) {
 		
 		// bno 에는 post 방식으로 넘겨받은 글번호가 들어가있음
-		System.out.println(pno);
-		System.out.println(filePath); //지금 널이담김 노티스 디테일뷰 보면서 수정해야뎀
+		//System.out.println(pno);
+		//System.out.println(filePath); //지금 널이담김 노티스 디테일뷰 보면서 수정해야뎀
 		String[] list = filePath.split(",");
 		
 		// 삭제 요청
@@ -454,7 +455,7 @@ public class PromotionController {
 									  , Model model
 									  , HttpSession session) {	
 		
-		System.out.println(prno);
+		//System.out.println(prno);
 		
 		int result = promotionService.updatePromotionReply(prno);
 
