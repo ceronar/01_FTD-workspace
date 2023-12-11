@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <style>
 
 	body {  
@@ -68,8 +70,30 @@
         font-size: 16px;
         color : gray;
         font-weight: 500;
-	}        
-
+	}
+	
+	.changeBtn {
+		font-size: 24px !important;
+		font-weight: 400;
+		background-color: rgb(121, 172, 120);
+		color: white;
+		border: none;
+		border-radius: 5px;
+		padding: 5px;
+		text-align: center;
+	}
+	
+	.changeBtn>span {
+		margin: 5px;
+	}
+	
+	.material-symbols-outlined {
+	font-variation-settings:
+		'FILL' 0,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 24
+	}
 
 </style>
 </head>
@@ -78,7 +102,7 @@
 		<form id="login-form" action="login.se" method="post">
 
             <h2 align="center" id="loginTitle">판매자 회원 로그인</h2>
-
+				<button class="changeBtn" type="button" onclick="location.href='loginForm.me'" ><span class="material-symbols-outlined">autorenew</span> 구매자 전환</button>
                 <div class="form-group">                   
                     <label id="id-label" for="sellerId">아이디</label>
                     <input type="text" class="form-control" id="sellerId"  name="sellerId" required>
