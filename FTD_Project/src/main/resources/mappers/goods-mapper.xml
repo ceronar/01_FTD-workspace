@@ -89,4 +89,11 @@
 		   AND M.STATUS IS NULL
 	</select>
 	
+	<select id="ajaxSelectSellerGoodsList" parameterType="_int" resultMap="goodsResultSet">
+		SELECT * 
+		  FROM GOODS
+		 WHERE SELLER_NO = #{sellerNo}
+		   AND DELETE_DATE IS NULL
+	</select>
+	
 </mapper>

@@ -98,11 +98,22 @@
 		</div>
 		
 		<div class="nav-menu" id="nav3">
-			<a href="goodsRecommendPage.go" 	class="menu1">쇼핑추천</a>
-			<a href="goodsBestPage.go" 			class="menu2">베스트</a>
+		<c:choose>
+			<%-- 판매자 로그인 후 --%>
+           	<c:when test="${ not empty sessionScope.loginSeller }">
+           		<a href="sellerGoodsListPage.go" 				class="menu1">판매자 상품</a>
+				<a href="sellerGoodsTextListPage.go" 			class="menu2">판매자 상품 글</a>
+           	</c:when>
+           	
+			<%-- 로그인 전 --%>
+           	<c:otherwise>
+				<a href="goodsRecommendPage.go" 	class="menu1">쇼핑추천</a>
+				<a href="goodsBestPage.go" 			class="menu2">베스트</a>	
+           	</c:otherwise> 
+		</c:choose>
 			<a href="goodsListPage.go" 			class="menu3">상품</a>
 			<a href="" 							class="menu4">비고</a>
-		</div>
+		</div>		
 		
 	</div>
 	

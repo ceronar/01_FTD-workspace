@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,10 +63,24 @@
 			<div class="icon"><span class="material-symbols-outlined">storefront</span></div>
 			<div class="text">산지마켓</div>
 		</div>
-		<div class="sidebar-menu" onclick="location.href='goodsRecommendPage.go';">
-			<div class="icon"><span class="material-symbols-outlined">local_mall</span></div>
-			<div class="text">쇼핑몰</div>
-		</div>
+		<c:choose>
+			<%-- 판매자 로그인 후 --%>
+           	<c:when test="${ not empty sessionScope.loginSeller }">
+           		<div class="sidebar-menu" onclick="location.href='sellerGoodsListPage.go';">
+					<div class="icon"><span class="material-symbols-outlined">local_mall</span></div>
+					<div class="text">쇼핑몰</div>
+				</div>
+           	</c:when>
+           	
+			<%-- 로그인 전 --%>
+           	<c:otherwise>
+				<div class="sidebar-menu" onclick="location.href='goodsRecommendPage.go';">
+					<div class="icon"><span class="material-symbols-outlined">local_mall</span></div>
+					<div class="text">쇼핑몰</div>
+				</div>	
+           	</c:otherwise>
+		
+		</c:choose>
 		<div class="sidebar-menu" onclick="location.href='basket.me';">
 			<div class="icon"><span class="material-symbols-outlined">shopping_cart</span></div>
 			<div class="text">장바구니</div>
