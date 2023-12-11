@@ -96,7 +96,9 @@
 				            
 				                <thead>
 				                    <tr>
-				                    	<th style="width: 5%"><input type="checkbox" name="check-all" id="check-all"></th>
+				                    	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
+				                    		<th style="width: 5%"><input type="checkbox" name="check-all" id="check-all"></th>
+				                    	</c:if>
 				                        <th style="width: 10%;">번호</th>
 				                        <th style="width: 50%;">제목</th>
 				                        <th style="width: 10%;">조회수</th>
@@ -106,7 +108,9 @@
 				                <tbody>
 				                    <c:forEach var="n" items="${ requestScope.list }">
 				                    <tr>
-				                    	<td><input type="checkbox" id="delete" name="delete" value="${ requestScope.n.noticeNo }"></td>
+				                    	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
+					                    	<td><input type="checkbox" id="delete" name="delete" value="${ requestScope.n.noticeNo }"></td>
+					                    </c:if>
 				                        <td class="noticeNo" >${n.noticeNo}</td>
 				                        <td class="noticeName" >${ n.noticeTitle }</td>
 				                        <td class="count" >${ n.count }</td>
@@ -121,9 +125,7 @@
 			                
 			                	<c:choose>
 			                		<c:when test="${ requestScope.pi.currentPage eq 1 }">
-				                    	<li class="page-item disabled">
-				                    		<a class="page-link" href="#">Previous</a>
-				                    	</li>
+				                    	
 			                    	</c:when>
 			                    	<c:otherwise>
 				                    	<li class="page-item">
@@ -142,9 +144,7 @@
 			                    
 			                    <c:choose>
 			                    	<c:when test="${ requestScope.pi.currentPage eq requestScope.pi.maxPage }">
-					                    <li class="page-item disabled">
-					                    	<a class="page-link" href="#">Next</a>
-					                    </li>
+					                   
 					                </c:when>
 					                <c:otherwise>
 					                    <li class="page-item">
@@ -157,7 +157,9 @@
            					</div>
 				        </div>
 					        <div class="btn">
-					            <a onclick="deleteSelected()">삭제</a>
+					        	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
+					            	<a onclick="deleteSelected()">삭제</a>
+				            	</c:if>
 					            <a href="enrollForm.no">작성</a>
 					        </div>
 				    </div>

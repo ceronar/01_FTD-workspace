@@ -19,10 +19,10 @@ public interface InquiryService {
 	int insertInquiry(Inquiry i);
 	
 	// 게시글 조회수 증가
-	int increaseInquiryCount(int inquiryNo);
+	int increaseInquiryCount(Inquiry i);
 	
 	// 게시글 상세조회
-	Inquiry selectInquiry(int inquiryNo);
+	Inquiry selectInquiry(Inquiry i);
 	
 	// 게시글 삭제
 	int deleteInquiry(int inquiryNo);
@@ -42,5 +42,9 @@ public interface InquiryService {
 	Seller sellectSeller(int sno);
 
 	int insertInquiryFile(InquiryFile inf);
+
+	ArrayList<InquiryFile> selectInquiryFile(Inquiry i);
+
+	ArrayList<InquiryReply> selectInquiryReplyList(Inquiry i);
 	
 }

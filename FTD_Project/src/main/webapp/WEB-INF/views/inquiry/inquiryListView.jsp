@@ -356,7 +356,7 @@
 	<div class="wrapper">
         
         <div class="center-div">  
-         	        
+ 	        <jsp:include page="../common/sidebar.jsp" />
 	        <div class="main-div">
 	            
 	            <jsp:include page="../common/header.jsp" />

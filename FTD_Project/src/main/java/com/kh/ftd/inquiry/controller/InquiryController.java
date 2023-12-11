@@ -12,20 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.ftd.common.model.vo.PageInfo;
-import com.kh.ftd.common.template.Pagination;
 import com.kh.ftd.inquiry.model.service.InquiryService;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
 import com.kh.ftd.inquiry.model.vo.InquiryFile;
-import com.kh.ftd.notice.model.vo.Notice;
+import com.kh.ftd.inquiry.model.vo.InquiryReply;
 import com.kh.ftd.seller.model.vo.Seller;
 
 @Controller
@@ -128,9 +124,43 @@ public class InquiryController {
 	}
 	
 	@RequestMapping("detail.in")
-	public void selectInquiry(int ino, int sno) {
-		System.out.println("ino : " + ino);
-		System.out.println("sno : " + sno);
+	public ModelAndView selectInquiry(Inquiry i, int ino, String sno, ModelAndView mv) {
+//		System.out.println("ino : " + ino);
+//		System.out.println("sno : " + sno);
+		
+		i.setInqNo(ino);
+		i.setSellerNo(sno);
+		
+//		System.out.println(i);
+		
+		// 게시글 조회수 증가용 서비스
+		int result = inquiryService.increaseInquiryCount(i);
+		
+		// 조회수가 증가여부에 따라 상세조회 서비스 호출
+		if(result > 0) {
+			
+			Inquiry i2 = inquiryService.selectInquiry(i);
+			
+//			System.out.println(i2);
+			
+			ArrayList<InquiryFile> inf = inquiryService.selectInquiryFile(i);
+//			for(InquiryFile n : inf) {
+//				System.out.println(n);
+//			}
+			
+			ArrayList<InquiryReply> ir = inquiryService.selectInquiryReplyList(i);
+			
+//			for(InquiryReply n : ir) {
+//				System.out.println(n);
+//			}
+			
+			mv.addObject("i2", i2).addObject("inf", inf).addObject("ir", ir).setViewName("inquiry/inquiryDetailView");
+		} else {
+			
+			mv.addObject("errorMsg", "문의글 상세 조회 실패").setViewName("common/errorPage");
+		}
+		
+		return mv;
 	}
 	
 	
