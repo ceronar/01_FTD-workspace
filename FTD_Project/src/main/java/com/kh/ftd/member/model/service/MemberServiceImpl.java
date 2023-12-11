@@ -95,4 +95,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectMember(int memberNo) {
 		return memberDao.selectMember(sqlSession, memberNo);
 	}
+	
+	// 사용자 상태값 변경 (관리자용)
+	@Override
+	public int memberStatusChange(Member m) {
+		return memberDao.memberStatusChange(sqlSession, m);
+	}
 }

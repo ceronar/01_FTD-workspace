@@ -69,28 +69,39 @@
 	 
 </head>
 <body>
-    <div class="container">
-        <h1>공지사항 작성</h1>
-	
-        <form id="enrollForm" method="post" action="insert.no" enctype="multipart/form-data">
-            <label for="noticeTitle">제목:</label>
-            <input type="text" id="noticeTitle" name="noticeTitle" required>
-
-            <label for="content">내용:</label>
-            <textarea id="noticeContent" name="noticeContent" required></textarea>
-            <!-- summernote용 textarea 
-            	textarea id="summernote" name="editordata"></textarea> 
-            -->
-
-            <!-- 파일 선택 버튼 -->
-
-            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
-
-            <div align="center">
-                <input type="submit" value="게시글 등록">
-            </div>
-        </form>
-    </div>
+	<div class="wrapper">
+	        <div class="center-div">  
+		        <jsp:include page="../common/sidebar.jsp" />
+		        <div class="main-div">
+			        <jsp:include page="../common/header.jsp" />
+				        <div class="content">
+						    <div class="container">
+						        <h1>공지사항 작성</h1>
+							
+						        <form id="enrollForm" method="post" action="insert.no" enctype="multipart/form-data">
+						            <label for="noticeTitle">제목:</label>
+						            <input type="text" id="noticeTitle" name="noticeTitle" required>
+						
+						            <label for="content">내용:</label>
+						            <textarea id="noticeContent" name="noticeContent" required></textarea>
+						            <!-- summernote용 textarea 
+						            	textarea id="summernote" name="editordata"></textarea> 
+						            -->
+						
+						            <!-- 파일 선택 버튼 -->
+						
+						            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
+						
+						            <div align="center">
+						                <input type="submit" value="게시글 등록">
+						            </div>
+						        </form>
+						    </div>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+						    
     <!-- summernote 사용시 활성화
     <script type="text/javascript">
 	    $(document).ready(function() {

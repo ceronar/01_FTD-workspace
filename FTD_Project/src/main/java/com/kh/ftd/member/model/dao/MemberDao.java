@@ -81,5 +81,9 @@ public class MemberDao {
 	public Member selectMember(SqlSession sqlSession, int memberNo) {
 		return sqlSession.selectOne("memberMapper.selectMember", memberNo);
 	}
+
+	public int memberStatusChange(SqlSession sqlSession, Member m) {
+		return sqlSession.update("memberMapper.memberStatusChange", m);
+	}
 	
 }

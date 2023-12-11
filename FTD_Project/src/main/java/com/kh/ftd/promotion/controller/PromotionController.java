@@ -286,7 +286,7 @@ public class PromotionController {
 				// 해당 파일이 실제 저장되어있는 경로 알아내기
 				for(int i = 0; i < list.length; i++) {
 					
-					promotionService.deleteNoticeFile(pno);
+					promotionService.deletePromotionFile(pno);
 				}
 			}
 			
@@ -419,40 +419,47 @@ public class PromotionController {
 	
 	
 //-----------------------------댓글 작성 서비스---------------------------
+	@ResponseBody
+	@RequestMapping(value="selectReplyList.bo", produces = "application/json; charset=UTF-8")
+	public String selectReplyList(int pno) {
+		
+		//System.out.println(pno);
+		
+		ArrayList<PromotionReply> prList = promotionService.selectPromotionReplyList(pno);
+		
+		//System.out.println(prList);
+		
+		return new Gson().toJson(prList);
+	}
 	
-	@RequestMapping(value="insertReply.bo")
+	@ResponseBody
+	@RequestMapping(value="insertReply.bo" , produces = "text/html; charset=UTF-8")
 	public String insertPromotionReply(PromotionReply pr
 									  , Model model
 									  , HttpSession session) {
 		
-		System.out.println(pr);
+		//System.out.println(pr);
 		
 		int result = promotionService.insertPromotionReply(pr);
 		
 		
-		if(result > 0) { // 댓글 작성 성공
-	
-			
-			session.setAttribute("alertMsg", "성공적으로 댓글이 작성되었습니다.");
-			
-			return "redirect:/pdlist.bo?pno=" + pr.getPromotionNo();
-			
-		} else { // 삭제 실패
-			// => 에러문구를 담아서 에러페이지로 포워딩
-			
-			model.addAttribute("errorMsg", "댓글 등록 실패");
-			
-			return "common/errorPage";
+		  return (result > 0) ? "success" : "fail";
 		}
 		
-	}
 	
 	
-	@RequestMapping(value="updateReplyForm.bo")
-	public String updatePromotionReply(Model model) {
+	@ResponseBody
+	@RequestMapping(value="updateReply.bo", produces = "text/html; charset=UTF-8")
+	public String updatePromotionReply(PromotionReply prno
+									  , Model model
+									  , HttpSession session) {	
 		
+		System.out.println(prno);
+		
+		int result = promotionService.updatePromotionReply(prno);
+
 			
-			return "promotion/promotionUpdateReplyForm";
+		 return (result > 0) ? "success" : "fail";
 		}
 
 	
@@ -461,27 +468,27 @@ public class PromotionController {
 									  , Model model
 									  , HttpSession session) {
 		
-		System.out.println(prno);
+		//System.out.println(prno);
 		
 		
-		//int result = promotionService.deletePromotionReply(prno);
+		int result = promotionService.deletePromotionReply(prno);
+		//System.out.println(result);
 		
+		if(result > 0) { // 댓글 삭제 성공
+	
 		
-//		if(result > 0) { // 댓글 작성 성공
-//	
-//			
-//			session.setAttribute("alertMsg", "성공적으로 댓글이 작성되었습니다.");
-//			
-//			return "redirect:/pdlist.bo?pno=" + pr.getPromotionNo();
-//			
-//		} else { // 삭제 실패
-//			// => 에러문구를 담아서 에러페이지로 포워딩
-//			
-//			model.addAttribute("errorMsg", "댓글 등록 실패");
-//			
-//			return "common/errorPage";
-//		}
-		return "";
+		session.setAttribute("alertMsg", "성공적으로 댓글이 삭제되었습니다.");
+			
+			return "redirect:/pdlist.bo?pno=" + prno.getPromotionNo();
+		
+		} else { // 삭제 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "댓글 등록 실패");
+			
+			return "common/errorPage";
+		}
+	
 		
 	}
 	

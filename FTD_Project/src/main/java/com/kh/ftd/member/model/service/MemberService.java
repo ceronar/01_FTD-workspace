@@ -47,4 +47,7 @@ public interface MemberService {
 	
 	// memberNo으로 구매자 한명 정보 조회
 	Member selectMember(int memberNo);
+	
+	// memberNo으로 구매자 한명 상태 수정
+	int memberStatusChange(Member m);
 }

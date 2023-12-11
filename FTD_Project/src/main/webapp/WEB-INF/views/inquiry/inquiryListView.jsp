@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -274,39 +275,44 @@
             }
         });
     });
-	
+
 	function ajaxSelectInquiryList() {
 		
 		
-        $.ajax({
-            url: 'ajaxSelectList.in',
-            type: 'get',
-            data: { sellerNo: '${requestScope.sellerNo}', pageSize: pageSize, page: page },
-            success: function(result) {
-                console.log(result);
-                
-                result.forEach(function(item) {
-                    // responseDate의 값에 따라 answer에 '미답변' 또는 '답변완료'를 할당합니다.
-                    let answer = item.responseDate ? '답변완료' : '미답변';
-                    
-                    // 각 객체의 속성을 추출하여 테이블에 추가합니다.
-                    $('.list-tbody').append(
-                        '<tr>' +
-                            '<td><input type="checkbox" class="delete"></td>' +
-                            '<td name="inqNo">' + item.inqNo + '</td>' +
-                            '<td name="answer">' + answer + '</td>' +
-                            '<td>' + item.inqTitle + '</td>' +
-                            '<td>' + item.memberId + '</td>' +
-                            '<td>' + item.count + '</td>' +
-                            '<td>' + item.createDate + '</td>' +
-                        '</tr>'
-                    );
-                });
-            },
-            error: function() {
-                console.log("ajax 통신 실패!");
-            }
-        });
+		$.ajax({
+		    url: 'ajaxSelectList.in',
+		    type: 'get',
+		    data: { sellerNo: '${requestScope.sellerNo}', pageSize: pageSize, page: page },
+		    success: function(result) {
+		        console.log(result);
+		        
+		        result.forEach(function(item) {
+		            // responseDate의 값에 따라 answer에 '미답변' 또는 '답변완료'를 할당합니다.
+		            let answer = item.responseDate ? '답변완료' : '미답변';
+		            
+		            // 각 객체의 속성을 추출하여 테이블에 추가합니다.
+		            var row = '<tr>';
+		            
+		            // 조건부로 체크박스를 추가합니다.
+		            <c:if test="(${sessionScope.loginUser.memberId} eq admin)"> {
+		                row += '<td><input type="checkbox" class="delete"></td>';
+		            }
+		            </c:if>
+		            row += '<td name="inqNo">' + item.inqNo + '</td>' +
+		                '<td name="answer">' + answer + '</td>' +
+		                '<td name="inqTitle">' + item.inqTitle + '</td>' +
+		                '<td name="memberId">' + item.memberId + '</td>' +
+		                '<td name="count">' + item.count + '</td>' +
+		                '<td name="createDate">' + item.createDate + '</td>' +
+		                '</tr>';
+		                
+		            $('.list-tbody').append(row);
+		        });
+		    },
+		    error: function() {
+		        console.log("ajax 통신 실패!");
+		    }
+		});
 	}
 
 	function ajaxSelectSubscribe() {
@@ -378,7 +384,9 @@
                                 <table class="list-area">
                                     <thead>
                                         <tr>
-                                            <th style="width : 5%;"><input type="checkbox" id="check-all"></th>
+                                        	<c:if test="(${sessionScope.loginUser.memberId} eq admin)">
+                                            	<th style="width : 5%;"><input type="checkbox" id="check-all"></th>
+                                            </c:if>
                                             <th style="width : 7%;">번호</th>
                                             <th style="width : 15%;">답변여부</th>
                                             <th style="width : 38%;">제목</th>
@@ -394,7 +402,7 @@
                             </div>
                             <div class="btn">
                                 <button onclick="deleteSelected()">삭제</button>
-                                <button onclick="insertInquiry">작성</button>
+                                <a href="enrollForm.in?sno=${ requestScope.sellerNo }">작성</a>
                             </div>
 					</div>
 					
@@ -407,6 +415,7 @@
     </div>
     
     <script>
+    // 문의글 상세조회 페이지 이동 스크립트
     
     // console.log(document.getElementById("subscribe"))
     

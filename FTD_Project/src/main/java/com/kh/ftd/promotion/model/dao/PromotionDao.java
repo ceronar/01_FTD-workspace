@@ -78,10 +78,6 @@ public class PromotionDao {
 		return sqlSession.insert("promotionMapper.insertFile", pf);
 	}
 
-	public int deletePromotionFile(SqlSessionTemplate sqlSession, int promotionNo) {
-		
-		return sqlSession.update("promotionMapper.deletePromotionFile", promotionNo);
-	}
 
 	public int updatePromotion(SqlSessionTemplate sqlSession, Promotion p) {
 		
@@ -100,14 +96,24 @@ public class PromotionDao {
 	
 
 
-	public int deleteNoticeFile(SqlSessionTemplate sqlSession, int pno) {
+	public int deletePromotionFile(SqlSessionTemplate sqlSession, int pno) {
 		
-		return sqlSession.update("promotionMapper.deleteNoticeFile",pno); 
+		return sqlSession.update("promotionMapper.deletePromotionFiles",pno); 
 	}
 
 	public int insertPromotionReply(SqlSessionTemplate sqlSession, PromotionReply pr) {
 	
 		return sqlSession.insert("promotionMapper.insertPromotionReply",pr);
+	}
+
+	public int deletePromotionReply(SqlSessionTemplate sqlSession, PromotionReply prno) {
+	
+		return sqlSession.update("promotionMapper.deletePromotionReply",prno); 
+	}
+
+	public int updatePromotionReply(SqlSessionTemplate sqlSession, PromotionReply prno) {
+		
+		return sqlSession.update("promotionMapper.updatePromotionReply",prno); 
 	}
 	
 	
