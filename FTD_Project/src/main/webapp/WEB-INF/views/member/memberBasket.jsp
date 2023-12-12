@@ -20,7 +20,6 @@
 
         .content {
             margin: 0 auto;
-            margin-top: 100px;
             padding: 20px;
             width: 100%; /* 컨텐츠를 전체 너비로 확장 */
             box-sizing: border-box;
@@ -165,11 +164,39 @@
 			resize: none;
 		}
 		
+		.price-area {
+			width: 150px;
+			height: 60px;
+		}
+		
 		.buyAllItems, .buyItem {
 			height: 25px;
 			width: 25px;
 			margin: auto;
+			border-radius: 10px;
 		}
+		
+		input[type="checkbox"]{
+        	display: none;
+	      }
+		input[type="checkbox"] + label{
+	        display: inline-block;
+	        width: 25px;
+	        height: 25px;
+	        border:3px solid #707070;
+	        position: relative;
+	        border-radius: 5px; 
+	      }
+		input[class="buyItem"]:checked + label:after, input[class="buyAllItems"]:checked + label:after{
+	        content:'✔';
+	        font-size: 20px;
+	        width: 25px;
+	        height: 25px;
+	        text-align: center;
+	        position: absolute;
+	        left: 0;
+	        top: 0;
+	      }
 		
     </style>
 </head>
@@ -192,7 +219,7 @@
 			            <table>
 			                <thead>
 			                    <tr>
-			                    	<th><input type="checkbox" class="buyAllItems" /></th>
+			                    	<th><input type="checkbox" id="checkAll" class="buyAllItems" /><label for="checkAll"></label></th>
 			                    	<th>이미지</th>
 			                        <th>상품명</th>
 			                        <th>수량</th>
@@ -204,7 +231,7 @@
 			                	<!-- 상품반복 -->
 			                	<c:forEach var="c" items="${ requestScope.list }">
 			                    <tr>
-			                    	<td><input type="checkbox" class="buyItem" name="goodNo" value="${ c.goodNo }" /></td>
+			                    	<td><input type="checkbox" class="buyItem" id="check${ c.goodNo }" name="goodNo" value="${ c.goodNo }" /><label for="check${ c.goodNo }"></label></td>
 			                        <td>
 			                            <img src="${ c.changeName }" alt="상품사진" class="product-image">
 			                        </td>
@@ -229,7 +256,7 @@
 				            	<h4>주문시 요청사항</h4>
 				            	<textarea class="requestBox" name="request" rows="2" cols="20" placeholder="주문시 요청할 사항 입력"></textarea>
 							</div>
-			                <div>
+			                <div class="price-area">
 			                    <p><strong>배송비: <span id="deliver">0</span>원</strong></p>
 			                    <p><strong>총 가격: <span id="totalPrice">0</span>원</strong></p>
 			                </div>
