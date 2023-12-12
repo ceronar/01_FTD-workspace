@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
-    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+   
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -20,9 +20,11 @@
 
 
         header {
-            background-color: #343a40;
+            
             color: #ffffff;
-            text-align: center;
+       		background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 1em;
             max-width: 1000px;
             margin: 0 auto;
@@ -64,15 +66,22 @@
             align-items: center;
         }
 
-        header h1 {
-            margin: 0;
+        header span {
+            margin-left: 10px;
+            color : black;
+            font-size : 30px;
         }
+        
+  
 
-        header a {
-            padding: 10px;
-            text-decoration: none;
-            color: #ffffff;
-        }
+	.icon span {
+
+		font-size: 40px;
+	
+	}
+      
+
+     
 
         .profile {
             display: flex;
@@ -191,11 +200,18 @@
     <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>홍보(리스트)</title>
 </head>
 <body>
     <header>
-        <h1>상세보기 페이지</h1> <!-- 뒤로가기 홈으로가기 장바구니가기 만들기 -->
+        <div>
+       		<a href="plist.bo"><span><i class="fas fa-arrow-left"></i></span></a>
+        </div>
+        <div class="icon">
+        	<a href="${pageContext.request.contextPath}"><span id="home-icon" class="material-symbols-outlined">home</span></a>
+        	<a href="basket.me"><span class="material-symbols-outlined">shopping_cart</span></a>
+        </div> <!-- 뒤로가기 홈으로가기 장바구니가기 만들기 -->
     </header>
 
     <main>
@@ -360,9 +376,13 @@
       </c:forEach>
            -->
            
-           <script type="text/javascript"> 
-	<!-- 댓글 로그인관련  -->	
+          <!-- 댓글 로그인관련 조건거는곳 --> 
+           <script> 
+    
 		$(function() {
+			if(${not empty sessionScope.loginSeller}){
+				$("#replyContent").val("구매자 회원으로 로그인해주세요!!");
+			}
 			
 			if(${not empty sessionScope.loginUser}){
 				
@@ -374,16 +394,13 @@
 					$("#replyContent").val("");
 				});
 				
-				$("#replyContent").focusout(function() {
-					
-					$("#replyContent").val("댓글을 남겨보세요");
-				});
+			
 			}else{
 				
 				$("#replyContent").click(function() {
 					console.log("gg");
 					alert("로그인 해주세요!");
-				}); <!-- 비로그인때 입력클릭시 알런트띄우기 , 댓글들 조회는 가능하게하기 지금 ${}이 널이면 비어지게와서 오류--> 
+				}); 
 			}
 			
 		})	
@@ -414,12 +431,13 @@
        			success : function(result) { // list 는 자바스크립트 변수
        				
        				//console.log(result);
+       			//로그인한유저 + 내가쓴 댓글에만 삭제 수정뜨게 만들어야뎀 아직못함
        				
        				let resultStr = "";
        				
 			        for(let i = 0; i < result.length; i++) {
 			        	 
-			        	resultStr +=  	
+			        	resultStr =  	
          		   	'<hr>'    	
 		            +   '<div>'
 		            +    '<p class="replyContent">'+ result[i].replyContent +'</p>'
@@ -429,12 +447,12 @@
 		            +    	'작성자: '+ result[i].memberNo +' | 작성일: '+ result[i].createDate +''
 		            +    	'</div>'
 		            +   	'<div class="replyOption">'
-		<!-- 로그인을 햇고 내 댓글만 수정삭제가능하게하기 -->            if((${ not empty sessionScope.loginUser }) && ${ sessionScope.loginUser.memberId eq } == result[i].memberNo){ 
-		            	
-          resultStr +=  '<a class="modify" data-repNum="'+ result[i].replyNo +'">수정 </a>'
+		          
+		            	//if(result[i].memberNo == ${sessionScope.loginUser.memberId}){
+          resultStr +=  '<a class="modify"  data-repNum="'+ result[i].replyNo +'">수정 </a>'
 			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')">삭제</a>'
-			        
-		       	 }
+		            	//}   
+		   
 		            resultStr  +='</div>'
 		            +    '</div>'
 			           
@@ -454,7 +472,7 @@
        	}
            
            function insertReply() {
-        	   let mno = (${not empty sessionScope.loginUser} ) ? ${sessionScope.loginUser.memberNo} : 0;
+        	   
         	   
         	   if($("#replyContent").val().trim().length != 0) {
         		   
@@ -463,7 +481,7 @@
                        type: 'post',
                        data: { 
                     	    promotionNo: ${requestScope.p.promotionNo},
-                    	    memberNo: mno,
+                    	    memberNo: ${sessionScope.loginUser.memberNo},
                     	    replyContent: $("#replyContent").val()
                     	},
     	               success : function(result) {
@@ -497,16 +515,18 @@
 
            </script>
     	
+   
+    	<!-- 수정 -->
     		<script>
     		$(document).on("click", ".modal_modify_btn", function(){
-    			 let mno = (${not empty sessionScope.loginUser} ) ? ${sessionScope.loginUser.memberNo} : 0;
+    			
     			   var modifyConfirm = confirm("정말로 수정하시겠습니까?");
     			   
     			   if(modifyConfirm) {
     			    var data = {
     			       replyNo: $(this).attr("data-repNum"),
     			       replyContent : $(".modal_repCon").val(),
-    			       memberNo : mno,
+    			       memberNo : ${sessionScope.loginUser.memberNo},
     			       promotionNo: ${requestScope.p.promotionNo}
     			      };  
     			    
@@ -525,7 +545,7 @@
     			      }
     			     },
     			     error : function(){
-    			      console.log("에런]")
+    			      console.log("에러")
     			     }
     			    });
     			   }
@@ -533,6 +553,7 @@
     			});
     		</script>
     
+    <!-- 모달(수정) -->
 			<script>	
 			$(document).on("click", ".modify", function(){
 				 //$(".replyModal").attr("style", "display:block;");
@@ -559,6 +580,7 @@
 			</script>	
        
         </div>
+        <!-- 삭제 -->
          	<button onclick="insertReply()">입력</button>
          	
        		 <form action="" id="postFormReply" method="post">
@@ -594,7 +616,7 @@
                		}
                	}
           </script>
-		        
+		        <!-- 모달창 -->
 		        	  <div class="replyModal" style="display:none">
 		
 					   <div class="modalContent">

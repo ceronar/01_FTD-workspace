@@ -44,6 +44,16 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
+	<resultMap id="OrderGoodsResultSet" type="orderGoods">
+		<result column="ORDER_DETAIL_NO" property="orderDetailNo" />
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="GOOD_NO" property="goodNo" />
+		<result column="COUNT" property="count" />
+		<result column="PRICE" property="price" />
+		<result column="STATUS" property="status" />
+		<result column="GOOD_TITLE" property="goodTitle" />
+	</resultMap>
+	
 	
 	
 	<select id="ajaxSelectGoodsList" resultMap="goodsResultSet">
@@ -94,6 +104,13 @@
 		  FROM GOODS
 		 WHERE SELLER_NO = #{sellerNo}
 		   AND DELETE_DATE IS NULL
+	</select>
+	
+	<select id="memberOrderDetail" parameterType="_int" resultMap="goodsResultSet">
+		SELECT OG.GOOD_NO, G.GOOD_TITLE, OG.COUNT, OG.PRICE, OG.STATUS
+		  FROM ORDER_GOODS OG
+		  JOIN GOODS G
+		 WHERE ORDER_NO = #{orderNo}
 	</select>
 	
 </mapper>

@@ -26,6 +26,7 @@
 			<mapping path="/enrollForm.bo"/>
 			<mapping path="/update.me"/>
 			<mapping path="/basket.me"/>
+			<mapping path="/orderList.me"/>			
 			<beans:bean class="com.kh.ftd.common.interceptor.LoginInterceptor" id="loginInterceptor" />
 		</interceptor>
 		<interceptor>

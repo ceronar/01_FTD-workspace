@@ -36,4 +36,8 @@ public class OrderDao {
 		return sqlsession.delete("orderMapper.ajaxDeleteCart", cart);
 	}
 
+	public ArrayList<Order> memberOrderList(SqlSession sqlsession, int memberNo) {
+		return (ArrayList)sqlsession.selectList("orderMapper.memberOrderList", memberNo);
+	}
+
 }

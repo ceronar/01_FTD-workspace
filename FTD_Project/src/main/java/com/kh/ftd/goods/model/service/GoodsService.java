@@ -26,5 +26,6 @@ public interface GoodsService {
 	// 판매자 상품 리스트 조회 (select)
 	ArrayList<Goods> ajaxSelectSellerGoodsList(int sellerNo);
 	
-	
+	// 주문에 속한 상품 리스트 조회
+	ArrayList<Goods> memberOrderDetail(int orderNo);
 }

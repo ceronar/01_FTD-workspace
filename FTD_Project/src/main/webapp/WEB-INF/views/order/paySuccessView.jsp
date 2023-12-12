@@ -50,23 +50,34 @@
 
 <!-- Payment Complete Page -->
 <div>
-    <h2>결제 완료</h2>
+    <h2>주문완료</h2>
+    <hr>
+    <br>
+    <h3>주문이 정상적으로 완료 되었습니다.</h3> 
     <p>
-    	귀하의 결제가 성공적으로 처리되었습니다. <br> 
-    	구입 주셔서 감사합니다!
+    	고객님의 주문 번호는 <span>${ requestScope.orderNo }</span>번 입니다.
+    	주문하신 내역은 마이페이지 - 주문내역 조회 에서 확인하실 수 있습니다.
+    </p>
+    
+    <br>
+    <hr>
+    <br>
+    
+    <p>
+    	결제 내역 : <span>${ requestScope.price }</span>원
     </p>
 
     <!-- Button to go home -->
     <button onclick="goHome()">메인으로</button>
-    <button onclick="goMyPay()">결제 내역 확인</button>
+    <button onclick="goMyOrderList()">결제 내역 확인</button>
 </div>
 
 <script>
     function goHome() {
         window.location.href = "/";
     }
-    function goMyPay() {
-        window.location.href = "/myPay.me";
+    function goMyOrderList() {
+        window.location.href = "/orderListPage.me";
     }
 </script>
 

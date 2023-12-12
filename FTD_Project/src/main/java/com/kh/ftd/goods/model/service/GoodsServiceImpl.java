@@ -56,5 +56,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.ajaxSelectSellerGoodsList(sqlSession, sellerNo);
 	}
 
+	@Override
+	public ArrayList<Goods> memberOrderDetail(int orderNo) {
+		return goodsDao.memberOrderDetail(sqlSession, orderNo);
+	}
+
 
 }

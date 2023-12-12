@@ -12,7 +12,14 @@
 
 		<typeAlias type="com.kh.ftd.member.model.vo.Member" alias="member" />
 		<typeAlias type="com.kh.ftd.promotion.model.vo.Promotion" alias="promotion" />
-
+		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
+		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
+		<!-- 11/29 성광 12:51분 판매자 별칭추가 -->
+		<typeAlias type="com.kh.ftd.review.model.vo.Review" alias="review" />
+		<typeAlias type="com.kh.ftd.review.model.vo.ReviewFile" alias="reviewFile" />
+		<typeAlias type="com.kh.ftd.review.model.vo.ReviewReply" alias="reviewReply" />
+			<!-- 12/11 성광 07:51분 후기 별칭추가 -->
+		
 		<!-- 12/08 재영 11:10분 상품 별칭추가 -->
 		<typeAlias type="com.kh.ftd.seller.model.vo.Seller" alias="seller" />
 		<typeAlias type="com.kh.ftd.seller.model.vo.SellerFile" alias="sellerFile"/>
@@ -23,9 +30,7 @@
 		<typeAlias type="com.kh.ftd.goods.model.vo.SellReply" alias="sellReply"/>
 		
 		
-		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
-		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
-		<!-- 11/29 성광 12:51분 판매자 별칭추가 -->
+		
 		
 		<typeAlias type="com.kh.ftd.notice.model.vo.Notice" alias="notice" />
 		<typeAlias type="com.kh.ftd.inquiry.model.vo.Inquiry" alias="inquiry" />
@@ -49,6 +54,7 @@
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/promotion-mapper.xml"/>
+		<mapper resource="/mappers/review-mapper.xml"/>
 		
 		<mapper resource="/mappers/seller-mapper.xml"/>
 		<mapper resource="/mappers/goods-mapper.xml"/>
