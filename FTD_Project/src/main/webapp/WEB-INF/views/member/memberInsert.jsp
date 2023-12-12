@@ -23,7 +23,7 @@
         }
 
         header {
-            background-color: green;
+            background-color: #388755;
             color: black;
             padding: 1em;
             text-align: center;
@@ -47,13 +47,13 @@
             width: 900px;
             margin: auto;
             margin-top: 5%;
-            border-bottom: 3px solid rgb(121, 172, 120);;
+            border-bottom: 3px solid #388755;
         }
 
         #register-title-area>p{ /* 회원가입 텍스트 */
             font-size: 26px;
             font-weight: bold;
-            color: rgb(121, 172, 120);
+            color: #388755;
             letter-spacing: 3px;
         }
 
@@ -63,7 +63,7 @@
             float: right;
             margin-left: 2px;
             margin-top: 20px;
-            background-color: rgb(121, 172, 120);
+            background-color: #388755;
             color: white;
         }
         .register-title-menu:hover{ /* 상단슬롯 호버효과제거 */
@@ -72,7 +72,7 @@
             float: right;
             margin-left: 2px;
             margin-top: 20px;
-            background-color: rgb(121, 172, 120);
+            background-color: #388755;
             color: white;
         }
 
@@ -81,7 +81,7 @@
             font-size: 22px;
             font-weight: 700;
             text-align: center;
-            color: rgb(121, 172, 120);
+            color: #388755;
             letter-spacing: 2px;
         }
 
@@ -130,7 +130,7 @@
             font-size: 22px;
             font-weight: 700;
             text-align: center;
-            color: rgb(121, 172, 120);
+            color: #388755;
             letter-spacing: 2px;
             display: block;
         }
@@ -170,13 +170,13 @@
         #duplicate-check{ /* 아이디 중복확인 버튼 */
             margin-left: 20px;
             border: 0px;
-            background-color: rgb(121, 172, 120);
+            background-color: #388755;
             color: white;
             border-radius: 25px;
             width: 100px;
         }
         #duplicate-check:hover{
-            background-color: rgb(82, 116, 82);
+            background-color: #388755;
         }
 
         #account-form-table p{ /* ID/PWD 조건텍스트 */
@@ -210,7 +210,7 @@
         }
 
         footer {
-            background-color: green;
+            background-color: #388755;
             color: black;
             padding: 1em;
             text-align: center;
