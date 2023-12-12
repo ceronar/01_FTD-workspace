@@ -131,6 +131,28 @@
 		  'GRAD' 0,
 		  'opsz' 24
 		}
+		
+		/* navi css */
+		#nav1 {
+		    display: none !important;
+		}
+		
+		#nav2 {
+		    display: none !important;
+		}
+		
+		#nav3 {
+		    display: none !important;
+		}
+		
+		#nav4 {
+		    display: none !important;
+		}
+		
+		#nav5 {
+		    display: block !important;
+		}
+      
       
     </style>
 </head>

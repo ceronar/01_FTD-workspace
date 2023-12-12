@@ -34,6 +34,7 @@
 		height: 100%;
 		width: 100%;
 		color: rgba(118, 118, 118, 0.792);
+		cursor: pointer;
 	}
 
 	#home-icon, #my-icon {
