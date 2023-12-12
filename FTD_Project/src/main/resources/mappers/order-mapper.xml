@@ -71,4 +71,10 @@
 		   AND STATUS = 'N'
 	</delete>
 	
+	<select id="memberOrderList" parameterType="_int" resultMap="orderResultSet">
+		SELECT ORDER_NO, PRICE, PAY_DATE, REQUEST
+		  FROM "ORDER"
+		 WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
 </mapper>

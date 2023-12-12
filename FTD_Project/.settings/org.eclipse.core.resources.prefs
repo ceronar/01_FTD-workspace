@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/common/FAQ.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/common/IntroduceCompany.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/main.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/memberInsert.jsp=UTF-8

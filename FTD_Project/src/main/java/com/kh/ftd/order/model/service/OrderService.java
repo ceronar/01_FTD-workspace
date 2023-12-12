@@ -47,4 +47,8 @@ public class OrderService{
 		return orderDao.ajaxDeleteCart(sqlsession, cart);
 	}
 
+	public ArrayList<Order> memberOrderList(int memberNo) {
+		return orderDao.memberOrderList(sqlsession, memberNo);
+	}
+
 }

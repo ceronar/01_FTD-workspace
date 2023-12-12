@@ -143,9 +143,9 @@ public class NoticeController {
 							  Model model,
 							  HttpSession session) {
 		
-		// bno 에는 post 방식으로 넘겨받은 글번호가 들어가있음
+		
+		System.out.println(filePath);
 
-		String[] list = filePath.split(",");
 		
 		// 삭제 요청
 		int result = noticeService.deleteNotice(nno);
@@ -159,10 +159,10 @@ public class NoticeController {
 			// filePath 라는 매개변수에는
 			// 기존에 첨부파일이 있었을 경우 수정파일명
 			// 기존에 첨부파일이 없었을 경우 "" 이 들어가 있음
-			if(!filePath.equals("")) {
+			if(filePath != null) {
 				// 기존에 첨부파일이 있었을 경우
 				// => 해당 파일을 삭제처리
-				
+				String[] list = filePath.split(",");
 				// 해당 파일이 실제 저장되어있는 경로 알아내기
 				for(int i = 0; i < list.length; i++) {
 					

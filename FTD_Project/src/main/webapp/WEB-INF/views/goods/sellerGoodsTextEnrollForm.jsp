@@ -54,7 +54,8 @@
 		line-height: 50px;
 		font-size: 30px;
 		font-family: 'Noto Sans KR', sans-serif;
-		width: 80%;
+		width: 90%;
+		padding-right: 80px;
 	}
 
 	.header-cart {
@@ -76,19 +77,15 @@
 	}
 
 	.goods-title, .goods-price {
-		width: 95%;
+		width: 100%;
 		height: 70px;
 		padding-left: 20px;
 		text-align: left;
 		font-size: 35px;
 		line-height: 70px;
 		margin-bottom: 10px;
-	}
-
-	.goods-like {
-		width: 100px;
-		height: 70px;
-		float: right;
+		box-sizing: border-box;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	.br-line {
@@ -167,7 +164,6 @@
 
 	}
 
-
 	/* 나중에 높이값 수정 필요!!!!! */
 	.goods-content {
 		width: 100%;
@@ -220,7 +216,7 @@
 
 	.sub-footer1 {
 		width: 100%;
-		height: 80px;
+		height: 50px;
 		position: sticky; /* 스크롤에 고정 */
 		bottom : 0px;
 		background-color: #ffffff;
@@ -230,17 +226,6 @@
 		/* padding-top: 5px; */
 	}
 
-	.sub-footer2 {
-		width: 100%;
-		height: 150px;
-		position: sticky; /* 스크롤에 고정 */
-		bottom : 0px;
-		background-color: #ffffff;
-		border-top-left-radius: 4px;
-    	border-top-right-radius: 4px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-		display: none;
-	}
 
 	.pay-button {
 		width: 60%;
@@ -253,14 +238,6 @@
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 
-	.like-button {
-		width: 30%;
-		height: 40px;
-		display: inline;
-		font-size: 20px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
 	.btn-icon {
 		margin: auto;
 		width: 25px;
@@ -268,77 +245,6 @@
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 	}
-
-	.cart-button {
-		width: 45%;
-		height: 40px;
-		display: inline;
-		font-size: 20px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	.pay2-button {
-		width: 45%;
-		height: 40px;
-		margin-top: 5px;
-		margin-left: 20px;
-		box-sizing: border-box;
-		display: inline;
-		font-size: 20px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	.good-info {
-		margin: auto;
-		height: 70px;
-		width: 100%;
-		padding-left: 30px;
-		padding-right: 30px;
-		box-sizing: border-box;
-	}
-
-	.goods-count-text {
-		font-family: 'Noto Sans KR', sans-serif;
-		font-size: 15px;
-		text-align: left;
-	}
-
-	.goods-count {
-		width: 100%;
-		height: 45px;
-		box-sizing: border-box;
-	}
-
-	.goods-count-div1, .goods-count-div2 {
-		float: left;
-		height: 100%;
-		box-sizing: border-box;
-	}
-
-	.goods-count-div1 {
-		width: 55%;
-		margin-right: 40px;
-		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 45px;
-		font-size: 30px;
-	}
-
-	.goods-count-div2 {
-		width: 40%;
-	}
-
-	.count-number {
-		width: 60px;
-		height: 30px;
-	}
-
-	.count-btn {
-		margin: 5px;
-		width: 60px;
-		height: 35px;
-		font-size: 15px;
-	}
-
 
 
 </style>
@@ -354,8 +260,7 @@
 	            
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
-					<div class="header-title">제목</div>
-					<div class="header-cart"><span class="material-symbols-outlined">shopping_cart</span></div>
+					<div class="header-title">상품 글 등록</div>
 	            </div>
 	            
 				<div class="header-img"></div>
@@ -365,9 +270,7 @@
 					<div class="goods">
 
 						<div class="goods-title">국내산 홍가라비 1kg</div>
-						<div class="goods-price">3,900 원
-							<div class="goods-like"></div>
-						</div>
+						<div class="goods-price">3,900 원</div>
 						
 						<div class="br-line"></div>
 						<br>
@@ -406,72 +309,18 @@
 
 					<div class="sub-menu">
 						<a href="#goods-content" 							class="menu1">상품소개</a>
-						<a href="#sub-review" 								class="menu2">후기 1</a>
-						<a href="#goods-reply" 								class="menu3">상품문의</a>
 					</div>
 
 					<div class="goods-content" id="goods-content">
 
 
-					</div>
-
-					<div class="br2-line"></div>
-
-					<div class="sub-review" id="sub-review">
-						<div class="sub-header">
-							<div class="sub-header-title" style="width: 110px;">후기 1건</div>
-							<div class="sub-header-icon"><span class="material-symbols-outlined">arrow_forward_ios</span></div>	
-						</div>
-						
-						<div class="br-line"></div>
-
-						<div class="sub-review-content"></div>
-					</div>
-
-					<div class="br2-line"></div>
-
-					<div class="goods-reply" id="goods-reply">
-						<div class="sub-header">
-							<div class="sub-header-title">상품문의</div>
-							<div class="sub-header-icon"><span class="material-symbols-outlined">arrow_forward_ios</span></div>	
-						</div>
-						
-						<div class="br-line"></div>
-
-						<div class="goods-reply-content"></div>
-
-					</div>
-									
+					</div>					
 					
 					<div class="sub-footer1">
-						<div class="btn-icon" id="footer-icon1"><span class="material-symbols-outlined">keyboard_arrow_up</span></div>
-						<button class="like-button">찜 하기</button>
-						<button class="pay-button">주문하기</button>
+						<button class="pay-button">등록하기</button>
 					</div>
 
-					<div class="sub-footer2">
-						<form action="">
-							<div class="btn-icon" id="footer-icon2"><span class="material-symbols-outlined">keyboard_arrow_down</span></div>
-							
-							<div class="good-info">
-								<div class="goods-count-text">상품 수량 선택(필수) </div>
-								<div class="goods-count">
-									<div class="goods-count-div1">
-										상품 제목
-									</div>
-									<div class="goods-count-div2">
-										<button class="count-btn">-</button>
-										<input class="count-number" value="">
-										<button class="count-btn">+</button>
-									</div>
-								</div>
-							</div>
-		
-							<div class="br-line"></div>
-							<button class="cart-button">장바구니 담기</button>
-							<button class="pay2-button">주문하기</button>
-						</form>
-					</div>
+					
         		</div>
         		
         		
@@ -479,28 +328,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-	
-	$(function() {
-    	
-		// 아래 화살표 누룰시 이벤트 처리
-		$(".sub-footer1").on("click", "#footer-icon1",function() {
-    		
-			$(".sub-footer1").css('display', 'none');
-			$(".sub-footer2").css('display', 'block');
-    	
-    	});
-		
-		$(".sub-footer2").on("click", "#footer-icon2",function() {
-    		
-			$(".sub-footer2").css('display', 'none');
-			$(".sub-footer1").css('display', 'block');
-    	
-    	});
-	});
-	
-	</script>
 
 </body>
 </html>

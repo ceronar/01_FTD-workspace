@@ -11,7 +11,7 @@
 		<result column="COUNT" property="count" />
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
-		<result column="RESPONSE_CONTENT" property="resopnseContent" />
+		<result column="RESPONSE_CONTENT" property="responseContent" />
 		<result column="RESPONSE_DATE" property="responseDate" />
 		<result column="MEMBER_ID" property="memberId" />
 	</resultMap>
@@ -111,6 +111,9 @@
 		     , INQ_TITLE
 		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
 		     , INQ_CONTENT
+		     , SELLER_NO
+		     , RESPONSE_CONTENT
+		     , RESPONSE_DATE
 		  FROM INQUIRY
 		 WHERE INQ_NO = #{inqNo}
 		   AND SELLER_NO = #{sellerNo}
@@ -139,5 +142,12 @@
 		   AND INQ_NO = #{inqNo}
 		 ORDER BY REPLY_NO DESC
 	</select>
+	
+	<update id="insertAnswer" parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET RESPONSE_CONTENT = #{responseContent}, RESPONSE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inqNo}
+		   AND DELETE_DATE IS NULL
+	</update>
 
 </mapper>

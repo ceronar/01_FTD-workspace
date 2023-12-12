@@ -65,7 +65,7 @@
       }
       
       button {
-          background-color: #4caf50;
+          background-color: #388755;
           color: white;
           padding: 10px;
           border: none;
@@ -74,7 +74,7 @@
           font-size: 16px;
       }
       button:hover {
-          background-color: #45a049;
+          background-color: #388755;
       }
       /* Style for modal overlay */
       .overlay {
@@ -147,7 +147,28 @@
     .Gender input {
         margin-right: 5px; /* Adjust as needed for spacing between radio buttons */
     }
-
+    
+    /* navi css */
+	#nav1 {
+	    display: none !important;
+	}
+	
+	#nav2 {
+	    display: none !important;
+	}
+	
+	#nav3 {
+	    display: none !important;
+	}
+	
+	#nav4 {
+	    display: block !important;
+	}
+	
+	#nav5 {
+	    display: none !important;
+	}
+	
     </style>
 </head>
 <body>

@@ -41,7 +41,7 @@
 	</c:if>
 	
 	<!-- 1회성 successMsg 출력 코드 -->
-	<c:if test="${ not empty sessionScope.alertMsg }">
+	<c:if test="${ not empty sessionScope.successMsg }">
 		<script>
 			alertify.success('${ sessionScope.successMsg }');
 		</script>
@@ -56,7 +56,7 @@
 			<div class="title-logo"><img class="logo" src= "${pageContext.request.contextPath}/resources/images/sample/logo.png" onclick="location.href='${pageContext.request.contextPath}';"></div>
 			<div class="title-name"><a href="${pageContext.request.contextPath}/">신선한 땅의 맛</a></div>
 			<div class="title-search"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">search</span></div>
-			<div class="title-cart"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">shopping_cart</span></div>
+			<div class="title-cart"><span class="material-symbols-outlined" onclick="location.href='basket.me';">shopping_cart</span></div>
 			<div class="title-login">
 			<c:choose>
 	            	<%-- 관리자 로그인인 경우 --%>
@@ -86,8 +86,8 @@
 		<div class="nav-menu" id="nav1">
 			<a href="" 	class="menu1">추천</a>
 			<a href="list.no" 					class="menu2">공지사항</a>
-			<a href="" 							class="menu3">고객센터</a>
-			<a href="" 							class="menu4">회사소개</a>
+			<a href="FAQ" 							class="menu3">고객센터</a>
+			<a href="IntroduceCompany" 							class="menu4">회사소개</a>
 		</div>
 		
 		<div class="nav-menu" id="nav2">
@@ -105,7 +105,7 @@
 				<a href="sellerGoodsTextListPage.go" 			class="menu2">판매자 상품 글</a>
            	</c:when>
            	
-			<%-- 로그인 전 --%>
+			<%-- 로그인 전 이거나 구매자일 경우 --%>
            	<c:otherwise>
 				<a href="goodsRecommendPage.go" 	class="menu1">쇼핑추천</a>
 				<a href="goodsBestPage.go" 			class="menu2">베스트</a>	
@@ -113,7 +113,23 @@
 		</c:choose>
 			<a href="goodsListPage.go" 			class="menu3">상품</a>
 			<a href="" 							class="menu4">비고</a>
-		</div>		
+		</div>
+		
+		<!-- 구매자 마이페이지 -->
+		<div class="nav-menu" id="nav4">
+			<a href="orderList.me" 					class="menu1">주문내역</a>
+			<a href="" 								class="menu2">좋아요</a>
+			<a href="" 								class="menu3">찜</a>
+			<a href="" 								class="menu4">쓴 글</a>
+		</div>
+		
+		<!-- 판매자 마이페이지 -->
+		<div class="nav-menu" id="nav5">
+			<a href="" 								class="menu1">내 가게</a>
+			<a href="" 								class="menu2">물품</a>
+			<a href="" 								class="menu3">통계</a>
+			<a href="#" 							class="menu4"></a>
+		</div>
 		
 	</div>
 	

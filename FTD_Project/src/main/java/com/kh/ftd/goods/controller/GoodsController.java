@@ -2,6 +2,8 @@ package com.kh.ftd.goods.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -217,6 +219,127 @@ public class GoodsController {
 	public String sellerGoodsEnrollFormPage() {
 		
 		return "goods/sellerGoodsEnrollForm";
+	}
+	
+	// 판매자 상품 등록 
+	@RequestMapping("insertSellerGoods.go")
+	public String insertSellerGoods(HttpSession session, Goods goods) {
+			
+		int result = goodsService.insertSellerGoods(goods); 
+		
+		if(result > 0) { // 상품 등록 성공 
+			
+			session.setAttribute("successMsg", "상품 등록을 성공했습니다.");
+			
+			return "redirect:/sellerGoodsListPage.go";
+			
+			
+		} else { // 상품 등록 실패
+			
+			session.setAttribute("successMsg", "상품 등록을 실패했습니다.");
+			
+			return "redirect:/sellerGoodsListPage.go";
+		}
+		
+	}
+	
+	// 판매자 상품 글 리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "ajaxSelectSellerGoodsTextList.go" , produces = "application/json; charset=UTF-8")
+	public String ajaxSelectSellerGoodsTextList(int page, int pageSize, int sellerNo) {
+			
+		// 상품 판매 정보
+		ArrayList<GoodsSell> gsList = goodsService.ajaxSelectSellerGoodsTextList(sellerNo);
+		
+		// 상품 리스트
+		ArrayList<Goods> gList = new ArrayList<>();
+		
+		// 상품 파일
+		ArrayList<GoodsFile> gfList = new ArrayList<>();
+		
+		// 상품 평균 별점
+		ArrayList<Object> starList = new ArrayList<>();
+		
+		// 상품 댓글 수
+		ArrayList<Object> replyList = new ArrayList<>();
+	
+		// 상품 총 리스트 수
+		int totalList = gsList.size();
+		
+		System.out.println(totalList);
+		
+		int startPage = page * pageSize;
+		
+		int endPage = Math.min(startPage + pageSize, totalList);		
+				
+		for(GoodsSell gs : gsList) {
+			
+			int goodNo = gs.getGoodNo();
+			int sellNo = gs.getSellNo();
+			
+			// System.out.println(goodNo);
+			
+			// 상품 판매 정보
+			Goods goods = goodsService.ajaxSelectGoodsByGoodNo(goodNo);			
+			gList.add(goods);
+			
+			// 상품 파일
+			GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
+			if(goodsFile != null) { // 상품 파일이 있을 시
+				
+				gfList.add(goodsFile);
+				
+			} else { // 상품 파일이 없을 시
+				
+				goodsFile = new GoodsFile();
+				gfList.add(goodsFile);
+						
+			// 상품 평균 별점
+			double starRating = goodsService.ajaxSelectStarRating(goodNo);
+			starList.add(starRating);
+			
+			// 상품 댓글 수
+			int reply = goodsService.ajaxSelectReplyCount(sellNo);
+			replyList.add(reply);
+			
+			}
+		}
+				
+		System.out.println(gList);		
+		System.out.println(gsList);
+		System.out.println(gfList);
+		System.out.println(starList);
+		System.out.println(replyList);
+		
+		ArrayList<Object> resultList = new ArrayList<>();
+		
+		for (int i = startPage; i < endPage; i++) {
+			
+			ArrayList<Object> arrList = new ArrayList<>();
+			
+			arrList.add(gList.get(i));
+			arrList.add(gsList.get(i));
+			arrList.add(gfList.get(i));
+			arrList.add(starList.get(i));
+			arrList.add(replyList.get(i));
+			
+			// 상품 전체 리스트
+			resultList.add(arrList);		
+		
+		}
+	
+		System.out.println(startPage);
+		System.out.println(endPage);
+		
+		return new Gson().toJson(resultList);
+					
+	}
+	
+	// 판매자 상품 글 등록 페이지 이동
+	@RequestMapping("sellerGoodsTextEnrollForm.go")
+	public String sellerGoodsTextEnrollFormPage() {
+		
+		return "goods/sellerGoodsTextEnrollForm";
 	}
 
 }

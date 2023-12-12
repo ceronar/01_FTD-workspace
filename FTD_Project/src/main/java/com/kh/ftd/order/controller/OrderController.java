@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.ftd.goods.model.service.GoodsService;
+import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.order.model.service.OrderService;
 import com.kh.ftd.order.model.vo.Cart;
@@ -23,6 +25,9 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private GoodsService goodsService;
 	
 	@RequestMapping(value = "basket.me")
 	public ModelAndView memberBasketList(HttpSession session, ModelAndView mv) {
@@ -62,6 +67,8 @@ public class OrderController {
 				// 모든 orderGoods 가 제대로 완료 되었다면 result1 > 0
 				if(result1 > 0) {
 					// 결제 성공 페이지로
+					model.addAttribute("orderNo", orderNo).addAttribute("price", order.getPrice());
+					
 					return "order/paySuccessView";
 				} else { 
 					// 하나라도 실패
@@ -88,5 +95,32 @@ public class OrderController {
 			return "fail";
 		}
 	}
+	
+
+	
+	@RequestMapping("orderList.me")
+	public String memberOrderList(HttpSession session, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int memberNo = loginUser.getMemberNo();
+		
+		ArrayList<Order> list = orderService.memberOrderList(memberNo);
+		
+		model.addAttribute("list", list);
+		
+		return "member/memberOrderList";
+		
+	}
+	
+	@PostMapping("orderDetail.me")
+	public String memberOrderDetail(int orderNo, Model model) {
+		
+		ArrayList<Goods> list = goodsService.memberOrderDetail(orderNo);
+		
+		model.addAttribute("list", list);
+		
+		return "member/memberOrderDetail";
+	}
+	
 	
 }

@@ -15,11 +15,15 @@
 <style>
 
 	div {
-		border: 1px solid black;
+		/* border: 1px solid black; */
 	}
 
 	.main-div {
 		margin-left: 140px;
+	}
+
+	.content {
+		height: 830px;
 	}
 	
 	.header {
@@ -31,11 +35,9 @@
 		height: 50px;
 		background-color: #ffffff;
     	box-sizing: border-box;
-		position: sticky; /* 스크롤에 고정 */
-		top: 0px;
 	}
 
-	.header-back, .header-title, .header-cart {
+	.header-back, .header-title {
 		float: left;
 		height: 100%;
 		box-sizing: border-box;
@@ -55,43 +57,22 @@
 		line-height: 50px;
 		font-size: 30px;
 		font-family: 'Noto Sans KR', sans-serif;
-		width: 80%;
-	}
-
-	.header-cart {
-		width: 10%;
-	}
-
-	.header-cart > span {
-		font-size: 35px;
-		font-weight: 200;
-		line-height: 50px;
-		color: rgb(85, 85, 85);
-	}
-
-	.header-img {
-		width: 100%;
-		height: 500px;
-		background-color: #ffffff;
-    	box-sizing: border-box;
+		width: 90%;
+		padding-right: 80px;
 	}
 
 	.goods-title, .goods-price {
-		width: 95%;
+		width: 100%;
 		height: 70px;
 		padding-left: 20px;
 		text-align: left;
-		font-size: 35px;
+		font-size: 50px;
 		line-height: 70px;
 		margin-bottom: 10px;
+		box-sizing: border-box;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
-
-	.goods-like {
-		width: 100px;
-		height: 70px;
-		float: right;
-	}
-
+	
 	.br-line {
 		width: 95%;
 		margin: auto;
@@ -99,18 +80,18 @@
 	}
 
 	tr > th {
-		width: 120px;
-		height: 50px;
+		width: 250px;
+		height: 90px;
 		padding-left: 15px;
-		font-size: 17px;
+		font-size: 30px;
 		text-align: left;
 		font-weight: 500;
 		color: rgb(85, 85, 85);
-		font-family: 'Noto Sans KR', sans-serif;	
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	tr > td {
-		width: 300px;
+		width: 600px;
 		height: 40px;
 		font-size: 17px;
 		text-align: left;
@@ -123,6 +104,16 @@
 		font-size: 12px;
 		color: rgb(118, 118, 118);
 		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+	input {
+		width: 300px;
+		height: 40px;
+		font-size: 20px;
+		font-family: 'Noto Sans KR', sans-serif;
+		border: 0px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		padding-left: 15px;
 	}
 	
 	/* sub-content */
@@ -147,99 +138,14 @@
 	'opsz' 24
 	}
 
-	.sub-menu {
-		position: sticky; /* 스크롤에 고정 */
-		top: 50px;
-		background-color: #ffffff;
-	}
-
-	/* sub-menu */
-	.sub-menu a {
-	width: 180px;
-    display: inline-block; /* 가로로 나열되도록 변경합니다. */
-    text-decoration: none;
-    padding: 10px; /* 위아래 좌우 여백 조절 */
-    margin: 0 5px; /* 좌우 간격 조절 */
-	font-size: 22px;
-    color: rgb(85, 85, 85);
-    font-family: 'Noto Sans KR', sans-serif;
-    /* background-color: #ccc; */
-    /* border-radius: 5px; */
-
-	}
-
-	/* 나중에 높이값 수정 필요!!!!! */
-	.goods-content {
-		width: 100%;
-		height: 700px;
-	}
-
-	.sub-review {
-		width: 100%;
-		height: 700px;
-	}
-
-	.goods-reply {
-		width: 100%;
-		height: 700px;
-	}
-
-	/* sub-header div */
-	.sub-header {
-		margin: auto;
-		margin-top: 10px;
-		padding: 20px;
-		width: 100%;
-		height: 80px;
-		box-sizing: border-box;
-	}
-
-	.sub-header-title {
-		width: 100px;
-		height: 50px;
-		float: left;
-		font-size: 20px;
-		line-height: 40px;
-		text-align: left;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	.sub-header-icon {
-		width: 50px;
-		height: 50px;
-		float: left;
-		line-height: 40px;
-		text-align: left;
-	}
-
-	.sub-header-icon > span {
-		line-height: 43px;
-		font-size: 22px;
-		
-	}
-
 	.sub-footer1 {
 		width: 100%;
-		height: 80px;
-		position: sticky; /* 스크롤에 고정 */
-		bottom : 0px;
+		height: 50px;
 		background-color: #ffffff;
 		border-top-left-radius: 4px;
     	border-top-right-radius: 4px;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		/* padding-top: 5px; */
-	}
-
-	.sub-footer2 {
-		width: 100%;
-		height: 150px;
-		position: sticky; /* 스크롤에 고정 */
-		bottom : 0px;
-		background-color: #ffffff;
-		border-top-left-radius: 4px;
-    	border-top-right-radius: 4px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-		display: none;
 	}
 
 	.pay-button {
@@ -253,14 +159,6 @@
 		font-family: 'Noto Sans KR', sans-serif;
 	}
 
-	.like-button {
-		width: 30%;
-		height: 40px;
-		display: inline;
-		font-size: 20px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
 	.btn-icon {
 		margin: auto;
 		width: 25px;
@@ -268,78 +166,26 @@
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 	}
-
-	.cart-button {
-		width: 45%;
-		height: 40px;
-		display: inline;
-		font-size: 20px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	.pay2-button {
-		width: 45%;
-		height: 40px;
-		margin-top: 5px;
-		margin-left: 20px;
-		box-sizing: border-box;
-		display: inline;
-		font-size: 20px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	.good-info {
-		margin: auto;
-		height: 70px;
-		width: 100%;
-		padding-left: 30px;
-		padding-right: 30px;
-		box-sizing: border-box;
-	}
-
-	.goods-count-text {
-		font-family: 'Noto Sans KR', sans-serif;
-		font-size: 15px;
-		text-align: left;
-	}
-
-	.goods-count {
-		width: 100%;
-		height: 45px;
-		box-sizing: border-box;
-	}
-
-	.goods-count-div1, .goods-count-div2 {
-		float: left;
+	
+	.goods-title-div1, .goods-title-div2 {
 		height: 100%;
 		box-sizing: border-box;
+		float: left;
 	}
 
-	.goods-count-div1 {
-		width: 55%;
-		margin-right: 40px;
-		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 45px;
-		font-size: 30px;
+	.goods-title-div1 {
+		font-size: 18px;
+		width: 10%;
+		color: rgb(85, 85, 85);
 	}
 
-	.goods-count-div2 {
-		width: 40%;
+	.goods-title-div2 {
+		width: 70%;
 	}
 
-	.count-number {
-		width: 60px;
-		height: 30px;
+	#goods-title-div2 {
+		font-size: 35px;
 	}
-
-	.count-btn {
-		margin: 5px;
-		width: 60px;
-		height: 35px;
-		font-size: 15px;
-	}
-
-
 
 </style>
 <body>
@@ -353,124 +199,74 @@
 	            
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
-					<div class="header-title">제목</div>
-					<div class="header-cart"><span class="material-symbols-outlined">shopping_cart</span></div>
+					<div class="header-title">상품 등록</div>
 	            </div>
-	            
-				<div class="header-img"></div>
-	            
-	            <div class="content">					
-           				
-					<div class="goods">
-
-						<div class="goods-title">국내산 홍가라비 1kg</div>
-						<div class="goods-price">3,900 원
-							<div class="goods-like"></div>
-						</div>
-						
-						<div class="br-line"></div>
-						<br>
-
-						<table>
-							<tr>
-								<th>배송비</th>
-								<td>4,000원</td>
-							</tr>
-							<tr>
-								<th class="td-size"></th>
-								<td class="td-size">제주, 도서산간지역 배송 불가</td>
-							</tr>
-							<tr>
-								<th>배송방식</th>
-								<td>택배</td>
-							</tr>
-							<tr>
-								<th>원산지</th>
-								<td>통영</td>
-							</tr>
-							<tr>
-								<th>보관방법</th>
-								<td>받으신 후 냉장 보관 해 주세요.</td>
-							</tr>
-						</table>
-
-					</div>
-		        </div>
-				
-				
-				<div class="sub-content">
-					
-					<div class="br2-line"></div>
-
-					<div class="sub-menu">
-						<a href="#goods-content" 							class="menu1">상품소개</a>
-						<a href="#sub-review" 								class="menu2">후기 1</a>
-						<a href="#goods-reply" 								class="menu3">상품문의</a>
-					</div>
-
-					<div class="goods-content" id="goods-content">
-
-
-					</div>
-
-					<div class="br2-line"></div>
-
-					<div class="sub-review" id="sub-review">
-						<div class="sub-header">
-							<div class="sub-header-title" style="width: 110px;">후기 1건</div>
-							<div class="sub-header-icon"><span class="material-symbols-outlined">arrow_forward_ios</span></div>	
-						</div>
-						
-						<div class="br-line"></div>
-
-						<div class="sub-review-content"></div>
-					</div>
-
-					<div class="br2-line"></div>
-
-					<div class="goods-reply" id="goods-reply">
-						<div class="sub-header">
-							<div class="sub-header-title">상품문의</div>
-							<div class="sub-header-icon"><span class="material-symbols-outlined">arrow_forward_ios</span></div>	
-						</div>
-						
-						<div class="br-line"></div>
-
-						<div class="goods-reply-content"></div>
-
-					</div>
-					
-					
-					<div class="sub-footer1">
-						<div class="btn-icon" id="footer-icon1"><span class="material-symbols-outlined">keyboard_arrow_up</span></div>
-						<button class="like-button">찜 하기</button>
-						<button class="pay-button">주문하기</button>
-					</div>
-
-					<div class="sub-footer2">
-						<form action="">
-							<div class="btn-icon" id="footer-icon2"><span class="material-symbols-outlined">keyboard_arrow_down</span></div>
-							
-							<div class="good-info">
-								<div class="goods-count-text">상품 수량 선택(필수) </div>
-								<div class="goods-count">
-									<div class="goods-count-div1">
-										상품 제목
-									</div>
-									<div class="goods-count-div2">
-										<button class="count-btn">-</button>
-										<input class="count-number" value="">
-										<button class="count-btn">+</button>
-									</div>
-								</div>
+	        	            
+				<form action="insertSellerGoods.go" method="post">
+		            <div class="content">					
+	           				
+						<div class="goods">
+	
+							<div class="goods-title">
+								<div class="goods-title-div1">상호명</div>
+								<div class="goods-title-div2">${sessionScope.loginSeller.companyName }</div>
 							</div>
-		
+							<div class="goods-price">
+								<div class="goods-title-div1">대표명</div>
+								<div class="goods-title-div2" id="goods-title-div2">${sessionScope.loginSeller.sellerName }</div>
+							</div>
+							
 							<div class="br-line"></div>
-							<button class="cart-button">장바구니 담기</button>
-							<button class="pay2-button">주문하기</button>
-						</form>
-					</div>
-        		</div>
+							<br>
+							
+							<input type="hidden" name="sellerNo" value="${sessionScope.loginSeller.sellerNo }">
+							<table>
+								<tr>
+									<th>품목</th>
+									<td><input type="text" name="goodTitle"></td>
+								</tr>
+								<tr>
+									<th class="td-size"></th>
+									<td class="td-size">한글품목명으로 입력해주세요.</td>
+								</tr>
+								<tr>
+									<th>품목상세정보</th>
+									<td><input type="text" name="goodDetail"></td>
+								</tr>
+								<tr>
+									<th>원산지</th>
+									<td><input type="text" name="origin"></td>
+								</tr>
+								<tr>
+									<th class="td-size"></th>
+									<td class="td-size">도/시/군/구 까지 입력해주세요.</td>
+								</tr>
+								<tr>
+									<th>판매가</th>
+									<td><input type="number" name="price"></td>
+								</tr>
+								<tr>
+									<th>유통기한</th>
+									<td><input type="date" name="expiration"></td>
+								</tr>
+								<tr>
+									<th>재고</th>
+									<td><input type="number" name="stock"></td>
+								</tr>
+							</table>	
+
+						</div>
+										
+		        	</div>
+				
+				
+					<div class="sub-content">				
+						<div class="sub-footer1">
+							<button class="pay-button" type="submit">등록하기</button>
+						</div>	
+	        		</div>
+				</form>
+				
 			</div>
 		</div>
 	</div>
@@ -479,20 +275,7 @@
 	
 	$(function() {
     	
-		// 아래 화살표 누룰시 이벤트 처리
-		$(".sub-footer1").on("click", "#footer-icon1",function() {
-    		
-			$(".sub-footer1").css('display', 'none');
-			$(".sub-footer2").css('display', 'block');
-    	
-    	});
-		
-		$(".sub-footer2").on("click", "#footer-icon2",function() {
-    		
-			$(".sub-footer2").css('display', 'none');
-			$(".sub-footer1").css('display', 'block');
-    	
-    	});
+
 	});
 	
 	</script>
