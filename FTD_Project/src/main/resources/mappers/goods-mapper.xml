@@ -96,4 +96,11 @@
 		   AND DELETE_DATE IS NULL
 	</select>
 	
+	<select id="memberOrderDetail" parameterType="_int" resultMap="goodsResultSet">
+		SELECT OG.GOOD_NO, G.GOOD_TITLE, OG.COUNT, OG.PRICE, OG.STATUS
+		  FROM ORDER_GOODS OG
+		  JOIN GOODS G
+		 WHERE ORDER_NO = #{orderNo}
+	</select>
+	
 </mapper>

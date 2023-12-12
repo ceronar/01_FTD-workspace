@@ -41,6 +41,10 @@ public class GoodsDao {
 
 		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectSellerGoodsList", sellerNo);
 	}
+
+	public ArrayList<Goods> memberOrderDetail(SqlSessionTemplate sqlSession, int orderNo) {
+		return (ArrayList)sqlSession.selectList("goodsMapper.memberOrderDetail", orderNo);
+	}
 	
 	
 }

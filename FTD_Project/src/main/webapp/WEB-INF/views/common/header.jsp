@@ -117,7 +117,7 @@
 		
 		<!-- 구매자 마이페이지 -->
 		<div class="nav-menu" id="nav4">
-			<a href="" 								class="menu1">주문내역</a>
+			<a href="orderList.me" 					class="menu1">주문내역</a>
 			<a href="" 								class="menu2">좋아요</a>
 			<a href="" 								class="menu3">찜</a>
 			<a href="" 								class="menu4">쓴 글</a>
