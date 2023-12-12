@@ -96,4 +96,57 @@
 		   AND DELETE_DATE IS NULL
 	</select>
 	
+	<insert id="insertSellerGoods" parameterType="goods">
+		INSERT INTO GOODS(GOOD_NO
+		                , SELLER_NO
+		                , GOOD_TITLE
+		                , GOOD_DETAIL
+		                , ORIGIN
+		                , PRICE
+		                , EXPIRATION_DATE
+		                , STOCK)
+		           VALUES(SEQ_GNO.NEXTVAL
+		                , #{sellerNo}
+		                , #{goodTitle}
+		                , #{goodDetail}
+		                , #{origin}
+		                , #{price}
+		                , #{expiration}
+		                , #{stock})	
+	</insert>
+	
+	<select id="ajaxSelectSellerGoodsTextList" parameterType="_int" resultMap="goodsSellResultSet">
+		SELECT *
+		  FROM GOODS_SELL
+		 WHERE DELETE_DATE IS NULL
+		   AND SELLER_NO = 1 
+		 ORDER BY CREATE_DATE
+	</select>
+	
+	<select id="ajaxSelectGoodsByGoodNo" parameterType="_int" resultMap="goodsResultSet">	
+		SELECT *
+		  FROM GOODS
+		 WHERE DELETE_DATE IS NULL 
+		   AND GOOD_NO = #{goodNo}	
+	</select>
+	
+	<select id="ajaxSelectGoodsMainFileList" parameterType="_int" resultMap="goodsFileResultSet">
+		SELECT *
+		  FROM GOODS_FILE
+		 WHERE SELL_NO = #{sellNo} 
+		   AND DELETE_DATE IS NULL
+		   AND CREATE_DATE IS NOT NULL
+	</select>
+	
+	<select id="ajaxSelectReplyCount" parameterType="_int" resultType="_int">
+		SELECT NVL(COUNT(S.REPLY_NO), 0)
+		  FROM SELL_REPLY S
+		  JOIN MEMBER M ON (S.MEMBER_NO = M.MEMBER_NO)
+		 WHERE S.SELL_NO = #{sellNo} 
+		   AND S.DELETE_DATE IS NULL
+		   AND M.STATUS IS NULL
+	</select>
+	
+	
+	
 </mapper>

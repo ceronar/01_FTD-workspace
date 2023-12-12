@@ -41,7 +41,7 @@
 	</c:if>
 	
 	<!-- 1회성 successMsg 출력 코드 -->
-	<c:if test="${ not empty sessionScope.alertMsg }">
+	<c:if test="${ not empty sessionScope.successMsg }">
 		<script>
 			alertify.success('${ sessionScope.successMsg }');
 		</script>
