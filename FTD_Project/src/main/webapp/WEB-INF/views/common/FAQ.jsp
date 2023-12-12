@@ -7,34 +7,16 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <style>
-        body {  
-            font-family: Arial, sans-serif;
-			height: 1600px;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: green;
-            color: black;
-            padding: 1em;
-            text-align: center;
-        }
-
-		@font-face {
-            font-family: 'Pretendard-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-        }
-        * { font-family: 'Pretendard-Regular'; 
-        }
+    	.content {
+    		font-family: 'Noto Sans KR', sans-serif;
+    	}
+    
 	 	.collapsible {
-            background-color: black;
+            background-color: #388755;
             color: white;
             cursor: pointer;
             padding: 18px;
@@ -42,51 +24,15 @@
             border: none;
             text-align: left;
             outline: none;
-            font-size: 15px;
+            font-size: 20px;
             margin-left:15%;
         }
-		
-		.adminNameBar { 
-        	margin:auto;
-	 		color: black(121, 172, 120);
-			text-align: center;
-	 	}
-
-         #register-title-area{ /* 상단 텍스트 영역 */
-            width: 1200px;
-            margin: auto;
-            margin-top: 5%;
-            border-bottom: 3px solid rgb(121, 172, 120);
-        }
-
-        #register-title-area>p{ /* 상단 텍스트 */
-            font-size: 26px;
-            font-weight: bold;
-            color: rgb(121, 172, 120);
-            letter-spacing: 3px;
-        }
-
-        .register-title-menu{ /* 상단슬롯 */
-            width: 12%;
-            padding: 6px;
-            float: right;
-            margin-left: 2px;
-            margin-top: 20px;
-            background-color: rgb(121, 172, 120);
-            color: white;
-        }
-
-		.container {
-            width: 70%;
-            margin: auto;
-            text-align: center;
-        }
         
-		.active1,
-        .collapsible:hover {
+		.active1 {
             background-color: gray;
         }
-        .content {
+        
+        .content_1 {
             padding: 0 18px;
             max-height: 0;
             overflow: hidden;
@@ -94,28 +40,14 @@
            
             width: 70%;
             margin-left:15%;
-        }
-        .collapsible:after {
-            content: '\002B';
-            color: white;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
-        .active1:after {
-            content: "\2212";
+            font-size: 20px;
         }
         
-        footer {
-            background-color: green;
-            color: black;
-            padding: 1em;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 		<script>
 			function collapse(element) {
 				var before = document.getElementsByClassName("active1")[0]
@@ -134,54 +66,44 @@
 		</script>
 </head>
 <body>
-<header>
-    <h1>신선한 땅의 맛</h1>
-</header>
-
-<div class="adminNameBar">
-	<br><br>
-	<h1>Farm To Dish</h1>
-	<hr>
-</div>
-<div id="register-title-area">
-    <p>
-        FAQ (자주 묻는 질문)
-            
-    </p>
-</div>
-
-<body>
-	<br><br>
-	
-	<br><br><br>
-	<button type="button" class="collapsible" onclick="collapse(this);">질문1</button>
-	
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-
-	<button type="button" class="collapsible" onclick="collapse(this);">질문2</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-	
-	<button type="button" class="collapsible" onclick="collapse(this);">질문3?</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-
-	<button type="button" class="collapsible" onclick="collapse(this);">질문4</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-
-	<button type="button" class="collapsible" onclick="collapse(this);">질문5</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-</body>
-<footer>
-    <p>&copy; 2023 Farm To Dish. All rights reserved.</p>
-</footer>
+<div class="wrapper">
+        <div class="center-div">  
+	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+			        <div class="content">
+						
+							<br><br>
+							
+							<br><br><br>
+							<button type="button" class="collapsible" onclick="collapse(this);">질문1</button>
+						
+						<div class="content_1">
+							<p>대충내용</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">질문2</button>
+						<div class="content_1">
+							<p>대충내용</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">질문3?</button>
+						<div class="content_1">
+							<p>대충내용</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">질문4</button>
+						<div class="content_1">
+							<p>대충내용</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">질문5</button>
+						<div class="content_1">
+							<p>대충내용</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>
