@@ -52,6 +52,8 @@
 		<result column="PRICE" property="price" />
 		<result column="STATUS" property="status" />
 		<result column="GOOD_TITLE" property="goodTitle" />
+		<result column="SELL_NO" property="sellNo" />
+		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 	
 	
@@ -158,9 +160,11 @@
 	</select>
 	
 	<select id="memberOrderDetail" parameterType="_int" resultMap="goodsResultSet">
-		SELECT OG.GOOD_NO, G.GOOD_TITLE, OG.COUNT, OG.PRICE, OG.STATUS
+		SELECT OG.GOOD_NO, G.GOOD_TITLE, OG."COUNT", OG.PRICE, OG.STATUS, S.SELL_NO, F.CHANGE_NAME
 		  FROM ORDER_GOODS OG
-		  JOIN GOODS G
+		  JOIN GOODS G ON (OG.GOOD_NO = G.GOOD_NO)
+		  LEFT JOIN GOODS_SELL S ON (G.GOOD_NO = S.GOOD_NO AND S.DELETE_DATE IS NULL)
+		  LEFT JOIN GOODS_FILE F ON (S.SELL_NO = F.SELL_NO AND F.CREATE_DATE IS NOT NULL)
 		 WHERE ORDER_NO = #{orderNo}
 	</select>
 	
