@@ -39,7 +39,7 @@
     #loginTitle { /* 로그인 타이틀 */
         font-size: 30px;
         font-weight: bold;
-        color: rgb(121, 172, 120);
+        color: #388755;
         text-align: center;
         margin-top: 5%;
         margin-bottom: 5%;
@@ -60,7 +60,7 @@
     #login-btn { /* 로그인 버튼 */
         margin-top: 20px;
         width: 100%;
-        background-color: rgb(121, 172, 120);
+        background-color: #388755;
     }
 
     #login-form div a { /* 회원가입 / 아이디비번찾기 연결링크 */
@@ -75,7 +75,7 @@
 	.changeBtn {
 		font-size: 24px !important;
 		font-weight: 400;
-		background-color: rgb(121, 172, 120);
+		background-color: #388755;
 		color: white;
 		border: none;
 		border-radius: 5px;

@@ -7,34 +7,17 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <style>
-        body {  
-            font-family: Arial, sans-serif;
-			height: 1600px;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: green;
-            color: black;
-            padding: 1em;
-            text-align: center;
-        }
-
-		@font-face {
-            font-family: 'Pretendard-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-            font-weight: 400;
-            font-style: normal;
-        }
-        * { font-family: 'Pretendard-Regular'; 
-        }
+    	.content {
+    		font-family: 'Noto Sans KR', sans-serif;
+    		height: 750px;
+    	}
+    
 	 	.collapsible {
-            background-color: black;
+            background-color: #358a54;
             color: white;
             cursor: pointer;
             padding: 18px;
@@ -42,51 +25,15 @@
             border: none;
             text-align: left;
             outline: none;
-            font-size: 15px;
-            margin-left:15%;
-        }
-		
-		.adminNameBar { 
-        	margin:auto;
-	 		color: black(121, 172, 120);
-			text-align: center;
-	 	}
-
-         #register-title-area{ /* 상단 텍스트 영역 */
-            width: 1200px;
-            margin: auto;
-            margin-top: 5%;
-            border-bottom: 3px solid rgb(121, 172, 120);
-        }
-
-        #register-title-area>p{ /* 상단 텍스트 */
-            font-size: 26px;
-            font-weight: bold;
-            color: rgb(121, 172, 120);
-            letter-spacing: 3px;
-        }
-
-        .register-title-menu{ /* 상단슬롯 */
-            width: 12%;
-            padding: 6px;
-            float: right;
-            margin-left: 2px;
-            margin-top: 20px;
-            background-color: rgb(121, 172, 120);
-            color: white;
-        }
-
-		.container {
-            width: 70%;
-            margin: auto;
-            text-align: center;
+            font-size: 20px;
+            margin-left: 5%;
         }
         
-		.active1,
-        .collapsible:hover {
-            background-color: gray;
+		.active1 {
+            background-color: #388755;
         }
-        .content {
+        
+        .content_1 {
             padding: 0 18px;
             max-height: 0;
             overflow: hidden;
@@ -94,94 +41,84 @@
            
             width: 70%;
             margin-left:15%;
-        }
-        .collapsible:after {
-            content: '\002B';
-            color: white;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
-        .active1:after {
-            content: "\2212";
+            font-size: 20px;
         }
         
-        footer {
-            background-color: green;
-            color: black;
-            padding: 1em;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 		<script>
-			function collapse(element) {
-				var before = document.getElementsByClassName("active1")[0]
-				if (before && document.getElementsByClassName("active1")[0] != element) {  
-					before.classList.remove("active1");                 
-				}
-				element.classList.toggle("active1");        
-
-				var content = element.nextElementSibling;
-				if (content.style.maxHeight != 0) {         
-					content.style.maxHeight = null;        
-				} else {
-					content.style.maxHeight = content.scrollHeight + "px";  
-				}
-			}
+		    function collapse(element) {
+		        var before = document.querySelector(".active1");
+		        if (before && before !== element) {
+		            before.classList.remove("active1");
+		            before.nextElementSibling.style.maxHeight = null;
+		        }
+		
+		        element.classList.toggle("active1");
+		        var content = element.nextElementSibling;
+		
+		        if (content.style.maxHeight != 0) {
+		            content.style.maxHeight = null;
+		        } else {
+		            content.style.maxHeight = content.scrollHeight + "px";
+		        }
+		    }
 		</script>
 </head>
 <body>
-<header>
-    <h1>신선한 땅의 맛</h1>
-</header>
-
-<div class="adminNameBar">
-	<br><br>
-	<h1>Farm To Dish</h1>
-	<hr>
-</div>
-<div id="register-title-area">
-    <p>
-        FAQ (자주 묻는 질문)
-            
-    </p>
-</div>
-
-<body>
-	<br><br>
-	
-	<br><br><br>
-	<button type="button" class="collapsible" onclick="collapse(this);">질문1</button>
-	
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-
-	<button type="button" class="collapsible" onclick="collapse(this);">질문2</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-	
-	<button type="button" class="collapsible" onclick="collapse(this);">질문3?</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-
-	<button type="button" class="collapsible" onclick="collapse(this);">질문4</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-
-	<button type="button" class="collapsible" onclick="collapse(this);">질문5</button>
-	<div class="content">
-		<p>대충내용</p>
-	</div>
-</body>
-<footer>
-    <p>&copy; 2023 Farm To Dish. All rights reserved.</p>
-</footer>
+<div class="wrapper">
+        <div class="center-div">  
+	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+			        <div class="content">
+						
+							<h1>FAQ 게시판</h1>
+							
+							<br><br><br>
+							<button type="button" class="collapsible" onclick="collapse(this);">발주 마감 시간은 몇 시 인가요?</button>
+						
+						<div class="content_1">
+							<p>
+								- 직배송 : 22시 마감 (다음 날 새벽 배송)<br>
+								- 택배 : 낮 12시 마감 (다음 날 업장 도착)<br>
+								- 고속화물 : 22시 마감 (다음 날 오전 출고)<br>
+								- 현장 픽업 : 22시 마감 (다음 날 방문 시각 공유 필요)
+							</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">배송일 지정이 가능한가요?</button>
+						<div class="content_1">
+							<p>배송일 지정 가능합니다. 문의 사항에 배송일을 남겨주시면 가능합니다.</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">배송 불가능한 요일은 언제인가요?</button>
+						<div class="content_1">
+							<p>
+								- 직배송 : 일요일 불가, 월요일~토요일, 공휴일 배송 가능합니다. <br>
+								- 택배 : 상품 받는 날짜 기준 화요일~토요일 택배 배송 가능합니다. <br>
+								- 고속버스 화물 : 일요일 불가, 월요일~토요일 배송 가능합니다.
+							</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">배송 도착 시간은 언제인가요?</button>
+						<div class="content_1">
+							<p> 
+								보통 새벽 1시~새벽 6시 사이에 매장 안으로 물건 배송해드리고 있습니다. <br>
+								매일 착지가 바뀌기 때문에 정확한 도착 시간 공유는 어렵습니다.
+							</p>
+						</div>
+						
+						<button type="button" class="collapsible" onclick="collapse(this);">관리자와 대화를 하고싶습니다.</button>
+						<div class="content_1">
+							<p>우측 하단에 채널톡을 이용해주세요.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

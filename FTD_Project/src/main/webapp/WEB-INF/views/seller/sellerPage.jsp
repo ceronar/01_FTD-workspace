@@ -65,7 +65,7 @@
       }
       
       button {
-          background-color: #4caf50;
+          background-color: #388755;
           color: white;
           padding: 10px;
           border: none;
@@ -74,7 +74,7 @@
           font-size: 16px;
       }
       button:hover {
-          background-color: #45a049;
+          background-color: #388755;
       }
       /* Style for modal overlay */
       .overlay {
