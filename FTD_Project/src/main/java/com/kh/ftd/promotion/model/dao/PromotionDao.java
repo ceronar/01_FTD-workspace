@@ -60,6 +60,10 @@ public class PromotionDao {
 
 	public double marketStarRating(SqlSessionTemplate sqlSession, int sellerNo) {
 		
+	double a = sqlSession.selectOne("sellerMapper.ajaxSelectStarRating", sellerNo);
+	
+
+	
 		return sqlSession.selectOne("sellerMapper.ajaxSelectStarRating", sellerNo);
 	}
 

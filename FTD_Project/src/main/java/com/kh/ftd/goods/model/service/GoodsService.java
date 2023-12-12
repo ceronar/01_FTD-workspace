@@ -41,7 +41,7 @@ public interface GoodsService {
 	// 판매자  상품 글 댓글 조회 (select)
 	int ajaxSelectReplyCount(int sellNo);
 	
-	
-	
-	
+	// 주문에 속한 상품 리스트 조회
+	ArrayList<Goods> memberOrderDetail(int orderNo);
+
 }

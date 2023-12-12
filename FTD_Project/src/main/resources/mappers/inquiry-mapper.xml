@@ -11,7 +11,7 @@
 		<result column="COUNT" property="count" />
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
-		<result column="RESPONSE_CONTENT" property="resopnseContent" />
+		<result column="RESPONSE_CONTENT" property="responseContent" />
 		<result column="RESPONSE_DATE" property="responseDate" />
 		<result column="MEMBER_ID" property="memberId" />
 	</resultMap>
@@ -41,6 +41,15 @@
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="ACCEPT_DATE" property="acceptDate"/>
 		<result column="REFUSE_REASON" property="refuseReason"/>
+	</resultMap>
+	
+	<resultMap id="inquiryReplyResultSet" type="inquiryReply">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="INQ_NO" property="inqNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
 	<select id="selectInquiryList" parameterType="_int" resultMap="inquiryResultSet">
@@ -89,6 +98,56 @@
 					 	 	  , #{changeName})
 	</insert>
 	
+	<update id="increaseInquiryCount" parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET COUNT = COUNT + 1
+		 WHERE INQ_NO = #{inqNo}
+		   AND SELLER_NO = #{sellerNo}
+		   AND DELETE_DATE IS NULL
+	</update>
 	
+	<select id="selectInquiry" parameterType="inquiry" resultMap="inquiryResultSet">
+		SELECT INQ_NO
+		     , INQ_TITLE
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , INQ_CONTENT
+		     , SELLER_NO
+		     , RESPONSE_CONTENT
+		     , RESPONSE_DATE
+		  FROM INQUIRY
+		 WHERE INQ_NO = #{inqNo}
+		   AND SELLER_NO = #{sellerNo}
+		   AND DELETE_DATE IS NULL
+	</select>
+	
+	<select id="selectInquiryFileList" parameterType="inquiry" resultMap="inquiryFileResultSet">
+		SELECT FILE_NO
+			 , INQ_NO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+			 , CREATE_DATE
+		  FROM INQUIRY_FILE
+		 WHERE DELETE_DATE IS NULL
+		   AND INQ_NO = #{inqNo}
+	</select>
+	
+	<select id="selectInquiryReplyList" parameterType="inquiry" resultMap="inquiryReplyResultSet">
+		SELECT REPLY_NO
+			 , INQ_NO
+			 , MEMBER_NO
+			 , REPLY_CONTENT
+			 , CREATE_DATE
+		  FROM INQUIRY_REPLY
+		 WHERE DELETE_DATE IS NULL
+		   AND INQ_NO = #{inqNo}
+		 ORDER BY REPLY_NO DESC
+	</select>
+	
+	<update id="insertAnswer" parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET RESPONSE_CONTENT = #{responseContent}, RESPONSE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inqNo}
+		   AND DELETE_DATE IS NULL
+	</update>
 
 </mapper>

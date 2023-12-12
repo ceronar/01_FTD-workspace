@@ -22,6 +22,7 @@
 		            
 		        	<a href="list.se">가게</a>
 		            <a href="plist.bo">홍보</a>
+		            <a href="rlist.bo">후기</a>
 		            <a href="list.go">상품</a>
 	
 		        </div>

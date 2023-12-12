@@ -12,20 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.ftd.common.model.vo.PageInfo;
-import com.kh.ftd.common.template.Pagination;
 import com.kh.ftd.inquiry.model.service.InquiryService;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
 import com.kh.ftd.inquiry.model.vo.InquiryFile;
-import com.kh.ftd.notice.model.vo.Notice;
+import com.kh.ftd.inquiry.model.vo.InquiryReply;
 import com.kh.ftd.seller.model.vo.Seller;
 
 @Controller
@@ -49,9 +45,9 @@ public class InquiryController {
 		
 		int inquiryNo =0;
 		
-		System.out.println("page : " + page);
-		System.out.println("size : " + pageSize);
-		System.out.println("sellerNo : " + sellerNo);
+//		System.out.println("page : " + page);
+//		System.out.println("size : " + pageSize);
+//		System.out.println("sellerNo : " + sellerNo);
 		
 		ArrayList<Inquiry> list = inquiryService.ajaxSelectInquiryList(sellerNo);
 		
@@ -62,7 +58,7 @@ public class InquiryController {
 //		
 //		int end = Math.min(start + size, totalItems);
 		
-		System.out.println(list);
+//		System.out.println(list);
 		
 		return new Gson().toJson(list);
 	}
@@ -71,10 +67,12 @@ public class InquiryController {
 	public ModelAndView enrollForm(int sno, ModelAndView mv) {
 		
 		
-		System.out.println(sno);
+//		System.out.println(sno);
+		
+		// 작성하려는 문의글의 판매자 정보를 담아서 넘김
 		Seller list = inquiryService.sellectSeller(sno);
 		
-		System.out.println(list);
+//		System.out.println(list);
 		
 		mv.addObject(list).setViewName("inquiry/inquiryEnrollForm");
 		
@@ -86,11 +84,12 @@ public class InquiryController {
 	@RequestMapping("insert.in")
 	public String insertInquiry(Inquiry i, InquiryFile inf, MultipartFile upfile[], HttpSession session, Model model) {
 		
-		System.out.println("i : " + i);
-		System.out.println("inf : " + inf);
-		for(MultipartFile uf : upfile) {
-			System.out.println("upfile : " + uf);
-		}
+//		System.out.println("i : " + i);
+//		System.out.println("inf : " + inf);
+		
+//		for(MultipartFile uf : upfile) {
+//			System.out.println("upfile : " + uf);
+//		}
 		
 		// 제목과 내용을 업로드
 		int result = inquiryService.insertInquiry(i);
@@ -128,9 +127,99 @@ public class InquiryController {
 	}
 	
 	@RequestMapping("detail.in")
-	public void selectInquiry(int ino, int sno) {
-		System.out.println("ino : " + ino);
-		System.out.println("sno : " + sno);
+	public ModelAndView selectInquiry(Inquiry i, int ino, String sno, ModelAndView mv) {
+//		System.out.println("ino : " + ino);
+//		System.out.println("sno : " + sno);
+		
+		i.setInqNo(ino);
+		i.setSellerNo(sno);
+		
+//		System.out.println(i);
+		
+		// 게시글 조회수 증가용 서비스
+		int result = inquiryService.increaseInquiryCount(i);
+		
+		// 조회수가 증가여부에 따라 상세조회 서비스 호출
+		if(result > 0) {
+			
+			Inquiry i2 = inquiryService.selectInquiry(i);
+			
+			System.out.println(i2);
+			
+			ArrayList<InquiryFile> inf = inquiryService.selectInquiryFile(i);
+//			for(InquiryFile n : inf) {
+//				System.out.println(n);
+//			}
+			
+			ArrayList<InquiryReply> ir = inquiryService.selectInquiryReplyList(i);
+			
+//			for(InquiryReply n : ir) {
+//				System.out.println(n);
+//			}
+			
+			
+			mv.addObject("i2", i2).addObject("inf", inf).addObject("ir", ir).setViewName("inquiry/inquiryDetailView");
+		} else {
+			
+			mv.addObject("errorMsg", "문의글 상세 조회 실패").setViewName("common/errorPage");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("enrollForm.re")
+	public ModelAndView insertResponseForm(Inquiry i, ModelAndView mv) {
+		
+//		System.out.println(i);
+		
+
+		
+		mv.addObject("i", i).setViewName("inquiry/answerEnrollForm");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping("insert.re")
+	public String insertResponse(Inquiry i, HttpSession session, Model model) {
+		
+//		System.out.println(i);
+		
+		int result = inquiryService.insertAnswer(i);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + i.getInqNo() + "&sno=" + i.getSellerNo();
+		} else {
+			
+			model.addAttribute("errorMsg", "게시글 등록 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("updateForm.in")
+	public ModelAndView updateInquiry(Inquiry i, InquiryFile inf, HttpSession session, ModelAndView mv) {
+		
+//		System.out.println(i);
+		
+		if(i.getResponseDate() != null) {
+			// 답글이 달려있을 경우
+			session.setAttribute("alertMsg", "답글이 작성된 문의글은 수정할 수 없습니다.");
+			
+			mv.setViewName("redirect:/detail.in?ino=" + i.getInqNo() + "&sno=" + i.getSellerNo());
+			
+			return mv;
+			
+		} else {
+			
+			mv.addObject("i", i).addObject("inf", inf).setViewName("inquiry/answerEnrollForm");
+			
+			return mv;
+		}
+		
 	}
 	
 	

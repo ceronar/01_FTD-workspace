@@ -574,7 +574,7 @@
 					<!--  로그인한 판매자만 글작성할수있게 조건문 -->
 					 <c:if test="${ not empty sessionScope.loginSeller }"> 
                         <div align="rigth">
-                            <a href="enrollForm.bo?sno=${sessionScope.loginSeller.sellerNo}">글작성</a>
+                            <a href="promoptionEnrollForm.bo?sno=${sessionScope.loginSeller.sellerNo}">글작성</a>
                         </div>
                      </c:if>
                         
@@ -592,18 +592,8 @@
                          <div id="loading">
                         <img src="resources/images/sample/0019.gif" alt="Loading..." />
                     </div>
-                    
-                
-            
-        
-				        
-				        
-				        <br>
-				            
-				            
-				        	<a href="list.se">가게</a>
-				            <a href="plist.bo">홍보</a>
-			
+
+				
 				        </div>
 				        
 			        </div> 
