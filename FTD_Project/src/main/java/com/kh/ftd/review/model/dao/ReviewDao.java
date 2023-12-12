@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ftd.goods.model.vo.GoodsFile;
+import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.review.model.vo.Review;
 import com.kh.ftd.review.model.vo.ReviewFile;
+import com.kh.ftd.review.model.vo.ReviewReply;
 
 @Repository
 public class ReviewDao {
@@ -16,14 +19,43 @@ public class ReviewDao {
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList");
 	}
 
-	public ArrayList<ReviewFile> selectReviewFileList(SqlSessionTemplate sqlSession, int revNo) {
+	public ArrayList<ReviewFile> selectReviewFileList(SqlSessionTemplate sqlSession, int rno) {
 		
-		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewFileList",revNo);
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewFileList",rno);
 	}
 
-	public int ReviewReplyCount(SqlSessionTemplate sqlSession, int revNo) {
+	public int ReviewReplyCount(SqlSessionTemplate sqlSession, int rno) {
 	
-		return sqlSession.selectOne("reviewMapper.ReviewReplyCount",revNo);
+		return sqlSession.selectOne("reviewMapper.ReviewReplyCount",rno);
 	}
+
+	public GoodsFile selectGoodsFileList(SqlSessionTemplate sqlSession, int gno) {
+
+		return sqlSession.selectOne("reviewMapper.selectGoodsFileList",gno);
+	}
+	
+	public GoodsSell selectGoodsList(SqlSessionTemplate sqlSession, int gno) {
+
+		return sqlSession.selectOne("reviewMapper.selectGoodsList",gno);
+	}
+
+	public int increaseCount(SqlSessionTemplate sqlSession, int rno) {
+		
+		return sqlSession.update("reviewMapper.increaseCount",rno);
+	}
+
+	public Review selectReview(SqlSessionTemplate sqlSession, int rno) {
+		
+		return sqlSession.selectOne("reviewMapper.selectReview",rno);
+	}
+
+	public ArrayList<ReviewReply> selectReviewReplyList(SqlSessionTemplate sqlSession, int rno) {
+		
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewReplyList",rno);
+	}
+
+	
+
+
 
 }

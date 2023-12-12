@@ -9,9 +9,10 @@
 		<result column="REV_TITLE" property="revTitle" />
 		<result column="REV_CONTENT" property="revContent" />
 		<result column="COUNT" property="count" /> <!-- 별칭 -->
-		<result column="STAR_RATING" property="starRatting" />
+		<result column="STAR_RATING" property="starRating" />
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
+		<result column="MEMBER_ID" property="memberNo"/>
 	</resultMap>
 
 	<resultMap id="reviewFileResultSet" type="reviewFile">
@@ -25,17 +26,38 @@
 	
 	<resultMap id="reviewReplyResultSet" type="reviewReply">
 		<result column="REPLY_NO" property="replyNo"/>
-		<result column="REV_NO" property="promotionNo" />
+		<result column="REV_NO" property="revNo" />
 		<result column="MEMBER_NO" property="memberNo"/>
 		<result column="REPLY_CONTENT" property="replyContent"/>
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate"/>
+		<result column="MEMBER_ID" property="memberNo"/>
+	</resultMap>
+
+	<resultMap id="goodsFileResultSet" type="goodsFile">
+			<result column="FILE_NO" property="fileNo" />
+			<result column="SELL_NO" property="sellNo" />
+			<result column="ORIGINAL_NAME" property="originalName" />
+			<result column="CHANGE_NAME" property="changeName" />
+			<result column="CREATE_DATE" property="createDate" />
+			<result column="DELETE_DATE" property="deleteDate" />
+		</resultMap>
+		
+	<resultMap id="goodsSellResultSet" type="goodsSell">
+		<result column="SELL_NO" property="sellNo" />
+		<result column="SELLER_NO" property="sellerNo" />
+		<result column="GOOD_NO" property="goodNo" />
+		<result column="SELL_TITLE" property="sellTitle" />
+		<result column="SELL_CONTENT" property="sellContent" />
+		<result column="COUNT" property="count" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 
 	<select id="selectReviewList" resultMap="reviewResultSet">
 		SELECT 
 		    R.REV_NO,
-		    R.MEMBER_NO,
+		    M.MEMBER_ID,
 		    R.GOOD_NO,
 		    R.REV_TITLE,
 		    R.REV_CONTENT,
@@ -60,15 +82,95 @@
 	<select id="selectReviewFileList" resultMap="reviewFileResultSet" parameterType="_int">
     SELECT *
 		FROM REVIEW_FILE
-		WHERE REV_NO = ${revNo}
+		WHERE REV_NO = ${rno}
 		AND DELETE_DATE IS NULL   
 	</select>
 	
 	<select id="ReviewReplyCount" resultType="_int" parameterType="_int">
 	  SELECT COUNT(*) COUNT
 		  FROM REVIEW_REPLY
-		 WHERE REV_NO = ${revNo}
+		 WHERE REV_NO = ${rno}
 		 AND DELETE_DATE IS NULL
+		 
+	</select>
+	
+	<select id="selectGoodsFileList" resultMap="goodsFileResultSet" parameterType="_int">
+	    SELECT GF.FILE_NO
+	             , GF.SELL_NO
+	             , GF.ORIGINAL_NAME
+	             , GF.CHANGE_NAME
+	             , GF.CREATE_DATE
+	             , GF.DELETE_DATE
+	    FROM REVIEW R
+	    JOIN GOODS_SELL GS ON GS.GOOD_NO = R.GOOD_NO
+	    JOIN GOODS_FILE GF ON GF.SELL_NO = GS.SELL_NO
+	    WHERE R.GOOD_NO = ${gno}
+	    AND R.DELETE_DATE IS NULL  
+	    AND GS.DELETE_DATE IS NULL
+	    AND GF.DELETE_DATE IS NULL
+	</select>
+	
+	<select id="selectGoodsList" resultMap="goodsSellResultSet" parameterType="_int">
+	        SELECT
+                    GS.SELL_NO,
+                    GS.SELLER_NO,
+                    GS.GOOD_NO,
+                    GS.SELL_TITLE,
+                    GS.SELL_CONTENT,
+                    GS.COUNT,
+                    GS.CREATE_DATE,
+                    GS.DELETE_DATE
+	    FROM REVIEW R
+	    JOIN GOODS_SELL GS ON GS.GOOD_NO = R.GOOD_NO
+	    WHERE R.GOOD_NO = ${gno}
+	    AND R.DELETE_DATE IS NULL  
+	    AND GS.DELETE_DATE IS NULL
+	</select>
+	
+	<update id="increaseCount"  parameterType="_int">
+		UPDATE REVIEW
+		SET COUNT = COUNT + 1
+		WHERE REV_NO = #{rno}
+		AND DELETE_DATE IS NULL
+	</update>
+	
+	<select id="selectReview" resultMap="reviewResultSet" parameterType="_int">
+	      	SELECT 
+		    R.REV_NO,
+		    M.MEMBER_ID,
+		    R.GOOD_NO,
+		    R.REV_TITLE,
+		    R.REV_CONTENT,
+		    R.COUNT,
+		    R.STAR_RATING,
+		    R.CREATE_DATE,
+		    R.DELETE_DATE
+		FROM 
+		    REVIEW R
+		JOIN 
+		    MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+		JOIN 
+		    GOODS G ON R.GOOD_NO = G.GOOD_NO
+		WHERE 
+		    M.STATUS IS NULL
+		    AND R.DELETE_DATE IS NULL
+		    AND G.DELETE_DATE IS NULL
+            AND R.REV_NO = #{rno}
+		ORDER BY 
+		    R.REV_NO DESC
+	</select>
+	
+	<select id="selectReviewReplyList" resultMap="reviewReplyResultSet" parameterType="_int">
+		SELECT R.REPLY_NO,
+			   R.REV_NO,
+			   M.MEMBER_ID,
+			   R.REPLY_CONTENT,
+			   R.CREATE_DATE,
+			   R.DELETE_DATE
+		FROM REVIEW_REPLY R
+		JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
+		WHERE REV_NO = #{rno} 
+		AND R.DELETE_DATE IS NULL
 	</select>
 
 </mapper>

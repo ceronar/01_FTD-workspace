@@ -266,7 +266,7 @@ public class PromotionController {
 		// bno 에는 post 방식으로 넘겨받은 글번호가 들어가있음
 		//System.out.println(pno);
 		//System.out.println(filePath); //지금 널이담김 노티스 디테일뷰 보면서 수정해야뎀
-		String[] list = filePath.split(",");
+		
 		
 		// 삭제 요청
 		int result = promotionService.deletePromotion(pno);
@@ -280,10 +280,10 @@ public class PromotionController {
 			// filePath 라는 매개변수에는
 			// 기존에 첨부파일이 있었을 경우 수정파일명
 			// 기존에 첨부파일이 없었을 경우 "" 이 들어가 있음
-			if(!filePath.equals("")) {
+			if(filePath != null) {
 				// 기존에 첨부파일이 있었을 경우
 				// => 해당 파일을 삭제처리
-				
+				String[] list = filePath.split(",");
 				// 해당 파일이 실제 저장되어있는 경로 알아내기
 				for(int i = 0; i < list.length; i++) {
 					
@@ -321,6 +321,13 @@ public class PromotionController {
 		//홍보리스트 내용
 		ArrayList<Promotion> pList = promotionService.selectPromotionList();
 		//System.out.println(pList); //홍보리스트 다 불어와짐
+		
+		for(int i = 0; i < pList.size(); i++) {
+			if(pList.get(i).getPromotionContent().length() > 80) {
+				String s = pList.get(i).getPromotionContent();
+				pList.get(i).setPromotionContent(s.substring(0, 77) + "...");
+			}
+		}
 		
 		//홍보리스트 판매자용 어레이 리스트
 		ArrayList<Object> sList = new ArrayList<Object>();

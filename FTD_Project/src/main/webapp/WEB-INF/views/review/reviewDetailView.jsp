@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,11 +172,19 @@
             color: #777;
             font-size : 15px;
         }
+        .count{
+         	margin-left: auto;
+        }
+        
+        .header{
+			 display : none;
+		}
 
     </style>
     <title>홍보(리스트)</title>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"/>
     <header>
         <h1>상세보기 페이지</h1>
     </header>
@@ -183,30 +192,32 @@
     <main align="">
         
         <div class="profile">
-            <div class="profile_1">
-                <img src="https://placekitten.com/50/50" alt="Profile Image">
-            </div>
             <div class="profile_2">
-                <span>100년 수산</span>
+                <span>${requestScope.r.memberNo}</span>
                 <div id="profile_2_2">
                    
                     <span> 17분 전</span>
                     <!-- 몇분전인지-->
                 </div>
             </div>
-           
+           	<div class="count">
+           		조횟수 ${requestScope.r.count}
+           	</div>
         </div>
     <div id="profile_under">
         <div>
             <!-- 별점 -->
             <div>
-                <span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i></span>1
+             <c:forEach var="star" begin="1" step="1" end="${requestScope.r.starRating}">
+                <span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i></span>
+             </c:forEach>   
+             ${ requestScope.r.starRating} 
             </div>
         </div>
 
         <div id="content">
 
-            dasdsadasdafsdfas
+           ${ requestScope.r.revContent }
 
         </div>
 
@@ -230,8 +241,7 @@
                             <tr>
                                 <td><img src="" id="img_2"></td>
                                 <td width="685px;">
-                                    <div>A급 러시아 대게(선어,자숙)</div>
-                                    <div id="img_2_text_2">3kg (3미 내외)</div>
+                                    <div>${requestScope.goodsList.sellTitle }</div>
                                </td>
                                <td>></td>
                             </tr>
@@ -246,20 +256,45 @@
     </main>
 
     
-    <main class="comment-section">
+   <main class="comment-section">
         <div>
-            <span style="margin-right : 20px;">
-                <span><i class="far fa-heart" style="color : pink; "></i></span>
-                <span>좋아요</span>
-            </span>
             <span>
-                <span><i class="far fa-comment"></i></span>
-                <span>댓글</span>
+                <span><i class="far fa-comment"></i></span> 댓글</span>
+                <span> ${requestScope.rrList.size()} </span>
             </span>
         </div>
-        <div>
-            <input type="text" value="댓글을 남겨보세요">
-            <button>입력</button>
+     
+	        <div>
+	            <input type="text" id="replyContent" value="로그인 후 이용해주세요." name="replyContent"   disabled="ture">
+	            <input type="hidden" value="${requestScope.p.promotionNo }" name="promotionNo">
+	            <input type="hidden" value="${sessionScope.loginUser.memberNo }" name="memberNo">
+	             <div class="comment">
+	             
+	          <!--     
+	            <c:forEach var="r" items="${ requestScope.prList }">
+	             	<hr>            	
+	             		        	
+	                	<p>${r.replyContent}</p>
+	               <div>
+	                <div class="reply-info">
+	                <input type="hidden" value="${ r.replyNo }">
+	                	<div>
+	                	작성자: ${r.memberNo } | 작성일: ${r.createDate }
+	                	</div>
+	                	<div class="replyOption">
+	                	<a class="modify">수정</a>
+		                <a class="delete" onclick="postFormReplySubmit(4, ${ r.replyNo })">삭제</a> 
+		                </div>
+	                </div>
+		           
+		           </div>  
+		
+						
+	      </c:forEach>
+	           -->
+	    
+			           
+	        </div>
         </div>
     </main>
 

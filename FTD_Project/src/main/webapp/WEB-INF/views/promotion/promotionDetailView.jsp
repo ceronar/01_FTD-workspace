@@ -16,7 +16,9 @@
             padding: 0;
             background-color: #f8f9fa;
         }
-
+.header{
+ display : none;
+}
 
 
         header {
@@ -160,7 +162,9 @@
         main > div span:last-child {
             margin-left: auto;
         }
-        
+        .content_1{
+        	width: 200px;
+        }
          /* 댓글 스타일 */
         .comment {
             margin-bottom: 20px;
@@ -185,9 +189,9 @@
    
    <!-- 댓글수정 모달창 -->
      div.replyModal { position:relative; z-index:1;} 
-	 div.modalBackground { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.8); z-index:-1; }
-	 div.modalContent { position:fixed; top:40%; left:calc(50% - 250px); width:500px; height:250px; padding:20px 10px; background:#fff; border:2px solid #2ECC71; }
-	 div.modalContent textarea { font-size:16px; font-family:'맑은 고딕', verdana; padding:10px; width:475px; height:200px; }
+	 div.modalBackground { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:100000; }
+	 div.modalContent { position:fixed; top:40%; left:calc(50% - 250px); width:500px; height:250px; padding:20px 10px; background:#fff; border:2px solid #2ECC71; z-index:100001 }
+	 div.modalContent textarea { font-size:16px; font-family:'맑은 고딕', verdana; padding:10px; width:475px; height:200px; resize: none;}
 	 div.modalContent button { margin : 0px;  width: 100px; height : 40px; padding : 0px;}
 	 div.modalContent button.modal_cancel { margin : 0px; width: 100px; height : 40px; padding : 0px;}
 	 .button_option div {
@@ -205,6 +209,8 @@
 </head>
 <body>
     <header>
+    <jsp:include page="../common/header.jsp"/>
+    
         <div>
        		<a href="plist.bo"><span><i class="fas fa-arrow-left"></i></span></a>
         </div>
@@ -303,16 +309,17 @@
 				            </c:forEach>
 						</div>	
 					</c:if>
+					</article>	
 					<br><br>
 					
 					<!-- 내용 -->
-					<div align="center"> ${requestScope.p.promotionContent}</div>
+					
 					
 					<br><br><br><br>
-				</article>	
+				
 				
 			</section>
-            
+            <div class="centent_1" align="center">${requestScope.p.promotionContent}</div>
            
 			
 
@@ -415,7 +422,7 @@
        		selectReplyList();
        	
        		// 추가적으로 1초 간격마다 selectReplyList 함수 실행
-       		setInterval(showReplyCount, 3000);
+       		setInterval(selectReplyList, 3000);
        		
       	 	});
            
@@ -430,10 +437,11 @@
        			},
        			success : function(result) { // list 는 자바스크립트 변수
        				
-       				//console.log(result);
+       				console.log(result);
        			//로그인한유저 + 내가쓴 댓글에만 삭제 수정뜨게 만들어야뎀 아직못함
        				
        				let resultStr = "";
+       				let result1 = "";
        				
 			        for(let i = 0; i < result.length; i++) {
 			        	 
@@ -446,21 +454,23 @@
 		            +    	'<div>'
 		            +    	'작성자: '+ result[i].memberNo +' | 작성일: '+ result[i].createDate +''
 		            +    	'</div>'
-		            +   	'<div class="replyOption">'
+		            +   	'<div class="replyOption">';
 		          
-		            	//if(result[i].memberNo == ${sessionScope.loginUser.memberId}){
+		            	if(${!empty sessionScope.loginUser} && result[i].memberNo == "${sessionScope.loginUser.memberId}"){
           resultStr +=  '<a class="modify"  data-repNum="'+ result[i].replyNo +'">수정 </a>'
-			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')">삭제</a>'
-		            	//}   
+			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')">삭제</a>';
+		            	}   
 		   
 		            resultStr  +='</div>'
 		            +    '</div>'
 			           
 			        +   '</div>' ;
-			        	
+			        
+			   result1 += resultStr;
+			        	 
 			        }     
-       				
-						$(".comment").html(resultStr);
+			    
+						$(".comment").html(result1);
        				
        			},
        			
@@ -476,12 +486,14 @@
         	   
         	   if($("#replyContent").val().trim().length != 0) {
         		   
+        		   let memberNo = ${!empty sessionScope.loginUser ? sessionScope.loginUser.memberNo : 0};
+        		   
         		   $.ajax({
                        url: 'insertReply.bo',
                        type: 'post',
                        data: { 
                     	    promotionNo: ${requestScope.p.promotionNo},
-                    	    memberNo: ${sessionScope.loginUser.memberNo},
+                    	    memberNo: memberNo,
                     	    replyContent: $("#replyContent").val()
                     	},
     	               success : function(result) {
@@ -521,12 +533,13 @@
     		$(document).on("click", ".modal_modify_btn", function(){
     			
     			   var modifyConfirm = confirm("정말로 수정하시겠습니까?");
+    			   let memberNo = ${!empty sessionScope.loginUser ? sessionScope.loginUser.memberNo : 0};
     			   
     			   if(modifyConfirm) {
     			    var data = {
     			       replyNo: $(this).attr("data-repNum"),
     			       replyContent : $(".modal_repCon").val(),
-    			       memberNo : ${sessionScope.loginUser.memberNo},
+    			       memberNo : memberNo,
     			       promotionNo: ${requestScope.p.promotionNo}
     			      };  
     			    
