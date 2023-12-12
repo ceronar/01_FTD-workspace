@@ -86,8 +86,8 @@
 		<div class="nav-menu" id="nav1">
 			<a href="" 	class="menu1">추천</a>
 			<a href="list.no" 					class="menu2">공지사항</a>
-			<a href="" 							class="menu3">고객센터</a>
-			<a href="" 							class="menu4">회사소개</a>
+			<a href="IntroduceCompany" 							class="menu3">고객센터</a>
+			<a href="FAQ" 							class="menu4">회사소개</a>
 		</div>
 		
 		<div class="nav-menu" id="nav2">

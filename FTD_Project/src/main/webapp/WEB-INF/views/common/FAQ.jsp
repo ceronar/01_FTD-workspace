@@ -1,0 +1,187 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {  
+            font-family: Arial, sans-serif;
+			height: 1600px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: green;
+            color: black;
+            padding: 1em;
+            text-align: center;
+        }
+
+		@font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        * { font-family: 'Pretendard-Regular'; 
+        }
+	 	.collapsible {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 70%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            margin-left:15%;
+        }
+		
+		.adminNameBar { 
+        	margin:auto;
+	 		color: black(121, 172, 120);
+			text-align: center;
+	 	}
+
+         #register-title-area{ /* 상단 텍스트 영역 */
+            width: 1200px;
+            margin: auto;
+            margin-top: 5%;
+            border-bottom: 3px solid rgb(121, 172, 120);
+        }
+
+        #register-title-area>p{ /* 상단 텍스트 */
+            font-size: 26px;
+            font-weight: bold;
+            color: rgb(121, 172, 120);
+            letter-spacing: 3px;
+        }
+
+        .register-title-menu{ /* 상단슬롯 */
+            width: 12%;
+            padding: 6px;
+            float: right;
+            margin-left: 2px;
+            margin-top: 20px;
+            background-color: rgb(121, 172, 120);
+            color: white;
+        }
+
+		.container {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+        
+		.active1,
+        .collapsible:hover {
+            background-color: gray;
+        }
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+           
+            width: 70%;
+            margin-left:15%;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active1:after {
+            content: "\2212";
+        }
+        
+        footer {
+            background-color: green;
+            color: black;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+		<script>
+			function collapse(element) {
+				var before = document.getElementsByClassName("active1")[0]
+				if (before && document.getElementsByClassName("active1")[0] != element) {  
+					before.classList.remove("active1");                 
+				}
+				element.classList.toggle("active1");        
+
+				var content = element.nextElementSibling;
+				if (content.style.maxHeight != 0) {         
+					content.style.maxHeight = null;        
+				} else {
+					content.style.maxHeight = content.scrollHeight + "px";  
+				}
+			}
+		</script>
+</head>
+<body>
+<header>
+    <h1>신선한 땅의 맛</h1>
+</header>
+
+<div class="adminNameBar">
+	<br><br>
+	<h1>Farm To Dish</h1>
+	<hr>
+</div>
+<div id="register-title-area">
+    <p>
+        FAQ (자주 묻는 질문)
+            
+    </p>
+</div>
+
+<body>
+	<br><br>
+	
+	<br><br><br>
+	<button type="button" class="collapsible" onclick="collapse(this);">질문1</button>
+	
+	<div class="content">
+		<p>대충내용</p>
+	</div>
+
+	<button type="button" class="collapsible" onclick="collapse(this);">질문2</button>
+	<div class="content">
+		<p>대충내용</p>
+	</div>
+	
+	<button type="button" class="collapsible" onclick="collapse(this);">질문3?</button>
+	<div class="content">
+		<p>대충내용</p>
+	</div>
+
+	<button type="button" class="collapsible" onclick="collapse(this);">질문4</button>
+	<div class="content">
+		<p>대충내용</p>
+	</div>
+
+	<button type="button" class="collapsible" onclick="collapse(this);">질문5</button>
+	<div class="content">
+		<p>대충내용</p>
+	</div>
+</body>
+<footer>
+    <p>&copy; 2023 Farm To Dish. All rights reserved.</p>
+</footer>
+</body>
+</html>
