@@ -2,6 +2,7 @@ package com.kh.ftd.inquiry.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -46,6 +47,13 @@ public class InquiryDao {
 
 	public ArrayList<InquiryReply> selectInquiryReplyList(SqlSessionTemplate sqlSession, Inquiry i) {
 		return (ArrayList)sqlSession.selectList("inquiryMapper.selectInquiryReplyList", i);
+	}
+
+	public int insertAnswer(SqlSessionTemplate sqlSession, Inquiry i) {
+		int result = sqlSession.update("inquiryMapper.insertAnswer", i);
+		System.out.println(result);
+		System.out.println(i);
+		return sqlSession.update("inquiryMapper.insertAnswer", i);
 	}
 	
 	

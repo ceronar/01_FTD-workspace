@@ -60,7 +60,12 @@
             height: 500px;
         }
     </style>
-    
+    <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 	<!-- summernote 사용시 활성화 
     <script src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>

@@ -23,7 +23,7 @@ public class Inquiry {
 	private int count; 				//COUNT	NUMBER
 	private Date createDate;		//CREATE_DATE	DATE
 	private Date deleteDate;		//DELETE_DATE	DATE
-	private String resopnseContent;	//RESPONSE_CONTENT	VARCHAR2(4000 BYTE)
+	private String responseContent;	//RESPONSE_CONTENT	VARCHAR2(4000 BYTE)
 	private Date responseDate;		//RESPONSE_DATE	DATE
 	private String memberId;	
 	

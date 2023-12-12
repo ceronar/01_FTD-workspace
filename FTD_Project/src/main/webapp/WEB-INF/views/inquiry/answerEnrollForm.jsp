@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
             background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
+            
         }
 
         .container {
@@ -20,6 +22,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
         }
 
         h1 {
@@ -40,6 +43,7 @@
             margin-bottom: 10px;
             border-radius: 3px;
             border: 1px solid #ccc;
+            
         }
 
         input[type="submit"] {
@@ -61,28 +65,44 @@
         }
 
     </style>
+<link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="container">
-        <h1>게시글 작성</h1>
-
-        <form>
-            <label for="inqTitle">문의글 제목:</label>
-            <input type="text" name="inqTitle" value="답글을 달아주려는 문의글의 제목" readonly>
-            <label for="title">답글 제목:</label>
-            <input type="text" id="title" name="title" required>
-
-            <label for="content">내용:</label>
-            <textarea id="content" name="content" rows="6" required></textarea>
-
-            <!-- 파일 선택 버튼 -->
-
-            <input type="file" name="file">
-
-            <div align="center">
-                <input type="submit" value="답변 등록">
-            </div>
-        </form>
+<div class="wrapper">
+        
+        <div class="center-div">  
+ 	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+	            
+	            <jsp:include page="../common/header.jsp" />
+	            
+	            <div class="content">
+				    <div class="container">
+				        <h1>게시글 작성</h1>
+				
+				        <form id="enrollForm" method="post" action="insert.re">
+				            <label for="inqTitle">문의글 제목:</label>
+				            <input type="text" name="inqTitle" value="${requestScope.i.inqTitle}" readonly>
+				
+				            <label for="responseContent">내용:</label>
+				            <textarea id="resopnseContent" name="responseContent" value="${requestScope.i.responseContent }" rows="6" required></textarea>
+				            
+				            <div align="center">
+				                <input type="submit" value="답변 등록">
+				            </div>
+				            
+				            <input type="text" name="inqNo" value="${ requestScope.i.inqNo }">
+				            <input type="text" name="sellerNo" value="${ requestScope.i.sellerNo }">
+				        </form>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
     </div>
 </body>
 </html>

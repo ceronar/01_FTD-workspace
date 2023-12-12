@@ -164,15 +164,7 @@
 									</article>	
 								</section>
 					            </div>
-					            <!-- 
-					            <div class="post-img">
-					                <a href="">
-					                    originalName.jpg
-					                </a>
-					                <br>
-					                <br>
-					            </div>
-					             -->
+					            
 					            
 					        </div>
 					        
