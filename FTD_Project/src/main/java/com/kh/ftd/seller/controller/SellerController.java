@@ -373,10 +373,10 @@ public class SellerController {
             String filePath = uploadDirectory + "/" + fileName;
             
             // String imageUrl = handleFileUpload(upfile);
-
+            
             s.setChangeName(filePath);
             
-            SellerFile sf = new SellerFile(-1, s.getSellerNo(), upfile.getOriginalFilename(), fileName, null, null);
+            SellerFile sf = new SellerFile(-1, s.getSellerNo(), upfile.getOriginalFilename(), "/resources/uploadFiles/sellerPage" + "/" + fileName, null, null);
             
             int upfile_delete = sellerService.deleteSellerFile(s.getSellerNo());
             int upfile_result = sellerService.sellerFile(sf);

@@ -174,7 +174,7 @@
 				        	<table class="profile-table">
 				        		<tr height="300px">
 				        			<td width="50%">
-				        				<img id="previewImage" alt="Preview" src="${pageContext.request.contextPath}/resources/uploadFiles/sellerPage/${ sessionScope.profileImage.changeName }" onError="this.src='${pageContext.request.contextPath}/resources/images/sample/default.png'">
+				        				<img id="previewImage" alt="Preview" src="${pageContext.request.contextPath}${ sessionScope.profileImage.changeName }" onError="this.src='${pageContext.request.contextPath}/resources/images/sample/default.png'">
 				        			</td>
 				        			<td width="50%"><input type="file" name="upFile" id="profilePicture" accept="image/*"></td>
 				        		</tr>
