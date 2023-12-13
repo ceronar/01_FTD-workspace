@@ -227,7 +227,7 @@
         </div>
         <div class="profile">
             <div class="profile_1">
-                <img src="${sellerFile.changeName }" alt="Profile Image">
+                <img src="/ftd/resources/uploadFiles/sellerPage/${sellerFile.changeName }">
             </div>
             <div class="profile_2">
                 <span>${requestScope.seller.companyName}</span>
