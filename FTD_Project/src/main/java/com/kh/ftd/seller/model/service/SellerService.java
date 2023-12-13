@@ -59,4 +59,13 @@ public interface SellerService {
 	
 	// 판매자 활성화
 	int activeSeller(int sellerNo);
+
+	// 업데이트시 프로필 사진 업로드
+	int sellerFile(SellerFile sf);
+
+	// 판매자 마이페이지 사진 불러오기 준비
+	SellerFile getSellerFile(int sellerNo);
+
+	// 업데이트시 기존 프로필 이미지 제거
+	int deleteSellerFile(int sellerNo);
 }

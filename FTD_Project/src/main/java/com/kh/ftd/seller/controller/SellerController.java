@@ -1,6 +1,9 @@
 package com.kh.ftd.seller.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,11 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
+
+
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
@@ -344,7 +350,9 @@ public class SellerController {
 	
 	// 판매자 페이지
 	@RequestMapping("sellerPage")
-	public String sellerPage() {
+	public String sellerPage(HttpSession session) {
+		SellerFile sf = sellerService.getSellerFile(((Seller)session.getAttribute("loginSeller")).getSellerNo());
+		session.setAttribute("profileImage", sf);
 		return "seller/sellerPage";
 	}
 	
@@ -354,13 +362,35 @@ public class SellerController {
             Seller s,
             Model model,
             HttpSession session,
-            @RequestPart("upFile") MultipartFile upfile) {
-        
+            @RequestPart("upFile") MultipartFile upfile, HttpServletRequest req) {
+		
         if (upfile != null && !upfile.isEmpty()) {
+        	
+        	String uploadDirectory = req.getRealPath("/resources/uploadFiles/sellerPage");
             
-            String imageUrl = handleFileUpload(upfile);
+            String fileName = UUID.randomUUID() + "_" + upfile.getOriginalFilename();
+            
+            String filePath = uploadDirectory + "/" + fileName;
+            
+            // String imageUrl = handleFileUpload(upfile);
 
-            s.setChangeName(imageUrl);
+            s.setChangeName(filePath);
+            
+            SellerFile sf = new SellerFile(-1, s.getSellerNo(), upfile.getOriginalFilename(), fileName, null, null);
+            
+            int upfile_delete = sellerService.deleteSellerFile(s.getSellerNo());
+            int upfile_result = sellerService.sellerFile(sf);
+            
+            if(upfile_result > 0) {
+            	File f = new File(filePath);
+                
+                try {
+    				upfile.transferTo(f);
+    			} 
+                catch (IllegalStateException | IOException e) {
+    				e.printStackTrace();
+    			}
+            }
         }
         
         sellerService.updateSeller(s);
@@ -450,8 +480,9 @@ public class SellerController {
 	
 	// 아이디 중복체크 만들어야함 
 	
-	
+	/*
     // 판매자 프로필 사진
+	@RequestMapping("updateFile.se")
     private String handleFileUpload(MultipartFile file) {
         
         String uploadDirectory = "/path/to/upload/directory";
@@ -462,7 +493,7 @@ public class SellerController {
 
         return "/images/" + fileName; 
     }
-    
+    */
     
 	
 	// 아이디 찾기

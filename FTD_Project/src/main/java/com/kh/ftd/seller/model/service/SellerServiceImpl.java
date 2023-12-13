@@ -123,5 +123,20 @@ public class SellerServiceImpl implements SellerService{
 	public int activeSeller(int sellerNo) {
 		return sellerDao.activeSeller(sqlSession, sellerNo);
 	}
+
+	@Override
+	public int sellerFile(SellerFile sf) {
+		return sellerDao.sellerFile(sqlSession, sf);
+	}
+
+	@Override
+	public SellerFile getSellerFile(int sellerNo) {
+		return sellerDao.getSellerFile(sqlSession, sellerNo);
+	}
+
+	@Override
+	public int deleteSellerFile(int sellerNo) {
+		return sellerDao.deleteSellerFile(sqlSession, sellerNo);
+	}
 	
 }

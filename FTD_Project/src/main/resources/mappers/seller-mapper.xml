@@ -145,9 +145,7 @@
 		UPDATE SELLER
 		   SET DELETE_DATE = SYSDATE
 		 WHERE SELLER_ID = #{sellerId}
-			
 	</update>
-	
 
 	<!-- ID찾기(이메일기반) -->
 	<select id="findId" 
@@ -193,5 +191,21 @@
 		     , DELETE_DATE = NULL
 		 WHERE SELLER_NO = #{sellerNo}
 	</update>
+	
+	<!-- 판매자 회원수정 파일 업로드 -->
+	<insert id="sellerFile" parameterType="sellerFile">
+		INSERT INTO SELLER_FILE(FILE_NO, SELLER_NO, ORIGINAL_NAME, CHANGE_NAME, CREATE_DATE) 
+			VALUES(SEQ_SFNO.NEXTVAL, #{sellerNo}, #{originalName}, #{changeName}, SYSDATE)
+	</insert>
 
+	<!-- 판매자 마이페이지 프로필 사진 로드 -->
+	<select id="getSellerFile" parameterType="_int" resultMap="sellerFileResultSet">
+		SELECT * FROM SELLER_FILE
+			WHERE SELLER_NO=#{sellerNo} AND DELETE_DATE IS NULL
+	</select>
+	
+	<update id="deleteSellerFile" parameterType="_int">
+		UPDATE SELLER_FILE SET DELETE_DATE=SYSDATE 
+			WHERE SELLER_NO=#{sellerNo} AND DELETE_DATE IS NULL
+	</update>
 </mapper>

@@ -174,12 +174,7 @@
 				        	<table class="profile-table">
 				        		<tr height="300px">
 				        			<td width="50%">
-				        				<c:if test="${!empty requestScope.loginSeller.changeName }">
-				        					<img id="previewImage" alt="Preview" src="${ requestScope.loginSeller.changeName }">
-				        				</c:if> 
-				        				<c:if test="${empty requestScope.loginSeller.changeName }">
-				        					<img id="previewImage" alt="Preview" src="${pageContext.request.contextPath}/resources/images/sample/default.png">
-				        				</c:if>
+				        				<img id="previewImage" alt="Preview" src="${pageContext.request.contextPath}/resources/uploadFiles/sellerPage/${ sessionScope.profileImage.changeName }" onError="this.src='${pageContext.request.contextPath}/resources/images/sample/default.png'">
 				        			</td>
 				        			<td width="50%"><input type="file" name="upFile" id="profilePicture" accept="image/*"></td>
 				        		</tr>
