@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주문 상세</title>
 	<style type="text/css">
-		.header{
+		.header {
 			display : none;
 		}
 		
@@ -26,7 +26,20 @@
 			padding: 1em;
 			max-width: 1000px;
 			margin: 0 auto;
+			display: flex;
+            justify-content: space-between;
+            align-items: center;
 		}
+		
+		.head-area span {
+            margin-left: 10px;
+            color : black;
+            font-size : 30px;
+        }
+        
+        button:hover {
+            background-color: #27AE60;
+        }
 		
 		.content-area {
 			max-width: 1000px;
@@ -62,6 +75,11 @@
             border-radius: 5px;
 		}
 		
+		.orderDetail-table>tbody>tr:hover {
+			background-color: lightgray;
+			cursor: pointer;
+		}
+		
 	</style>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -70,7 +88,7 @@
 		<div class="head-area">
 			<jsp:include page="../common/header.jsp"/>
 			<div>
-				<a href="orderList.me"><span><i class="fas fa-arrow-left"></i></span></a>
+				<a href="orderList.me"><span class="material-symbols-outlined">arrow_back</span></a>
 			</div>
 			<div class="icon">
 				<a href="${pageContext.request.contextPath}"><span id="home-icon" class="material-symbols-outlined">home</span></a>
@@ -83,32 +101,39 @@
 			<table class="orderDetail-table">
 				<thead>
 					<tr>
-						<th>Product Image</th>
-						<th>Product Number</th>
-						<th>Product Title</th>
-						<th>Quantity</th>
-						<th>Price</th>
-						<th>Order Status</th>
-						<th>Sales Text Number</th>
+						<th hidden>상품 번호</th>
+						<th>상품 사진</th>
+						<th>상품명</th>
+						<th>개수</th>
+						<th>가격</th>
+						<th>주문 상태</th>
+						<th hidden>판매 번호</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- Sample data for demonstration purposes -->
-					<tr>
-						<td><img src="product_image_url" alt="Product Image"></td>
-						<td>123</td>
-						<td>Product Title</td>
-						<td>2</td>
-						<td>$100.00</td>
-						<td>Shipped</td>
-						<td>456</td>
-					</tr>
-					<!-- Add more order details as needed -->
+					<c:forEach var="og" items="${ requestScope.list }">
+						<tr>
+							<td hidden>${ og.goodNo }</td>
+							<td><img src="${ og.changeName }" alt="상품 번호"></td>
+							<td>${ og.goodTitle }</td>
+							<td>${ og.count }</td>
+							<td>${ og.count * og.price }</td>
+							<td>${ og.status eq "N" ? "준비중" : "발송" }</td>
+							<td hidden>${ og.sellNo }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 	
-	
+	<script type="text/javascript">
+		$(function() {
+			$(".orderDetail-table>tbody").on("click", "tr", e => {
+				let sellNo = e.target.parentElement.children.item(6).innerText;
+				location.href = "goodsDetailPage.go?gno=" + sellNo;
+			});
+		});
+	</script>
 	
 	</div>
 </body>

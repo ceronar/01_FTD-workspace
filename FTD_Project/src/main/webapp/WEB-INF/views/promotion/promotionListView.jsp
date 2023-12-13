@@ -418,7 +418,11 @@
                        let str  ='<div>'
                                 + '<div class="profile">'
                                 + '<div id="profile_1" style="width : 50px; height : 50px;">'
+
                                 + '<img src="'+ marketImg +'" alt="">'
+
+                                + '<img src=\"/ftd'+ val[2].changeName +'\">'
+
                                 + '</div>'
                                 + '<div id="profile_2">'
                                 + '<span>'

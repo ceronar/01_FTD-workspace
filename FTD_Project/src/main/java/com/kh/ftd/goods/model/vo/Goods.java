@@ -21,4 +21,6 @@ public class Goods {
 	private String deleteDate;      // DELETE_DATE	DATE
 	private String expiration; 		//	EXPIRATION_DATE	DATE
 	private int stock; 				//	STOCK	NUMBER
+	private String changeName;		// 상품 이미지 조회용
+	private int sellNo;				// 판매글 번호 조회용
 }

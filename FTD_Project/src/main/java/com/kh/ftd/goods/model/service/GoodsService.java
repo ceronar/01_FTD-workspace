@@ -43,5 +43,7 @@ public interface GoodsService {
 	
 	// 주문에 속한 상품 리스트 조회
 	ArrayList<Goods> memberOrderDetail(int orderNo);
-
+	
+	// 구매자 좋아요 상품 리스트 조회
+	ArrayList<Goods> memberLikeList(int memberNo);
 }

@@ -30,25 +30,6 @@
             padding: 1em;
             max-width: 1000px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-           header h1 {
-            margin: 0;
-        }
-
-        header a {
-            padding: 10px;
-            text-decoration: none;
-            color: #ffffff;
-        }
-
-        header span {
-            margin-left: 10px;
-            color : black;
-            font-size : 30px;
         }
 
         main {
@@ -59,7 +40,6 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             font-size: 18px;
-            
         }
 
         button {
@@ -82,9 +62,17 @@
             background-color: #27AE60;
         }
 
-       
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-     
+        header span {
+            margin-left: 10px;
+            color : black;
+            font-size : 30px;
+        }
         
   
 
@@ -239,7 +227,7 @@
         </div>
         <div class="profile">
             <div class="profile_1">
-                <img src="${sellerFile.changeName }" alt="Profile Image">
+                <img src="/ftd${sellerFile.changeName }">
             </div>
             <div class="profile_2">
                 <span>${requestScope.seller.companyName}</span>
@@ -462,7 +450,7 @@
 			        	resultStr =  	
          		   	'<hr>'    	
 		            +   '<div>'
-		            +    '<div class="replyContent">'+ result[i].replyContent +'</div>'
+		            +    '<p class="replyContent">'+ result[i].replyContent +'</p>'
 		            +    '<div class="reply-info">'
 		            +    '<input type="hidden" class="rno" value="'+ result[i].replyNo +'">'
 		            +    	'<div>'
