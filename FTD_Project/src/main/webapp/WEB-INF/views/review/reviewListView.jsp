@@ -91,6 +91,7 @@
             border-spacing: 0px;
             border-radius: 10px;
             border-color: lightgray;
+            margin:auto;
         }
 
         #review_footer > div {
@@ -196,7 +197,7 @@
 
                   +             '<div>'
                   +                 '<span>'
-                  +                  '<span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> '+ val[0].starRatting +'</span>'
+                  +                  '<span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> '+ val[0].starRating +'</span>'
                   +                 '</span>'
                   +             '</div>'
 

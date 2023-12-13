@@ -266,6 +266,41 @@
 						<input type="text" name="sellerNo" id="sellerNo" value="${ requestScope.sellerNo }">
 					</form>
 					</div>
+				
+				<button onclick="selectSellerPromotion()">홍보</button>
+				
+			<script>
+				 function selectSellerPromotion() {
+	        	   
+	        		   $.ajax({
+	                       url: 'list.pr',
+	                       type: 'post',
+	                       data: { 
+	                    	   	sno: ${ requestScope.sellerNo }
+	                 
+	                    	},
+	    	               success : function(result) {
+								console(result);
+	    	            	   
+	    	    				if(result == "success"){//등록 성공시
+	    	    					
+	    	    					//댓글 작성 성공 시
+	    	    					selectReplyList();
+	    	    					//textarea 를 초기화
+	    	    					$("#replyContent").val("");
+	    	    					
+	    	    				}
+	    	    				
+	    	    			},
+	    	    			error : function() {
+	    	    				
+	    	    				console.log("댓글 작성용 ajax 통신 실패!");
+	    	    			}
+	                   });
+	        	
+	           }
+		 </script>		
+					
 					
 				</div>
 
@@ -279,14 +314,15 @@
     
     // console.log(document.getElementById("subscribe"))
     
-    $(function() {
     	
+    $(function() {
+    
     	$(".store").on("click", "#subscribe", () => {
-
+    		
     		$.ajax({
     			url : "ajaxClickSubscribe.se",
 				type : "get",
-				data : { memberNo : ${sessionScope.loginUser.memberNo }, sellerNo : ${requestScope.sellerNo}},
+				data : { memberNo : memberNo, sellerNo : ${requestScope.sellerNo}},
 				success : result => {
 					
 	            	if(result == "btn btn-secondary") {

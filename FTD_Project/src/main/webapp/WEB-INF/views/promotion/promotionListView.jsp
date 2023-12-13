@@ -147,6 +147,10 @@
                 display: block;
             }
 
+			#product{
+			margin: auto;
+			}
+			
             .product {
                 display: inline-block;
                 border: 1px solid black;
@@ -158,6 +162,7 @@
                 cursor: pointer;
                 /* Change cursor on hover */
                 transition: background-color 0.3s;
+                
             }
 
             .product:hover {
@@ -410,7 +415,7 @@
                        let str  ='<div>'
                                 + '<div class="profile">'
                                 + '<div id="profile_1" style="width : 50px; height : 50px;">'
-                                + '<img src="'+ val[2].changeName +'" alt="">'
+                                + '<img src="/ftd/resources/uploadFiles/sellerPage/'+ val[2].changeName +'">'
                                 + '</div>'
                                 + '<div id="profile_2">'
                                 + '<span>'

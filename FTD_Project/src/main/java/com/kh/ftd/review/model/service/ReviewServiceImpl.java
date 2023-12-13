@@ -70,6 +70,36 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectGoodsList(sqlSession,gno);
 	}
 
+	@Override
+	public int insertReviewReply(ReviewReply rr) {
+	
+		return reviewDao.insertReviewReply(sqlSession,rr);
+	}
+
+	@Override
+	public int updateReviewReply(ReviewReply rr) {
+
+		return reviewDao.updateReviewReply(sqlSession,rr);
+	}
+
+	@Override
+	public int deleteReviewReply(ReviewReply rr) {
+
+		return reviewDao.deleteReviewReply(sqlSession,rr);
+	}
+
+	@Override
+	public int deleteReview(int rno) {
+		
+		return reviewDao.deleteReview(sqlSession,rno);
+	}
+
+	@Override
+	public int deleteReviewFile(int rno) {
+		
+		return reviewDao.deleteReviewFile(sqlSession,rno);
+	}
+
 
 
 }

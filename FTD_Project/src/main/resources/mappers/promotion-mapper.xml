@@ -186,7 +186,7 @@
 		   AND DELETE_DATE IS NULL
 	</update>
 	
-<update id="deletePromotion" parameterType="_int">
+	<update id="deletePromotion" parameterType="_int">
 		UPDATE PROMOTION
 		   SET DELETE_DATE = SYSDATE
 		 WHERE PROMOTION_NO = #{pno}
@@ -220,12 +220,36 @@
 		   AND MEMBER_NO = #{memberNo}
 	</update>
 	
-		<update id="updatePromotionReply" parameterType="promotionReply">
+	<update id="updatePromotionReply" parameterType="promotionReply">
 		UPDATE PROMOTION_REPLY
 		   SET REPLY_CONTENT = #{replyContent}
+		   	  ,CREATE_DATE = SYSDATE
 	 	 WHERE PROMOTION_NO = #{promotionNo}
 		   AND REPLY_NO = #{replyNo}
 		   AND MEMBER_NO = #{memberNo}
 	</update>
+	
+	
+	<select id="selectPromotionSellerList" resultMap="promotionResultSet">
+	SELECT 
+	    P.PROMOTION_NO,
+	    P.SELLER_NO,
+	    P.PROMOTION_TITLE,
+	    P.PROMOTION_CONTENT,
+	    P.COUNT,
+	    P.CREATE_DATE,
+	    P.DELETE_DATE
+	FROM 
+	    PROMOTION P
+	    JOIN SELLER S ON P.SELLER_NO = S.SELLER_NO
+	WHERE 
+	    S.DELETE_DATE IS NULL
+	AND
+		P.DELETE_DATE IS NULL
+	AND
+		P.SELLER_NO = #{sellerNo}
+	ORDER BY 
+	    P.PROMOTION_NO DESC
+	</select>
 	
 </mapper>
