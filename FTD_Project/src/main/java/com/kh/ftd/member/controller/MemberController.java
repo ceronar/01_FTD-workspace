@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.member.model.service.MemberService;
+import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 
@@ -358,7 +359,6 @@ public class MemberController {
 		return subscribeColor;
 	}
 	
-	
 	@RequestMapping("like.me")
 	public String memberLikeList(HttpSession session, Model model) {
 		
@@ -372,5 +372,17 @@ public class MemberController {
 		return "member/memberLikeList";
 	}
 	
+	@ResponseBody
+	@RequestMapping("ajaxDeleteLike.me")
+	public String ajaxMemberDeleteLike(Like like) {
+		
+		int result = memberService.ajaxMemberDeleteLike(like);
+		
+		if(result > 0) {
+			return "Y";
+		} else {
+			return "N";
+		}
+	}
 	
 }

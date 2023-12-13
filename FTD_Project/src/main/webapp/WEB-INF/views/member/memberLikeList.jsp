@@ -38,6 +38,27 @@
 			border: none;
 			cursor: pointer;
 		}
+		
+		/* navi css */
+		#nav1 {
+		    display: none !important;
+		}
+		
+		#nav2 {
+		    display: none !important;
+		}
+		
+		#nav3 {
+		    display: none !important;
+		}
+		
+		#nav4 {
+		    display: block !important;
+		}
+		
+		#nav5 {
+		    display: none !important;
+		}
         
     </style>
 </head>
@@ -90,13 +111,12 @@
 		        let goodNo = parentTrTag.children.item(0).innerText;
     			if(target.classList.contains('nonClick') || (target == e.currentTarget.querySelector(".deleteBtn")) || (target == e.currentTarget.querySelector(".material-symbols-outlined"))) {
     				alertify.confirm('', '정말 좋아요를 삭제하시겠습니까?', 
-    						function(){ 
-    					alertify.success('Ok'); 
+    						function(){  
     					deleteLike(goodNo, parentTrTag);
-    				}, function(){ alertify.error('Cancel')});
+    				}, function(){ alertify.error('취소')});
     			} else {
     				let sellNo = parentTrTag.children.item(5).innerText;
-    				// location.href = "goodsDetailPage.go?gno=" + sellNo;
+    				location.href = "goodsDetailPage.go?gno=" + sellNo;
     			}
 			});
 		});
@@ -104,9 +124,25 @@
     	function deleteLike(goodNo, parentTrTag) {
 			// console.log(goodNo);
 			// console.log(parentTrTag);
-			$.ajax({
-				
-			});
+    		$.ajax({
+      			url : "ajaxDeleteLike.me",
+      			type : "get",
+      			data : {
+      				memberNo : ${ sessionScope.loginUser.memberNo },
+      				goodNo : goodNo
+      			},
+      			success : function(result) { 
+					if(result == "Y") {
+						parentTrTag.remove();
+						alertify.success('완료');
+					} else {
+						alertify.error('실패');
+					}
+				},
+				error : function() {
+					console.log("ajax 통신 실패")
+				}
+      		});
 		}
     	
     </script>

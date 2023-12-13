@@ -11,6 +11,7 @@
 	<typeAliases>
 
 		<typeAlias type="com.kh.ftd.member.model.vo.Member" alias="member" />
+		<typeAlias type="com.kh.ftd.member.model.vo.Like" alias="like" />
 		<typeAlias type="com.kh.ftd.promotion.model.vo.Promotion" alias="promotion" />
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionFile" alias="promotionFile"/>
 		<typeAlias type="com.kh.ftd.promotion.model.vo.PromotionReply" alias="promotionReply"/>
@@ -43,6 +44,7 @@
 		<typeAlias type="com.kh.ftd.order.model.vo.OrderGoods" alias="orderGoods" />
 		
 		<typeAlias type="com.kh.ftd.admin.model.vo.Chart" alias="chart" />
+		
 	</typeAliases>
 	
 	<!-- 

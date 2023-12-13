@@ -1,9 +1,9 @@
 package com.kh.ftd.member.model.service;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 
@@ -50,4 +50,7 @@ public interface MemberService {
 	
 	// memberNo으로 구매자 한명 상태 수정
 	int memberStatusChange(Member m);
+	
+	// 좋아요한 항목 지우기
+	int ajaxMemberDeleteLike(Like like);
 }

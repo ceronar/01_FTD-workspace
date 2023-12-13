@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 
@@ -84,6 +85,10 @@ public class MemberDao {
 
 	public int memberStatusChange(SqlSession sqlSession, Member m) {
 		return sqlSession.update("memberMapper.memberStatusChange", m);
+	}
+
+	public int ajaxMemberDeleteLike(SqlSession sqlSession, Like like) {
+		return sqlSession.delete("memberMapper.ajaxMemberDeleteLike", like);
 	}
 	
 }

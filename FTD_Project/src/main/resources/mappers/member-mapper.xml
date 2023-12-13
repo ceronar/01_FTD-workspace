@@ -21,6 +21,11 @@
 		<result column="SELLER_NO" property="sellerNo" />
 	</resultMap>
 	
+	<resultMap id="likeResultSet" type="like">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="GOOD_NO" property="goodNo" />
+	</resultMap>
+	
 	
 	<!-- 로그인용 쿼리문 -->
 	<select id="loginMember" 
@@ -179,5 +184,12 @@
 		</choose>
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<delete id="ajaxMemberDeleteLike" parameterType="like">
+		DELETE
+		  FROM "LIKE"
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND GOOD_NO = #{goodNo}
+	</delete>
 	
 </mapper>

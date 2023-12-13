@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ftd.common.model.vo.PageInfo;
 import com.kh.ftd.member.model.dao.MemberDao;
+import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 
@@ -100,5 +101,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberStatusChange(Member m) {
 		return memberDao.memberStatusChange(sqlSession, m);
+	}
+
+	@Override
+	public int ajaxMemberDeleteLike(Like like) {
+		return memberDao.ajaxMemberDeleteLike(sqlSession, like);
 	}
 }
