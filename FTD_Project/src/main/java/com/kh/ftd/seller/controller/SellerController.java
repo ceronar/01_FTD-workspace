@@ -21,6 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
+import com.kh.ftd.promotion.model.service.PromotionService;
+import com.kh.ftd.promotion.model.vo.Promotion;
+import com.kh.ftd.promotion.model.vo.PromotionFile;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
@@ -30,6 +33,9 @@ public class SellerController {
 
 	@Autowired
 	private SellerService sellerService;
+	
+	@Autowired
+	private PromotionService promotionService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -108,8 +114,8 @@ public class SellerController {
 			resultList.add(arrList);		
 			
 		}	
-		System.out.println(startPage);
-		System.out.println(endPage);
+		//System.out.println(startPage);
+		//System.out.println(endPage);
 		
 		return new Gson().toJson(resultList);
 	}
@@ -153,7 +159,123 @@ public class SellerController {
 		resultList.add(subscribe);
 			
 		return new Gson().toJson(resultList);
-	}	
+	}
+	
+	//판재자 서브메뉴 이 마켓 홍보 리스트 조회
+	@RequestMapping(value = "list.pr")
+	public String selectSellerPromotion(int sno) {
+		
+		int promotionNo = 0;
+		int sellerNo = 0;
+		
+		//System.out.println(sellerNo);
+		
+		//홍보리스트  (이 마켓의)
+		ArrayList<Promotion> pList = promotionService.selectPromotionSellerList(sno);
+		//System.out.println(pList);
+		
+		for(int i = 0; i < pList.size(); i++) {
+			if(pList.get(i).getPromotionContent().length() > 80) {
+				String s = pList.get(i).getPromotionContent();
+				pList.get(i).setPromotionContent(s.substring(0, 77) + "...");
+			}
+		}
+		
+		//홍보리스트 판매자용 어레이 리스트
+		ArrayList<Object> sList = new ArrayList<Object>();
+		
+		//홍보리스트 마켓프로필사진조회 어레이 리스트
+		ArrayList<SellerFile> sfList = new ArrayList<SellerFile>();
+		
+		//홍보리스트 사진조회 어레이 리스트
+		ArrayList<Object> pfList = new ArrayList<Object>();
+		
+		//댓글 개수 담을 곳
+		ArrayList<Object> rList = new ArrayList<Object>();
+		
+	
+			
+		//진짜 다 담을 곳
+				ArrayList<Object> arrList2 = new ArrayList<Object>();
+		
+		//총 DB의 홍보게시글개수
+		int TOTAL_ITEMS = pList.size();
+		//System.out.println(pList.size());
+		
+		int start = page * size;
+		 
+	    int end = Math.min(start + size, TOTAL_ITEMS);
+		
+		for(Promotion p : pList) {
+			promotionNo = p.getPromotionNo();
+			sellerNo = p.getSellerNo();
+		
+		//홍보리스트 판매자
+		Seller sellerList = promotionService.selectSellerList(sellerNo);
+		//System.out.println(sellerList);
+		sList.add(sellerList);
+		
+		//홍보리스트 마켓프로필사진조회 리스트
+		SellerFile sellerFileList = promotionService.selectSellerFileProfileList(sellerNo);
+		//System.out.println(sellerFileList); 
+		sfList.add(sellerFileList);
+		
+		//홍보리스트 사진조회 리스트
+		ArrayList<PromotionFile> pFileList = promotionService.selectPromotionFileList(promotionNo);
+		//System.out.println(pFileList);
+		pfList.add(pFileList);
+	
+		//각 홍보리스트 댓글갯수
+		int replyList =  promotionService.PromotionReplyCount(promotionNo);
+		//System.out.println(replyList); 
+	
+		rList.add(replyList);
+		
+		
+		}
+		
+		//System.out.println(pList);
+		//System.out.println(sList);
+		//System.out.println(sfList);
+		//System.out.println(pfList);
+		//System.out.println(rList);
+		
+		//System.out.println(pfCount);
+
+		
+	
+		
+	
+	  
+//	  // * 테스트용
+//	    ArrayList<String> list 
+//					=  new ArrayList<String>();
+//
+		
+	        for (int i = start; i < end; i++) {
+	        	
+	        	ArrayList<Object> arrList = new ArrayList<Object>();
+	        	
+	        	arrList.add(pList.get(i));
+	        	arrList.add(sList.get(i));
+	        	arrList.add(sfList.get(i));
+	        	arrList.add(pfList.get(i));
+	        	arrList.add(rList.get(i));
+	        	
+	        	//System.out.println(arrList);
+	        	arrList2.add(arrList);
+	        	//System.out.println(i); // 순서대로 0~4 5개라쳣을때
+	    		
+  }
+	        //System.out.println(arrList2);
+	       // System.out.println("*"+arrList2.size()); //띄워질요소사이즈
+
+		// Gson gson = new Gson();
+		// return gson.toJson(list);
+		
+	        return new Gson().toJson(arrList2);
+	}
+		
 	
 	// 로그인 폼
 	@RequestMapping("loginForm.se")
@@ -301,8 +423,8 @@ public class SellerController {
 				
 				session.setAttribute("alertMsg", "성공적으로 탈퇴했습니다. 감사했습니다.");
 				
-				System.out.println(sellerId);
-				System.out.println(sellerPwd);
+				//System.out.println(sellerId);
+				//System.out.println(sellerPwd);
 				
 				return "redirect:/";
 				

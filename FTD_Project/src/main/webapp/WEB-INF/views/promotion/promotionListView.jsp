@@ -147,6 +147,10 @@
                 display: block;
             }
 
+			#product{
+			margin: auto;
+			}
+			
             .product {
                 display: inline-block;
                 border: 1px solid black;
@@ -158,6 +162,7 @@
                 cursor: pointer;
                 /* Change cursor on hover */
                 transition: background-color 0.3s;
+                
             }
 
             .product:hover {

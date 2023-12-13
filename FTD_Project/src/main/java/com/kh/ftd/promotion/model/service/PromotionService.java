@@ -78,6 +78,10 @@ public interface PromotionService {
 	int updatePromotionReply(PromotionReply prno);
 
 	
+	//판매자 서브메뉴 그마켓 홍보리스트 조회
+	ArrayList<Promotion> selectPromotionSellerList(int sellerNo);
+
+	
 
 
 	
