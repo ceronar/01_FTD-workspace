@@ -242,7 +242,7 @@
 			                            </div>
 			                            <input type="hidden" class="price" name="goodPrice" value="${ c.price }">
 			                        </td>
-			                        <td>${ c.price }원</td>
+			                        <td>${ c.price * c.count }원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
 			                    </tr>
 			                    </c:forEach>
@@ -393,30 +393,34 @@
         });
       	
       	$(".deleteBtn").on('click', e => {
-      		// console.log(e);
-      		// let goodNo = e.target.parentElement.parentElement.parentElement.children.item(0).children.item(0).value; // ㄷㄷ
-      		let parentTrTag = e.target;
-      		for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
-      		let goodNo = parentTrTag.children.item(0).children.item(0).value;
-      		console.log(goodNo);
-      		// memberNo, goodNo ajax로 보내고 parentTrTag 제거
-      		$.ajax({
-      			url : "ajaxDeleteCart.me",
-      			type : "get",
-      			data : {
-      				memberNo : ${ sessionScope.loginUser.memberNo },
-      				goodNo : goodNo
-      			},
-      			success : function(result) { 
-					if(result == "success") {
-						parentTrTag.remove();
-						alertify.success('삭제 완료');
+      		alertify.confirm('', '정말 장바구니에서 삭제하시겠습니까?', 
+					function(){ 
+				// console.log(e);
+	      		// let goodNo = e.target.parentElement.parentElement.parentElement.children.item(0).children.item(0).value; // ㄷㄷ
+	      		let parentTrTag = e.target;
+	      		for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
+	      		let goodNo = parentTrTag.children.item(0).children.item(0).value;
+	      		console.log(goodNo);
+	      		// memberNo, goodNo ajax로 보내고 parentTrTag 제거
+	      		$.ajax({
+	      			url : "ajaxDeleteCart.me",
+	      			type : "get",
+	      			data : {
+	      				memberNo : ${ sessionScope.loginUser.memberNo },
+	      				goodNo : goodNo
+	      			},
+	      			success : function(result) { 
+						if(result == "success") {
+							parentTrTag.remove();
+							alertify.success('삭제 완료');
+						}
+					},
+					error : function() {
+						console.log("ajax 통신 실패")
 					}
-				},
-				error : function() {
-					console.log(" ajax 통신 실패")
-				}
-      		});
+	      		});
+	      		
+			}, function(){ alertify.error('취소')});
       	});
       	
       	

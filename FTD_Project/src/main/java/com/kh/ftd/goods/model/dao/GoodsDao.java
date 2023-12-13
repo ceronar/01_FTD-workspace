@@ -70,5 +70,9 @@ public class GoodsDao {
 
 		return sqlSession.selectOne("goodsMapper.ajaxSelectReplyCount", sellNo);
 	}
+
+	public ArrayList<Goods> memberLikeList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("goodsMapper.memberLikeList", memberNo);
+	}
 	
 }

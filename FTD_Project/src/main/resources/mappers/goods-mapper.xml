@@ -13,6 +13,7 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="EXPIRATION_DATE" property="expiration" />
 		<result column="STOCK" property="stock" />
+		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 
 	<resultMap id="goodsFileResultSet" type="goodsFile">
@@ -166,6 +167,15 @@
 		  LEFT JOIN GOODS_SELL S ON (G.GOOD_NO = S.GOOD_NO AND S.DELETE_DATE IS NULL)
 		  LEFT JOIN GOODS_FILE F ON (S.SELL_NO = F.SELL_NO AND F.CREATE_DATE IS NOT NULL)
 		 WHERE ORDER_NO = #{orderNo}
+	</select>
+	
+	<select id="memberLikeList" parameterType="_int" resultMap="goodsResultSet">	
+		SELECT G.GOOD_NO, GF.CHANGE_NAME, G.GOOD_TITLE, G.PRICE, G.STOCK, GS.SELL_NO
+		  FROM "LIKE" L
+		  JOIN GOODS G ON (L.GOOD_NO = G.GOOD_NO AND G.DELETE_DATE IS NULL)
+		  LEFT JOIN GOODS_SELL GS ON (G.GOOD_NO = GS.GOOD_NO AND GS.DELETE_DATE IS NULL)
+		  LEFT JOIN GOODS_FILE GF ON (GS.SELL_NO = GF.SELL_NO AND GF.CREATE_DATE IS NOT NULL AND GF.DELETE_DATE IS NULL)
+		 WHERE MEMBER_NO = #{memberNo}	
 	</select>
 	
 </mapper>

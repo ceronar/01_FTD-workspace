@@ -92,5 +92,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.memberOrderDetail(sqlSession, orderNo);
 	}
 
+	@Override
+	public ArrayList<Goods> memberLikeList(int memberNo) {
+		return goodsDao.memberLikeList(sqlSession, memberNo);
+	}
+
 
 }
