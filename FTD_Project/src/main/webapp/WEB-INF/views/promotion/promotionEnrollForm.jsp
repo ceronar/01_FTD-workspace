@@ -5,7 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <!-- include summernote css/js --> 
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -33,25 +40,7 @@
             font-size: 18px;
         }
 
-        button {
-            display: block;
-            margin: 20px auto;
-            padding: 15px;
-            background-color: #2ECC71;
-            color: #ffffff;
-            text-align: center;
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s;
-            width: 150px; /* Set a fixed width for the button */
-        }
-
-        button:hover {
-            background-color: #27AE60;
-        }
+       
 
         header {
             display: flex;
@@ -166,6 +155,14 @@
 
     <script>
         // ... (unchanged) ...
+        
+        $(document).ready(function() {
+        	$('#promotionContent').summernote({
+                placeholder: 'Hello Bootstrap 4',
+                tabsize: 2,
+                height: 100
+              });
+		});
     </script>
 </body>
 </html>

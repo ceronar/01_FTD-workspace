@@ -168,15 +168,16 @@ public class SellerController {
 	}
 	
 	//판재자 서브메뉴 이 마켓 홍보 리스트 조회
-	@RequestMapping(value = "list.pr")
-	public String selectSellerPromotion(int sno) {
+	@ResponseBody
+	@RequestMapping(value = "list.pr" , produces = "application/json; charset=UTF-8")
+	public String selectSellerPromotion(int sno , int page, int size) {
 		
 		int promotionNo = 0;
 		int sellerNo = 0;
 		
 		//System.out.println(sellerNo);
 		
-		//홍보리스트  (이 마켓의)
+		//홍보리스트(이 마켓의)
 		ArrayList<Promotion> pList = promotionService.selectPromotionSellerList(sno);
 		//System.out.println(pList);
 		
@@ -202,7 +203,7 @@ public class SellerController {
 	
 			
 		//진짜 다 담을 곳
-				ArrayList<Object> arrList2 = new ArrayList<Object>();
+		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		
 		//총 DB의 홍보게시글개수
 		int TOTAL_ITEMS = pList.size();

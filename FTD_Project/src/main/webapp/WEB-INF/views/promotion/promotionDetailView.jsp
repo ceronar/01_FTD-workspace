@@ -331,7 +331,9 @@
 				
 				
 			</section>
-            <div class="centent_1" align="center">${requestScope.p.promotionContent}</div>
+            <div class="content_1" align="center">
+				${requestScope.p.promotionContent}
+			</div>
            
 			
 
