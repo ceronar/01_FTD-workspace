@@ -17,4 +17,7 @@ public class OrderGoods {
 	private int count;			//	COUNT	NUMBER
 	private int price; 			//	PRICE	NUMBER
 	private String status;		//	STATUS	CHAR(1 BYTE)
+	private String goodTitle;	// GOOD_TITLE goods에서 조회
+	private int sellNo;			// 판매글 번호
+	private String changeName;	// 판매글 대표이미지
 }

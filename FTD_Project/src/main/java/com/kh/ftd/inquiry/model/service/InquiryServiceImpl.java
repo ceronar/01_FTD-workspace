@@ -78,8 +78,7 @@ public class InquiryServiceImpl implements InquiryService{
 
 	@Override
 	public int insertAnswer(Inquiry i) {
-		// TODO Auto-generated method stub
-		return 0;
+		return inquiryDao.insertAnswer(sqlSession, i);
 	}
 
 	@Override

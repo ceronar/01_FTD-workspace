@@ -12,10 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <style>
 
-	.content {
-		height: 800px;
-	}
-
 	/* 전체 div */
 	.goods {
 		width: 100%;
@@ -135,13 +131,18 @@
 	}
 
 	.seller-img {
-		width: 10%;
+		width: 60px;
 		margin-left: 70px;
 		margin-right: 30px;
 	}
 
 	.seller-name {
 		width: 70%;
+		font-size: 30px;
+		font-family: 'Noto Sans KR', sans-serif;
+		line-height: 55px;
+		padding-left: 60px;
+		text-align: left;
 	}
 
 	.goods-eroll {
@@ -183,6 +184,11 @@
 		border-bottom: 3px solid black;
 		color: black;
 	}
+	
+	.goods-div {
+		height: 510px;
+	}
+	
 
 </style>
 <script>
@@ -191,74 +197,77 @@
 	var page = 0;
 	var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
 	
-	 $(document).ready(function () {
+	$(document).ready(function () {
+		 
+		ajaxSelectSellerGoodsList();
 
-	        $(window).scroll(function () {
-	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
-	                
-	            	ajaxSelectSellerGoodsList();
-	            	page++;	         
-	            }
-	        });
-	    });
+		$(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
+                
+            	page++;	         
+            	ajaxSelectSellerGoodsList();
+            }
+		});
+	});
 	
-	 function ajaxSelectSellerGoodsList() {
+	function ajaxSelectSellerGoodsList() {
 	      
-	        $.ajax({
-	            url : 'ajaxSelectSellerGoodsList.go',
-	            type: 'get',
-	            data: { page: page, pageSize: pageSize, sellerNo : ${sessionScope.loginSeller.sellerNo}},
-	            success: function(result) {
-	            	
-	            	// console.log(result);
-	            	
-	            	if(result.length == 0) {
-	            		
-	            		resultStr = "<br><br><br><br><br><br><br><h1>판매자님이 등록한 상품이 없습니다.</h1>";
-	            		
-	            		$('.goods-div').html(resultStr);
-	            	}
-	                      	
-	                result.forEach(function (item, index) {
-	                    
-	                	$('.goods-div').append(
-	                			
-	                		'<div class="goods">'
+	    $.ajax({
+	        url : 'ajaxSelectSellerGoodsList.go',
+	        type: 'get',
+	        data: { page: page, pageSize: pageSize, sellerNo : ${sessionScope.loginSeller.sellerNo} },
+	        success: function(result) {
+	        	          	
+				console.log(result);
+				
+				if(page ==0 && result.length == 0) {
+					
+					resultStr = "<br><br><br><br><br><br><h1>판매자님이 등록한 상품이 없습니다.<h1>";
+					
+					$('.goods-div').html(resultStr);
+					
+				}
+						
+				result.forEach(function (item, index) {
+					
+					$('.goods-div').append(
+							
+						'<div class="goods">'
+							
+							+'<input type="hidden" value="">'
+							+'<div class="goods-content">'	
+										
+								+'<div class="goods-title">'
+									+'<div class="goods-title-img">아이콘</div>'
+									+'<div class="goods-name">'+item.goodTitle+'</div>'
+									+'<div class="goods-origin">'+item.origin+'</div>'
+								+'</div>'
 								
-								+'<input type="hidden" value="">'
-			        			+'<div class="goods-content">'	
-			        						
-			        				+'<div class="goods-title">'
-			        					+'<div class="goods-title-img">아이콘</div>'
-			        					+'<div class="goods-name">'+item[0].goodTitle+'</div>'
-			        					+'<div class="goods-origin">'+item[0].origin+'</div>'
-			        				+'</div>'
-			        				
-			        				+'<div class="goods-text">'+item[0].goodDetail+'</div>'
-			
-			        				+'<div class="goods-detail">'
-			        					+'<div class="goods-price-text">판매가</div>'
-			        					+'<div class="goods-price">'+item[0].price+'원</div>'
-			        					+'<div class="goods-createDate">'+item[0].createDate+'</div>'
-			        					+'<div class="goods-stock-icon">아이콘</div>'
-			        					+'<div class="goods-stock">'+item[0].stock+'</div>'
-			        				+'</div>'
-			        			+'</div>'
+								+'<div class="goods-text">'+item.goodDetail+'</div>'
+		
+								+'<div class="goods-detail">'
+									+'<div class="goods-price-text">판매가</div>'
+									+'<div class="goods-price">'+item.price+'원</div>'
+									+'<div class="goods-createDate">'+item.createDate+'</div>'
+									+'<div class="goods-stock-icon">아이콘</div>'
+									+'<div class="goods-stock">'+item.stock+'</div>'
+								+'</div>'
 							+'</div>'
-	                	                             	
-	                	);
-	                             
-	                });
-	                
-	           
-
-	            },
-	            error : function() {
-	            	
-	            	console.log("ajax 통신 실패");
-	            }
-	        });
-	    }
+						+'</div>'
+						+'<br><br><br>'
+													
+					);
+								
+				});
+				
+			
+			},
+			error : function() {
+				
+				console.log("ajax 통신 실패");
+			}
+	    });
+	}
 
 </script>
 </head>
@@ -276,7 +285,7 @@
 					
 					<div class="seller-title">
 						<div class="seller-img"></div>
-						<div class="seller-name"></div>
+						<div class="seller-name">${sessionScope.loginSeller.companyName }님의 상품 관리 페이지</div>
 					</div>
 
 					<div class="goods-eroll">
@@ -284,28 +293,7 @@
 					</div>
 					
 					<div class="goods-div">
-						<div class="goods">
-							
-							<input type="hidden" value="">
-		        			<div class="goods-content">	
-		        						
-		        				<div class="goods-title">
-		        					<div class="goods-title-img">아이콘</div>
-		        					<div class="goods-name">품목</div>
-		        					<div class="goods-origin">원산지</div>
-		        				</div>
-		        				
-		        				<div class="goods-text">상품상세정보</div>
-		
-		        				<div class="goods-detail">
-		        					<div class="goods-price-text">판매가</div>
-		        					<div class="goods-price">판매가</div>
-		        					<div class="goods-createDate">등록일</div>
-		        					<div class="goods-stock-icon">아이콘</div>
-		        					<div class="goods-stock">재고</div>
-		        				</div>
-		        			</div>
-						</div>
+						
 					
 					</div>
 				
@@ -315,14 +303,6 @@
         </div>
 	</div>
 	
-	<script>
-    	$(function () {
-            	
-    		ajaxSelectSellerGoodsList();    
 
-          
-    	});
-    	
-	</script>
 </body>
 </html>

@@ -38,7 +38,6 @@
         .review {
             border-bottom: 1px solid #ddd;
             padding: 15px 0;
-            display: flex;
             justify-content: space-between;
             align-items: center;
         }
@@ -166,20 +165,19 @@
 
                        let str  = '<div class="review-content">'
                      +  '<div id="name">'
-                     +  '<div> xxx님</div>'
-                     + ' <div><p class="review-date">xx 시간전</p></div>'
+	                     +  '<div> '+val[0].memberNo+'</div>'
+	                     + ' <div><p class="review-date">xx 시간전</p></div>'
                   	 +	'</div>'
-
+				+'<div class="detail">'
                   + '<h2>후기</h2>'
-                  + '<p>상품 받았습니다. 정말 만족스럽고 배송도 빨랐어요. 다음에 또 이용하겠습니다.</p>'
-                  + '<div>'
+                  + '<p>'+ val[0].revContent +'</p>'
+                  + '<input type="hidden" value="' + val[0].revNo + '">'  
                   +     '<div>'
-                          
-                  +         '<img src="" id="img_1">'
+                  +         '<img src="'+ val[1][0].changeName +'" id="img_1">'
                   +     '</div>'
-
-                  +     '<div id="review_product">'
-                  +         
+				+'</div>'
+                + '<div>'
+                  +     '<div id="review_product">'        
                   +         '<table border="1" id="product">'
                   +             '<tr>'
                   +                 '<td><img src="" id="img_2"></td>'
@@ -198,20 +196,21 @@
 
                   +             '<div>'
                   +                 '<span>'
-                  +                  '<span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> 5</span>'
+                  +                  '<span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> '+ val[0].starRatting +'</span>'
                   +                 '</span>'
                   +             '</div>'
 
                   +             '<div id="review_footer_2">'
                   +                 '<span>'
                   +                     '<span> <i class="far fa-comment"></i></span>'
-                  +                     '<span>0</span>'
+                  +                     '<span>'+ val[3] +'</span>'
                   +                 '</span>'
                   +             '</div>'
                   +         '</div>'
                   +     '</div>'
                  +  '</div>'
-              + '</div>' ;
+              + '</div>'
+              + '<hr>';
 
 
                                 $('.review').append(str);
@@ -235,18 +234,17 @@
         </script>
 
         <script>
-         /*   $(function () {
+          $(function () {
 
-                $(".promotion").on('click', '.detail', function (e) {
+                $(".review").on('click', '.detail', function (e) {
 
+                	//console.log(e.currentTarget.children.item(2).value);
+                	
+                    let rno = e.currentTarget.children.item(2).value;
 
-                    let pno = e.currentTarget.children.item(0).value;
-
-                    // console.log(bno);
-
-                    location.href = "pdlist.bo?pno=" + pno;
+                    location.href = "rdlist.bo?rno=" + rno;
                 });
-            }); */
+            }); 
         </script>
      <title>쇼핑몰 후기</title>
 </head>
@@ -261,7 +259,7 @@
 		        <jsp:include page="../common/header.jsp" />
 	
 		           
-		        <div class="content">메인 컨텐츠<br>
+		        <div class="content">
 
         <div class="review">
 

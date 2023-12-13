@@ -1,17 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	   body {
-	       font-family: Arial, sans-serif;
-	       background-color: #f5f5f5;
-	       margin: 0;
-	       padding: 20px;
-	   }
 	
 	   .container {
 	       max-width: 800px;
@@ -20,6 +15,7 @@
 	       padding: 20px;
 	       border-radius: 5px;
 	       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	       text-align : left;
 	   }
 	
 	   h1 {
@@ -103,6 +99,14 @@
 	   }
 </style>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+   <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
+
+<!-- 슬라이드 외부 css -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 </head>
 <body>
 <div class="wrapper">
@@ -115,51 +119,95 @@
 	            
 	            <div class="content">
 				    <div class="container">
-				        <h1>게시글 상세보기</h1>
+				        <h1>문의글 상세보기</h1>
 				        <div class="post">
-				            <h2>Q. 오늘점심메뉴가 무엇인가요</h2>`
-				            <div class="post-meta">
-				                <p>작성자: admin | 작성일: 2023-11-23</p>
-				            </div>
+				        	<h2>Q.${ requestScope.i2.inqTitle }</h2>
+					            <div class="notice-info">  
+					                <p>작성일: ${requestScope.i2.createDate }</p>
+					                <div class="btn">
+							        	<button onclick="responseForm(1)">답글 작성</button>
+							            <button onclick="responseForm(2)">글 수정</button>
+							            <button onclick="responseForm(3)">글 삭제</button>
+							        </div>
+					            </div>
+					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq 1}">
+						        	<script>
+					                	function responseForm(num) {
+					                		if(num == 1) {
+					                			// 답글 작성 버튼
+					                			$("#responseForm").attr("action", "enrollForm.re").submit();
+					                		} else if(num == 2) {
+					                			// 글 수정 버튼
+					                			$("#responseForm").attr("action", "updateForm.in").submit();
+					                		} else if(num == 3) {
+					                			// 글 삭제 버튼
+					                			$("#responseForm").attr("action", "delete.in").submit();
+					                			
+					                		} else if(num == 4) {
+					                			// 답글 수정 버튼
+					                			$("#responseForm").attr("action", "updateForm.re").submit();
+					                		} else if(num == 5) {
+					                			// 답글 삭제 버튼
+					                			$("#responseForm").attr("action", "delete.re").submit();
+					                		}
+					                		
+					                	}
+					                </script>
+					        	</c:if>
 				            <div class="post-content">
-				                <p>맛없으면 결식할겁니다.</p>
-				                <p>감사합니다.</p>
-				                <img src="resources/images.png">
+					            <!-- 슬라이드 화면 -->
+					            <section id="cont_center">
+					            	<article class="column col4">
+					            		<c:if test="${ not empty requestScope.inf }">
+							            	<div class="slider">
+							            		<c:forEach var="inf" items="${ requestScope.inf }">
+													<div  id="img-slider" align="center">
+						                                <figure>
+						                                    <img src="/ftd/${ inf.changeName }" alt="이미지1">
+						                                </figure>
+										            </div>
+									            </c:forEach>
+											</div>	
+										</c:if>
+										<br><br><br><br>
+										<div>${ requestScope.i2.inqContent }</div>
+										<br><br><br><br>
+									</article>	
+								</section>
 				            </div>
-				            <div class="post-img">
-				                <a href="">
-				                    첨부파일.jpg
-				                </a>
-				                <br>
-				                <br>
-				            </div>
-				            
 				        </div>
-				
-				        <div class="btn">
-				            <button>문의글 수정</button>
-				            <button>문의글 삭제</button>
-				        </div>
+				        <br>
+				        <form action="" id="responseForm" method="post">
+		                	<input type="hidden" id="inqNo" name="inqNo"
+		                				value="${ requestScope.i2.inqNo }">
+		                	<input type="hidden" id="inqTitle" name="inqTitle"
+		                				value="${requestScope.i2.inqTitle}">
+		                	<input type="hidden" id="sellerNo" name="sellerNo"
+		                				value="${ requestScope.i2.sellerNo }" >
+
+		                	<input type="text" id="changeName" name="changeName"
+		                				value="${ requestScope.inf }" >
+			            	<input type="text" name="responseDate" 
+			            				value="${ requestScope.i2.responseDate }">
+				            <input type="text" name="responseContent" 
+				            			value="${ requestScope.i2.responseContent }">
+
+		                </form>
+		                
 				        
-				        <div class="answer-area">
-				            <h2>A.</h2>
-				            <div class="post-content">
-				                <p>밥 똥국 김 김치 고순조 입니다.</p>
-				                <p>감사합니다.</p>
-				                <img src="resources/6571f4a68812447d8977d4b027b29386_1641212709.png">
-				            </div>
-				            <div class="post-img">
-				                <a href="">
-				                    첨부파일.jpg
-				                </a>
-				                <br>
-				                <br>
-				            </div>
-				        </div>
-				        <div class="btn">
-				            <button>답글 수정</button>
-				            <button>답글 삭제</button>
-				        </div>
+				        
+					        <div class="answer-area">
+					            
+					            <h2>A.</h2>
+					                <div>
+					                	<p>${ requestScope.i2.responseContent }</p>
+					                </div>
+					                <p>답변일: ${requestScope.i2.responseDate }</p>
+					        </div>
+					        <div class="btn">
+					            <button onclick="responseForm(4)">답글 수정</button>
+					            <button onclick="responseForm(5)">답글 삭제</button>
+					        </div>
 				        <div class="reply-area">
 				            <h2>댓글</h2>
 				            <!-- 댓글 목록 -->
@@ -180,6 +228,23 @@
 		    </div>
 	    </div>
     </div>
-				    
+	<!-- 슬라이드 스크립트 -->
+		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		<script type="text/javascript">
+			$(".slider").slick({
+				dots: true,
+				autoplay: true,
+				autoplaySpeed: 3000,
+				arrows: true,
+				responsive: [
+				    {
+					    breakpoint: 768,
+					    settings: {
+					        autoplay: false,
+				      	}
+				    }
+				]
+			});
+		</script>
 </body>
 </html>

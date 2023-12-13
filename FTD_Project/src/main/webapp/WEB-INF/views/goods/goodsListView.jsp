@@ -145,15 +145,17 @@
 	var pageSize = 9; // 초기 로딩 시 20개씩 불러오기
 	
 	 $(document).ready(function () {
+		 
+		ajaxSelectGoodsList();
 
-	        $(window).scroll(function () {
-	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
-	                
-	            	ajaxSelectGoodsList();
-	            	page++;	         
-	            }
-	        });
-	    });
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
+                
+            	page++;	         
+            	ajaxSelectGoodsList();
+            }
+		});
+	});
 	
 	 function ajaxSelectGoodsList() {
 	      
@@ -235,9 +237,7 @@
 	
 	<script>
 		$(function () {
-			
-			ajaxSelectGoodsList();
-			
+				
 			$(".goods").on('click', '.goods-list', function (e) {
 
             	let gno = e.currentTarget.children.item(0).value;

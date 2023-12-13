@@ -14,12 +14,12 @@ import lombok.ToString;
 public class Review {
 	
 	private int revNo;				//	REV_NO
-	private int memberNo;			//	MEMBER_NO
+	private String memberNo;			//	MEMBER_NO
 	private int goodNo;				//	GOOD_NO
 	private String revTitle;		//	REV_TITLE
 	private String revContent;		//	REV_CONTENT
 	private int count;				//	COUNT
-	private int starRatting;		//	STAR_RATING
+	private int starRating;		//	STAR_RATING
 	private String createDate;		//	CREATE_DATE
 	private String deleteDate;		//	DELETE_DATE
 

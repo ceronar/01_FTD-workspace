@@ -41,6 +41,34 @@ public class GoodsDao {
 
 		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectSellerGoodsList", sellerNo);
 	}
+
+	public ArrayList<Goods> memberOrderDetail(SqlSessionTemplate sqlSession, int orderNo) {
+		return (ArrayList)sqlSession.selectList("goodsMapper.memberOrderDetail", orderNo);
+	}
 	
+	public int insertSellerGoods(SqlSessionTemplate sqlSession, Goods goods) {
+
+		return sqlSession.insert("goodsMapper.insertSellerGoods", goods);
+	}
+	
+	public ArrayList<GoodsSell> ajaxSelectSellerGoodsTextList(SqlSessionTemplate sqlSession, int sellerNo) {
+
+		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectSellerGoodsTextList", sellerNo);
+	}
+	
+	public Goods ajaxSelectGoodsByGoodNo(SqlSessionTemplate sqlSession, int goodNo) {
+
+		return sqlSession.selectOne("goodsMapper.ajaxSelectGoodsByGoodNo", goodNo);
+	}
+	
+	public GoodsFile ajaxSelectGoodsMainFileList(SqlSessionTemplate sqlSession, int sellNo) {
+
+		return sqlSession.selectOne("goodsMapper.ajaxSelectGoodsMainFileList", sellNo);
+	}
+	
+	public int ajaxSelectReplyCount(SqlSessionTemplate sqlSession, int sellNo) {
+
+		return sqlSession.selectOne("goodsMapper.ajaxSelectReplyCount", sellNo);
+	}
 	
 }

@@ -410,7 +410,7 @@
                        let str  ='<div>'
                                 + '<div class="profile">'
                                 + '<div id="profile_1" style="width : 50px; height : 50px;">'
-                                + '<img src="" alt="">'
+                                + '<img src="'+ val[2].changeName +'" alt="">'
                                 + '</div>'
                                 + '<div id="profile_2">'
                                 + '<span>'
@@ -428,9 +428,9 @@
                                 + '</div>'
 
                                 + '<div>'
-                                + '<div class="detail">'
+                                + '<div >'
+                                + '<div class="detail" style="margin-left : 35px">'
                                 + '<input type="hidden" value="' + val[0].promotionNo + '">'
-                                + '<div style="margin-left : 35px">'
                                 + '<h2>판매</h2>'
                                 + val[0].promotionContent;
                                 
@@ -534,10 +534,11 @@
 
                 $(".promotion").on('click', '.detail', function (e) {
 
-
+                	 //console.log(e.currentTarget.children.value);
+                	 
                     let pno = e.currentTarget.children.item(0).value;
 
-                    // console.log(bno);
+                    //
 
                     location.href = "pdlist.bo?pno=" + pno;
                 });
