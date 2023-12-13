@@ -96,4 +96,15 @@ public class SellerDao {
 		return sqlSession.update("sellerMapper.activeSeller", sellerNo);
 	}
 
+	public int sellerFile(SqlSessionTemplate sqlSession, SellerFile sf) { 
+		return sqlSession.insert("sellerMapper.sellerFile", sf);
+	}
+
+	public SellerFile getSellerFile(SqlSessionTemplate sqlSession, int sellerNo) {
+		return sqlSession.selectOne("sellerMapper.getSellerFile", sellerNo);
+	}
+
+	public int deleteSellerFile(SqlSessionTemplate sqlSession, int sellerNo) {
+		return sqlSession.update("sellerMapper.deleteSellerFile", sellerNo);
+	}
 }
