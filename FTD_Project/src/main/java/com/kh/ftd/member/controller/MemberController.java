@@ -1,6 +1,6 @@
 package com.kh.ftd.member.controller;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,14 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.ftd.goods.model.service.GoodsService;
+import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.member.model.service.MemberService;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
@@ -26,6 +25,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private GoodsService goodsService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -354,6 +356,20 @@ public class MemberController {
 		}
 		
 		return subscribeColor;
+	}
+	
+	
+	@RequestMapping("like.me")
+	public String memberLikeList(HttpSession session, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int memberNo = loginUser.getMemberNo();
+		
+		ArrayList<Goods> list = goodsService.memberLikeList(memberNo);
+		
+		model.addAttribute("list", list);
+		
+		return "member/memberLikeList";
 	}
 	
 	

@@ -55,7 +55,7 @@
     <br>
     <h3>주문이 정상적으로 완료 되었습니다.</h3> 
     <p>
-    	고객님의 주문 번호는 <span>${ requestScope.orderNo }</span>번 입니다.
+    	고객님의 주문 번호는 <span>${ requestScope.orderNo }</span>번 입니다.<br>
     	주문하신 내역은 마이페이지 - 주문내역 조회 에서 확인하실 수 있습니다.
     </p>
     
@@ -65,6 +65,7 @@
     
     <p>
     	결제 내역 : <span>${ requestScope.price }</span>원
+    	결제 수단 : KakaoPay
     </p>
 
     <!-- Button to go home -->
