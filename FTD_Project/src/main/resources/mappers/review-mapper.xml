@@ -172,5 +172,48 @@
 		WHERE REV_NO = #{rno} 
 		AND R.DELETE_DATE IS NULL
 	</select>
+	
+	<insert id="insertReviewReply" parameterType="reviewReply">
+		INSERT INTO REVIEW_REPLY(REPLY_NO
+							  , REV_NO
+							  , MEMBER_NO
+							  , REPLY_CONTENT
+							  , CREATE_DATE)
+					 	 VALUES(SEQ_RRNO.NEXTVAL
+					 	 	  , #{revNo}
+					 	 	  , #{memberNo}
+					 	 	  , #{replyContent}
+					 	 	  , SYSDATE)
+			
+	</insert>
+	
+	<update id="updateReviewReply" parameterType="reviewReply">
+		UPDATE REVIEW_REPLY
+		   SET REPLY_CONTENT = #{replyContent}
+		   	  ,CREATE_DATE = SYSDATE
+	 	 WHERE REV_NO = #{revNo}
+		   AND REPLY_NO = #{replyNo}
+		   AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="deleteReviewReply" parameterType="reviewReply">
+		UPDATE REVIEW_REPLY
+		   SET DELETE_DATE = SYSDATE
+		 WHERE REV_NO = #{revNo}
+		   AND REPLY_NO = #{replyNo}
+		   AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="deleteReview" parameterType="_int">
+		UPDATE REVIEW
+		   SET DELETE_DATE = SYSDATE
+		 WHERE REV_NO = #{rno}
+	</update>
+	
+	<update id="deleteReviewFile" parameterType="_int">
+		UPDATE REVIEW_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE REV_NO = #{rno}
+	</update>
 
 </mapper>

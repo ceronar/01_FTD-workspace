@@ -144,6 +144,12 @@ public class PromotionServiceImpl implements PromotionService{
 		return promotionDao.updatePromotionReply(sqlSession, prno);
 	}
 
+	@Override
+	public ArrayList<Promotion> selectPromotionSellerList(int sellerNo) {
+		
+		return promotionDao.selectPromotionSellerList(sqlSession,sellerNo);
+	}
+
 	
 
 	

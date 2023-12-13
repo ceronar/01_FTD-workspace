@@ -466,7 +466,7 @@ public class PromotionController {
 		
 		int result = promotionService.updatePromotionReply(prno);
 
-			
+		//System.out.println(result);	
 		 return (result > 0) ? "success" : "fail";
 		}
 
