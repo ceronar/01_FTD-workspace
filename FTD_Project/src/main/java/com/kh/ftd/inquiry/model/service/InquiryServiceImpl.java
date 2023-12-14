@@ -98,16 +98,10 @@ public class InquiryServiceImpl implements InquiryService{
 		return inquiryDao.updateInquiryFile(sqlSession, inf);
 	}
 	
-	@Override
-	public ArrayList<InquiryReply> selectReplyList(int boardNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int insertReply(InquiryReply r) {
-		// TODO Auto-generated method stub
-		return 0;
+		return inquiryDao.insertReply(sqlSession, r);
 	}
 
 	

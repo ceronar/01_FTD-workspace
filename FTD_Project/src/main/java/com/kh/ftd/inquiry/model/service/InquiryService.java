@@ -33,9 +33,6 @@ public interface InquiryService {
 	// 답변 등록 (update)
 	int insertAnswer(Inquiry i);
 	
-	// 댓글 리스트 조회 서비스
-	ArrayList<InquiryReply> selectReplyList(int boardNo);
-	
 	// 댓글 작성 서비스
 	int insertReply(InquiryReply r);
 
