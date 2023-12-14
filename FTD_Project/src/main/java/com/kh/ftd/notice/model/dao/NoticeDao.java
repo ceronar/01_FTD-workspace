@@ -69,6 +69,10 @@ public class NoticeDao {
 		
 		return sqlSession.update("noticeMapper.deleteNoticeFileList", nnoList);
 	}
+
+	public int updateFile(SqlSessionTemplate sqlSession, NoticeFile nf) {
+		return sqlSession.insert("noticeMapper.updateFile", nf);
+	}
 	
 	
 	

@@ -112,6 +112,8 @@
 		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
 		     , INQ_CONTENT
 		     , SELLER_NO
+		     , MEMBER_NO
+		     , COUNT
 		     , RESPONSE_CONTENT
 		     , RESPONSE_DATE
 		  FROM INQUIRY
@@ -149,5 +151,28 @@
 		 WHERE INQ_NO = #{inqNo}
 		   AND DELETE_DATE IS NULL
 	</update>
-
+	
+	<update id="deleteInquiryFile" parameterType="_int">
+		UPDATE INQUIRY_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inqNo}
+	</update>
+	
+	<update id="updateInquiry" parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET INQ_TITLE = #{inqTitle}
+		     , INQ_CONTENT = #{inqContent}
+		 WHERE INQ_NO = #{inqNo}
+		   AND DELETE_DATE IS NULL
+	</update>
+	<insert id="updateInquiryFile" parameterType="inquiryFile">
+		INSERT INTO INQUIRY_FILE(FILE_NO
+							  , INQ_NO
+							  , ORIGIN_NAME
+							  , CHANGE_NAME)
+					 	 VALUES(SEQ_IFNO.NEXTVAL
+					 	 	  , #{inquiryNo}
+					 	 	  , #{originName}
+					 	 	  , #{changeName})
+	</insert>
 </mapper>

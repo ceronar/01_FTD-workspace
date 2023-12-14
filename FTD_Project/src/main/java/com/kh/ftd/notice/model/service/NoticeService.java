@@ -39,5 +39,7 @@ public interface NoticeService {
 	int deleteNoticeList(String nnoList);
 
 	int deleteNoticeFileList(String nnoList);
+
+	int updateFile(NoticeFile nf);
 	
 }

@@ -22,6 +22,7 @@ import com.kh.ftd.inquiry.model.service.InquiryService;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
 import com.kh.ftd.inquiry.model.vo.InquiryFile;
 import com.kh.ftd.inquiry.model.vo.InquiryReply;
+import com.kh.ftd.notice.model.vo.NoticeFile;
 import com.kh.ftd.seller.model.vo.Seller;
 
 @Controller
@@ -144,7 +145,7 @@ public class InquiryController {
 			
 			Inquiry i2 = inquiryService.selectInquiry(i);
 			
-			System.out.println(i2);
+//			System.out.println(i2);
 			
 			ArrayList<InquiryFile> inf = inquiryService.selectInquiryFile(i);
 //			for(InquiryFile n : inf) {
@@ -201,9 +202,15 @@ public class InquiryController {
 	}
 	
 	@RequestMapping("updateForm.in")
-	public ModelAndView updateInquiry(Inquiry i, InquiryFile inf, HttpSession session, ModelAndView mv) {
+	public ModelAndView updateInquiry(Inquiry i,HttpSession session, ModelAndView mv) {
 		
-//		System.out.println(i);
+		System.out.println("i : " + i);
+//		System.out.println("changeName : " + changeName);
+		ArrayList<InquiryFile> inf = inquiryService.selectInquiryFile(i);
+		
+		Seller seller = inquiryService.sellectSeller(Integer.parseInt(i.getSellerNo()));
+		
+		System.out.println(seller);
 		
 		if(i.getResponseDate() != null) {
 			// 답글이 달려있을 경우
@@ -215,9 +222,77 @@ public class InquiryController {
 			
 		} else {
 			
-			mv.addObject("i", i).addObject("inf", inf).setViewName("inquiry/answerEnrollForm");
+			mv.addObject("i", i).addObject("inf", inf).addObject("seller", seller).setViewName("inquiry/inquiryUpdateForm");
 			
 			return mv;
+		}
+	}
+	@RequestMapping("update.in")
+	public String updateInquiry(Inquiry i,
+							  InquiryFile inf,
+							  MultipartFile[] upfile,
+							  HttpSession session,
+							  String[] originName,
+							  String[] changeName,
+							  Model model) {
+//		System.out.println("i : " + i);
+//		System.out.println("inf : " + inf);
+		for(MultipartFile uf : upfile) {
+			System.out.println("uf : " + uf);
+		}
+//		for(String on : originName) {
+//			System.out.println(on);
+//		}
+//		for(String cn : changeName) {
+//			System.out.println(cn);
+//		}
+		int result = 1;
+		
+		
+		// 업로드한 파일이 있을경우
+		if(!upfile[0].getOriginalFilename().equals("")) {
+			
+			// case1. 기존에 첨부파일이 있었을 경우
+			// => 기존의 첨부파일을 찾아서 서버로부터 삭제
+			//	  (기존 첨부파일의 수정파일명이 필요함)
+			if(originName != null) {
+				
+				result *= inquiryService.deleteInquiryFile(i.getInqNo());
+				
+			}
+			
+			// case1. 기존에 첨부파일이 있었을 경우
+			// case2. 기존에 첨부파일이 없었을 경우
+			// 공통코드로써
+			// => 새로 넘어온 첨부파일을 파일명 수정 후 업로드
+			for(MultipartFile uf : upfile) {
+				String rechangeName = saveFile(uf, session);
+				
+				inf.setInquiryNo(i.getInqNo());
+				inf.setOriginName(uf.getOriginalFilename());
+				inf.setChangeName("resources/uploadFiles/inquiry/" + rechangeName);
+				inf.setInquiryNo(inf.getInquiryNo());
+				
+				result *= inquiryService.updateInquiryFile(inf);
+			}
+		}
+		// Service 단으로 b 를 보내면서 update 요청
+		result *= inquiryService.updateInquiry(i);
+		
+		if(result > 0) { // 수정 성공
+			// => alert 문구를 담아서 
+			//	  게시판 상세보기 페이지로 url 재요청
+			
+			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + i.getInqNo() + "&sno="+ i.getSellerNo();
+			
+		} else { // 수정 실패
+			// => 에러문구를 담아서 에러페이지로 포워딩
+			
+			model.addAttribute("errorMsg", "게시글 수정 실패");
+			
+			return "common/errorPage";
 		}
 		
 	}

@@ -65,6 +65,10 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 	
 	@Override
+	public int deleteInquiryFile(int inqNo) {
+		return inquiryDao.deleteInquiryFile(sqlSession, inqNo);
+	}
+	
 	public int deleteInquiry(int inquiryNo) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -72,8 +76,7 @@ public class InquiryServiceImpl implements InquiryService{
 
 	@Override
 	public int updateInquiry(Inquiry i) {
-		// TODO Auto-generated method stub
-		return 0;
+		return inquiryDao.updateInquiry(sqlSession, i);
 	}
 
 	@Override
@@ -81,6 +84,11 @@ public class InquiryServiceImpl implements InquiryService{
 		return inquiryDao.insertAnswer(sqlSession, i);
 	}
 
+	@Override
+	public int updateInquiryFile(InquiryFile inf) {
+		return inquiryDao.updateInquiryFile(sqlSession, inf);
+	}
+	
 	@Override
 	public ArrayList<InquiryReply> selectReplyList(int boardNo) {
 		// TODO Auto-generated method stub
@@ -92,6 +100,10 @@ public class InquiryServiceImpl implements InquiryService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
+
+
 
 
 

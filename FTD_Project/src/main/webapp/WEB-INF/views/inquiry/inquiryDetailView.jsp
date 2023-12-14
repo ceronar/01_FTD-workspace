@@ -125,9 +125,13 @@
 					            <div class="notice-info">  
 					                <p>작성일: ${requestScope.i2.createDate }</p>
 					                <div class="btn">
-							        	<button onclick="responseForm(1)">답글 작성</button>
+					                	<c:if test="${ empty requestScope.i2.responseDate  }">
+							        		<button onclick="responseForm(1)">답글 작성</button>
+							        	</c:if>
+							        	<c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo}">
 							            <button onclick="responseForm(2)">글 수정</button>
 							            <button onclick="responseForm(3)">글 삭제</button>
+							            </c:if>
 							        </div>
 					            </div>
 					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq 1}">
@@ -142,7 +146,6 @@
 					                		} else if(num == 3) {
 					                			// 글 삭제 버튼
 					                			$("#responseForm").attr("action", "delete.in").submit();
-					                			
 					                		} else if(num == 4) {
 					                			// 답글 수정 버튼
 					                			$("#responseForm").attr("action", "updateForm.re").submit();
@@ -182,15 +185,22 @@
 		                				value="${ requestScope.i2.inqNo }">
 		                	<input type="hidden" id="inqTitle" name="inqTitle"
 		                				value="${requestScope.i2.inqTitle}">
+		                	<input type="hidden" id="inqContent" name="inqContent"
+		                				value="${requestScope.i2.inqContent }">
 		                	<input type="hidden" id="sellerNo" name="sellerNo"
 		                				value="${ requestScope.i2.sellerNo }" >
-
-		                	<input type="text" id="changeName" name="changeName"
-		                				value="${ requestScope.inf }" >
-			            	<input type="text" name="responseDate" 
+							<c:forEach var="inf" items="${ requestScope.inf }">
+			                	<input type="text" name="changeName" id="changeName"
+			                				value="${ inf.changeName }">
+			                	<input type="text" name="originName" id="originName"
+			                				value="${ inf.originName }">
+		                	</c:forEach>
+		                	<c:if test="${ not empty requestScope.i2.responseDate  }">
+			            	<input type="hidden" name="responseDate" 
 			            				value="${ requestScope.i2.responseDate }">
-				            <input type="text" name="responseContent" 
+				            <input type="hidden" name="responseContent" 
 				            			value="${ requestScope.i2.responseContent }">
+				            </c:if>
 
 		                </form>
 		                
@@ -204,10 +214,12 @@
 					                </div>
 					                <p>답변일: ${requestScope.i2.responseDate }</p>
 					        </div>
-					        <div class="btn">
-					            <button onclick="responseForm(4)">답글 수정</button>
-					            <button onclick="responseForm(5)">답글 삭제</button>
-					        </div>
+					        <c:if test="${ not empty requestScope.i2.responseDate  }">
+					        	<div class="btn">
+						            <button onclick="responseForm(4)">답글 수정</button>
+						            <button onclick="responseForm(5)">답글 삭제</button>
+						        </div>
+					        </c:if>
 				        <div class="reply-area">
 				            <h2>댓글</h2>
 				            <!-- 댓글 목록 -->

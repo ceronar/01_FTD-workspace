@@ -231,11 +231,12 @@ public class NoticeController {
 			for(MultipartFile i : upfile) {
 				String rechangeName = saveFile(i, session);
 				
+				nf.setNoticeNo(n.getNoticeNo());
 				nf.setOriginName(i.getOriginalFilename());
 				nf.setChangeName("resources/uploadFiles/notice/" + rechangeName);
 				nf.setNoticeNo(n.getNoticeNo());
 				
-				result *= noticeService.insertFile(nf);
+				result *= noticeService.updateFile(nf);
 			}
 		}
 		// Service 단으로 b 를 보내면서 update 요청

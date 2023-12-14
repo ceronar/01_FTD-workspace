@@ -70,60 +70,71 @@
 	 
 </head>
 <body>
-    <div class="container">
-        <h1>공지사항 수정</h1>
-	
-        <form id="updateForm" method="post" action="update.no" enctype="multipart/form-data">
-        <input type="hidden" id="noticeNo" name="noticeNo" value="${ requestScope.n.noticeNo }">
-            <label for="noticeTitle">제목:</label>
-            <input type="text" id="noticeTitle" name="noticeTitle" value="${ requestScope.n.noticeTitle }" required>
-
-            <label for="content">내용:</label>
-            <textarea id="noticeContent" name="noticeContent" required>${requestScope.n.noticeContent }</textarea>
-            <!-- summernote용 textarea 
-            	textarea id="summernote" name="editordata"></textarea> 
-            -->
-
-            <!-- 파일 선택 버튼 -->
-
-            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
-
-            <div class="file-list">
-				<c:if test="${ not empty requestScope.nf }">
-	                현재 업로드된 파일 : 
-	                <br>
-	                <c:forEach var="nf" items="${ requestScope.nf }">
-		                <a href="${ nf.changeName }" 
-		                   download="${ nf.originName }">
-						${ nf.originName }
-						</a>&nbsp
-						<!-- 기존의 첨부파일이 있다라는 뜻 -->
-						<input type="hidden" name="originName" value="${ nf.originName }">
-						<input type="hidden" name="changeName" value="${ nf.changeName }">
-	                </c:forEach>
-	            </c:if>
-            </div>
-            <div align="center">
-                <input type="submit" value="게시글 등록">
-            </div>
-            
-        </form>
-    </div>
-    <!-- summernote 사용시 활성화
-    <script type="text/javascript">
-	    $(document).ready(function() {
-	    	//여기 아래 부분
-	    	$('#summernote').summernote({
-	    		  height: 300,                 // 에디터 높이
-	    		  minHeight: null,             // 최소 높이
-	    		  maxHeight: null,             // 최대 높이
-	    		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-	    		  lang: "ko-KR",					// 한글 설정
-	    		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-	              
-	    	});
-	    });
-    </script>
-     -->
+	<div class="wrapper">
+        <div class="center-div">  
+	        <jsp:include page="../common/sidebar.jsp" />
+	        <div class="main-div">
+		        <jsp:include page="../common/header.jsp" />
+			        <div class="content">
+					    <div class="container">
+					        <h1>공지사항 수정</h1>
+						
+					        <form id="updateForm" method="post" action="update.no" enctype="multipart/form-data">
+					        <input type="hidden" id="noticeNo" name="noticeNo" value="${ requestScope.n.noticeNo }">
+					            <label for="noticeTitle">제목:</label>
+					            <input type="text" id="noticeTitle" name="noticeTitle" value="${ requestScope.n.noticeTitle }" required>
+					
+					            <label for="content">내용:</label>
+					            <textarea id="noticeContent" name="noticeContent" required>${requestScope.n.noticeContent }</textarea>
+					            <!-- summernote용 textarea 
+					            	textarea id="summernote" name="editordata"></textarea> 
+					            -->
+					
+					            <!-- 파일 선택 버튼 -->
+					
+					            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
+					
+					            <div class="file-list">
+									<c:if test="${ not empty requestScope.nf }">
+						                현재 업로드된 파일 : 
+						                <br>
+						                <c:forEach var="nf" items="${ requestScope.nf }">
+							                <a href="${ nf.changeName }" 
+							                   download="${ nf.originName }">
+											${ nf.originName }
+											</a>&nbsp
+											<!-- 기존의 첨부파일이 있다라는 뜻 -->
+											<input type="hidden" name="originName" value="${ nf.originName }">
+											<input type="hidden" name="changeName" value="${ nf.changeName }">
+						                </c:forEach>
+						            </c:if>
+					            </div>
+					            <div align="center">
+					                <input type="submit" value="게시글 등록">
+					            </div>
+					            
+					        </form>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+					    <!-- summernote 사용시 활성화
+					    <script type="text/javascript">
+						    $(document).ready(function() {
+						    	//여기 아래 부분
+						    	$('#summernote').summernote({
+						    		  height: 300,                 // 에디터 높이
+						    		  minHeight: null,             // 최소 높이
+						    		  maxHeight: null,             // 최대 높이
+						    		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+						    		  lang: "ko-KR",					// 한글 설정
+						    		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+						              
+						    	});
+						    });
+					    </script>
+					     -->
+					     
 </body>
 </html>
