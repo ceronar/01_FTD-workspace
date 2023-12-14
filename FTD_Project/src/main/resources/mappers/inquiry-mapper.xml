@@ -175,4 +175,20 @@
 					 	 	  , #{originName}
 					 	 	  , #{changeName})
 	</insert>
+	<update id="deleteInquiry" parameterType="_int">
+		UPDATE INQUIRY
+		   SET DELETE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inquiryNo}
+	</update>
+	
+	<update id="deleteResponse" parameterType="_int">
+		UPDATE INQUIRY
+		   SET RESPONSE_CONTENT = DEFAULT, RESPONSE_DATE = DEFAULT
+		 WHERE INQ_NO = #{inqNo}
+	</update>
+	<update id="updateResponse" parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET RESPONSE_CONTENT = #{responseContent}, RESPONSE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inqNo}
+	</update>
 </mapper>

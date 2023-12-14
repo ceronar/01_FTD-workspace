@@ -125,7 +125,7 @@
 					            <div class="notice-info">  
 					                <p>작성일: ${requestScope.i2.createDate }</p>
 					                <div class="btn">
-					                	<c:if test="${ empty requestScope.i2.responseDate  }">
+					                	<c:if test="${ empty requestScope.i2.responseDate and (not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo) }">
 							        		<button onclick="responseForm(1)">답글 작성</button>
 							        	</c:if>
 							        	<c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo}">
@@ -190,9 +190,9 @@
 		                	<input type="hidden" id="sellerNo" name="sellerNo"
 		                				value="${ requestScope.i2.sellerNo }" >
 							<c:forEach var="inf" items="${ requestScope.inf }">
-			                	<input type="text" name="changeName" id="changeName"
+			                	<input type="hidden" name="changeName" id="changeName"
 			                				value="${ inf.changeName }">
-			                	<input type="text" name="originName" id="originName"
+			                	<input type="hidden" name="originName" id="originName"
 			                				value="${ inf.originName }">
 		                	</c:forEach>
 		                	<c:if test="${ not empty requestScope.i2.responseDate  }">
@@ -201,7 +201,7 @@
 				            <input type="hidden" name="responseContent" 
 				            			value="${ requestScope.i2.responseContent }">
 				            </c:if>
-
+							
 		                </form>
 		                
 				        
@@ -220,7 +220,7 @@
 						            <button onclick="responseForm(5)">답글 삭제</button>
 						        </div>
 					        </c:if>
-				        <div class="reply-area">
+				        	<div class="reply-area">
 				            <h2>댓글</h2>
 				            <!-- 댓글 목록 -->
 				            <div class="comment">
@@ -233,6 +233,9 @@
 				            <form class="comment-form">
 				                <textarea placeholder="댓글을 입력하세요" required></textarea>
 				                <button class="reply-btn">댓글작성</button>
+				                <input type="hidden" id="inqNo" name="inqNo"
+		                				value="${ requestScope.i2.inqNo }">
+								<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
 				            </form>
 				        </div>
 				    </div>

@@ -50,5 +50,9 @@ public interface InquiryService {
 	int deleteInquiryFile(int inqNo);
 
 	int updateInquiryFile(InquiryFile inf);
+
+	int deleteResponse(Inquiry i);
+
+	int updateResponse(Inquiry i);
 	
 }

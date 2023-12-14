@@ -297,6 +297,78 @@ public class InquiryController {
 		
 	}
 	
+	@RequestMapping("delete.in")
+	public String deleteInquiry(Inquiry i, 
+							InquiryFile inf, 
+							Model model,
+							HttpSession session) {
+	
+		System.out.println(i);
+		System.out.println(inf.getOriginName());
+
+		int result = inquiryService.deleteInquiry(i.getInqNo());
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:/list.in?sellerNo=" + i.getSellerNo();
+		} else {
+			
+			
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("updateForm.re")
+	public ModelAndView updateResponseForm(Inquiry i,
+								ModelAndView mv) {
+		
+		mv.addObject("i", i).setViewName("inquiry/answerUpdateForm");
+		
+		return mv;
+	}
+	
+	@RequestMapping("update.re")
+	public String updateResponse(Inquiry i, HttpSession session, Model model) {
+		
+		System.out.println(i);
+		
+		int result = inquiryService.updateResponse(i);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 답글이 삭제되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + i.getInqNo() + "&sno="+ i.getSellerNo();
+		} else {
+			model.addAttribute("errorMsg", "답글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("delete.re")
+	public String deleteResponse(Inquiry i,
+							HttpSession session,
+							Model model) {
+		
+		int result = inquiryService.deleteResponse(i);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 답글이 삭제되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + i.getInqNo() + "&sno="+ i.getSellerNo();
+		} else {
+			model.addAttribute("errorMsg", "답글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
+	
 	
 	// ----------------------------------------------
 
