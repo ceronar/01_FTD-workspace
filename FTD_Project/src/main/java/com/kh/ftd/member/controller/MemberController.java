@@ -16,10 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
+import com.kh.ftd.inquiry.model.service.InquiryService;
+import com.kh.ftd.inquiry.model.vo.Inquiry;
 import com.kh.ftd.member.model.service.MemberService;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
+import com.kh.ftd.review.model.service.ReviewService;
+import com.kh.ftd.review.model.vo.Review;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
 
@@ -34,6 +38,12 @@ public class MemberController {
 	
 	@Autowired
 	private GoodsService goodsService;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	@Autowired
+	private InquiryService inquiryService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -415,6 +425,20 @@ public class MemberController {
 		} else {
 			return "N";
 		}
+	}
+	
+	@RequestMapping("boardList.me")
+	public String memberBoardList(HttpSession session, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int memberNo = loginUser.getMemberNo();
+		
+		ArrayList<Review> reviewList = reviewService.memberBoardList(memberNo);
+		ArrayList<Inquiry> inquiryList = inquiryService.memberBoardList(memberNo);
+		
+		model.addAttribute("reviewList", reviewList).addAttribute("inquiryList", inquiryList);
+		
+		return "member/memberBoardList";
 	}
 	
 }

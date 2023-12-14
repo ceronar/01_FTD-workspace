@@ -26,5 +26,5 @@ public class Inquiry {
 	private String responseContent;	//RESPONSE_CONTENT	VARCHAR2(4000 BYTE)
 	private Date responseDate;		//RESPONSE_DATE	DATE
 	private String memberId;	
-	
+	private String companyName;		// COMPANY_NAME 상호명 조회용
 }

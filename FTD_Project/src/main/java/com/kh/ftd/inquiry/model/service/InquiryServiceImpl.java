@@ -101,16 +101,10 @@ public class InquiryServiceImpl implements InquiryService{
 		return 0;
 	}
 
-	
-
-
-
-
-
-
-
-
-	
+	@Override
+	public ArrayList<Inquiry> memberBoardList(int memberNo) {
+		return inquiryDao.memberBoardList(sqlSession, memberNo);
+	}
 
 
 }

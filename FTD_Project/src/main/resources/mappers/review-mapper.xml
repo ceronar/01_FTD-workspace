@@ -13,6 +13,7 @@
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="MEMBER_ID" property="memberNo"/>
+		<result column="GOOD_TITLE" property="goodTitle"/>
 	</resultMap>
 
 	<resultMap id="reviewFileResultSet" type="reviewFile">
@@ -215,5 +216,13 @@
 		   SET DELETE_DATE = SYSDATE
 		 WHERE REV_NO = #{rno}
 	</update>
+	
+	<select id="memberBoardList" parameterType="_int" resultMap="reviewResultSet">
+		SELECT R.REV_NO, G.GOOD_TITLE, R.REV_TITLE, R.CREATE_DATE
+		  FROM REVIEW R
+		  JOIN GOODS G ON(R.GOOD_NO = G.GOOD_NO)
+		 WHERE R.MEMBER_NO = #{memberNo}
+		   AND R.DELETE_DATE IS NULL
+	</select>
 
 </mapper>

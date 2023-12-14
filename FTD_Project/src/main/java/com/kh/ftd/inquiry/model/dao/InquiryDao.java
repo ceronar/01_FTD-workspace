@@ -65,6 +65,10 @@ public class InquiryDao {
 		System.out.println(inf);
 		return sqlSession.insert("inquiryMapper.updateInquiryFile", inf);
 	}
+
+	public ArrayList<Inquiry> memberBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("inquiryMapper.memberBoardList", memberNo);
+	}
 	
 	
 

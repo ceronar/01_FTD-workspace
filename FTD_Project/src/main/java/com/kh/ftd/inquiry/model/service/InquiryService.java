@@ -51,4 +51,6 @@ public interface InquiryService {
 
 	int updateInquiryFile(InquiryFile inf);
 	
+	// 구매자 작성 문의 리스트 조회
+	ArrayList<Inquiry> memberBoardList(int memberNo);
 }

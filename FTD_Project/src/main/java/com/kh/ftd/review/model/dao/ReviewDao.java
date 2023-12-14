@@ -79,6 +79,10 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.deleteReviewFile",rno);
 	}
 
+	public ArrayList<Review> memberBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("reviewMapper.memberBoardList", memberNo);
+	}
+
 	
 
 

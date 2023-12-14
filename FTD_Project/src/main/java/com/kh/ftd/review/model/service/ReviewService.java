@@ -51,6 +51,7 @@ public interface ReviewService {
 		//기존에 후기게시글에 첨부파일이있었다면 삭제 기능
 		int deleteReviewFile(int rno);
 
-	
+	// 구매자 작성 리뷰 리스트 조회
+	ArrayList<Review> memberBoardList(int memberNo);
 
 }

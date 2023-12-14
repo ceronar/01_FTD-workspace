@@ -14,6 +14,7 @@
 		<result column="RESPONSE_CONTENT" property="responseContent" />
 		<result column="RESPONSE_DATE" property="responseDate" />
 		<result column="MEMBER_ID" property="memberId" />
+		<result column="COMPANY_NAME" property="companyName" />
 	</resultMap>
 	
 	<resultMap id="inquiryFileResultSet" type="inquiryFile">
@@ -175,4 +176,12 @@
 					 	 	  , #{originName}
 					 	 	  , #{changeName})
 	</insert>
+	
+	<select id="memberBoardList" parameterType="_int" resultMap="inquiryResultSet">
+		SELECT I.INQ_NO, S.COMPANY_NAME, I.INQ_TITLE, I.CREATE_DATE, I.RESPONSE_DATE, I.SELLER_NO
+		  FROM INQUIRY I
+		  JOIN SELLER S ON(I.SELLER_NO = S.SELLER_NO)
+		 WHERE I.MEMBER_NO = #{memberNo}
+		   AND I.DELETE_DATE IS NULL
+	</select>
 </mapper>
