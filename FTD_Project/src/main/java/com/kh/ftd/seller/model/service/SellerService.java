@@ -3,6 +3,7 @@ package com.kh.ftd.seller.model.service;
 import java.util.ArrayList;
 
 import com.kh.ftd.common.model.vo.PageInfo;
+import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
 
@@ -68,4 +69,8 @@ public interface SellerService {
 
 	// 업데이트시 기존 프로필 이미지 제거
 	int deleteSellerFile(int sellerNo);
+	
+	// 구매자 찜한 목록 조회
+	ArrayList<Seller> memberSubscribeList(int memberNo);
+	
 }

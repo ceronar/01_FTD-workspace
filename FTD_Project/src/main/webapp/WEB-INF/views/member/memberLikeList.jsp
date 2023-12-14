@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>내 좋아요</title>
+    <title>내 좋아요 목록</title>
     <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -69,7 +69,7 @@
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
-		        	<h2>내 좋아요</h2>
+		        	<h2>내 좋아요 목록</h2>
 		            <table class="like-table">
 					    <thead>
 					        <tr>

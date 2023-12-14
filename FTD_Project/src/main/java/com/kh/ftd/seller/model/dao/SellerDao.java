@@ -107,4 +107,8 @@ public class SellerDao {
 	public int deleteSellerFile(SqlSessionTemplate sqlSession, int sellerNo) {
 		return sqlSession.update("sellerMapper.deleteSellerFile", sellerNo);
 	}
+
+	public ArrayList<Seller> memberSubscribeList(SqlSession sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("sellerMapper.memberSubscribeList", memberNo);
+	}
 }

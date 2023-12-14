@@ -10,11 +10,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css">
 <style>
 
 	div {
-		border: 1px solid black;
+		/* border: 1px solid black; */
 	}
 
 	.main-div {
@@ -32,6 +34,7 @@
     	box-sizing: border-box;
 		position: sticky; /* 스크롤에 고정 */
 		top: 0px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 
 	.header-back, .header-title, .header-cart {
@@ -86,6 +89,11 @@
 		margin-bottom: 10px;
 		box-sizing: border-box;
 		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.goods-title > input {
+		height: 70px;
+		box-sizing: border-box;
 	}
 
 	.br-line {
@@ -147,6 +155,7 @@
 		position: sticky; /* 스크롤에 고정 */
 		top: 50px;
 		background-color: #ffffff;
+		border: 1px solid rgba(0, 0, 0, 0.1);
 	}
 
 	/* sub-menu */
@@ -167,7 +176,7 @@
 	/* 나중에 높이값 수정 필요!!!!! */
 	.goods-content {
 		width: 100%;
-		height: 700px;
+		height: 900px;
 	}
 
 	.sub-review {
@@ -245,9 +254,16 @@
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 	}
-
+	
+	.summernote {
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		resize: none;
+	}
 
 </style>
+
 </head>
 <body>
 	<div class="wrapper">
@@ -257,6 +273,13 @@
 	        <div class="main-div">
 	        
 	            <jsp:include page="../common/header.jsp" />
+	            
+	            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   
+				<!-- include summernote css/js --> 
+				<!-- 서머노트를 위해 추가해야할 부분 -->
+				<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.js"></script>
+				<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
 	            
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
@@ -269,8 +292,15 @@
            				
 					<div class="goods">
 
-						<div class="goods-title">국내산 홍가라비 1kg</div>
-						<div class="goods-price">3,900 원</div>
+						<div class="goods-title">
+							<input type="text" id="" name="">
+						</div>
+						<div class="goods-price">
+							<select id="">
+								<option>상품1</option>
+								<option>상품2</option>
+							</select>
+						</div>
 						
 						<div class="br-line"></div>
 						<br>
@@ -304,22 +334,19 @@
 				
 				<div class="sub-content">
 				
-							
-					<div class="br2-line"></div>
 
 					<div class="sub-menu">
 						<a href="#goods-content" 							class="menu1">상품소개</a>
 					</div>
 
 					<div class="goods-content" id="goods-content">
-
-
+						<textarea class="summernote" id="summernote" name="editordata"></textarea>    
 					</div>					
 					
 					<div class="sub-footer1">
 						<button class="pay-button">등록하기</button>
 					</div>
-
+					
 					
         		</div>
         		
@@ -328,6 +355,44 @@
 			</div>
 		</div>
 	</div>
-
+	<script>
+        $(document).ready(function() {
+        	$('#summernote').summernote({
+        		width : 900,
+        		disableResizeEditor: true,             // 최소 높이
+      		  	maxHeight: null,             // 최대 높이
+      			height: 900,
+      		  	// 에디터 한글 설정
+      		  	lang: "ko-KR",
+      		  	// 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
+      		  	focus : true,
+		     	toolbar: [
+		     		    // 글꼴 설정
+		     		    ['fontname', ['fontname']],
+		     		    // 글자 크기 설정
+		     		    ['fontsize', ['fontsize']],
+		     		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+		     		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		     		    // 글자색
+		     		    ['color', ['forecolor','color']],
+		     		    // 표만들기
+		     		    ['table', ['table']],
+		     		    // 글머리 기호, 번호매기기, 문단정렬
+		     		    ['para', ['ul', 'ol', 'paragraph']],
+		     		    // 줄간격
+		     		    ['height', ['height']],
+		     		    // 그림첨부, 링크만들기, 동영상첨부
+		     		    ['insert',['picture','link','video']],
+		     		    // 코드보기, 확대해서보기, 도움말
+		     		    ['view', ['codeview','fullscreen', 'help']]
+			    ],
+    		 	// 추가한 글꼴
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+    			// 추가한 폰트사이즈
+    			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+			     		
+		     });
+		});
+    </script>
 </body>
 </html>
