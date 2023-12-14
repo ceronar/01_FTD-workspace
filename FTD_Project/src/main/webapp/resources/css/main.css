@@ -66,6 +66,17 @@ html {
 	margin: 0; /* content의 마진 제거 */
 }
 
+.sub-content {
+		width: 100%; /* content 영역 크기 조정 */
+	background-color: #ffffff;
+	padding: 20px;
+	box-sizing: border-box;
+	/* border: 1px solid rgb(85, 85, 85); 위쪽(top)만 0으로 수정 */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	margin: 0; /* content의 마진 제거 */
+	
+}
+
 .header, .footer {
     width: 100%;
     background-color: #ffffff;

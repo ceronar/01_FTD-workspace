@@ -36,6 +36,21 @@ public interface ReviewService {
 		//이 후기 리스트의 상품 제목,상세정보
 		GoodsSell selectGoodsList(int gno);
 
+		//댓글 작성 기능
+		int insertReviewReply(ReviewReply rr);
+
+		//댓글 수정 기능
+		int updateReviewReply(ReviewReply rr);
+
+		//댓글 삭제 기능
+		int deleteReviewReply(ReviewReply rr);
+
+		//후기 리스트 삭제 기능
+		int deleteReview(int rno);
+
+		//기존에 후기게시글에 첨부파일이있었다면 삭제 기능
+		int deleteReviewFile(int rno);
+
 	
 
 }

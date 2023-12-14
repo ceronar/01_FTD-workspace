@@ -29,6 +29,27 @@
 			background-color: lightgray;
 			cursor: pointer;
 		}
+		
+		/* navi css */
+		#nav1 {
+		    display: none !important;
+		}
+		
+		#nav2 {
+		    display: none !important;
+		}
+		
+		#nav3 {
+		    display: none !important;
+		}
+		
+		#nav4 {
+		    display: block !important;
+		}
+		
+		#nav5 {
+		    display: none !important;
+		}
         
     </style>
 </head>

@@ -227,7 +227,7 @@
         </div>
         <div class="profile">
             <div class="profile_1">
-                <img src="${sellerFile.changeName }" alt="Profile Image">
+                <img src="/ftd${sellerFile.changeName }">
             </div>
             <div class="profile_2">
                 <span>${requestScope.seller.companyName}</span>
@@ -319,7 +319,9 @@
 				
 				
 			</section>
-            <div class="centent_1" align="center">${requestScope.p.promotionContent}</div>
+            <div class="content_1" align="center">
+				${requestScope.p.promotionContent}
+			</div>
            
 			
 

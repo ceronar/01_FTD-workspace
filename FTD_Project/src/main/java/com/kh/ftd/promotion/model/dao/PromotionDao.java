@@ -2,6 +2,7 @@ package com.kh.ftd.promotion.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -119,6 +120,12 @@ public class PromotionDao {
 		
 		return sqlSession.update("promotionMapper.updatePromotionReply",prno); 
 	}
+
+	public ArrayList<Promotion> selectPromotionSellerList(SqlSessionTemplate sqlSession, int sellerNo) {
+		
+		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionSellerList",sellerNo);
+	}
+
 	
 	
 
