@@ -19,4 +19,14 @@ public class GoodsFile {
 	private String changeName; 		//	CHANGE_NAME	VARCHAR2(300 BYTE)
 	private String createDate; 		//	CREATE_DATE	DATE
 	private String deleteDate;		//	DELETE_DATE	DATE
+	
+	
+	public GoodsFile(String originalName, String changeName) {
+		super();
+		this.originalName = originalName;
+		this.changeName = changeName;
+	}
+		
 }
+
+

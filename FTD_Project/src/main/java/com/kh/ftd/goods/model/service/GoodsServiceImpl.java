@@ -97,5 +97,17 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.memberLikeList(sqlSession, memberNo);
 	}
 
+	@Override
+	public ArrayList<Goods> ajaxSelectSellerGoodTitle(int sellerNo) {
+		
+		return goodsDao.ajaxSelectSellerGoodTitle(sqlSession, sellerNo);
+	}
+
+	@Override
+	public int insertSellerGoodsText(GoodsSell goodsSell) {
+	
+		return goodsDao.insertSellerGoodsText(sqlSession, goodsSell);
+	}
+
 
 }

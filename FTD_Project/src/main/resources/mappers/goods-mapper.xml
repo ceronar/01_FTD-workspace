@@ -132,7 +132,7 @@
 		SELECT *
 		  FROM GOODS_SELL
 		 WHERE DELETE_DATE IS NULL
-		   AND SELLER_NO = 1 
+		   AND SELLER_NO = #{sellerNo}	
 		 ORDER BY CREATE_DATE
 	</select>
 	
@@ -177,5 +177,32 @@
 		  LEFT JOIN GOODS_FILE GF ON (GS.SELL_NO = GF.SELL_NO AND GF.CREATE_DATE IS NOT NULL AND GF.DELETE_DATE IS NULL)
 		 WHERE MEMBER_NO = #{memberNo}	
 	</select>
+	
+	<select id="ajaxSelectSellerGoodTitle" parameterType="_int" resultMap="goodsResultSet">
+		SELECT G2.*
+		  FROM GOODS G2
+		 WHERE G2.DELETE_DATE IS NULL
+		   AND G2.SELLER_NO = #{sellerNo}	
+		MINUS
+		SELECT G1.* 
+		  FROM GOODS G1
+		  JOIN GOODS_SELL GS ON (G1.GOOD_NO = GS.GOOD_NO)
+		 WHERE G1.DELETE_DATE IS NULL
+		   AND GS.DELETE_DATE IS NULL
+		   AND G1.SELLER_NO = #{sellerNo}
+	</select>
+	
+	<insert id="insertSellerGoodsText" parameterType="goodsSell">
+		INSERT INTO GOODS_SELL(SELL_NO
+                             , SELLER_NO
+                             , GOOD_NO
+                             , SELL_TITLE
+                             , SELL_CONTENT)
+			            VALUES(SEQ_GSNO.NEXTVAL
+			                 , #{sellerNo}
+			                 , #{goodNo}
+			                 , #{sellTitle}
+			                 , #{sellContent})
+	</insert>
 	
 </mapper>

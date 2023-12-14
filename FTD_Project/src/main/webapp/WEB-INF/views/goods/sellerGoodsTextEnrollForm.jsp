@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css">
@@ -263,7 +265,49 @@
 	}
 
 </style>
+<script>
+	
+	$(document).ready(function () {
+		
+		ajaxSelectSellerGoodTitle();
+				
+	});
+	
+	function ajaxSelectSellerGoodTitle() {
+	      
+	    $.ajax({
+	        url : 'ajaxSelectSellerGoodTitle.go',
+	        type: 'get',
+	        data: { sellerNo : ${sessionScope.loginSeller.sellerNo} },
+	        success: function(result) {
+	        	          	
+				console.log(result);
+				
+				if(result.length == 0) {
+					
+					$(".goodsTitle").append("<option>상품을 먼저 등록해주세요.</option>");
+					
+				} else {
+					
+					for(var i = 0; i < result.length; i++) {			
+						
+						$(".goodsTitle").append(
+								"<option>" + result[i].goodTitle + "</option>"
+							  + "<input type='hidden' value='"+ result[i].goodNo + "' name='goodNo'>"
+						);		
+					}
+									
+				}
+								
+			},
+			error : function() {
+				
+				console.log("ajax 통신 실패");
+			}
+	    });
+	}
 
+</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -288,17 +332,18 @@
 	            
 				<div class="header-img"></div>
 	            
+	            <form method="post" action="insertSellerGoodsText.go">
+	            <input type="hidden" value="${sessionScope.loginSeller.sellerNo}" name="sellerNo">
 	            <div class="content">					
            				
 					<div class="goods">
 
 						<div class="goods-title">
-							<input type="text" id="" name="">
+							<input type="text" id="" name="sellTitle">
 						</div>
 						<div class="goods-price">
-							<select id="">
-								<option>상품1</option>
-								<option>상품2</option>
+							<select class="goodsTitle">
+								
 							</select>
 						</div>
 						
@@ -340,16 +385,19 @@
 					</div>
 
 					<div class="goods-content" id="goods-content">
-						<textarea class="summernote" id="summernote" name="editordata"></textarea>    
+						<textarea class="summernote" id="summernote" name="sellContent"></textarea>    
+					</div>
+					
+					<div class="hidden-content">
+					
 					</div>					
 					
 					<div class="sub-footer1">
-						<button class="pay-button">등록하기</button>
+						<button class="pay-button" type="submit">등록하기</button>
 					</div>
-					
-					
+								
         		</div>
-        		
+        		</form>
         		
         		
 			</div>
@@ -357,6 +405,7 @@
 	</div>
 	<script>
         $(document).ready(function() {
+        	
         	$('#summernote').summernote({
         		width : 900,
         		disableResizeEditor: true,             // 최소 높이
@@ -389,10 +438,40 @@
     		 	// 추가한 글꼴
 				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
     			// 추가한 폰트사이즈
-    			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-			     		
+    			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']	,
+    			callbacks : {
+    				onImageUpload : function(files, editor, welEditable) {
+    					
+    					uploadSummernoteImageFile(files[0], this);
+    				}
+    			}
 		     });
+        	
 		});
+        
+
+        function uploadSummernoteImageFile(file, el) {
+        
+			data = new FormData();
+			data.append("file", file);
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "uploadFile.go",
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(data) {
+		
+					$(el).summernote('editor.insertImage', data);							
+				},
+				error : function() {
+					console.log("ajax 통신 오류")
+				}
+			});
+		}
+    	
+    	
     </script>
 </body>
 </html>
