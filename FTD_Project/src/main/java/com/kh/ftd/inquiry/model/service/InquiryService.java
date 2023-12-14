@@ -46,5 +46,9 @@ public interface InquiryService {
 	ArrayList<InquiryFile> selectInquiryFile(Inquiry i);
 
 	ArrayList<InquiryReply> selectInquiryReplyList(Inquiry i);
+
+	int deleteInquiryFile(int inqNo);
+
+	int updateInquiryFile(InquiryFile inf);
 	
 }

@@ -117,4 +117,14 @@
 		 WHERE NOTICE_NO IN (${nnoList})
 	</update>
 	
+	<insert id="updateFile" parameterType="noticeFile">
+		INSERT INTO NOTICE_FILE(FILE_NO
+							  , NOTICE_NO
+							  , ORIGIN_NAME
+							  , CHANGE_NAME)
+					 	 VALUES(SEQ_NFNO.NEXTVAL
+					 	 	  , #{noticeNo}
+					 	 	  , #{originName}
+					 	 	  , #{changeName})
+	</insert>
 </mapper>

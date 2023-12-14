@@ -53,4 +53,5 @@ public interface MemberService {
 	
 	// 좋아요한 항목 지우기
 	int ajaxMemberDeleteLike(Like like);
+	
 }

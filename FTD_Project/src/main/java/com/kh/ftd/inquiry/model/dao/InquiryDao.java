@@ -50,10 +50,20 @@ public class InquiryDao {
 	}
 
 	public int insertAnswer(SqlSessionTemplate sqlSession, Inquiry i) {
-		int result = sqlSession.update("inquiryMapper.insertAnswer", i);
-		System.out.println(result);
-		System.out.println(i);
 		return sqlSession.update("inquiryMapper.insertAnswer", i);
+	}
+
+	public int deleteInquiryFile(SqlSessionTemplate sqlSession, int inqNo) {
+		return sqlSession.update("inquiryMapper.deleteInquiryFile", inqNo);
+	}
+
+	public int updateInquiry(SqlSessionTemplate sqlSession, Inquiry i) {
+		return sqlSession.update("inquiryMapper.updateInquiry", i);
+	}
+
+	public int updateInquiryFile(SqlSessionTemplate sqlSession, InquiryFile inf) {
+		System.out.println(inf);
+		return sqlSession.insert("inquiryMapper.updateInquiryFile", inf);
 	}
 	
 	

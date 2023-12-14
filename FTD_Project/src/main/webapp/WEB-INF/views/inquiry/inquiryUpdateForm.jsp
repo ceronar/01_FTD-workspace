@@ -12,6 +12,7 @@
             background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
+            
         }
 
         .container {
@@ -21,6 +22,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
 
         h1 {
@@ -73,21 +75,27 @@
 					    <div class="container">
 					        <h1>게시글 작성</h1>
 					
-							<form id="enrollForm" method="post" action="insert.in" enctype="multipart/form-data">
+							<form id="updateForm" method="post" action="update.in" enctype="multipart/form-data">
 							
 								<h2>상호명 : ${ requestScope.seller.companyName }</h2>
 					        	
 					            <h2>제목</h2>
-					            <input type="text" id="inqTitle" name="inqTitle" required>
+					            <input type="text" id="inqTitle" name="inqTitle" value="${requestScope.i.inqTitle }" required>
 					
 					            <h2>내용</h2>
-					            <textarea id="inqContent" name="inqContent" rows="6"  required></textarea>
-								
+					            <textarea id="inqContent" name="inqContent" rows="6"  required>${ requestScope.i.inqContent }</textarea>
+								<input type="hidden" name="inqNo" value="${ requestScope.i.inqNo }">
 								<input type="hidden" name="sellerNo" value="${ requestScope.seller.sellerNo }">
 								<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }"> 
 					            <!-- 파일 선택 버튼 -->
 					            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
+								<c:forEach var="inf" items="${ requestScope.inf }">
+									<input type="text" id="changeName" name="changeName" value="${ inf.changeName }">
+									<input type="text" id="originName" name="originName" value="${ inf.originName }">
+								</c:forEach>
+								<c:if test="">
 								
+								</c:if>
 								
 					            <div align="center">
 					                <input type="submit" value="게시글 등록">

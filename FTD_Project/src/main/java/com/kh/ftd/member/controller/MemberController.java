@@ -20,12 +20,17 @@ import com.kh.ftd.member.model.service.MemberService;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
+import com.kh.ftd.seller.model.service.SellerService;
+import com.kh.ftd.seller.model.vo.Seller;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private SellerService sellerService;
 	
 	@Autowired
 	private GoodsService goodsService;
@@ -377,6 +382,33 @@ public class MemberController {
 	public String ajaxMemberDeleteLike(Like like) {
 		
 		int result = memberService.ajaxMemberDeleteLike(like);
+		
+		if(result > 0) {
+			return "Y";
+		} else {
+			return "N";
+		}
+	}
+	
+	// 찜 목록 조회
+	@RequestMapping("subscribe.me")
+	public String memberSubscribeList(HttpSession session, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int memberNo = loginUser.getMemberNo();
+		
+		ArrayList<Seller> list = sellerService.memberSubscribeList(memberNo);
+		
+		model.addAttribute("list", list);
+		
+		return "member/memberSubscribeList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("ajaxDeleteSubscribe.me")
+	public String ajaxMemberDeleteSubscribe(Subscribe subscribe) {
+		
+		int result = memberService.ajaxDeleteSubscribe(subscribe);
 		
 		if(result > 0) {
 			return "Y";

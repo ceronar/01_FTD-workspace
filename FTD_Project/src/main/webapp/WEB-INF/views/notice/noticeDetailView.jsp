@@ -105,7 +105,7 @@
 					            <div class="notice-info">  
 					                <p>작성일: ${requestScope.n.createDate }</p>
 					            </div>
-					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq 1}">
+					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberId eq 'admin'}">
 
 					        	<div class="btn">
 						            <a onclick="postFormSubmit(1)">수정</a>

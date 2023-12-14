@@ -5,30 +5,30 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>내 좋아요 목록</title>
+    <title>내 찜 목록</title>
     <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style type="text/css">
-    	.like-table {
+    	.subscribe-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        .like-table th, .like-table td {
+        .subscribe-table th, .like-table td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
         }
 
-        .like-table th {
+        .subscribe-table th {
             background-color: #007acc;
             color: #fff;
         }
         
-        .like-table>tbody>tr:hover {
+        .subscribe-table>tbody>tr:hover {
 			background-color: lightgray;
 			cursor: pointer;
 		}
@@ -69,28 +69,26 @@
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
-		        	<h2>내 좋아요 목록</h2>
-		            <table class="like-table">
+		        	<h2>내 찜 목록</h2>
+		            <table class="subscribe-table">
 					    <thead>
 					        <tr>
-					            <th hidden>상품 번호</th>
-					            <th>상품 사진</th>
-					            <th>상품명</th>
-					            <th>가격</th>
-					            <th>재고</th>
-					            <th hidden>판매 번호</th>
+					            <th hidden>판매자 번호</th>
+					            <th>가게 사진</th>
+					            <th>상호명</th>
+					            <th>대표자 이름</th>
+					            <th>연락처</th>
 						        <th class="nonClick">삭제</th>
 					        </tr>
 					    </thead>
 					    <tbody>
-					    	<c:forEach var="l" items="${ requestScope.list }">
+					    	<c:forEach var="s" items="${ requestScope.list }">
 						        <tr>
-						            <td hidden>${ l.goodNo }</td>
-						            <td><img src="${ l.changeName }" alt="제품 사진"></td>
-						            <td>${ l.goodTitle }</td>
-						            <td>${ l.price }</td>
-						            <td>${ l.stock }</td>
-						            <td hidden>${ l.sellNo }</td>
+						            <td hidden>${ s.sellerNo }</td>
+						            <td><img src="${ s.changeName }" alt="가게 사진"></td>
+						            <td>${ s.companyName }</td>
+						            <td>${ s.sellerName }</td>
+						            <td>${ s.email }<br>${ s.phone }</td>
 						            <td class="nonClick"><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
 						        </tr>
 					        </c:forEach>
@@ -104,32 +102,31 @@
     
     <script type="text/javascript">
     	$(function() {
-    		$(".like-table>tbody").on("click", "tr", e => {
+    		$(".subscribe-table>tbody").on("click", "tr", e => {
     			let target = e.target;
     			let parentTrTag = e.target;
 		        for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
-		        let goodNo = parentTrTag.children.item(0).innerText;
+		        let sellerNo = parentTrTag.children.item(0).innerText;
     			if(target.classList.contains('nonClick') || (target == e.currentTarget.querySelector(".deleteBtn")) || (target == e.currentTarget.querySelector(".material-symbols-outlined"))) {
-    				alertify.confirm('', '정말 좋아요를 삭제하시겠습니까?', 
+    				alertify.confirm('', '정말 찜을 삭제하시겠습니까?', 
     						function(){  
-    					deleteLike(goodNo, parentTrTag);
+    					deleteSubscribe(sellerNo, parentTrTag);
     				}, function(){ alertify.error('취소')});
     			} else {
-    				let sellNo = parentTrTag.children.item(5).innerText;
-    				location.href = "goodsDetailPage.go?gno=" + sellNo;
+    				location.href = "sellerDetailPage.se?sno=" + sellerNo;
     			}
 			});
 		});
     	
-    	function deleteLike(goodNo, parentTrTag) {
+    	function deleteSubscribe(sellerNo, parentTrTag) {
 			// console.log(goodNo);
 			// console.log(parentTrTag);
     		$.ajax({
-      			url : "ajaxDeleteLike.me",
+      			url : "ajaxDeleteSubscribe.me",
       			type : "get",
       			data : {
       				memberNo : ${ sessionScope.loginUser.memberNo },
-      				goodNo : goodNo
+      				sellerNo : sellerNo
       			},
       			success : function(result) { 
 					if(result == "Y") {
