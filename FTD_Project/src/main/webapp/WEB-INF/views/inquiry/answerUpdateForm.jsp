@@ -22,7 +22,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            
+            text-align:left;
         }
 
         h1 {
@@ -85,12 +85,12 @@
 				    <div class="container">
 				        <h1>게시글 작성</h1>
 				
-				        <form id="insertForm" method="post" action="insert.re">
+				        <form id="updatForm" method="post" action="update.re">
 				            <h2>문의글 제목:</h2>
 				            <input type="text" name="inqTitle" value="${requestScope.i.inqTitle}" readonly>
 				
 				            <h2>내용:</h2>
-				            <textarea id="resopnseContent" name="responseContent" rows="6" required></textarea>
+				            <textarea id="resopnseContent" name="responseContent" rows="6" required>${ requestScope.i.responseContent }</textarea>
 				            
 				            <div align="center">
 				                <input type="submit" value="답변 등록">

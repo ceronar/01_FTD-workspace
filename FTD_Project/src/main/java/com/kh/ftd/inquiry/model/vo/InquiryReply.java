@@ -21,5 +21,6 @@ public class InquiryReply {
 	private String replyContent;	//REPLY_CONTENT	VARCHAR2(3000 BYTE)
 	private Date createDate;		//CREATE_DATE	DATE
 	private Date deleteDate;		//DELETE_DATE	DATE
+	private String memberId;
 	
 }

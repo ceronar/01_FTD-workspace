@@ -70,6 +70,19 @@ public class InquiryDao {
 		return (ArrayList)sqlSession.selectList("inquiryMapper.memberBoardList", memberNo);
 	}
 	
-	
+	public int deleteInquiry(SqlSessionTemplate sqlSession, int inquiryNo) {
+		return sqlSession.update("inquiryMapper.deleteInquiry", inquiryNo);
+	}
 
+	public int deleteResponse(SqlSessionTemplate sqlSession, Inquiry i) {
+		return sqlSession.update("inquiryMapper.deleteResponse", i);
+	}
+
+	public int updateResponse(SqlSessionTemplate sqlSession, Inquiry i) {
+		return sqlSession.update("inquiryMapper.updateResponse", i);
+	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, InquiryReply r) {
+		return sqlSession.insert("inquiryMapper.insertReply", r);
+	}
 }
