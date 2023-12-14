@@ -138,16 +138,6 @@
 	'opsz' 24
 	}
 
-	.sub-footer1 {
-		width: 100%;
-		height: 50px;
-		background-color: #ffffff;
-		border-top-left-radius: 4px;
-    	border-top-right-radius: 4px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-		/* padding-top: 5px; */
-	}
-
 	.pay-button {
 		width: 60%;
 		height: 40px;
@@ -185,6 +175,18 @@
 
 	#goods-title-div2 {
 		font-size: 35px;
+	}
+
+	.sub-footer1 {
+		width: 100%;
+		height: 50px;
+		position: sticky; /* 스크롤에 고정 */
+		bottom : 0px;
+		background-color: #ffffff;
+		border-top-left-radius: 4px;
+    	border-top-right-radius: 4px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		/* padding-top: 5px; */
 	}
 
 </style>
@@ -263,7 +265,7 @@
 					<div class="sub-content">				
 						<div class="sub-footer1">
 							<button class="pay-button" type="submit">등록하기</button>
-						</div>	
+						</div>
 	        		</div>
 				</form>
 				
