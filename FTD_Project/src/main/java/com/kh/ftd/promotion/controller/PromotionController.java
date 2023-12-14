@@ -341,7 +341,7 @@ public class PromotionController {
 		//댓글 개수 담을 곳
 		ArrayList<Object> rList = new ArrayList<Object>();
 		
-	
+		
 			
 		//진짜 다 담을 곳
 				ArrayList<Object> arrList2 = new ArrayList<Object>();

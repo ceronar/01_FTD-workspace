@@ -219,7 +219,8 @@
         	<a href="basket.me"><span class="material-symbols-outlined">shopping_cart</span></a>
         </div> <!-- 뒤로가기 홈으로가기 장바구니가기 만들기 -->
     </header>
-
+    
+   
     <main>
         <div class="count">
         <span>판매</span>
@@ -227,7 +228,14 @@
         </div>
         <div class="profile">
             <div class="profile_1">
-                <img src="/ftd${sellerFile.changeName }">
+                <c:choose>
+			    	<c:when test="${sellerFile.changeName == null}">
+			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
+			    	</c:when>
+			    	<c:otherwise>
+			    		<img src="${sellerFile.changeName }">
+			    	</c:otherwise>
+			    </c:choose>
             </div>
             <div class="profile_2">
                 <span>${requestScope.seller.companyName}</span>
@@ -238,17 +246,11 @@
                         <!-- 몇분전인지-->
                     </div>
             </div>
-            
-            <div class="profile_3">
-	             <div class="profile_3_1">
-	             <a style="width : 50px"><i class="fas fa-store"></i></a>
-	             <a>마켓 찜</a>
-	             </div>
-           </div> 
+           
            
            <!-- 판매자가 로그인했을때 자기 마켓에만 보기게끔 조건문 -->
-           
-             <c:if test="${ not empty sessionScope.loginSeller and sessionScope.loginSeller.sellerNo eq requestScope.p.sellerNo}">
+              <c:choose>
+             <c:when test="${ not empty sessionScope.loginSeller and sessionScope.loginSeller.sellerNo eq requestScope.p.sellerNo}">
            <div class="profile_3">
 	             <div class="profile_3_1">
 	             <a style="width : 50px"><i class="fas fa-store"></i></a>
@@ -289,7 +291,16 @@
                		}
                	}
                </script>
-               </c:if>
+               </c:when>
+               <c:otherwise>
+                <div class="profile_3">
+	             <div class="profile_3_1">
+	             <a style="width : 50px"><i class="fas fa-store"></i></a>
+	             <a>마켓 찜</a>
+	             </div>
+           		</div>
+           	   </c:otherwise>
+           	   </c:choose> 
         </div>
 
 
@@ -303,7 +314,7 @@
 		            		<c:forEach var="pf" items="${ requestScope.pfList }">
 								<div id="img-slider" align="center">
 	                                <figure>
-	                                    <img src="/ftd/${ pf.changeName }" >
+	                                    <img src="${ pf.changeName }" >
 	                                </figure>
 					            </div>
 				            </c:forEach>
@@ -334,7 +345,14 @@
     <main>
         <div class="profile">
             <div class="profile_1">
-                <img src="${sellerFile.changeName }" alt="Profile Image">
+                <c:choose>
+			    	<c:when test="${sellerFile.changeName == null}">
+			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
+			    	</c:when>
+			    	<c:otherwise>
+			    		<img src="${sellerFile.changeName }">
+			    	</c:otherwise>
+			    </c:choose>
             </div>
             <div class="profile_2">
                 <span>100년 수산</span>

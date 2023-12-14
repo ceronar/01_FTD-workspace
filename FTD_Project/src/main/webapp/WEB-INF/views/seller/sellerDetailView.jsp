@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/promotion.css?version=1.2" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/review.css?version=1.2" rel="stylesheet" type="text/css">
 <style>
 
 
@@ -273,17 +274,32 @@
 					</div>
 				
 				<button onclick="selectSellerPromotion()">홍보</button>
+				<button onclick="selectSellerReview()">후기</button>
 				
 			<script>
+				function toggle_layer() {
+					if($(".promotion").css("display") == "none"){
+						$(".promotion").show();
+					}
+				}
+			</script>
+				
+			<script>
+			
+			
 			
 			 var page = 0;
 	         var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
 
-	            $(document).ready(function () {
-	              
-	            });
-			
 				 function selectSellerPromotion() {
+	        	 
+					 $(function() {
+		 					
+						 toggle_layer();
+						 
+						
+	 				  
+	 				 });
 	        	   
 					  $(window).scroll(function () {
 		                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
@@ -420,12 +436,154 @@
 	        	
 	           }
 		 </script>
+		 
+		  <script>
+            var page = 0;
+            var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
+
+          
+             
+   
+
+            function selectSellerReview() {
+               
+            	 $(function() {
+ 					
+ 					 $(".promotion").hide();
+ 				  
+ 				 });
+            	
+           	   $(window).scroll(function () {
+                      if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                          page++;
+                          selectSellerReview();
+                      }
+                  });
+           	
+                $.ajax({
+                    url: 'list.re',
+                    type: 'get',
+                    data: { page: page, size: pageSize, sno: ${ requestScope.sellerNo } },
+                 
+                    success: function (data) {
+
+                        console.log("통신성공!!!");
+                        console.log(data);
+
+
+                        data.forEach(function (val) {
+							
+
+                       let str  = '<div class="review-content">'
+                     +  '<div id="name">'
+	                     +  '<div> '+val[0].memberNo+'</div>'
+	                     + ' <div><p class="review-date">xx 시간전</p></div>'
+                  	 +	'</div>'
+				+'<div class="detail">'
+                  + '<h2>후기</h2>'
+                  + '<p>'+ val[0].revContent +'</p>'
+                  + '<input type="hidden" value="' + val[0].revNo + '">'  
+                  +     '<div>'
+                  +         '<img src="'+ val[1][0].changeName +'" id="img_1">'
+                  +     '</div>'
+				+'</div>'
+                + '<div>'
+                  +     '<div id="review_product">'        
+                  +         '<table border="1" id="product">'
+                  +             '<tr>'
+                  +                 '<td><img src="" id="img_2"></td>'
+                  +                 '<td width="685px;">'
+                  +                    '<div>A급 러시아 대게(선어,자숙)</div>'
+                  +                     '<div id="img_2_text_2">3kg (3미 내외)</div>'
+                  +                 '</td>'
+                  +                 '<td><i class="fas fa-chevron-right"></i></td>'
+                  +             '</tr>'
+                  +         '</table>'
+                  +     '</div>'
+
+                  +     '<div>'
+                        
+                  +         '<div id="review_footer">'
+
+                  +             '<div>'
+                  +                 '<span>'
+                  +                  '<span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i> '+ val[0].starRating +'</span>'
+                  +                 '</span>'
+                  +             '</div>'
+
+                  +             '<div id="review_footer_2">'
+                  +                 '<span>'
+                  +                     '<span> <i class="far fa-comment"></i></span>'
+                  +                     '<span>'+ val[3] +'</span>'
+                  +                 '</span>'
+                  +             '</div>'
+                  +         '</div>'
+                  +     '</div>'
+                 +  '</div>'
+              + '</div>'
+              + '<hr>';
+
+
+                                $('.review').append(str);
+								
+                        });
+
+
+
+
+                    },
+                  
+                    error: function () {
+                        console.log("통신실패!");
+                    }
+                });
+            }
+
+        </script>
+		 
+		 
+		  <script>
+            $(function () {
+
+                $(".promotion").on('click', '.detail', function (e) {
+
+                	 //console.log(e.currentTarget.children.value);
+                	 
+                    let pno = e.currentTarget.children.item(0).value;
+
+                    //
+
+                    location.href = "pdlist.bo?pno=" + pno;
+                });
+            });
+        </script>
+        
+        <script>
+          $(function () {
+
+                $(".review").on('click', '.detail', function (e) {
+
+                	//console.log(e.currentTarget.children.item(2).value);
+                	
+                    let rno = e.currentTarget.children.item(2).value;
+
+                    location.href = "rdlist.bo?rno=" + rno;
+                });
+            }); 
+        </script>
+        
 		  <div align="center">
               <ul>
                   <li class="promotion">
 
                   </li>
               </ul>
+              
+               <div class="review">
+
+			
+           
+        	  </div>
           </div>	
 					
 					

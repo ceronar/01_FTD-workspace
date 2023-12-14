@@ -51,6 +51,9 @@ public interface ReviewService {
 		//기존에 후기게시글에 첨부파일이있었다면 삭제 기능
 		int deleteReviewFile(int rno);
 
+		//판매자용 마켓 서브메뉴 후기리스트
+		ArrayList<Review> selectReviewSellerList(int sno);
+
 	
 
 }

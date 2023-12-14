@@ -22,14 +22,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-
+import com.kh.ftd.goods.model.vo.GoodsFile;
+import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
-
-
+import com.kh.ftd.review.model.service.ReviewService;
+import com.kh.ftd.review.model.vo.Review;
+import com.kh.ftd.review.model.vo.ReviewFile;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
 import com.kh.ftd.seller.model.vo.SellerFile;
@@ -45,6 +47,9 @@ public class SellerController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	// 판매자 마켓 페이지 이동
 	@RequestMapping("sellerListPage.se")
@@ -281,6 +286,121 @@ public class SellerController {
 		// return gson.toJson(list);
 		
 	        return new Gson().toJson(arrList2);
+	}
+	
+	//판매자 서브메뉴 이 후기리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "list.re" , produces = "application/json; charset=UTF-8")
+	public String ajaxpromotionListView(int sno, int page, int size, Model m) {
+		
+		
+		int rno = 0;
+		String mno = "";
+		int gno = 0;
+		 
+		System.out.println(sno);
+		
+		
+		//후기리스트 내용
+		ArrayList<Review> rList = reviewService.selectReviewSellerList(sno);
+		System.out.println(rList); //홍보리스트 다 불어와짐 + 구매자 이름 + 구매자 후기내용
+		// + 별점까지가지고있음
+		
+		for(int i = 0; i < rList.size(); i++) {
+			if(rList.get(i).getRevContent().length() > 80) {
+				String s = rList.get(i).getRevContent();
+				rList.get(i).setRevContent(s.substring(0, 77) + "...");
+			}
+		}
+		
+		
+		//후기리스트 사진조회 어레이 리스트
+		ArrayList<Object> rfList = new ArrayList<Object>();
+		
+		//후기리스트 상품사진 어레이 리스트
+		ArrayList<Object> gfList = new ArrayList<Object>();
+
+		//댓글 개수 담을 곳 + 그냥 이거안쓰고 댓글배열.size() 해도댐
+		ArrayList<Object> replyList = new ArrayList<Object>();
+		
+		//후기리스트 상품사진 제목,상세정보
+		ArrayList<Object> gList = new ArrayList<Object>();
+		
+			
+		//진짜 다 담을 곳
+				ArrayList<Object> arrList2 = new ArrayList<Object>();
+		
+		//총 DB의 홍보게시글개수
+		int TOTAL_ITEMS = rList.size();
+		//System.out.println(rList.size());
+		
+		int start = page * size;
+		 
+	    int end = Math.min(start + size, TOTAL_ITEMS);
+		
+		for(Review r : rList) {
+			rno = r.getRevNo();
+			mno = r.getMemberNo();
+			gno = r.getGoodNo();
+		
+		
+		//후기리스트 사진조회 리스트
+		ArrayList<ReviewFile> rFileList = reviewService.selectReviewFileList(rno);
+		//System.out.println(rFileList);
+		rfList.add(rFileList);
+		
+		//각 홍보리스트 댓글갯수
+		int reply =  reviewService.ReviewReplyCount(rno);
+		//System.out.println(reply); 
+		replyList.add(reply);
+		
+	
+		//후기리스트 상품사진
+		GoodsFile goodsFileList = reviewService.selectGoodsFileList(gno);
+		//System.out.println(goodsFileList);
+		gfList.add(goodsFileList);
+	
+		//후기리스트 상품제목
+		GoodsSell goodsList = reviewService.selectGoodsList(gno);
+		//System.out.println(goodsList);
+		gList.add(goodsList);
+		}
+		
+			
+		//System.out.println(rList);
+		//System.out.println(rfList);
+		//System.out.println(gfList);
+		//System.out.println(replyList);
+
+
+//	  // * 테스트용
+//	    ArrayList<String> list 
+//					=  new ArrayList<String>();
+//
+		
+	        for (int i = start; i < end; i++) {
+	        	
+	        	ArrayList<Object> arrList = new ArrayList<Object>();
+	        	
+	        	arrList.add(rList.get(i));
+	        	arrList.add(rfList.get(i));
+	        	arrList.add(gfList.get(i));
+	        	arrList.add(replyList.get(i));
+	        	arrList.add(gList.get(i));
+	        	
+	        	//System.out.println(arrList);
+	        	arrList2.add(arrList);
+	        	//System.out.println(i); // 순서대로 0~4 5개라쳣을때
+	    		
+  }
+	        //System.out.println(arrList2);
+	       // System.out.println("*"+arrList2.size()); //띄워질요소사이즈
+
+		// Gson gson = new Gson();
+		// return gson.toJson(list);
+		
+	        return new Gson().toJson(arrList2);
+	
 	}
 		
 	

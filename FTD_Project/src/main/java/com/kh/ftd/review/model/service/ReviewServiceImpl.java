@@ -100,6 +100,12 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.deleteReviewFile(sqlSession,rno);
 	}
 
+	@Override
+	public ArrayList<Review> selectReviewSellerList(int sno) {
+
+		return reviewDao.selectReviewSellerList(sqlSession,sno);
+	}
+
 
 
 }

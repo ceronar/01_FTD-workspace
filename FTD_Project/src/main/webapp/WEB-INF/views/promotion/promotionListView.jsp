@@ -413,6 +413,7 @@
                         // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
 
                         data.forEach(function (val) {
+                        	
            let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : val[2].changeName;			
 
                        let str  ='<div>'
@@ -420,8 +421,6 @@
                                 + '<div id="profile_1" style="width : 50px; height : 50px;">'
 
                                 + '<img src="'+ marketImg +'" alt="">'
-
-                                + '<img src=\"/ftd'+ val[2].changeName +'\">'
 
                                 + '</div>'
                                 + '<div id="profile_2">'

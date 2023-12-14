@@ -1,0 +1,108 @@
+@charset "UTF-8";
+    body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+    
+        header {
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .review {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+	
+
+        .review #img_1 {
+            width: 860px;
+            height: 300px;
+            border-radius: 5%;
+
+            margin-right: 10px;
+        }
+
+        .review #img_2 {
+            width: 120px;
+            height: 80px;
+        }
+
+        .review-content {
+            flex: 1;
+        }
+
+        .review-content h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        .review-content p {
+            margin: 10px 0;
+        }
+
+        .review-date {
+            color: #777;
+            font-size : 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        #name > div {
+            display: inline-block;
+        }
+
+        #product {
+            border-spacing: 0px;
+            border-radius: 10px;
+            border-color: lightgray;
+            margin:auto;
+        }
+
+        #review_footer > div {
+            display: inline-block;
+        }
+
+        #review_footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #review_product {
+            margin-top: 15px;
+        }
+
+        #review_footer_2 {
+            text-align: right;
+            margin-right: 20px;
+        }
+
+        #product #img_2_text_2{
+            color: #777;
+            font-size : 15px;
+        }

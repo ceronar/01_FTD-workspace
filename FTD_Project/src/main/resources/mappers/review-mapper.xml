@@ -215,5 +215,35 @@
 		   SET DELETE_DATE = SYSDATE
 		 WHERE REV_NO = #{rno}
 	</update>
+	
+	<select id="selectReviewSellerList" resultMap="reviewResultSet">
+	SELECT DISTINCT
+	    R.REV_NO,
+	    M.MEMBER_ID,
+	    R.GOOD_NO,
+	    R.REV_TITLE,
+	    R.REV_CONTENT,
+	    R.COUNT,
+	    R.STAR_RATING,
+	    R.CREATE_DATE,
+	    R.DELETE_DATE
+	FROM 
+	    REVIEW R
+	    JOIN GOODS G ON (R.GOOD_NO = G.SELLER_NO)
+        JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+        JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
+	WHERE 
+	    R.DELETE_DATE IS NULL
+	AND
+		G.DELETE_DATE IS NULL
+	AND
+        S.DELETE_DATE IS NULL
+    AND
+       M.STATUS IS NULL
+    AND
+		S.SELLER_NO = #{sellerNo}
+	ORDER BY 
+	    R.REV_NO DESC
+	</select>
 
 </mapper>
