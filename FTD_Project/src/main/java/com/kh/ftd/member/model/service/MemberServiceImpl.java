@@ -107,4 +107,5 @@ public class MemberServiceImpl implements MemberService {
 	public int ajaxMemberDeleteLike(Like like) {
 		return memberDao.ajaxMemberDeleteLike(sqlSession, like);
 	}
+
 }

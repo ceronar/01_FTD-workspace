@@ -46,4 +46,10 @@ public interface GoodsService {
 	
 	// 구매자 좋아요 상품 리스트 조회
 	ArrayList<Goods> memberLikeList(int memberNo);
+	
+	// 판매자 상품 타이틀 조회
+	ArrayList<Goods> ajaxSelectSellerGoodTitle(int sellerNo);
+	
+	// 판매자 상품 글 등록
+	int insertSellerGoodsText(GoodsSell goodsSell);
 }

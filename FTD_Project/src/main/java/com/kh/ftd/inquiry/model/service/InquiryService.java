@@ -33,9 +33,6 @@ public interface InquiryService {
 	// 답변 등록 (update)
 	int insertAnswer(Inquiry i);
 	
-	// 댓글 리스트 조회 서비스
-	ArrayList<InquiryReply> selectReplyList(int boardNo);
-	
 	// 댓글 작성 서비스
 	int insertReply(InquiryReply r);
 
@@ -50,5 +47,11 @@ public interface InquiryService {
 	int deleteInquiryFile(int inqNo);
 
 	int updateInquiryFile(InquiryFile inf);
+
+	int deleteResponse(Inquiry i);
+
+	int updateResponse(Inquiry i);
 	
+	// 구매자 작성 문의 리스트 조회
+	ArrayList<Inquiry> memberBoardList(int memberNo);
 }

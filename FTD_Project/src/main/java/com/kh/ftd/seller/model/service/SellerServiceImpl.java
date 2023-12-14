@@ -138,5 +138,10 @@ public class SellerServiceImpl implements SellerService{
 	public int deleteSellerFile(int sellerNo) {
 		return sellerDao.deleteSellerFile(sqlSession, sellerNo);
 	}
+
+	@Override
+	public ArrayList<Seller> memberSubscribeList(int memberNo) {
+		return sellerDao.memberSubscribeList(sqlSession, memberNo);
+	}
 	
 }

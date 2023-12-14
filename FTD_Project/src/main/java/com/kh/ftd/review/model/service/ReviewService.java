@@ -55,5 +55,7 @@ public interface ReviewService {
 		ArrayList<Review> selectReviewSellerList(int sno);
 
 	
+	// 구매자 작성 리뷰 리스트 조회
+	ArrayList<Review> memberBoardList(int memberNo);
 
 }

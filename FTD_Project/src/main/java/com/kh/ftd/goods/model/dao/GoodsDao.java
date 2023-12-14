@@ -75,4 +75,11 @@ public class GoodsDao {
 		return (ArrayList)sqlSession.selectList("goodsMapper.memberLikeList", memberNo);
 	}
 	
+	public ArrayList<Goods> ajaxSelectSellerGoodTitle(SqlSessionTemplate sqlSession, int sellerNo) {
+		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectSellerGoodTitle", sellerNo);
+	}
+	
+	public int insertSellerGoodsText(SqlSessionTemplate sqlSession, GoodsSell goodsSell) {
+		return sqlSession.insert("goodsMapper.insertSellerGoodsText", goodsSell);
+	}
 }

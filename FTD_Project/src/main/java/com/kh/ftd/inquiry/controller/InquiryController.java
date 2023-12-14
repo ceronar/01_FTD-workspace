@@ -40,6 +40,7 @@ public class InquiryController {
 		return mv;
 	}
 	
+	// 문의글 전체 조회 ajax
 	@ResponseBody
 	@RequestMapping(value="ajaxSelectList.in", produces = "application/json; charset=UTF-8")
 	public String ajaxSelectInquiryList(int sellerNo, String page, String pageSize) {
@@ -64,6 +65,9 @@ public class InquiryController {
 		return new Gson().toJson(list);
 	}
 	
+	
+	// 문의 작성 페이지 이동
+	@Transactional
 	@RequestMapping("enrollForm.in")
 	public ModelAndView enrollForm(int sno, ModelAndView mv) {
 		
@@ -81,6 +85,7 @@ public class InquiryController {
 		
 	}
 	
+	// 문의글 작성
 	@Transactional
 	@RequestMapping("insert.in")
 	public String insertInquiry(Inquiry i, InquiryFile inf, MultipartFile upfile[], HttpSession session, Model model) {
@@ -127,6 +132,7 @@ public class InquiryController {
 		
 	}
 	
+	// 문의글 상세 조회
 	@RequestMapping("detail.in")
 	public ModelAndView selectInquiry(Inquiry i, int ino, String sno, ModelAndView mv) {
 //		System.out.println("ino : " + ino);
@@ -154,9 +160,9 @@ public class InquiryController {
 			
 			ArrayList<InquiryReply> ir = inquiryService.selectInquiryReplyList(i);
 			
-//			for(InquiryReply n : ir) {
-//				System.out.println(n);
-//			}
+			for(InquiryReply n : ir) {
+				System.out.println(n);
+			}
 			
 			
 			mv.addObject("i2", i2).addObject("inf", inf).addObject("ir", ir).setViewName("inquiry/inquiryDetailView");
@@ -168,6 +174,7 @@ public class InquiryController {
 		return mv;
 	}
 	
+	// 답글작성 페이지 이동
 	@RequestMapping("enrollForm.re")
 	public ModelAndView insertResponseForm(Inquiry i, ModelAndView mv) {
 		
@@ -181,6 +188,8 @@ public class InquiryController {
 		
 	}
 	
+	// 답글 작성
+	@Transactional
 	@RequestMapping("insert.re")
 	public String insertResponse(Inquiry i, HttpSession session, Model model) {
 		
@@ -201,6 +210,7 @@ public class InquiryController {
 		}
 	}
 	
+	// 문의글 수정 페이지 이동
 	@RequestMapping("updateForm.in")
 	public ModelAndView updateInquiry(Inquiry i,HttpSession session, ModelAndView mv) {
 		
@@ -227,6 +237,9 @@ public class InquiryController {
 			return mv;
 		}
 	}
+	
+	// 문의글 수정
+	@Transactional
 	@RequestMapping("update.in")
 	public String updateInquiry(Inquiry i,
 							  InquiryFile inf,
@@ -295,6 +308,101 @@ public class InquiryController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	// 문의글 삭제
+	@Transactional
+	@RequestMapping("delete.in")
+	public String deleteInquiry(Inquiry i, 
+							InquiryFile inf, 
+							Model model,
+							HttpSession session) {
+	
+		System.out.println(i);
+		System.out.println(inf.getOriginName());
+
+		int result = inquiryService.deleteInquiry(i.getInqNo());
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 문의글이 삭제되었습니다.");
+			
+			return "redirect:/list.in?sellerNo=" + i.getSellerNo();
+		} else {
+			
+			
+			model.addAttribute("errorMsg", "문의글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	// 답글 수정 페이지 이동
+	@RequestMapping("updateForm.re")
+	public ModelAndView updateResponseForm(Inquiry i,
+								ModelAndView mv) {
+		
+		mv.addObject("i", i).setViewName("inquiry/answerUpdateForm");
+		
+		return mv;
+	}
+	
+	// 답글 수정
+	@Transactional
+	@RequestMapping("update.re")
+	public String updateResponse(Inquiry i, HttpSession session, Model model) {
+		
+		System.out.println(i);
+		
+		int result = inquiryService.updateResponse(i);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 답글이 수정되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + i.getInqNo() + "&sno="+ i.getSellerNo();
+		} else {
+			model.addAttribute("errorMsg", "답글 수정 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	// 답글 삭제
+	@Transactional
+	@RequestMapping("delete.re")
+	public String deleteResponse(Inquiry i,
+							HttpSession session,
+							Model model) {
+		
+		int result = inquiryService.deleteResponse(i);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 답글이 삭제되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + i.getInqNo() + "&sno="+ i.getSellerNo();
+		} else {
+			model.addAttribute("errorMsg", "답글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+		
+	}
+	
+	//
+	@Transactional
+	@RequestMapping("insert.rep")
+	public String insertReply(Inquiry i, InquiryReply r, HttpSession session, Model model) {
+		
+		System.out.println(r);
+		int result = inquiryService.insertReply(r);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 댓글이 작성되었습니다.");
+			
+			return "redirect:/detail.in?ino=" + r.getInqNo() + "&sno="+ i.getSellerNo();
+		} else {
+			model.addAttribute("errorMsg", "댓글 작성 실패");
+			
+			return "common/errorPage";
+		}
 	}
 	
 	

@@ -186,9 +186,9 @@
             data: { page: page, pageSize: pageSize, sellerNo : ${sessionScope.loginSeller.sellerNo} },
             success: function(result) {
 	            	
-            	console.log("ajax 통신 성공");	  
+            	console.log(result);	  
             	
-				if(page ==0 && result.length == 0) {
+				if(page == 0 && result.length == 0) {
 					
 					resultStr = "<br><br><br><br><br><br><h1>판매자님이 등록한 상품글이 없습니다.<h1>";
 					
@@ -198,12 +198,12 @@
             	
                 result.forEach(function (item, index) {
                     
-                	$('.goods').append(
+                	$('.goods-div').append(
                 			'<div class="goods-list">'
 							+'<input type="hidden" value="' + item[0].goodNo + '">'
 							+'<div class="goods-img">'+item[2].changeName+'</div>'
-							+'<div class="goods-title">'+item[0].sellTitle+'</div>'
-							+'<div class="goods-price">'+item[1].price+'원</div>'
+							+'<div class="goods-title">'+item[1].sellTitle+'</div>'
+							+'<div class="goods-price">'+item[0].price+'원</div>'
 							+'<div class="goods-detail">'
 								+'<div class="star-icon"><img src= "${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
 								+'<div class="goods-rating">'+item[3]+'</div>'

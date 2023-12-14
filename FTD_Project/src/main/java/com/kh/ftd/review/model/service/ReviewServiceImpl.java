@@ -105,6 +105,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 		return reviewDao.selectReviewSellerList(sqlSession,sno);
 	}
+	@Override
+	public ArrayList<Review> memberBoardList(int memberNo) {
+		return reviewDao.memberBoardList(sqlSession, memberNo);
+
+	}
 
 
 

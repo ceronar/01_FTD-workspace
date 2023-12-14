@@ -85,19 +85,19 @@
 				    <div class="container">
 				        <h1>게시글 작성</h1>
 				
-				        <form id="enrollForm" method="post" action="insert.re">
-				            <label for="inqTitle">문의글 제목:</label>
+				        <form id="insertForm" method="post" action="insert.re">
+				            <h2>문의글 제목:</h2>
 				            <input type="text" name="inqTitle" value="${requestScope.i.inqTitle}" readonly>
 				
-				            <label for="responseContent">내용:</label>
-				            <textarea id="resopnseContent" name="responseContent" value="${requestScope.i.responseContent }" rows="6" required></textarea>
+				            <h2>내용:</h2>
+				            <textarea id="resopnseContent" name="responseContent" rows="6" required></textarea>
 				            
 				            <div align="center">
 				                <input type="submit" value="답변 등록">
 				            </div>
 				            
-				            <input type="text" name="inqNo" value="${ requestScope.i.inqNo }">
-				            <input type="text" name="sellerNo" value="${ requestScope.i.sellerNo }">
+				            <input type="hidden" name="inqNo" value="${ requestScope.i.inqNo }">
+				            <input type="hidden" name="sellerNo" value="${ requestScope.i.sellerNo }">
 				        </form>
 				    </div>
 			    </div>

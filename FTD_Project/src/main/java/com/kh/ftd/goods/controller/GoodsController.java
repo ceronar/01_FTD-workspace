@@ -1,13 +1,20 @@
 package com.kh.ftd.goods.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.ftd.goods.model.service.GoodsService;
@@ -341,5 +348,106 @@ public class GoodsController {
 		
 		return "goods/sellerGoodsTextEnrollForm";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="uploadFile.go", produces = "text/html; charset=utf-8")
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)  {
+		
+		System.out.println("잘되나?");
+		String changeName = saveFile(multipartFile, request.getSession());
+		String originName = multipartFile.getOriginalFilename();
+		
+		/*
+		GoodsFile gf = new GoodsFile(originName, ("resources/uploadFiles/goods/" + changeName));
+		
+		// GoodsFile 에 대한 테이블 하나 만들고
+		// DB 로 insert 해야함 (gf 통째로)
+		 * 
+		 */
+		
+		System.out.println("resources/uploadFiles/goods/" + changeName);
+			
+		return "resources/uploadFiles/goods/" + changeName;
+				
+	}
+	
+	// 판매자 상품 글 등록 
+	@RequestMapping("insertSellerGoodsText.go")
+	public String insertSellerGoodsText(HttpSession session, GoodsSell goodsSell) {
+		
+		int result = goodsService.insertSellerGoodsText(goodsSell);
+		
+		if(result > 0) { // 상품 등록 성공 
+			
+			session.setAttribute("successMsg", "상품 글 등록을 성공했습니다.");
+			
+			return "redirect:/sellerGoodsTextListPage.go";
+			
+			
+		} else { // 상품 등록 실패
+			
+			session.setAttribute("successMsg", "상품 글 등록을 실패했습니다.");
+			
+			return "redirect:/sellerGoodsTextListPage.go";
+		}
+		
+	}
+	
+	
+	// 파일 업로드
+	public String saveFile(MultipartFile upfile, HttpSession session) {
+		
+		// 파일명 수정 작업 진행 후 서버로 업로드 시키기
+		// 예) "bono.jsp" => 2023110810223012345.jsp"
+		// 1. 원본파일명 뽑아오기
+		String originName = upfile.getOriginalFilename();
+		
+		// 2. 시간 형식을 문자열로 뽑아내기
+		// "2023110810223012345" (년월일시분초)
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		
+		// 3. 뒤에 붙을 5자리 랜덤수 뽑기 (10000 ~ 99999)
+		int ranNum = (int)(Math.random() * 90000 + 100000);
+		
+		// 4. 원본파일명으로 부터 확장자명을 뽑아오기
+		// ".jpg"
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		// 5. 모두 이어 붙이기
+		String changeName = currentTime + ranNum + ext;
+		
+		// 6. 업로드 하고자 하는 물리적인 경로 알아내기
+		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/goods/"); 
+		
+		// 7. 경로와 수정파일명을 합체 후 파일을 업로드 해주기
+		// System.out.println(originName);
+		// System.out.println(changeName);
+		 System.out.println(savePath + changeName);
+		
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		
+		} catch (IllegalStateException | IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		// 8. 만들어진 수정파일명을 문자열로 리턴
+		return changeName;
+		
+	}
+	
+	// 판매자 상품 타이틀 조회
+	@ResponseBody
+	@RequestMapping(value="ajaxSelectSellerGoodTitle.go", produces = "application/json; charset=UTF-8")
+	public String ajaxSelectSellerGoodTitle(int sellerNo)  {
+		
+		ArrayList<Goods> goodTitle = goodsService.ajaxSelectSellerGoodTitle(sellerNo);
+		
+		return new Gson().toJson(goodTitle);
+		
+	}
+	
 
+		
 }
