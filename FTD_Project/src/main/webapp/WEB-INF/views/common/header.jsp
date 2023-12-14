@@ -121,7 +121,7 @@
 			<a href="orderList.me" 					class="menu1">주문내역</a>
 			<a href="like.me" 						class="menu2">좋아요</a>
 			<a href="subscribe.me" 					class="menu3">찜</a>
-			<a href="" 								class="menu4">쓴 글</a>
+			<a href="boardList.me" 					class="menu4">쓴 글</a>
 		</div>
 		
 		<!-- 판매자 마이페이지 -->

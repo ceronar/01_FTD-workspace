@@ -22,8 +22,9 @@
 	       text-align: center;
 	       color: #333;
 	   }
-	   .post {
+	   .post, .btn, .comment-enroll, .comment_content{
 	       border-bottom: 1px solid #ccc;
+	       padding-bottom : 10px;
 	   }
 	   .post-content {
 	       margin-top: 20px;
@@ -125,7 +126,7 @@
 					            <div class="notice-info">  
 					                <p>작성일: ${requestScope.i2.createDate }</p>
 					                <div class="btn">
-					                	<c:if test="${ empty requestScope.i2.responseDate  }">
+					                	<c:if test="${ empty requestScope.i2.responseDate and (not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo) }">
 							        		<button onclick="responseForm(1)">답글 작성</button>
 							        	</c:if>
 							        	<c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo}">
@@ -190,9 +191,9 @@
 		                	<input type="hidden" id="sellerNo" name="sellerNo"
 		                				value="${ requestScope.i2.sellerNo }" >
 							<c:forEach var="inf" items="${ requestScope.inf }">
-			                	<input type="text" name="changeName" id="changeName"
+			                	<input type="hidden" name="changeName" id="changeName"
 			                				value="${ inf.changeName }">
-			                	<input type="text" name="originName" id="originName"
+			                	<input type="hidden" name="originName" id="originName"
 			                				value="${ inf.originName }">
 		                	</c:forEach>
 		                	<c:if test="${ not empty requestScope.i2.responseDate  }">
@@ -201,7 +202,7 @@
 				            <input type="hidden" name="responseContent" 
 				            			value="${ requestScope.i2.responseContent }">
 				            </c:if>
-
+							
 		                </form>
 		                
 				        
@@ -220,20 +221,44 @@
 						            <button onclick="responseForm(5)">답글 삭제</button>
 						        </div>
 					        </c:if>
-				        <div class="reply-area">
+				        	<div class="reply-area">
 				            <h2>댓글</h2>
+				            <!-- 댓글 입력창 -->
+				            <div class="comment-enroll">
+				            <form class="comment-form" action="insert.rep" method="post">
+				            	<c:choose>
+					            	<c:when test="${not empty sessionScope.loginUser}">
+					                	<textarea placeholder="댓글을 입력하세요" name="replyContent"required></textarea>
+					                </c:when>
+					                <c:otherwise>
+					                	<textarea placeholder="로그인 후 이용 가능합니다." name="replyContent" disabled ></textarea>
+					                </c:otherwise>
+				                </c:choose>
+				                <button type="submit" class="reply-btn">댓글작성</button>
+				                <input type="hidden" id="inqNo" name="inqNo"
+		                				value="${ requestScope.i2.inqNo }">
+								<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+								<input type="hidden" id="sellerNo" name="sellerNo" value="${ requestScope.i2.sellerNo }" >
+				            </form>
+				            <br>
+				            <br>
+				            </div>
 				            <!-- 댓글 목록 -->
 				            <div class="comment">
-				                <button>삭제</button>
-				                <p>댓글 내용이 여기에 표시됩니다.</p>
-				                <p class="reply-info">작성자: user01 | 작성일: 2023-11-24</p>
+				            	<c:forEach var="ir" items="${requestScope.ir}">
+					            	<div class="comment_content">
+					            		<c:if test="${ not empty sessionScope.loginUser and (sessionScope.loginUser.memberId eq ir.memberId) }">
+					            			<button>수정</button>
+						               		<button>삭제</button>
+						               	</c:if>
+						                <p>${ir.replyContent}</p>
+						                <p class="reply-info">작성자: ${ir.memberId} | 작성일: ${ir.createDate}</p>
+					                </div>
+					                <br>
+				            	</c:forEach>
 				            </div>
 				
-				            <!-- 댓글 입력창 -->
-				            <form class="comment-form">
-				                <textarea placeholder="댓글을 입력하세요" required></textarea>
-				                <button class="reply-btn">댓글작성</button>
-				            </form>
+				            
 				        </div>
 				    </div>
 			    </div>

@@ -14,6 +14,7 @@
 		<result column="RESPONSE_CONTENT" property="responseContent" />
 		<result column="RESPONSE_DATE" property="responseDate" />
 		<result column="MEMBER_ID" property="memberId" />
+		<result column="COMPANY_NAME" property="companyName" />
 	</resultMap>
 	
 	<resultMap id="inquiryFileResultSet" type="inquiryFile">
@@ -50,6 +51,7 @@
 		<result column="REPLY_CONTENT" property="replyContent" />
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
+		<result column="MEMBER_ID" property="memberId" />
 	</resultMap>
 	
 	<select id="selectInquiryList" parameterType="_int" resultMap="inquiryResultSet">
@@ -137,9 +139,11 @@
 		SELECT REPLY_NO
 			 , INQ_NO
 			 , MEMBER_NO
+			 , M.MEMBER_ID
 			 , REPLY_CONTENT
 			 , CREATE_DATE
 		  FROM INQUIRY_REPLY
+		  JOIN MEMBER M USING (MEMBER_NO)
 		 WHERE DELETE_DATE IS NULL
 		   AND INQ_NO = #{inqNo}
 		 ORDER BY REPLY_NO DESC
@@ -175,4 +179,44 @@
 					 	 	  , #{originName}
 					 	 	  , #{changeName})
 	</insert>
+	
+	<select id="memberBoardList" parameterType="_int" resultMap="inquiryResultSet">
+		SELECT I.INQ_NO, S.COMPANY_NAME, I.INQ_TITLE, I.CREATE_DATE, I.RESPONSE_DATE, I.SELLER_NO
+		  FROM INQUIRY I
+		  JOIN SELLER S ON(I.SELLER_NO = S.SELLER_NO)
+		 WHERE I.MEMBER_NO = #{memberNo}
+		   AND I.DELETE_DATE IS NULL
+	</select>
+
+	<update id="deleteInquiry" parameterType="_int">
+		UPDATE INQUIRY
+		   SET DELETE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inquiryNo}
+	</update>
+	
+	<update id="deleteResponse" parameterType="_int">
+		UPDATE INQUIRY
+		   SET RESPONSE_CONTENT = DEFAULT, RESPONSE_DATE = DEFAULT
+		 WHERE INQ_NO = #{inqNo}
+	</update>
+
+	<update id="updateResponse" parameterType="inquiry">
+		UPDATE INQUIRY
+		   SET RESPONSE_CONTENT = #{responseContent}, RESPONSE_DATE = SYSDATE
+		 WHERE INQ_NO = #{inqNo}
+	</update>
+	
+	<insert id="insertReply" parameterType="inquiryReply">
+		INSERT INTO INQUIRY_REPLY(REPLY_NO
+		                        , INQ_NO
+		                        , MEMBER_NO
+		                        , REPLY_CONTENT
+		                        , CREATE_DATE)
+		                   VALUES(SEQ_IRNO.NEXTVAL
+		                        , #{inqNo}
+		                        , #{memberNo}
+		                        , #{replyContent}
+		                        , SYSDATE)
+	</insert>
+
 </mapper>
