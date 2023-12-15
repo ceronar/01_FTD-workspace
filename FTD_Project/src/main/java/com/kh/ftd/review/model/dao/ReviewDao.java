@@ -83,7 +83,7 @@ public class ReviewDao {
 	public ArrayList<Review> selectReviewSellerList(SqlSessionTemplate sqlSession, int sno) {
 	
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewSellerList",sno);
-
+	}
 	public ArrayList<Review> memberBoardList(SqlSessionTemplate sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("reviewMapper.memberBoardList", memberNo);
 

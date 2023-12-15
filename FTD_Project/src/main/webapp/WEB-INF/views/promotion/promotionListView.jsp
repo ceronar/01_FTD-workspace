@@ -414,7 +414,7 @@
 
                         data.forEach(function (val) {
                         	
-           let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : val[2].changeName;			
+           let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : "${pageContext.request.contextPath}"+val[2].changeName;			
 
                        let str  ='<div>'
                                 + '<div class="profile">'
