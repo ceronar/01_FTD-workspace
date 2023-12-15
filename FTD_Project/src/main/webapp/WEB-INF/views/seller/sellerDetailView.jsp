@@ -8,6 +8,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/promotion.css?version=1.2" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/review.css?version=1.2" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/inquiry.css?version=1.2" rel="stylesheet" type="text/css">
 <style>
 
 
@@ -138,7 +139,11 @@
 	.store-review-count {
 		height: 50%;
 	}
-
+	
+	.inquiry {
+		display : none;
+	}
+	
 	.sub-content {
 	width: 100%; /* content 영역 크기 조정 */
 	height: 800px;
@@ -180,7 +185,7 @@
 					+ '</div>'
 					+ '<div class="store-title">'
 						+ '<div class="store-name">'+ result[0].companyName + '</div>'
-						+ '<div class="store-subscribe-button"><button id="subscribe">단골맺기</button></div>'
+						+ '<div class="store-subscribe-button"><button id="subscribe">단골맺기</button><form action="list.in"><button type="submit">문의</button><input type="hidden" name="sellerNo" id="sellerNo" value="${ requestScope.sellerNo }"></form></div>'
 					+ '</div>'
 					+ '<div class="store-detail">'
 						+ '<div class="store-subscribe">'
@@ -267,15 +272,12 @@
 				<div class="content">
 					
 					<div class="sub-menu">
-					<form action="list.in">
-						<button type="submit">테스트용</button>
-						<input type="text" name="sellerNo" id="sellerNo" value="${ requestScope.sellerNo }">
-					</form>
+					
 					</div>
 				
 				<button onclick="selectSellerPromotion()">홍보</button>
 				<button onclick="selectSellerReview()">후기</button>
-				
+				<button class="inquiry-btn" onclick="selectSellerInquiry()">문의</button>
 				
 			<script>
 				function toggle_layer() {
@@ -451,6 +453,7 @@
             	 $(function() {
  					
  					 $(".promotion").hide();
+ 					 $(".inquiry").hide();
  				  
  				 });
             	
@@ -459,7 +462,7 @@
                           page++;
                           selectSellerReview();
                       }
-                  });
+               });
            	
                 $.ajax({
                     url: 'list.re',
@@ -542,6 +545,74 @@
 
         </script>
 		 
+		<script>
+		
+		    var page = 0;
+		    var pageSize = 20;
+		
+		    
+		    function selectSellerInquiry() {
+		   		$(function () {
+					$(".promotion").hide();
+					$(".review").hide();
+					if ($(".inquiry").css("display") === "none") {
+				        $(".inquiry").css("display", "block");
+				        
+				    }
+					$(".inquiry-btn").attr("disabled", true);
+		        })
+				
+		        
+		     
+		
+		        $(window).scroll(function () {
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                        page++;
+                        selectSellerInquiry();
+                    }
+            	});
+			       
+			   
+		
+		        $.ajax({
+		            url: 'ajaxSelectList.in',
+		            type: 'get',
+		            data: { page: page, size: pageSize, sellerNo: '${requestScope.sellerNo}' },
+		            success: function (result) {
+		                result.forEach(function (item) {
+		                    // responseDate의 값에 따라 answer에 '미답변' 또는 '답변완료'를 할당합니다.
+		                    let answer = item.responseDate ? '답변완료' : '미답변';
+		
+		                    // 각 객체의 속성을 추출하여 테이블에 추가합니다.
+		                    var row = '<tr>';
+		                    row += '<td name="inqNo" class="inqNo">' + item.inqNo + '</td>' +
+		                        '<td name="answer" class="answer">' + answer + '</td>' +
+		                        '<td name="inqTitle" class="inqTitle">' + item.inqTitle + '</td>' +
+		                        '<td name="memberId" class="memberId">' + item.memberId + '</td>' +
+		                        '<td name="count" class="count">' + item.count + '</td>' +
+		                        '<td name="createDate" class="createDate">' + item.createDate + '</td>' +
+		                        '</tr>';
+		
+		                    $('.list-tbody').append(row);
+		                });
+		            },
+		            error: function () {
+		                console.log("ajax 통신 실패!");
+		            }
+		        });
+		    }
+				
+		    $(document).ready(function() {
+		 	   $('.list-area tbody').on('click', 'tr', function() {
+		 	       // 클릭된 행에서 번호를 가져와서 ino 변수에 할당합니다.
+		 	       var ino = $(this).find('.inqNo').text();
+		 	       
+		 	       // 현재 위치한 페이지에서 문의 번호(ino)를 가지고 detail.in 페이지로 이동합니다.
+		 	       window.location.href = 'detail.in?ino=' + ino + '&sno=${requestScope.sellerNo}';
+		 	   });
+		 	});
+		</script>
+		 
 		 
 		  <script>
             $(function () {
@@ -573,6 +644,10 @@
             }); 
         </script>
         
+        
+        
+        
+        
 		  <div align="center">
               <ul>
                   <li class="promotion">
@@ -582,8 +657,23 @@
               
                <div class="review">
 
-			
-           
+        	  </div>
+        	  
+        	  <div class="inquiry">
+        	  		<table class="list-area">
+	                  <thead>
+	                      <tr>
+	                          <th class="inqNo" style="width : 7%;">번호</th>
+	                          <th style="width : 15%;">답변여부</th>
+	                          <th style="width : 38%;">제목</th>
+	                          <th style="width : 10%;">문의자</th>
+	                          <th style="width : 10%">조회수</th>
+	                          <th style="width : 15%;">등록일</th>
+	                      </tr>
+	                  </thead>
+	                  <tbody class="list-tbody">
+	                  </tbody>
+	              </table>
         	  </div>
           </div>	
 					

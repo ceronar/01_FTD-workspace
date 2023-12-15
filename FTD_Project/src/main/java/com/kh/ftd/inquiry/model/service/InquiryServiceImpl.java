@@ -109,5 +109,15 @@ public class InquiryServiceImpl implements InquiryService{
 		return inquiryDao.memberBoardList(sqlSession, memberNo);
 	}
 
+	@Override
+	public int updateReply(InquiryReply ir) {
+		return inquiryDao.updateReply(sqlSession, ir);
+	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return inquiryDao.deleteReply(sqlSession, replyNo);
+	}
+
 
 }

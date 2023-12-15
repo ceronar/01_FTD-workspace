@@ -54,4 +54,8 @@ public interface InquiryService {
 	
 	// 구매자 작성 문의 리스트 조회
 	ArrayList<Inquiry> memberBoardList(int memberNo);
+
+	int updateReply(InquiryReply ir);
+
+	int deleteReply(int replyNo);
 }

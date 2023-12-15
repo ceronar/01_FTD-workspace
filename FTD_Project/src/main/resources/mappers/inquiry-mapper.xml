@@ -54,6 +54,12 @@
 		<result column="MEMBER_ID" property="memberId" />
 	</resultMap>
 	
+	<select id="selectInquiryCount" resultType="_int">
+        SELECT COUNT(*)
+		  FROM INQUIRY
+		 WHERE DELETE_DATE IS NULL
+	</select>
+	
 	<select id="selectInquiryList" parameterType="_int" resultMap="inquiryResultSet">
 		SELECT INQ_NO,
 		       INQUIRY.MEMBER_NO,
@@ -218,5 +224,19 @@
 		                        , #{replyContent}
 		                        , SYSDATE)
 	</insert>
+	
+	<update id="updateReply" parameterType="inquiryReply">
+		UPDATE INQUIRY_REPLY
+		   SET REPLY_CONTENT = #{replyContent}, CREATE_DATE = SYSDATE
+		 WHERE REPLY_NO = #{replyNo}
+		   AND INQ_NO = #{inqNo}
+	</update>
+	
+	<update id="deleteReply" parameterType="_int">
+		UPDATE INQUIRY_REPLY
+		   SET DELETE_DATE = SYSDATE
+		 WHERE REPLY_NO = #{replyNo}
+		   AND DELETE_DATE IS NULL
+	</update>
 
 </mapper>

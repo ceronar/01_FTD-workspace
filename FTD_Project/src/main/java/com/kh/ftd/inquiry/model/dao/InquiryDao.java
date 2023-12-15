@@ -85,4 +85,13 @@ public class InquiryDao {
 	public int insertReply(SqlSessionTemplate sqlSession, InquiryReply r) {
 		return sqlSession.insert("inquiryMapper.insertReply", r);
 	}
+
+	public int updateReply(SqlSessionTemplate sqlSession, InquiryReply ir) {
+		return sqlSession.update("inquiryMapper.updateReply", ir);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("inquiryMapper.deleteReply", replyNo);
+	}
+
 }

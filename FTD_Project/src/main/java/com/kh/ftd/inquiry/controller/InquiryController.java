@@ -43,9 +43,8 @@ public class InquiryController {
 	// 문의글 전체 조회 ajax
 	@ResponseBody
 	@RequestMapping(value="ajaxSelectList.in", produces = "application/json; charset=UTF-8")
-	public String ajaxSelectInquiryList(int sellerNo, String page, String pageSize) {
+	public String ajaxSelectInquiryList(int sellerNo, int page, int size) {
 		
-		int inquiryNo =0;
 		
 //		System.out.println("page : " + page);
 //		System.out.println("size : " + pageSize);
@@ -54,15 +53,22 @@ public class InquiryController {
 		ArrayList<Inquiry> list = inquiryService.ajaxSelectInquiryList(sellerNo);
 		
 		
-//		int totalItems = list.size();
-//		
-//		int start = page * size;
-//		
-//		int end = Math.min(start + size, totalItems);
+		int totalItems = list.size();
+		
+		int start = page * size;
+		
+		int end = Math.min(start + size, totalItems);
 		
 //		System.out.println(list);
 		
-		return new Gson().toJson(list);
+		ArrayList<Object> arrList = new ArrayList<Object>();
+		
+		for(int i = start; i < end; i++) {
+			
+			arrList.add(list.get(i));
+		}
+		
+		return new Gson().toJson(arrList);
 	}
 	
 	
@@ -160,9 +166,9 @@ public class InquiryController {
 			
 			ArrayList<InquiryReply> ir = inquiryService.selectInquiryReplyList(i);
 			
-			for(InquiryReply n : ir) {
-				System.out.println(n);
-			}
+//			for(InquiryReply n : ir) {
+//				System.out.println(n);
+//			}
 			
 			
 			mv.addObject("i2", i2).addObject("inf", inf).addObject("ir", ir).setViewName("inquiry/inquiryDetailView");
@@ -404,7 +410,20 @@ public class InquiryController {
 			return "common/errorPage";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value="update.rep" , produces = "text/html; charset=UTF-8")
+	public String updateReply(InquiryReply ir, Model model, HttpSession session) {
+		int result = inquiryService.updateReply(ir);
+		return (result > 0) ? "success" : "fail";
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="delete.rep" , produces = "text/html; charset=UTF-8")
+	public void deleteReply(int replyNo) {
+		System.out.println(replyNo);
+		
+		int result = inquiryService.deleteReply(replyNo);
+	}
 	
 	// ----------------------------------------------
 
