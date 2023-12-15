@@ -171,7 +171,7 @@
 	/* 나중에 높이값 수정 필요!!!!! */
 	.goods-content {
 		width: 100%;
-		height: 700px;
+		min-height: 700px;
 	}
 
 	.sub-review {
@@ -324,19 +324,27 @@
 	}
 
 	.goods-count-div2 {
+		margin: auto;
 		width: 40%;
 	}
 
 	.count-number {
 		width: 60px;
 		height: 30px;
+		font-size: 18px;
+		text-align: center;
 	}
 
 	.count-btn {
-		margin: 5px;
+		margin: 3px;
 		width: 60px;
 		height: 35px;
-		font-size: 15px;
+		font-size: 18px;
+	}
+	
+	.goodsSell-content {
+		width: 100%;
+		height: 100%;
 	}
 
 
@@ -354,7 +362,7 @@
 	            
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
-					<div class="header-title">제목</div>
+					<div class="header-title">${ requestScope.goodsSell.sellTitle }</div>
 					<div class="header-cart"><span class="material-symbols-outlined">shopping_cart</span></div>
 	            </div>
 	            
@@ -364,8 +372,8 @@
            				
 					<div class="goods">
 
-						<div class="goods-title">국내산 홍가라비 1kg</div>
-						<div class="goods-price">3,900 원
+						<div class="goods-title">${ requestScope.goodsSell.sellTitle }</div>
+						<div class="goods-price">${ requestScope.goods.price } 원
 							<div class="goods-like"></div>
 						</div>
 						
@@ -411,7 +419,8 @@
 					</div>
 
 					<div class="goods-content" id="goods-content">
-
+					
+						<div class="goodsSell-content"></div>
 
 					</div>
 
@@ -450,26 +459,28 @@
 					</div>
 
 					<div class="sub-footer2">
-						<form action="">
+						<form action="insertCart.go" method="post">
 							<div class="btn-icon" id="footer-icon2"><span class="material-symbols-outlined">keyboard_arrow_down</span></div>
 							
 							<div class="good-info">
 								<div class="goods-count-text">상품 수량 선택(필수) </div>
 								<div class="goods-count">
 									<div class="goods-count-div1">
-										상품 제목
+										${ requestScope.goodsSell.sellTitle }
+										<input type="hidden" name="goodNo" value="${ requestScope.goodsSell.goodNo }">
+										<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
 									</div>
 									<div class="goods-count-div2">
-										<button class="count-btn">-</button>
-										<input class="count-number" value="">
-										<button class="count-btn">+</button>
+										<button type="button" class="count-btn" id="countMinus">-</button>
+										<input class="count-number" type="text" name="count" value="1">
+										<button type="button" class="count-btn" id="countPlus">+</button>
 									</div>
 								</div>
 							</div>
 		
 							<div class="br-line"></div>
-							<button class="cart-button">장바구니 담기</button>
-							<button class="pay2-button">주문하기</button>
+							<button class="cart-button" type="submit" name="order" value="cart">장바구니 담기</button>
+							<button class="pay2-button" type="submit" name="order" value="order">주문하기</button>
 						</form>
 					</div>
         		</div>
@@ -483,7 +494,12 @@
 	<script>
 	
 	$(function() {
-    	
+		
+		// 상품 글 content 부분 삽입
+		let sellContent = '${ requestScope.goodsSell.sellContent }';
+		
+		$(".goodsSell-content").html(sellContent);
+		  	
 		// 아래 화살표 누룰시 이벤트 처리
 		$(".sub-footer1").on("click", "#footer-icon1",function() {
     		
@@ -498,6 +514,32 @@
 			$(".sub-footer1").css('display', 'block');
     	
     	});
+		
+		let count = parseInt($(".count-number").val());
+		
+		$(".goods-count-div2").on('click', '#countMinus', function () {
+			
+			if(count > 0) {
+				
+				count = count - 1;		
+			}
+			
+			$(".count-number").val(count);
+			
+		});
+		
+		$(".goods-count-div2").on('click', '#countPlus', function () {
+			
+			if(count <= ${requestScope.goods.stock}) {
+				
+				count = count + 1;
+			}
+			
+			$(".count-number").val(count);
+		});
+		
+		
+		
 	});
 	
 	</script>

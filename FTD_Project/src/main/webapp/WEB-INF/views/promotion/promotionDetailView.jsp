@@ -304,38 +304,13 @@
         </div>
 
 
-        <div id="content">
+        <div id="content" align="center">
             
-          <section id="cont_center">
-          		<!-- 슬라이드 사진들 -->
-            	<article class="column col4">
-            		<c:if test="${ not empty requestScope.pfList }">
-		            	<div class="slider">
-		            		<c:forEach var="pf" items="${ requestScope.pfList }">
-								<div id="img-slider" align="center">
-	                                <figure>
-	                                    <img src="${ pf.changeName }" >
-	                                </figure>
-					            </div>
-				            </c:forEach>
-						</div>	
-					</c:if>
-					</article>	
-					<br><br>
-					
-					<!-- 내용 -->
-					
-					
-					<br><br><br><br>
-				
-				
-			</section>
-            <div class="content_1" align="center">
+         
+            
 				${requestScope.p.promotionContent}
-			</div>
-           
 			
-
+         
         </div>
 
 

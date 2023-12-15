@@ -19,7 +19,7 @@
 			height: 2000px;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: rgb(240, 243, 246);
         }
 
         header {
@@ -227,9 +227,6 @@
     <div id="register-title-area">
         <p>
             구매자 회원가입
-                <span class="register-title-menu btn btn-sm disabled">가입완료</span>
-                <span class="register-title-menu btn btn-sm disabled" style="background-color: green;">정보입력</span>
-                <span class="register-title-menu btn btn-sm disabled">약관동의</span>
         </p>
         
     </div>
@@ -249,9 +246,12 @@
                 <tr>
                     <th><span class="nessesary">*</span> 휴대폰번호</th>
                     <td>
-                    <div style="display:flex; width: 300px;">                
-                        <input type="text" name="phone" class="phone form-control form-control" required>                     
-                    </div>
+                        <div style="display:flex; width: 300px;">                
+                            <input type="text" name="phone" 
+                                   class="phone form-control form-control" 
+                                   required oninput="addHyphen(this)">                     
+                        </div>
+                        <small style="color: grey;">(예: 010-1234-5678)</small>
                     </td>
                 </tr>
                 <tr>
@@ -352,6 +352,62 @@
         <!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
     <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
     
+    <script>
+    function addHyphen(element) {
+        // 사용자가 입력한 값에서 숫자만 추출
+        var inputValue = element.value.replace(/[^0-9]/g, '');
+
+        // 숫자를 하이픈(-)으로 나누어서 조합
+        var formattedValue = formatPhoneNumber(inputValue);
+
+        // 입력란에 포맷된 값 적용
+        element.value = formattedValue;
+    }
+
+    function formatPhoneNumber(value) {
+        // 입력받은 숫자를 하이픈(-)으로 나누어서 조합
+        var formattedValue = '';
+        if (value.length > 2) {
+            formattedValue += value.substr(0, 3) + '-';
+            value = value.substr(3);
+        }
+        if (value.length > 3) {
+            formattedValue += value.substr(0, 4) + '-';
+            value = value.substr(4);
+        }
+        formattedValue += value;
+        return formattedValue;
+    }
+</script>
+
+    <script>
+        function addHyphen(element) {
+            // 사용자가 입력한 값에서 숫자만 추출
+            var inputValue = element.value.replace(/[^0-9]/g, '');
+    
+            // 숫자를 하이픈(-)으로 나누어서 조합
+            var formattedValue = formatPhoneNumber(inputValue);
+    
+            // 입력란에 포맷된 값 적용
+            element.value = formattedValue;
+        }
+    
+        function formatPhoneNumber(value) {
+            // 입력받은 숫자를 하이픈(-)으로 나누어서 조합
+            var formattedValue = '';
+            if (value.length > 2) {
+                formattedValue += value.substr(0, 3) + '-';
+                value = value.substr(3);
+            }
+            if (value.length > 3) {
+                formattedValue += value.substr(0, 4) + '-';
+                value = value.substr(4);
+            }
+            formattedValue += value;
+            return formattedValue;
+        }
+    </script>
+
     <script> // 아이디 중복체크
     	function duplicateCheck() {
     		

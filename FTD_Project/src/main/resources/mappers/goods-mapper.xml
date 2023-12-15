@@ -45,7 +45,7 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
-	<resultMap id="OrderGoodsResultSet" type="orderGoods">
+	<resultMap id="orderGoodsResultSet" type="orderGoods">
 		<result column="ORDER_DETAIL_NO" property="orderDetailNo" />
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="GOOD_NO" property="goodNo" />
@@ -57,43 +57,24 @@
 		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 	
-	
-	
-	<select id="ajaxSelectGoodsList" resultMap="goodsResultSet">
-		SELECT *
-		  FROM GOODS G
-		  JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
+	<select id="ajaxSelectGoodsSellList" resultMap="goodsSellResultSet">
+		SELECT G.*
+		  FROM GOODS_SELL G
+          JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
 		 WHERE G.DELETE_DATE IS NULL
-		   AND S.DELETE_DATE IS NULL
-		 ORDER BY CREATE_DATE DESC
+           AND S.DELETE_DATE IS NULL
+		 ORDER BY G.CREATE_DATE
 	</select>
 	
-	<select id="ajaxSelectGoodsSellList" parameterType="_int" resultMap="goodsSellResultSet">
+	<select id="ajaxSelectGoodsList" parameterType="_int" resultMap="goodsResultSet">
 		SELECT *
-		  FROM GOODS_SELL
-		 WHERE GOOD_NO = #{goodNo}
-		   AND DELETE_DATE IS NULL
-	</select>
-	
-	<select id="ajaxSelectGoodsFileList" parameterType="_int" resultMap="goodsFileResultSet">
-		SELECT *
-		  FROM GOODS_FILE
-		 WHERE SELL_NO = #{sellNo} 
-		   AND DELETE_DATE IS NULL
+		  FROM GOODS
+		 WHERE DELETE_DATE IS NULL 
+		   AND GOOD_NO = #{goodNo}	
 	</select>
 	
 	<select id="ajaxSelectStarRating" parameterType="_int" resultType="_double">
 		SELECT NVL(TRUNC(AVG(STAR_RATING), 1), 0.0)
-		  FROM REVIEW R
-		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
-		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
-		 WHERE G.GOOD_NO = #{goodNo}
-		   AND R.DELETE_DATE IS NULL
-		   AND M.STATUS IS NULL
-	</select>
-	
-	<select id="ajaxSelectReviews" parameterType="_int" resultType="_int">
-		SELECT NVL(COUNT(R.REV_NO), 0)
 		  FROM REVIEW R
 		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
 		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
@@ -129,11 +110,13 @@
 	</insert>
 	
 	<select id="ajaxSelectSellerGoodsTextList" parameterType="_int" resultMap="goodsSellResultSet">
-		SELECT *
-		  FROM GOODS_SELL
-		 WHERE DELETE_DATE IS NULL
-		   AND SELLER_NO = #{sellerNo}	
-		 ORDER BY CREATE_DATE
+		SELECT G.*
+		  FROM GOODS_SELL G
+          JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
+		 WHERE G.DELETE_DATE IS NULL
+           AND S.DELETE_DATE IS NULL
+           AND G.SELLER_NO = #{sellerNo}
+		 ORDER BY G.CREATE_DATE
 	</select>
 	
 	<select id="ajaxSelectGoodsByGoodNo" parameterType="_int" resultMap="goodsResultSet">	
@@ -148,7 +131,7 @@
 		  FROM GOODS_FILE
 		 WHERE SELL_NO = #{sellNo} 
 		   AND DELETE_DATE IS NULL
-		   AND CREATE_DATE IS NOT NULL
+		   AND CREATE_DATE IS NOT NULL		
 	</select>
 	
 	<select id="ajaxSelectReplyCount" parameterType="_int" resultType="_int">
@@ -160,7 +143,8 @@
 		   AND M.STATUS IS NULL
 	</select>
 	
-	<select id="memberOrderDetail" parameterType="_int" resultMap="goodsResultSet">
+
+	<select id="memberOrderDetail" parameterType="_int" resultMap="orderGoodsResultSet">
 		SELECT OG.GOOD_NO, G.GOOD_TITLE, OG."COUNT", OG.PRICE, OG.STATUS, S.SELL_NO, F.CHANGE_NAME
 		  FROM ORDER_GOODS OG
 		  JOIN GOODS G ON (OG.GOOD_NO = G.GOOD_NO)
@@ -204,5 +188,23 @@
 			                 , #{sellTitle}
 			                 , #{sellContent})
 	</insert>
+	
+	<update id="updateGoodsCount" parameterType="_int">
+		UPDATE GOODS_SELL
+		   SET COUNT = COUNT + 1
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
+	<select id="selectGoodsSell" parameterType="_int" resultMap="goodsSellResultSet">
+		SELECT *
+	      FROM GOODS_SELL
+	     WHERE SELL_NO = #{sellNo}
+	</select>
+	
+	<select id="selectGoodsByGoodNo" parameterType="_int" resultMap="goodsResultSet">
+		SELECT *
+		  FROM GOODS
+		 WHERE GOOD_NO = #{goodNo}
+	</select>
 	
 </mapper>

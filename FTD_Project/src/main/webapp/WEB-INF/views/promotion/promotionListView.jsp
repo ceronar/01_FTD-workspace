@@ -443,43 +443,43 @@
                                 + '<div class="detail" style="margin-left : 35px">'
                                 + '<input type="hidden" value="' + val[0].promotionNo + '">'
                                 + '<h2>판매</h2>'
-                                + val[0].promotionContent;
+                                + val[6];
                                 
-                            if(val[3].length == 3){
-                            	  str += '<div class="product_image">'
-  	                                + '<div>'
+                            if(val[5].length == 3){
+                            	  str += '<div class="product_image" >'
+  	                                + '<div style="display : flex; justify-content: center; align-items: center; ">'
   	                                + '<div class="product_image_1">'
-  	                                + '<img src="'+ val[3][0].changeName +'" >'
+  	                                + '<img src="'+ val[5][0] +'" >'
   	                                + '</div>'
   	                                + '<div class="product_image_2">'
   	                                + '<div class="product_image_2_1">'
-  	                                + '<img src="'+ val[3][1].changeName +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
+  	                                + '<img src="'+ val[5][1] +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
   	                                + '</div>'
   	                                + '<div class="product_image_2_2">'
-  	                                + '<img src="'+ val[3][2].changeName +'">'
+  	                                + '<img src="'+ val[5][2]+'">'
   	                                + '</div>'
   	                                + '</div>'
   	                                + '</div>'
   	                                + '</div>';
-                            }else if(val[3].length == 2){
+                            }else if(val[5].length == 2){
                             	
                             str +=	'<div class="product_image">'
-                                + '<div style="display : flex;">'
+                                + '<div style="display : flex; justify-content: center; align-items: center; ">'
                                     + '<div class="product2_image_1">'
-                                       +  '<img src="'+ val[3][0].changeName +'" >'
+                                       +  '<img src="'+ val[5][0] +'" >'
                                     + '</div>'
                                    + '<div class="product2_image_2">'
-                                        + '<img src="'+ val[3][1].changeName +'">'
+                                        + '<img src="'+ val[5][1] +'">'
                                      +'</div>'
                                  +'</div>'
                       			+  '</div>'
                     		        	  
-                            }else if(val[3].length == 1){
+                            }else if(val[5].length == 1){
                             	
                             str += '<div class="product_image">'
                                 +'<div>'
                                     +'<div class="product1_image_1">'
-                                       + '<img src="'+ val[3][0].changeName +'" >'
+                                       + '<img src="'+ val[5][0] +'" >'
                                    + '</div>'
                                + '</div>'
                        + '</div>'
@@ -586,10 +586,10 @@
 					<!--  로그인한 판매자만 글작성할수있게 조건문 -->
 					 <c:if test="${ not empty sessionScope.loginSeller }"> 
                         <div align="rigth">
-                            <a href="promoptionEnrollForm.bo?sno=${sessionScope.loginSeller.sellerNo}">글작성</a>
+                            <a href="promoptionEnrollForm.bo">글작성</a>
                         </div>
                      </c:if>
-                        
+                        <!-- post 방식으로 바꿔야델듯 -->
                     </div>
                     <div align="center">
                         <ul>

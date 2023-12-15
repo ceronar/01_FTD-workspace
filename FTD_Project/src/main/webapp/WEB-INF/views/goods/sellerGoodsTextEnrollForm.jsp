@@ -287,6 +287,10 @@
 					
 					$(".goodsTitle").append("<option>상품을 먼저 등록해주세요.</option>");
 					
+					<% session.setAttribute("alertMsg", "상품을 먼저 등록해주세요."); %>
+					
+					$(".pay-button").attr("disabled", "true");
+					
 				} else {
 					
 					for(var i = 0; i < result.length; i++) {			
@@ -381,7 +385,7 @@
 				
 
 					<div class="sub-menu">
-						<a href="#goods-content" 							class="menu1">상품소개</a>
+						<a href="#goods-content" class="menu1">상품소개</a>
 					</div>
 
 					<div class="goods-content" id="goods-content">
@@ -462,7 +466,7 @@
 				enctype : 'multipart/form-data',
 				processData : false,
 				success : function(data) {
-		
+					console.log(data);
 					$(el).summernote('editor.insertImage', data);							
 				},
 				error : function() {

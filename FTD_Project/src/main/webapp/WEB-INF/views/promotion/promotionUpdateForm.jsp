@@ -7,6 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -14,6 +21,10 @@
             padding: 0;
             background-color: #f8f9fa;
         }
+        
+         .header {
+		display: none;
+		}
 
         header {
             background-color: #343a40;
@@ -34,25 +45,7 @@
             font-size: 18px;
         }
 
-        button {
-            display: block;
-            margin: 20px auto;
-            padding: 15px;
-            background-color: #2ECC71;
-            color: #ffffff;
-            text-align: center;
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s;
-            width: 150px; /* Set a fixed width for the button */
-        }
-
-        button:hover {
-            background-color: #27AE60;
-        }
+       
 
         header {
             display: flex;
@@ -127,11 +120,25 @@
     <header>
         <h1>글 수정 페이지</h1>
     </header>
+    
+     <jsp:include page="../common/header.jsp" />
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
 
     <main>
         <div class="profile">
             <div class="profile_1">
-                <img src="${requestScope.sellerFile.changeName}" alt="Profile Image">
+                 <c:choose>
+			    	<c:when test="${requestScope.sellerFile.changeName == null}">
+			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
+			    	</c:when>
+			    	<c:otherwise>
+			    		<img src="${requestScope.sellerFile.changeName }">
+			    	</c:otherwise>
+			    </c:choose>
             </div>
             <div class="profile_2">
                 <span>${requestScope.seller.companyName}</span>
@@ -143,36 +150,15 @@
          
         </div>
 
-       <div>
-         <form id="enrollForm" method="post" action="update.bo" enctype="multipart/form-data">
+       <div align="center">
+         <form id="enrollForm" method="post" action="updatePromotion.pr" enctype="multipart/form-data">
          	
          	<input type="hidden" name="sellerNo" value="${requestScope.seller.sellerNo}">
          	<input type="hidden" name="promotionNo" value="${requestScope.p.promotionNo}">
-            <label for="content">내용:</label>
-            <textarea id="promotionContent" name="promotionContent"  required>${requestScope.p.promotionContent}
-            </textarea>
-            <!-- summernote용 textarea 
-            	textarea id="summernote" name="editordata"></textarea> 
-            -->
+            <textarea id="summernote" name="promotionContent"  required>${requestScope.p.promotionContent}</textarea>
+  
 
-            <!-- 파일 선택 버튼 -->
-
-            <input type="file" id="upfile" class="upfile" name="reupfile" multiple>
-				<c:if test="${ not empty requestScope.pf }">
-	               
-	                	<br>
-	                 현재 업로드된 파일 : 
-	                <c:forEach var="pf" items="${ requestScope.pf }">
-	                	<br>
-		                <a href="${ pf.changeName }" 
-		                   download="${ pf.originalName }">
-						${ pf.originalName }
-						</a>&nbsp
-						<!-- 기존의 첨부파일이 있다라는 뜻 -->
-						<input type="hidden" name="originalName" value="${ pf.originalName }">
-						<input type="hidden" name="changeName" value="${ pf.changeName }">
-	                </c:forEach>
-	            </c:if>
+     
             <div align="center">
                 <input type="submit" value="게시글 등록">
             </div>
@@ -181,8 +167,75 @@
        
     </main>
 
-    <script>
-        // ... (unchanged) ...
+     <script>
+        $(document).ready(function() {
+        	
+        	$('#summernote').summernote({
+        		width : 900,
+        		disableResizeEditor: true,             // 최소 높이
+      		  	maxHeight: null,             // 최대 높이
+      			height: 900,
+      		  	// 에디터 한글 설정
+      		  	lang: "ko-KR",
+      		  	// 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
+      		  	focus : true,
+		     	toolbar: [
+		     		    // 글꼴 설정
+		     		    ['fontname', ['fontname']],
+		     		    // 글자 크기 설정
+		     		    ['fontsize', ['fontsize']],
+		     		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+		     		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		     		    // 글자색
+		     		    ['color', ['forecolor','color']],
+		     		    // 표만들기
+		     		    ['table', ['table']],
+		     		    // 글머리 기호, 번호매기기, 문단정렬
+		     		    ['para', ['ul', 'ol', 'paragraph']],
+		     		    // 줄간격
+		     		    ['height', ['height']],
+		     		    // 그림첨부, 링크만들기, 동영상첨부
+		     		    ['insert',['picture','link','video']],
+		     		    // 코드보기, 확대해서보기, 도움말
+		     		    ['view', ['codeview','fullscreen', 'help']]
+			    ],
+    		 	// 추가한 글꼴
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+    			// 추가한 폰트사이즈
+    			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']	,
+    			callbacks : {
+    				onImageUpload : function(files, editor, welEditable) {
+    					
+    					uploadSummernoteImageFile(files[0], this);
+    				}
+    			}
+		     });
+        	
+		});
+        
+
+        function uploadSummernoteImageFile(file, el) {
+        
+			data = new FormData();
+			data.append("file", file);
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "uploadFile.pr",
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(data) {
+		
+					$(el).summernote('editor.insertImage', data);							
+				},
+				error : function() {
+					console.log("ajax 통신 오류")
+				}
+			});
+		}
+    	
+    	
     </script>
 </body>
 </html>

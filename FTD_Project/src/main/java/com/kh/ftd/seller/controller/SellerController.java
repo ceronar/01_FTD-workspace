@@ -24,8 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
-import com.kh.ftd.member.model.vo.Member;
-import com.kh.ftd.member.model.vo.Subscribe;
+import com.kh.ftd.order.model.service.OrderService;
+import com.kh.ftd.order.model.vo.OrderGoods;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -44,6 +44,9 @@ public class SellerController {
 	
 	@Autowired
 	private PromotionService promotionService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -171,6 +174,8 @@ public class SellerController {
 			
 		return new Gson().toJson(resultList);
 	}
+	
+	
 	
 	//판재자 서브메뉴 이 마켓 홍보 리스트 조회
 	@ResponseBody
@@ -599,7 +604,14 @@ public class SellerController {
 	
 	
 	
-	// 아이디 중복체크 만들어야함 
+	// 아이디 중복체크
+	@ResponseBody
+	@RequestMapping("idCheck.se")
+	public String idCheck(String checkId) {
+		
+		int count = sellerService.sellerIdCheck(checkId);
+		return (count > 0 ) ? "NNNNN" : "NNNNY";
+	}
 	
 	/*
     // 판매자 프로필 사진
@@ -643,5 +655,15 @@ public class SellerController {
 			model.addAttribute("error", "님 이거 이메일 못찾음");
 			return "seller/found-id";
 		}
+	}
+	
+	@RequestMapping("orderGoodsList.se")
+	public void sellerOrderGoodsList(HttpSession session, Model model) {
+		
+		Seller loginSeller = (Seller)session.getAttribute("loginSeller");
+		int sellerNo = loginSeller.getSellerNo();
+		
+		ArrayList<OrderGoods> list = orderService.sellerOrderGoodsList(sellerNo);
+		
 	}
 }

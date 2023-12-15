@@ -75,10 +75,10 @@
 
 <script>
     function goHome() {
-        window.location.href = "/";
+        window.location.href = "${pageContext.request.contextPath}";
     }
     function goMyOrderList() {
-        window.location.href = "/orderListPage.me";
+        window.location.href = "orderList.me";
     }
 </script>
 

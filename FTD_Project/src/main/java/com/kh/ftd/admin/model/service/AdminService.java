@@ -9,25 +9,25 @@ import com.kh.ftd.member.model.vo.Member;
 public interface AdminService {
 	
 	// 전체 구매자 수 조회 (select)
-	int countMember();
+	Integer countMember();
 	
 	// 전체 판매자 수 조회 (select)
-	int countSeller();
+	Integer countSeller();
 	
 	// 누적 전체 매출(select)
-	int totalSales();
+	Integer totalSales();
 	
 	// 누적 전체 게시글수 용
 	// 구매자가 쓴 리뷰 게시글수 조회 (select)
-	int countReviewBoard();
+	Integer countReviewBoard();
 	// 구매자가 쓴 문의 게시글수 조회 (select)
-	int countInquiryBoard();
+	Integer countInquiryBoard();
 	// 판매자가 쓴 홍보 게시글수 조회 (select)
-	int countPromotionBoard();
+	Integer countPromotionBoard();
 	// 판매자가 쓴 판매 게시글수 조회 (select)
-	int countGoodsSellBoard();
+	Integer countGoodsSellBoard();
 	// 관리자가 쓴 공지 수 조회 (select)
-	int countNoticeBoard();
+	Integer countNoticeBoard();
 	
 	// 일주일간 일일 글 작성 수
 	ArrayList<Chart> dailyBoardCount();

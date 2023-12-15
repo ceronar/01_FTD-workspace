@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
-	.goods div {
-		/* border: 1px solid black; */
+	div {
+		border: 1px solid black;
 	}
 
 	/* goods-list */
@@ -55,7 +55,7 @@
 		line-height: 35px;
 	}
 
-	.star-icon, .goods-rating, .review-icon, .goods-review {
+	.star-icon, .goods-rating, .review-icon, .goods-review, .goods-count-icon, .goods-count {
 		height: 100%;
 		float: left;
 		box-sizing: border-box;
@@ -85,6 +85,14 @@
 	}
 
 	.goods-review {
+		width: 40px;
+	}
+	
+	.goods-count-icon {
+		width: 40px;
+	}
+	
+	.goods-count {
 		width: 40px;
 	}
 	
@@ -171,7 +179,7 @@
 	                    
 	                	$('.goods').append(
 	                			'<div class="goods-list">'
-								+'<input type="hidden" value="' + item[0].goodNo + '">'
+								+'<input type="hidden" value="' + item[1].sellNo + '">'
 								+'<div class="goods-img">'+item[2].changeName+'</div>'
 								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
 								+'<div class="goods-price">'+item[0].price+'원</div>'
@@ -180,6 +188,8 @@
 									+'<div class="goods-rating">'+item[3]+'</div>'
 									+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
 									+'<div class="goods-review">'+item[4]+'</div>'
+									+'<div class="goods-count-icon"></div>'
+									+'<div class="goods-count">'+ item[1].count +'</div>'
 								+'</div>'
 
 							+'</div>'
@@ -240,11 +250,11 @@
 				
 			$(".goods").on('click', '.goods-list', function (e) {
 
-            	let gno = e.currentTarget.children.item(0).value;
+            	let sno = e.currentTarget.children.item(0).value;
 
-                console.log(gno);
+                console.log(sno);
 
-                location.href = "goodsDetailPage.go?gno=" + gno;
+                location.href = "goodsDetailPage.go?sno=" + sno;
                 
             });
 			

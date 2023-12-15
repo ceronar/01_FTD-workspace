@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -110,152 +113,76 @@ public class PromotionController {
 	}
 	
 	@RequestMapping(value = "promoptionEnrollForm.bo")
-	public String enrollForm(int sno, Model mv) {
+	public String enrollForm(Model mv) {
 		
-		Seller seller = promotionService.selectSellerList(sno);
-		SellerFile sellerFile = promotionService.selectSellerFileProfileList(sno);
-		
-		mv.addAttribute("seller", seller);
-		mv.addAttribute("sellerFile", sellerFile);
 		
 		return "promotion/promotionEnrollForm";
 	}
 	
-	
-	@PostMapping(value = "insert.bo")
-	public String insertPromotion(Promotion p,
-								MultipartFile upfile[],
-								HttpSession session,
-								PromotionFile pf,
-								Model model) {
-		//System.out.println(p);
+	@ResponseBody
+	@RequestMapping(value="uploadFile.pr", produces = "text/html; charset=utf-8")
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)  {
 		
-		int result = promotionService.insertPromotion(p);
-		//System.out.println(result);
+		String changeName = saveFile(multipartFile, request.getSession());
+		String originName = multipartFile.getOriginalFilename();
 		
-		for(int i = 0; i < upfile.length; i++) {
-			if(!upfile[i].getOriginalFilename().equals("")) {
+		return "resources/uploadFiles/promotion/" + changeName;
 				
-				String changeName = saveFile(upfile[i], session);
-
-				pf.setOriginalName(upfile[i].getOriginalFilename());
-				pf.setChangeName("resources/uploadFiles/promotion/" + changeName);
-				// System.out.println(nf);
-				promotionService.insertFile(pf);
-			}
-		}
-		
-		// 이 시점 기준으로
-		// 넘어온 첨부파일이 있었을 경우 (if문을 거쳤기 때문)
-		// Board b : 제목, 작성자아이디, 내용, 원본파일명, 수정파일명
-		// 넘어온 첨부파일이 없었을 경우 (if문을 거치지 않았기 때문)
-		// Board b : 제목, 작성자아이디, 내용
-		
-		
-		if(result > 0) { // 게시글 작성 성공
-			// => alert 문구를 담고
-			//    list.bo 로 url 재요청
-			
-			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
-			
-			return "redirect:/plist.bo";
-			
-		} else { // 게시글 작성 실패
-			// => 에러문구를 담아서 에러페이지로 포워딩
-			
-			//model.addAttribute("errorMsg", "게시글 등록 실패");
-			
-			// /WEB-INF/views/common/errorPage.jsp
-			return "common/errorPage";
-		}
-		
-		
 	}
 	
-	@RequestMapping(value = "updateForm.bo")
-	public String updateForm(int pno, Model mv) {
-		
-		Promotion p = promotionService.selectPromotion(pno);
-		ArrayList<PromotionFile> pf = promotionService.selectPromotionFileList(pno);
-		Seller seller = promotionService.selectSellerList(p.getSellerNo());
-		SellerFile sellerFile = promotionService.selectSellerFileProfileList(p.getSellerNo());
-		
-		System.out.println(p);
-		mv.addAttribute("seller", seller);
-		mv.addAttribute("sellerFile", sellerFile);
-		mv.addAttribute("p", p);
-		mv.addAttribute("pf", pf);
-		
-		// /WEB-INF/views/board/boardUpdateForm.jsp
-		return "promotion/promotionUpdateForm";
-	}
-	
-	@PostMapping(value = "update.bo")
-	public String updatePromotion(Promotion p,
-								MultipartFile reupfile[],
-								HttpSession session,
-								PromotionFile pf,
-								Model model,
-								String[] originalName,
-								String[] changeName) {
-		// 새로 넘어온 첨부파일이 있을 경우
-		// upfile 의 filename 속성값이 빈문자열과 일치하지 않을 경우
-		int result = 1;
-		System.out.println(p);
-		System.out.println(pf);
-		System.out.println(originalName);
-		System.out.println(changeName);
-		if(!reupfile[0].getOriginalFilename().equals("")) {
+	//홍보리스트 글 등록 
+		@RequestMapping("insertPromotion.pr")
+		public String insertPromotion(HttpSession session, Promotion p) {
 			
 			
-			// case1. 기존에 첨부파일이 있었을 경우
-			// => 기존의 첨부파일을 찾아서 서버로부터 삭제
-			//	  (기존 첨부파일의 수정파일명이 필요함)
-			if(originalName != null) {
-				for(String i : changeName) {
-					
-					promotionService.deletePromotionFile(p.getPromotionNo());
-				}
+			System.out.println(p);
+			
+			int result = promotionService.insertPromotion(p);
+			
+			if(result > 0) { // 작성 성공 
+				
+			session.setAttribute("successMsg", "글 등록을 성공했습니다.");
+				
+				return "redirect:/plist.bo";
+				
+				
+			} else { // 작성 실패
+				
+				session.setAttribute("successMsg", "글 등록을 실패했습니다.");
+				
+				return "common/errorPage";
 			}
 		
 			
-			// case1. 기존에 첨부파일이 있었을 경우
-			// case2. 기존에 첨부파일이 없었을 경우
-			// 공통코드로써
-			// => 새로 넘어온 첨부파일을 파일명 수정 후 업로드
-		for(MultipartFile i : reupfile) {
-			String rechangeName = saveFile(i, session);
-			
-			pf.setOriginalName(i.getOriginalFilename());
-			pf.setChangeName("resources/uploadFiles/promotion/" + rechangeName);
-			
-			System.out.println(pf);
-			
-			result *= promotionService.updateFile(pf);
 		}
-	}
-		// Service 단으로 b 를 보내면서 update 요청
-		result *= promotionService.updatePromotion(p);
 		
-		if(result > 0) { // 게시글 작성 성공
-			// => alert 문구를 담고
-			//    promotionDetailView.bo 로 url 재요청
+	//홍보리스트 글 등록 
+		@RequestMapping("updatePromotion.pr")
+		public String updatePromotion(HttpSession session, Promotion p) {
 			
-			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
 			
+			System.out.println(p);
+			
+			int result = promotionService.updatePromotion(p);
+			
+			if(result > 0) { // 수정 성공 
+				
+			session.setAttribute("successMsg", "글 수정을 성공했습니다.");
+				
 			return "redirect:/pdlist.bo?pno=" + p.getPromotionNo();
+				
+				
+			} else { // 수정 실패
+				
+				session.setAttribute("successMsg", "글 수정을 실패했습니다.");
+				
+				return "common/errorPage";
+			}
+		
 			
-		} else { // 게시글 작성 실패
-			// => 에러문구를 담아서 에러페이지로 포워딩
-			
-			model.addAttribute("errorMsg", "게시글 수정 실패");
-			
-			// /WEB-INF/views/common/errorPage.jsp
-			return "common/errorPage";
 		}
-		
-		
-	}
+	
+
 	
 	@RequestMapping("delete.bo")
 	public String deleteNotice(int pno,
@@ -322,12 +249,81 @@ public class PromotionController {
 		ArrayList<Promotion> pList = promotionService.selectPromotionList();
 		//System.out.println(pList); //홍보리스트 다 불어와짐
 		
+		ArrayList<Object> pC1List = new ArrayList<Object>(); //파일
+		ArrayList<Object> pC2List = new ArrayList<Object>(); //내용
+		
 		for(int i = 0; i < pList.size(); i++) {
+			
+			String pCList = pList.get(i).getPromotionContent();
+			String p2CList = pList.get(i).getPromotionContent();
+			
+	        // 최대 3개의 이미지 소스를 저장할 배열
+			ArrayList<Object> imageSources = new ArrayList<Object>();
+
+	        // 이미지 태그의 시작과 끝 인덱스를 찾기 위한 변수
+	        int startIndex, endIndex;
+	        
+	        
+	        
+	        // 이미지 태그의 시작 인덱스 찾기
+	        for (int l = 0; l < 3; l++) {
+	            startIndex = pCList.indexOf("<img");
+
+	            if (startIndex != -1) {
+	                // 이미지 태그의 끝 인덱스 찾기
+	                endIndex = pCList.indexOf(">", startIndex);
+
+	                // 이미지 태그 추출
+	                String imgTag = pCList.substring(startIndex, endIndex + 1);
+
+	                // src 속성값 찾기
+	                int srcStartIndex = imgTag.indexOf("src=\"") + 5;
+	                int srcEndIndex = imgTag.indexOf("\"", srcStartIndex);
+	                String srcAttributeValue = imgTag.substring(srcStartIndex, srcEndIndex);
+
+	                // 이미지 소스를 배열에 저장
+	                imageSources.add(srcAttributeValue);
+	     
+	                // 이미 처리한 부분은 제거
+	                pCList = pCList.substring(endIndex + 1);
+	            } else {
+	            	
+	            	break;
+	            }
+	        }
+	        
+	        pC1List.add(imageSources);
+     
+			
 			if(pList.get(i).getPromotionContent().length() > 80) {
 				String s = pList.get(i).getPromotionContent();
 				pList.get(i).setPromotionContent(s.substring(0, 77) + "...");
 			}
+			
+			
+			p2CList = p2CList.replaceAll("<img.*?>", "");
+
+	        // <p> 태그 제거
+			p2CList = p2CList.replaceAll("<p.*?>|</p>", "");
+			
+			 // <b> 태그 제거
+			p2CList = p2CList.replaceAll("<b.*?>|</b>", "");
+			
+			p2CList = p2CList.trim();
+			
+			if(p2CList.length() > 80) {
+				String s = p2CList;
+				pC2List.add(s.substring(0, 77) + "...");
+			}else {
+			
+			
+	        // 결과 출력
+	        //System.out.println(p2CList);
+			pC2List.add(p2CList);
+			}
 		}
+		
+		System.out.println(pC1List);
 		
 		//홍보리스트 판매자용 어레이 리스트
 		ArrayList<Object> sList = new ArrayList<Object>();
@@ -409,6 +405,8 @@ public class PromotionController {
 	        	arrList.add(sfList.get(i));
 	        	arrList.add(pfList.get(i));
 	        	arrList.add(rList.get(i));
+	        	arrList.add(pC1List.get(i));
+	        	arrList.add(pC2List.get(i));
 	        	
 	        	//System.out.println(arrList);
 	        	arrList2.add(arrList);

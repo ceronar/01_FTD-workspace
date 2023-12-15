@@ -275,6 +275,7 @@
 					
 					</div>
 				
+					
 				<button onclick="selectSellerPromotion()">홍보</button>
 				<button onclick="selectSellerReview()">후기</button>
 				<button class="inquiry-btn" onclick="selectSellerInquiry()">문의</button>
