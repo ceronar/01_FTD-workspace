@@ -74,7 +74,7 @@ public class GoodsController {
 		// 상품 총 리스트 수
 		int totalList = gList.size();
 		
-		System.out.println(totalList);
+		//System.out.println(totalList);
 		
 		int startPage = page * pageSize;
 		
@@ -89,7 +89,7 @@ public class GoodsController {
 			for(Goods g : gList) {
 				
 				int goodNo = g.getGoodNo();
-				System.out.println(goodNo);
+				//System.out.println(goodNo);
 				
 				// 상품 판매 정보
 				GoodsSell goodsSell = goodsService.ajaxSelectGoodsSellList(goodNo);
@@ -132,13 +132,7 @@ public class GoodsController {
 			}
 			
 		}
-		
-		System.out.println(gList);		
-		System.out.println(gsList);
-		System.out.println(gfList);
-		System.out.println(starList);
-		System.out.println(reviewList);
-		
+
 		ArrayList<Object> resultList = new ArrayList<>();
 		
 		for (int i = startPage; i < endPage; i++) {
@@ -155,9 +149,7 @@ public class GoodsController {
 			resultList.add(arrList);		
 			
 		}	
-		System.out.println(startPage);
-		System.out.println(endPage);
-		
+
 		return new Gson().toJson(resultList);			
 	}
 	
@@ -273,7 +265,7 @@ public class GoodsController {
 		// 상품 총 리스트 수
 		int totalList = gsList.size();
 		
-		System.out.println(totalList);
+		//System.out.println(totalList);
 		
 		int startPage = page * pageSize;
 		
@@ -311,13 +303,7 @@ public class GoodsController {
 			
 			}
 		}
-				
-		System.out.println(gList);		
-		System.out.println(gsList);
-		System.out.println(gfList);
-		System.out.println(starList);
-		System.out.println(replyList);
-		
+
 		ArrayList<Object> resultList = new ArrayList<>();
 		
 		for (int i = startPage; i < endPage; i++) {
@@ -335,9 +321,6 @@ public class GoodsController {
 		
 		}
 	
-		System.out.println(startPage);
-		System.out.println(endPage);
-		
 		return new Gson().toJson(resultList);
 					
 	}
@@ -353,20 +336,9 @@ public class GoodsController {
 	@RequestMapping(value="uploadFile.go", produces = "text/html; charset=utf-8")
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)  {
 		
-		System.out.println("잘되나?");
 		String changeName = saveFile(multipartFile, request.getSession());
 		String originName = multipartFile.getOriginalFilename();
 		
-		/*
-		GoodsFile gf = new GoodsFile(originName, ("resources/uploadFiles/goods/" + changeName));
-		
-		// GoodsFile 에 대한 테이블 하나 만들고
-		// DB 로 insert 해야함 (gf 통째로)
-		 * 
-		 */
-		
-		System.out.println("resources/uploadFiles/goods/" + changeName);
-			
 		return "resources/uploadFiles/goods/" + changeName;
 				
 	}
@@ -422,7 +394,7 @@ public class GoodsController {
 		// 7. 경로와 수정파일명을 합체 후 파일을 업로드 해주기
 		// System.out.println(originName);
 		// System.out.println(changeName);
-		 System.out.println(savePath + changeName);
+		// System.out.println(savePath + changeName);
 		
 		try {
 			upfile.transferTo(new File(savePath + changeName));
