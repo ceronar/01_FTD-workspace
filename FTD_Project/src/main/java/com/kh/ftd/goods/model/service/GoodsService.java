@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.order.model.vo.OrderGoods;
 
 public interface GoodsService {
 
@@ -55,4 +56,5 @@ public interface GoodsService {
 	
 	// 상품 글 상세조회 상품 조회 (select)
 	Goods selectGoodsByGoodNo(int goodNo);
+
 }

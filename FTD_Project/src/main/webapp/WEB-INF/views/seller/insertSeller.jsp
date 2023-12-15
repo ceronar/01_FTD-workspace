@@ -5,113 +5,510 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Registration</title>
-    <!-- You can link your CSS stylesheet here -->
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <title>회원가입</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    
+    <style>
+    	.header {
+    		display: none;
+    	}
+    
+        body {  
+            font-family: Arial, sans-serif;
+			height: 2000px;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(240, 243, 246);
+        }
+
+        header {
+            background-color: #388755;
+            color: black;
+            padding: 1em;
+            text-align: center;
+        }
+        
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        * { font-family: 'Pretendard-Regular'; }
+
+        .adminNameBar { 
+        	margin:auto;
+	 		color: black(121, 172, 120);
+			text-align: center;
+	 	}
+
+        #register-title-area{ /* 회원가입 텍스트 영역 */
+            width: 900px;
+            margin: auto;
+            margin-top: 5%;
+            border-bottom: 3px solid #388755;
+        }
+
+        #register-title-area>p{ /* 회원가입 텍스트 */
+            font-size: 26px;
+            font-weight: bold;
+            color: #388755;
+            letter-spacing: 3px;
+        }
+
+        .register-title-menu{ /* 상단 슬롯 */
+            width: 12%;
+            padding: 6px;
+            float: right;
+            margin-left: 2px;
+            margin-top: 20px;
+            background-color: #388755;
+            color: white;
+        }
+        .register-title-menu:hover{ /* 상단슬롯 호버효과제거 */
+            width: 12%;
+            padding: 6px;
+            float: right;
+            margin-left: 2px;
+            margin-top: 20px;
+            background-color: #388755;
+            color: white;
+        }
+
+        #table-area-default>p{ /* "기본정보입력" */
+            padding: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            color: #388755;
+            letter-spacing: 2px;
+        }
+
+        #register-form-table{ /* 테이블 */
+            width: 1000px;
+            margin: auto;
+        }
+        #register-form-table th{ /* 테이블 제목열 */
+            width: 300px;
+            text-align: right;
+            font-size: 18px;
+            color: dimgray;
+            padding-bottom: 3%;
+        }
+        #register-form-table td{ /* 테이블 입력칸들 */
+            width: 700px;
+            text-align: left;
+            font-size: 16px;
+            padding-left: 5%;
+            padding-bottom: 3%;
+        }
+
+        #companyName{ width: 300px; }  /* 성명 입력칸 */
+       
+        
+        
+        #domain{ width: 140px; } /* 이메일 계정명 */
+        #domainText{ width: 140px; }
+        #email1{ width: 140px; }
+
+        /* 회원이름 입력칸 */
+        #sellerName{ width: 90px;
+        }
+        .sellerName{
+        width: 300px;
+        }
+        #address { /* 주소입력칸 */
+            width: 300px;
+        }
+        
+        .nessesary{ color: red; } /* 별 표시 */
+
+
+        #account-title{ /* "아이디/비밀번호 설정" */
+            padding: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            color: #388755;
+            letter-spacing: 2px;
+            display: block;
+        }
+
+        #table-area-account { /* 테이블 영역 */
+            padding: 10px;
+            text-align: left;
+            margin-top: 7%;
+            margin-bottom: 10%;
+        }
+
+        #account-form-table{ /* 아이디 비번설정 테이블 */
+            width: 1000px;
+            margin: auto;
+        }
+
+        #account-form-table th{ /* 테이블 제목열 */
+            width: 300px;
+            text-align: right;
+            font-size: 18px;
+            color: dimgray;
+            padding-bottom: 30px;
+            
+        }
+        #account-form-table td{ /* 테이블 입력칸 영역 */
+            width: 700px;
+            text-align: left;
+            font-size: 16px;
+            padding-left: 5%;
+        }
+
+        #account-form-table input{ /* 테이블 INPUT 태그 */
+            width: 300px;
+            display: inline-block;
+        }
+
+        #duplicate-check{ /* 아이디 중복확인 버튼 */
+            margin-left: 20px;
+            border: 0px;
+            background-color: #388755;
+            color: white;
+            border-radius: 25px;
+            width: 100px;
+        }
+        #duplicate-check:hover{
+            background-color: #388755;
+        }
+
+        #account-form-table p{ /* ID/PWD 조건텍스트 */
+            font-size: 12px;
+        }
+
+        #reset-form, #submit-form{ /* 초기화, 다음버튼 공통 */
+            width: 120px;
+            height: 50px;
+            border: 0px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 0px 0px 20px 20px;
+        }
+
+        #reset-form{
+            background-color: rgb(240, 217, 12);
+        }
+        #submit-form{
+            background-color: rgb(121, 172, 120);
+            color: white;
+        }
+        
+        #requireDuplicateText{
+        	font-size: 14px;
+        	color: red;
+        	margin-left: 25px;
+        }	
+        #possible-text{
+        	font-size: 14px
+        }
+
+        footer {
+            background-color: #388755;
+            color: black;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
 </head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    form {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-        text-align: center;
-        color: #333;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        color: #555;
-    }
-
-    input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-</style>
 <body>
+    <jsp:include page="../common/header.jsp" />
 
-<h2>Seller Registration</h2>
+    <div id="register-title-area">
+        <p>
+            판매자 회원가입
+        </p>
+        
+    </div>
+ 
+    <form action="insertSeller.se " method="post" id="register-form">
+        <br>
+        <div id="table-area-default">
+            <p>기본정보입력</p>
+            <br>
+            <table id="register-form-table" align="center">
+                <tr>
+                    <th><span class="nessesary">*</span> 상호명 : </th>
+                    <td colspan="3">
+                        <input type="text" id="companyName" name="companyName" required class="form-control form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="nessesary">*</span> 대표자 이름 : </th>
+                    <td>
+                    <div style="display:flex; width: 300px;">                
+                        <input type="text" name="sellerName" class="sellerName form-control form-control" required>                     
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="nessesary">*</span> 휴대폰번호</th>
+                    <td>
+                        <div style="display:flex; width: 300px;">                
+                            <input type="text" name="phone" 
+                                   class="phone form-control form-control" 
+                                   required oninput="addHyphen(this)">                     
+                        </div>
+                        <small style="color: grey;">(예: 010-1234-5678)</small>
+                    </td>
+                </tr>
 
-<form action=insertSeller.se method="post">
-    <!-- Replace "process_registration.php" with the actual server-side script to handle form submission -->
+                <tr>
+                    <th><span class="nessesary">*</span> 이메일</th>
+                    <td colspan="3">
+                    <div style="display:flex; width: 500px;">
+                    	<input type="hidden" id="email"  name="email">
+                        <input type="text" id="email1" name="email1" required class="form-control form-control">@
+                        <input type="text"  id="domainText" name="domain" class="email form-control form-control" required>
+                        <select id="domain" class="email form-control form-control">
+                            <option selected>직접입력</option>
+                            <option>naver.com</option>
+                            <option>daum.net</option>
+                            <option>gmail.com</option>
+                        </select>
+                    </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th><span class="nessesary">*</span> 사업자 등록 번호 : </th>
+                    <td>
+                    <div style="display:flex; width: 300px;">                
+                        <input type="text" name="companyNo" class="companyNo form-control form-control" required>                     
+                    </div>
+                    </td>
+                </tr>
 
-    <!-- COMPANY_NAME -->
-    <label for="company_name">상호명 :</label>
-    <input type="text" id="companyName" name="companyName" required><br>
+                <tr>
+                    <th><span class="nessesary">*</span> 통신 판매 번호 : </th>
+                    <td>
+                    <div style="display:flex; width: 300px;">                
+                        <input type="text" name="businessNo" class="businessNo form-control form-control" required>                     
+                    </div>
+                    </td>
+                </tr>
 
-    <!-- SELLSER_ID -->
-    <label for="seller_id">판매자 아이디 :</label>
-    <input type="text" id="sellerId" name="sellerId" required><br>
+                <tr>
+                    <th><span class="nessesary">*</span> 주소 : </th>
+                    <td colspan="3">
+                        <div style="display: flex;">
+                            <input type="text" id="address" name="address" required class="postcodify_postcode5 form-control form-control" value="" />
+                            <button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px;">검색</button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th><span class="nessesary">*</span> 계좌 번호 : </th>
+                    <td>
+                    <div style="display:flex; width: 300px;">                
+                        <input type="text" name="accountNo" class="accountNo form-control form-control" required>                     
+                    </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-    <!-- SELLER_PWD -->
-    <label for="seller_pwd">비밀번호 :</label>
-    <input type="password" id="sellerPwd" name="sellerPwd" required><br>
+        <div id="table-area-account">
+            <span id="account-title">아이디 / 비밀번호 설정</span>
+            <br>
+            <table id="account-form-table" align="center">
+                <tr>
+                    <th>아이디</th>
+                    <td>
+                        <input type="text" id="sellerId" name="sellerId" required class="form-control form-control"
+                        minlength="5" maxlength="15">
+                        <button type="button" id="duplicate-check" onclick="duplicateCheck();">
+                            중복확인
+                        </button> <span id="possible-text"></span>
+                        <p>영문, 숫자 포함 5-15자</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>비밀번호</th>
+                    <td>
+                        <input type="password" id="sellerPwd" name="sellerPwd" required class="form-control form-control"
+                        minlength="8" maxlength="20">
+                        <p>영문, 숫자, 특수기호 포함 8-20자</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>비밀번호 확인</th>
+                    <td>
+                        <input type="password" id="checkPwd" required class="form-control form-control">
+                        <p>영문, 숫자, 특수기호 포함 8-20자</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-    <!-- SELLER_NAME -->
-    <label for="seller_name">대표자 이름 :</label>
-    <input type="text" id="sellerName" name="sellerName" required><br>
+        <div align="center">
+            <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
+            <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
+        </div>
 
-    <!-- COMPANY_NO -->
-    <label for="company_no">사업자 등록 번호 :</label>
-    <input type="text" id="companyNo" name="companyNo" required><br>
+    </form>
+        <!-- jQuery와 Postcodify를 로딩한다 -->
+    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+        <!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+    <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+    
+    <script>
+        function addHyphen(element) {
+            // 사용자가 입력한 값에서 숫자만 추출
+            var inputValue = element.value.replace(/[^0-9]/g, '');
+    
+            // 숫자를 하이픈(-)으로 나누어서 조합
+            var formattedValue = formatPhoneNumber(inputValue);
+    
+            // 입력란에 포맷된 값 적용
+            element.value = formattedValue;
+        }
+    
+        function formatPhoneNumber(value) {
+            // 입력받은 숫자를 하이픈(-)으로 나누어서 조합
+            var formattedValue = '';
+            if (value.length > 2) {
+                formattedValue += value.substr(0, 3) + '-';
+                value = value.substr(3);
+            }
+            if (value.length > 3) {
+                formattedValue += value.substr(0, 4) + '-';
+                value = value.substr(4);
+            }
+            formattedValue += value;
+            return formattedValue;
+        }
+    </script>
 
-    <!-- BUSINESS_NO -->
-    <label for="business_no">통신 판매 번호 :</label>
-    <input type="text" id="businessNo" name="businessNo" required><br>
+    <script> // 아이디 중복체크
+    	function duplicateCheck() {
+    		
+    		let $sellerId = $("#sellerId");
+    		let pText = $("#possible-text");
+    		let dText = $("#requireDuplicateText");
+    		
+    		let regExp = /^[a-z][a-z\d]{5,15}$/;
+    		
+    		$.ajax({
+    		url : "idCheck.se",
+    		type : "get",
+    		data : { checkId : $sellerId.val() },
+    		success : function(result) {
+    			
+    			if(result == "NNNNN"){		// 사용불가
+    				pText.text("이미 사용중인 아이디입니다.").css("color", "red", "");
+    				$sellerId.focus();
+    			} else {		// 사용가능 				
+    				if(!regExp.test($sellerId.val())){ // 아이디 조건이 맞지 않는다면
+    					alert("유효한 아이디값이 아닙니다. 영문 소문자, 숫자 포함 5~15자");
+    					$sellerId.focus();
+    				} else if(confirm($sellerId.val() + " 아이디로 사용하시겠습니까?")) { // 확인창 띄움
+    					$("#submit-form").removeAttr("disabled");
+    					$("#submit-form").hover(
+    						function(){
+    							$(this).css("font-weight", "bold");
+    					},
+    						function(){
+    							$(this).css("font-weight", "500");
+    					}
+    					)
+    					pText.text("사용 가능한 아이디입니다.").css("color", "green");
+    					dText.text("");
+    					$sellerId.attr("readonly", true);
+    				} else {
+    					$sellerId.focus();
+    				}
+    				
+    			}
+    			
+    		},
+    		error : function(){
+    			alert("통신실패. 관리자에게 문의하세요");
+    		}
+    			
+    		});
+    		
+    	}
+    </script>
+    	
+    	<script type="text/javascript">
+    		function name() {
+				
+			}
+    	</script>
+    	
+    <script> // 유효성 검사
+    		function validate () {
+        		
+        		let sellerName = $(".sellerName").val();
+        		const sellerPwd = $("#sellerPwd").val();
+            	const checkPwd = $("#checkPwd").val();
+            	
+            	regExp = /^[a-zA-Z\d!@#$%^&*]{8,20}$/i;
+        		
+            	if(!regExp.test(sellerPwd)){
+            		alert("비밀번호가 유효하지 않습니다" + "8~20자리 영문대소문자, 숫자, 특수문자");
+            		$("#sellerPwd").focus();
+                    return false;
+            	}
+            	
+        		if(sellerPwd != checkPwd){
+        			alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요");
+        			$("#checkPwd").focus();
+        			return false;
+        		}       	
+        		
+        		regExp = /^[가-힣]{2,}$/;
+        		
+        		if(!regExp.test(sellerName)) {
+        			alert("잘못된 이름을 입력했습니다. (2글자 이상 한글)");
+        			$(".sellerName").select();
+        			return false;
+        		}
+        		
+        		let email1 = $("#email1").val();
+        		let email2 = $("#domainText").val();
+        		let email = email1 + "@" + email2;
+        		$("#email").val(email);
+        		
+        		
+        		return true;
+        		
+        	}
+	
+    </script>
+    
+    <script> // 이메일 직접입력 안할 시 input 요소숨김
+    
+    	$(function (){
+    		$("#domain").change(function() {
+    			
+    			let selectDomain = $(this).val();
+    			
+    			if(selectDomain == "직접입력"){
+    				$("#domainText").val("");
+    			} else {
+    				$("#domainText").val($("#domain").val());
+    			}
+    			
+    		})
+    	})
+    
+    </script>
 
-    <!-- ADDRESS -->
-    <label for="address">소재지 :</label>
-    <input type="text" id="address" name="address" required><br>
+    <br><br>
 
-    <!-- EMAIL -->
-    <label for="email">이메일 :</label>
-    <input type="email" id="email" name="email" required><br>
-
-    <!-- PHONE -->
-    <label for="phone">전화 번호 :</label>
-    <input type="text" id="phone" name="phone" required><br>
-
-    <!-- ACCOUNT_NO -->
-    <label for="account_no">계좌 번호 :</label>
-    <input type="text" id="accountNo" name="accountNo" required><br>
-
-    <!-- DELETE_DATE, ENROLL_DATE, ACCEPT_DATE, REFUSE_REASON can be set on the server side -->
-
-    <!-- Submit Button -->
-    <button type="submit">확인</button>
-</form>
-
+    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

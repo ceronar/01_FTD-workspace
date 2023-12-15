@@ -102,8 +102,8 @@
 		<c:choose>
 			<%-- 판매자 로그인 후 --%>
            	<c:when test="${ not empty sessionScope.loginSeller }">
-           		<a href="sellerGoodsListPage.go" 				class="menu1">판매자 상품</a>
-				<a href="sellerGoodsTextListPage.go" 			class="menu2">판매자 상품 글</a>
+           		<a href="sellerGoodsListPage.go" 			class="menu1">판매자 상품</a>
+				<a href="sellerGoodsTextListPage.go" 		class="menu2">판매자 상품 글</a>
            	</c:when>
            	
 			<%-- 로그인 전 이거나 구매자일 경우 --%>
@@ -112,8 +112,8 @@
 				<a href="goodsBestPage.go" 			class="menu2">베스트</a>	
            	</c:otherwise> 
 		</c:choose>
-			<a href="goodsListPage.go" 			class="menu3">상품</a>
-			<a href="" 							class="menu4">비고</a>
+			<a href="goodsListPage.go" 				class="menu3">상품</a>
+			<a href="" 								class="menu4">비고</a>
 		</div>
 		
 		<!-- 구매자 마이페이지 -->
@@ -126,9 +126,9 @@
 		
 		<!-- 판매자 마이페이지 -->
 		<div class="nav-menu" id="nav5">
-			<a href="" 								class="menu1">내 가게</a>
-			<a href="" 								class="menu2">물품</a>
-			<a href="" 								class="menu3">통계</a>
+			<a href="sellerGoodsListPage.go" 		class="menu1">상품</a>
+			<a href="sellerGoodsTextListPage.go" 	class="menu2">홍보</a>
+			<a href="orderGoodsList.se" 			class="menu3">판매 완료</a>
 			<a href="#" 							class="menu4"></a>
 		</div>
 		

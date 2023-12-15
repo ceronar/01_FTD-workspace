@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.order.model.vo.OrderGoods;
 
 @Repository
 public class GoodsDao {
@@ -90,6 +91,5 @@ public class GoodsDao {
 		
 		return sqlSession.selectOne("goodsMapper.selectGoodsByGoodNo", goodNo);
 	}
-	
 	
 }
