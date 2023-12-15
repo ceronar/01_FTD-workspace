@@ -276,6 +276,7 @@
 				<button onclick="selectSellerPromotion()">홍보</button>
 				<button onclick="selectSellerReview()">후기</button>
 				
+				
 			<script>
 				function toggle_layer() {
 					if($(".promotion").css("display") == "none"){

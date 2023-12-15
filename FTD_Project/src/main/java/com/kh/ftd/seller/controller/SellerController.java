@@ -298,12 +298,12 @@ public class SellerController {
 		String mno = "";
 		int gno = 0;
 		 
-		System.out.println(sno);
+		//System.out.println(sno);
 		
 		
 		//후기리스트 내용
 		ArrayList<Review> rList = reviewService.selectReviewSellerList(sno);
-		System.out.println(rList); //홍보리스트 다 불어와짐 + 구매자 이름 + 구매자 후기내용
+		//System.out.println(rList); //홍보리스트 다 불어와짐 + 구매자 이름 + 구매자 후기내용
 		// + 별점까지가지고있음
 		
 		for(int i = 0; i < rList.size(); i++) {
