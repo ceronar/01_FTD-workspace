@@ -17,6 +17,8 @@
 		<result column="PAY_DATE" property="payDate" />
 		<result column="PAY_CANCEL" property="payCancel" />
 		<result column="STATUS" property="status" />
+		<result column="GOOD_TITLE" property="goodTitle" />
+		<result column="COUNT" property="count" />
 	</resultMap>
 	
 	<resultMap id="cartResultSet" type="cart">
@@ -76,6 +78,9 @@
 		SELECT ORDER_NO, PRICE, PAY_DATE, REQUEST
 		  FROM "ORDER"
 		 WHERE MEMBER_NO = #{memberNo}
+		 ORDER BY ORDER_NO DESC
 	</select>
+	
+	
 	
 </mapper>

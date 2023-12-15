@@ -56,7 +56,7 @@
       }
       
       input {
-         
+          
           padding: 8px;
           box-sizing: border-box;
           border: 1px solid #ccc;
@@ -187,29 +187,42 @@
 				        <label for="memberId">* 아이디 : </label>
                         <input type="text" class="form-control" id="memberId" value="${ sessionScope.loginUser.memberId }" name="memberId" readonly> <br>
                         <br><br>
+                        
                         <label for="memberName">* 이름 : </label>
                         <input type="text" class="form-control" id="memberName" value="${ sessionScope.loginUser.memberName }" name="memberName" required> <br>
                         <br><br>
+                        
                         <label for="email"> &nbsp; 이메일 : </label>
                         <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email"> <br>
                         <br><br>
+                        
                         <label for="phone"> &nbsp; 폰번호 : </label>
                         <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone"> <br>
                         <br><br>
+
                         <label for="zipCode"> &nbsp; 우편번호 : </label>
-                        <input type="text" class="form-control" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode"> <br>
-                        <br><br>
+                        
+                        <div style=" align-items: center;">
+                            <input type="text" class="form-control postcodify_postcode5" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode">
+                            <button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px; margin-left: 10px;">검색</button>
+                        </div>
+                        
+                        <br>
+                        
                         <label for="address"> &nbsp; 주소 : </label>
-                        <input type="text" class="form-control" id="address" value="${ sessionScope.loginUser.address }" name="address"> <br>
+                        <input type="text" class="form-control postcodify_address" id="address" value="${ sessionScope.loginUser.address }" name="address"> <br>
                         <br><br>
+                        
                         <label for="detailAddress"> &nbsp; 상세주소 : </label>
-                        <input type="text" class="form-control" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
+                        <input type="text" class="form-control postcodify_details" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
                         <br><br>
+                    
                     <div class="Gender">
                         <label for=""> &nbsp; Gender : </label>
                         <label for="Male">남자</label><input type="radio" id="Male" value="M" name="gender">
                         <label for="Female">여자</label><input type="radio" id="Female" value="F" name="gender">
                     </div>    
+                        
                         <script>
                     	$(function() {
                     		
@@ -343,6 +356,10 @@
         }
     });
 </script>
+<!-- jQuery와 Postcodify를 로딩한다 -->
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 
+<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 </body>
 </html>

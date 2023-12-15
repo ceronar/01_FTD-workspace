@@ -50,7 +50,7 @@ public class SellerServiceImpl implements SellerService{
 
 	@Override
 	public int sellerIdCheck(String checkId) {
-		return 0;
+		return sellerDao.idCheck(sqlSession, checkId);
 	}
 	
 	public ArrayList<Seller> selectSellerList() {

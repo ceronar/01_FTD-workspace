@@ -56,7 +56,7 @@
       }
       
       input {
-          width: 100%;
+         
           padding: 8px;
           box-sizing: border-box;
           border: 1px solid #ccc;
@@ -183,34 +183,44 @@
 				        <label for="companyName">상호명:</label>
 				        <input type="text" id="companyName" name="companyName" value="${ sessionScope.loginSeller.companyName }" readonly required>
 						<br><br>
-				        <label for="sellerId">아이디:</label>
+				        
+                        <label for="sellerId">아이디:</label>
 				        <input type="text" id="sellerId" name="sellerId" value="${ sessionScope.loginSeller.sellerId }" readonly required>
 						<br><br>
-				        <label for="sellerName">대표자 이름:</label>
+				        
+                        <label for="sellerName">대표자 이름:</label>
 				        <input type="text" id="sellerName" name="sellerName" value="${ sessionScope.loginSeller.sellerName }" required>
 						<br><br>
-				        <label for="companyNo">사업자 등록 번호:</label>
+				        
+                        <label for="companyNo">사업자 등록 번호:</label>
 				        <input type="text" id="companyNo" name="companyNo" value="${ sessionScope.loginSeller.companyNo }" readonly required>
 						<br><br>
-				        <label for="businessNo">통신 판매 번호:</label>
+				        
+                        <label for="businessNo">통신 판매 번호:</label>
 				        <input type="text" id="businessNo" name="businessNo" value="${ sessionScope.loginSeller.businessNo }" readonly required>
 						<br><br>
-				        <label for="address">소재지:</label>
+				        
+                        <label for="address">소재지:</label>
 				        <input type="text" id="address" name="address" value="${ sessionScope.loginSeller.address }" required>
 						<br><br>
-				        <label for="email">메일 주소:</label>
+				        
+                        <label for="email">메일 주소:</label>
 				        <input type="email" id="email" name="email" value="${ sessionScope.loginSeller.email }" required>
 						<br><br>
-				        <label for="phone">전화 번호 ( - 포함):</label>
+				        
+                        <label for="phone">전화 번호 ( - 포함):</label>
 				        <input type="tel" id="phone" name="phone" value="${ sessionScope.loginSeller.phone }" required>
 						<br><br>
-				        <label for="accountNo">계좌 번호 ( - 포함):</label>
+				        
+                        <label for="accountNo">계좌 번호 ( - 포함):</label>
 				        <input type="text" id="accountNo" name="accountNo" value="${ sessionScope.loginSeller.accountNo }" required>
 						<br><br>
-				        <label for="enrollDate">가입일:</label>
+				        
+                        <label for="enrollDate">가입일:</label>
 				        <input type="text" id="enrollDate" name="enrollDate" value="${ sessionScope.loginSeller.enrollDate }"readonly required>
 				        <br><br>
-						<button type="submit">정보 변경</button>
+						
+                        <button type="submit">정보 변경</button>
 				        <button type="button" onclick="openModal('passwordModal')">비밀번호 변경</button><br><br>
 				        <button type="button" onclick="openModal('deleteModal')">탈퇴하기</button>
 				    </form>

@@ -95,7 +95,7 @@
 				var form = document.createElement('form'); // 폼객체 생성
 				var objs;
 				objs = document.createElement('input'); // 값이 들어있는 녀석의 형식
-				objs.setAttribute('type', 'text'); // 값이 들어있는 녀석의 type
+				objs.setAttribute('type', 'hidden'); // 값이 들어있는 녀석의 type
 				objs.setAttribute('name', 'orderNo'); // 객체이름
 				objs.setAttribute('value', orderNo); //객체값
 				form.appendChild(objs);

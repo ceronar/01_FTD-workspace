@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.order.model.vo.OrderGoods;
 
 public interface GoodsService {
 
@@ -52,4 +53,5 @@ public interface GoodsService {
 	
 	// 판매자 상품 글 등록
 	int insertSellerGoodsText(GoodsSell goodsSell);
+	
 }

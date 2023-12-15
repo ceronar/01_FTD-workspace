@@ -24,5 +24,8 @@ public class Order {
 	private String payMethod;		//	PAY_METHOD	VARCHAR2(100 BYTE)
 	private String payDate;			//	PAY_DATE	DATE
 	private String payCancel; 		//	PAY_CANCEL	DATE
-	private String status;			//	STATUS		DATE
+	private String status;			//	STATUS		DATE && ORDERGOODS.STATUS 공동사용
+	//------------------------------------
+	private String goodTitle;		// GOODS.GOOD_TITLE
+	private int count;				// ORDERGOODS.COUNT
 }
