@@ -45,7 +45,7 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 	</resultMap>
 	
-	<resultMap id="OrderGoodsResultSet" type="orderGoods">
+	<resultMap id="orderGoodsResultSet" type="orderGoods">
 		<result column="ORDER_DETAIL_NO" property="orderDetailNo" />
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="GOOD_NO" property="goodNo" />
@@ -160,7 +160,7 @@
 		   AND M.STATUS IS NULL
 	</select>
 	
-	<select id="memberOrderDetail" parameterType="_int" resultMap="goodsResultSet">
+	<select id="memberOrderDetail" parameterType="_int" resultMap="orderGoodsResultSet">
 		SELECT OG.GOOD_NO, G.GOOD_TITLE, OG."COUNT", OG.PRICE, OG.STATUS, S.SELL_NO, F.CHANGE_NAME
 		  FROM ORDER_GOODS OG
 		  JOIN GOODS G ON (OG.GOOD_NO = G.GOOD_NO)

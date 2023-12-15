@@ -50,5 +50,9 @@ public class OrderService{
 	public ArrayList<Order> memberOrderList(int memberNo) {
 		return orderDao.memberOrderList(sqlsession, memberNo);
 	}
+	
+	public ArrayList<OrderGoods> sellerOrderGoodsList(int sellerNo) {
+		return orderDao.sellerOrderGoodsList(sqlsession, sellerNo);
+	}
 
 }

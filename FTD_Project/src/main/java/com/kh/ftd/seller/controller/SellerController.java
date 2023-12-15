@@ -24,8 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
-import com.kh.ftd.member.model.vo.Member;
-import com.kh.ftd.member.model.vo.Subscribe;
+import com.kh.ftd.order.model.service.OrderService;
+import com.kh.ftd.order.model.vo.OrderGoods;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -44,6 +44,9 @@ public class SellerController {
 	
 	@Autowired
 	private PromotionService promotionService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -643,5 +646,15 @@ public class SellerController {
 			model.addAttribute("error", "님 이거 이메일 못찾음");
 			return "seller/found-id";
 		}
+	}
+	
+	@RequestMapping("orderGoodsList.se")
+	public void sellerOrderGoodsList(HttpSession session, Model model) {
+		
+		Seller loginSeller = (Seller)session.getAttribute("loginSeller");
+		int sellerNo = loginSeller.getSellerNo();
+		
+		ArrayList<OrderGoods> list = orderService.sellerOrderGoodsList(sellerNo);
+		
 	}
 }

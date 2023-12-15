@@ -10,6 +10,7 @@ import com.kh.ftd.goods.model.dao.GoodsDao;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.order.model.vo.OrderGoods;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -108,6 +109,5 @@ public class GoodsServiceImpl implements GoodsService {
 	
 		return goodsDao.insertSellerGoodsText(sqlSession, goodsSell);
 	}
-
 
 }

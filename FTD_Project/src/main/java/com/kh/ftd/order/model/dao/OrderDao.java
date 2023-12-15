@@ -3,6 +3,7 @@ package com.kh.ftd.order.model.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ftd.order.model.vo.Cart;
@@ -38,6 +39,10 @@ public class OrderDao {
 
 	public ArrayList<Order> memberOrderList(SqlSession sqlsession, int memberNo) {
 		return (ArrayList)sqlsession.selectList("orderMapper.memberOrderList", memberNo);
+	}
+
+	public ArrayList<OrderGoods> sellerOrderGoodsList(SqlSession sqlSession, int sellerNo) {
+		return (ArrayList)sqlSession.selectList("orderMapper.sellerOrderGoodsList", sellerNo);
 	}
 
 }
