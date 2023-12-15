@@ -111,4 +111,9 @@ public class SellerDao {
 	public ArrayList<Seller> memberSubscribeList(SqlSession sqlSession, int memberNo) {
 		return (ArrayList)sqlSession.selectList("sellerMapper.memberSubscribeList", memberNo);
 	}
+
+	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+		
+		return sqlSession.selectOne("sellerMapper.idCheck", checkId );
+	}
 }
