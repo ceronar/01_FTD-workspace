@@ -8,6 +8,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/promotion.css?version=1.2" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/review.css?version=1.2" rel="stylesheet" type="text/css">
+
 <style>
 
 
@@ -271,8 +272,10 @@
 						<button type="submit">테스트용</button>
 						<input type="text" name="sellerNo" id="sellerNo" value="${ requestScope.sellerNo }">
 					</form>
+					
 					</div>
 				
+					
 				<button onclick="selectSellerPromotion()">홍보</button>
 				<button onclick="selectSellerReview()">후기</button>
 				

@@ -381,7 +381,7 @@
 				
 
 					<div class="sub-menu">
-						<a href="#goods-content" 							class="menu1">상품소개</a>
+						<a href="#goods-content" class="menu1">상품소개</a>
 					</div>
 
 					<div class="goods-content" id="goods-content">
@@ -462,7 +462,7 @@
 				enctype : 'multipart/form-data',
 				processData : false,
 				success : function(data) {
-		
+					console.log(data);
 					$(el).summernote('editor.insertImage', data);							
 				},
 				error : function() {

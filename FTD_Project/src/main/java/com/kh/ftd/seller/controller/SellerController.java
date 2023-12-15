@@ -172,6 +172,8 @@ public class SellerController {
 		return new Gson().toJson(resultList);
 	}
 	
+	
+	
 	//판재자 서브메뉴 이 마켓 홍보 리스트 조회
 	@ResponseBody
 	@RequestMapping(value = "list.pr" , produces = "application/json; charset=UTF-8")

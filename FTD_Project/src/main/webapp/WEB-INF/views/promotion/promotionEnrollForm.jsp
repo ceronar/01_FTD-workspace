@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	
     
     <!-- include summernote css/js --> 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
@@ -29,6 +31,11 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+        
+        .header {
+		display: none;
+		}
+	
 
         main {
             max-width: 1000px;
@@ -116,53 +123,115 @@
         <h1>글 작성 페이지</h1>
     </header>
 
+	 <jsp:include page="../common/header.jsp" />
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
     <main>
         <div class="profile">
-            <div class="profile_1">
-                <img src="${requestScope.sellerFile.changeName}" alt="Profile Image">
+            <div class="profile_1">  
+            <c:choose>
+                <c:when test="${sessionScope.loginSeller.changeName == null}">
+		    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
+		    	</c:when>
+		    	<c:otherwise>
+		    		 <img src="${sessionScope.loginSeller.changeName}" alt="Profile Image">
+		    	</c:otherwise>
+		    </c:choose>
             </div>
             <div class="profile_2">
-                <span>${requestScope.seller.companyName}</span>
+                <span>${sessionScope.loginSeller.companyName}</span>
                 <div>
-                    <span>${requestScope.seller.address}</span>*
+                    <span>${sessionScope.loginSeller.address}</span>*
                     <span>17분전</span>
                 </div>
             </div>
          
         </div>
-
+	<form method="post" action="insertPromotion.pr">
        <div>
-         <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
-         	
-         	<input type="hidden" name="sellerNo" value="${requestScope.seller.sellerNo}">
-            <label for="content">내용:</label>
-            <textarea id="promotionContent" name="promotionContent" required></textarea>
-            <!-- summernote용 textarea 
-            	textarea id="summernote" name="editordata"></textarea> 
-            -->
-
-            <!-- 파일 선택 버튼 -->
-
-            <input type="file" id="upfile" class="upfile" name="upfile" multiple>
-
+       			<input type="hidden" name="sellerNo" value="${sessionScope.loginSeller.sellerNo}">
+            	<textarea id="summernote" name="promotionContent" required></textarea> 
             <div align="center">
-                <input type="submit" value="게시글 등록">
+                <button type="submit">게시글 등록</button>
             </div>
-        </form>
+      
        </div>
-       
-    </main>
+    </form>   
+   </main>
 
-    <script>
-        // ... (unchanged) ...
-        
+  <script>
         $(document).ready(function() {
-        	$('#promotionContent').summernote({
-                placeholder: 'Hello Bootstrap 4',
-                tabsize: 2,
-                height: 100
-              });
+        	
+        	$('#summernote').summernote({
+        		width : 900,
+        		disableResizeEditor: true,             // 최소 높이
+      		  	maxHeight: null,             // 최대 높이
+      			height: 900,
+      		  	// 에디터 한글 설정
+      		  	lang: "ko-KR",
+      		  	// 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
+      		  	focus : true,
+		     	toolbar: [
+		     		    // 글꼴 설정
+		     		    ['fontname', ['fontname']],
+		     		    // 글자 크기 설정
+		     		    ['fontsize', ['fontsize']],
+		     		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+		     		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		     		    // 글자색
+		     		    ['color', ['forecolor','color']],
+		     		    // 표만들기
+		     		    ['table', ['table']],
+		     		    // 글머리 기호, 번호매기기, 문단정렬
+		     		    ['para', ['ul', 'ol', 'paragraph']],
+		     		    // 줄간격
+		     		    ['height', ['height']],
+		     		    // 그림첨부, 링크만들기, 동영상첨부
+		     		    ['insert',['picture','link','video']],
+		     		    // 코드보기, 확대해서보기, 도움말
+		     		    ['view', ['codeview','fullscreen', 'help']]
+			    ],
+    		 	// 추가한 글꼴
+				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+    			// 추가한 폰트사이즈
+    			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']	,
+    			callbacks : {
+    				onImageUpload : function(files, editor, welEditable) {
+    					
+    					uploadSummernoteImageFile(files[0], this);
+    				}
+    			}
+		     });
+        	
 		});
+        
+
+        function uploadSummernoteImageFile(file, el) {
+        
+			data = new FormData();
+			data.append("file", file);
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "uploadFile.pr",
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(data) {
+		
+					$(el).summernote('editor.insertImage', data);							
+				},
+				error : function() {
+					console.log("ajax 통신 오류")
+				}
+			});
+		}
+    	
+    	
     </script>
 </body>
 </html>
