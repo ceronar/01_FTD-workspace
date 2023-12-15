@@ -12,29 +12,19 @@ import com.kh.ftd.goods.model.vo.GoodsSell;
 @Repository
 public class GoodsDao {
 
-	public ArrayList<Goods> ajaxSelectGoodsList(SqlSessionTemplate sqlSession) {
+	public ArrayList<GoodsSell> ajaxSelectGoodsSellList(SqlSessionTemplate sqlSession) {
 
-		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectGoodsList");
+		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectGoodsSellList");
 	}
 	
-	public GoodsSell ajaxSelectGoodsSellList(SqlSessionTemplate sqlSession, int goodNo) {
+	public Goods ajaxSelectGoodsList(SqlSessionTemplate sqlSession, int goodNo) {
 		
-		return sqlSession.selectOne("goodsMapper.ajaxSelectGoodsSellList", goodNo);
-	}
-
-	public GoodsFile ajaxSelectGoodsFileList(SqlSessionTemplate sqlSession, int sellNo) {
-
-		return sqlSession.selectOne("goodsMapper.ajaxSelectGoodsFileList", sellNo);
+		return sqlSession.selectOne("goodsMapper.ajaxSelectGoodsList", goodNo);
 	}
 
 	public double ajaxSelectStarRating(SqlSessionTemplate sqlSession, int goodNo) {
 
 		return sqlSession.selectOne("goodsMapper.ajaxSelectStarRating", goodNo);
-	}
-
-	public int ajaxSelectReviews(SqlSessionTemplate sqlSession, int goodNo) {
-
-		return sqlSession.selectOne("goodsMapper.ajaxSelectReviews", goodNo);
 	}
 	
 	public ArrayList<Goods> ajaxSelectSellerGoodsList(SqlSessionTemplate sqlSession, int sellerNo) {
@@ -72,14 +62,34 @@ public class GoodsDao {
 	}
 
 	public ArrayList<Goods> memberLikeList(SqlSessionTemplate sqlSession, int memberNo) {
+		
 		return (ArrayList)sqlSession.selectList("goodsMapper.memberLikeList", memberNo);
 	}
 	
 	public ArrayList<Goods> ajaxSelectSellerGoodTitle(SqlSessionTemplate sqlSession, int sellerNo) {
+		
 		return (ArrayList)sqlSession.selectList("goodsMapper.ajaxSelectSellerGoodTitle", sellerNo);
 	}
 	
 	public int insertSellerGoodsText(SqlSessionTemplate sqlSession, GoodsSell goodsSell) {
+		
 		return sqlSession.insert("goodsMapper.insertSellerGoodsText", goodsSell);
 	}
+	
+	public int updateGoodsCount(SqlSessionTemplate sqlSession, int sellNo) {
+				
+		return sqlSession.update("goodsMapper.updateGoodsCount", sellNo);
+	}
+	
+	public GoodsSell selectGoodsSell(SqlSessionTemplate sqlSession, int sellNo) {
+		
+		return sqlSession.selectOne("goodsMapper.selectGoodsSell", sellNo);
+	}
+	
+	public Goods selectGoodsByGoodNo(SqlSessionTemplate sqlSession, int goodNo) {
+		
+		return sqlSession.selectOne("goodsMapper.selectGoodsByGoodNo", goodNo);
+	}
+	
+	
 }

@@ -36,21 +36,21 @@ public class AdminController {
 	public String adminMenu(Model model) {
 		
 		// 전체 회원 수
-		int countMember = adminService.countMember();
-		int countSeller = adminService.countSeller();
+		Integer countMember = adminService.countMember();
+		Integer countSeller = adminService.countSeller();
 		// 누적 전체 매출
-		int totalSales = adminService.totalSales();
+		Integer totalSales = adminService.totalSales();
 		
 		// 구매자가 쓴 리뷰 게시글수 조회
-		int countReview = adminService.countReviewBoard();
+		Integer countReview = adminService.countReviewBoard();
 		// 구매자가 쓴 문의 게시글수 조회
-		int countInquiry = adminService.countInquiryBoard();
+		Integer countInquiry = adminService.countInquiryBoard();
 		// 판매자가 쓴 홍보 게시글수 조회
-		int countPromotion = adminService.countPromotionBoard();
+		Integer countPromotion = adminService.countPromotionBoard();
 		// 판매자가 쓴 판매 게시글수 조회
-		int countGoodsSell = adminService.countGoodsSellBoard();
+		Integer countGoodsSell = adminService.countGoodsSellBoard();
 		// 관리자가 쓴 공지 수 조회
-		int countNotice = adminService.countNoticeBoard();
+		Integer countNotice = adminService.countNoticeBoard();
 		
 		// 일주일간 일일 글 작성 수
 		ArrayList<Chart> dailyBoardCount = adminService.dailyBoardCount();

@@ -13,35 +13,35 @@ import com.kh.ftd.member.model.vo.Member;
 @Repository
 public class AdminDao {
 
-	public int countMember(SqlSession sqlSession) {
+	public Integer countMember(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countMember");
 	}
 
-	public int countSeller(SqlSession sqlSession) {
+	public Integer countSeller(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countSeller");
 	}
 
-	public int totalSales(SqlSession sqlSession) {
+	public Integer totalSales(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.totalSales");
 	}
 
-	public int countReviewBoard(SqlSession sqlSession) {
+	public Integer countReviewBoard(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countReviewBoard");
 	}
 
-	public int countInquiryBoard(SqlSession sqlSession) {
+	public Integer countInquiryBoard(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countInquiryBoard");
 	}
 
-	public int countPromotionBoard(SqlSession sqlSession) {
+	public Integer countPromotionBoard(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countPromotionBoard");
 	}
 
-	public int countGoodsSellBoard(SqlSession sqlSession) {
+	public Integer countGoodsSellBoard(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countGoodsSellBoard");
 	}
 
-	public int countNoticeBoard(SqlSession sqlSession) {
+	public Integer countNoticeBoard(SqlSession sqlSession) {
 		return sqlSession.selectOne("adminMapper.countNoticeBoard");
 	}
 
