@@ -86,10 +86,20 @@
 			<div class="icon"><span class="material-symbols-outlined">shopping_cart</span></div>
 			<div class="text">장바구니</div>
 		</div>
-		<div class="sidebar-menu" onclick="location.href='myPage.me';">
-			<div class="icon"><span id="my-icon" class="material-symbols-outlined">person</span></div>
+		<c:choose>
+			<c:when test="${ not empty sessionScope.loginSeller }">
+				<div class="sidebar-menu" onclick="location.href='sellerPage';">
+				<div class="icon"><span id="my-icon" class="material-symbols-outlined">person</span></div>
 			<div class="text">MY</div>
 		</div>
+			</c:when>
+			<c:otherwise>
+				<div class="sidebar-menu" onclick="location.href='myPage.me';">
+					<div class="icon"><span id="my-icon" class="material-symbols-outlined">person</span></div>
+					<div class="text">MY</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
 
 	</div>
 </body>

@@ -658,12 +658,15 @@ public class SellerController {
 	}
 	
 	@RequestMapping("orderGoodsList.se")
-	public void sellerOrderGoodsList(HttpSession session, Model model) {
+	public String sellerOrderGoodsList(HttpSession session, Model model) {
 		
 		Seller loginSeller = (Seller)session.getAttribute("loginSeller");
 		int sellerNo = loginSeller.getSellerNo();
 		
 		ArrayList<OrderGoods> list = orderService.sellerOrderGoodsList(sellerNo);
 		
+		model.addAttribute("list", list);
+		
+		return "seller/sellerOrderGoodsList";
 	}
 }

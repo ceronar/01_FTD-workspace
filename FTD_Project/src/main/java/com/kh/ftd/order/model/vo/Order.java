@@ -28,4 +28,5 @@ public class Order {
 	//------------------------------------
 	private String goodTitle;		// GOODS.GOOD_TITLE
 	private int count;				// ORDERGOODS.COUNT
+	private int orderDetailNo;		// ORDERGOODS.ORDER_DETAIL_NO
 }

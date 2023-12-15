@@ -19,6 +19,7 @@
 		<result column="STATUS" property="status" />
 		<result column="GOOD_TITLE" property="goodTitle" />
 		<result column="COUNT" property="count" />
+		<result column="ORDER_DETAIL_NO" property="orderDetailNo" />
 	</resultMap>
 	
 	<resultMap id="cartResultSet" type="cart">
@@ -81,6 +82,13 @@
 		 ORDER BY ORDER_NO DESC
 	</select>
 	
-	
+	<select id="sellerOrderGoodsList" parameterType="_int" resultMap="orderResultSet">
+		SELECT OG.ORDER_DETAIL_NO, O.ORDER_NO, G.GOOD_TITLE, O.ORDER_NAME, O.PHONE, O.ZIP_CODE, O.ADDRESS, O.DETAIL_ADDRESS, O.REQUEST, O.PAY_DATE, OG.PRICE, OG."COUNT", OG.STATUS
+		  FROM ORDER_GOODS OG
+		  JOIN "ORDER" O ON(OG.ORDER_NO=O.ORDER_NO)
+		  JOIN GOODS G ON(OG.GOOD_NO=G.GOOD_NO)
+		 WHERE G.SELLER_NO=#{sellerNo}
+		 ORDER BY OG.ORDER_DETAIL_NO DESC
+	</select>
 	
 </mapper>
