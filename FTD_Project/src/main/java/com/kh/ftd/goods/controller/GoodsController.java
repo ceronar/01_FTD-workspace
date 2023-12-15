@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.order.model.vo.Cart;
 
 @Controller
 public class GoodsController {
@@ -54,14 +56,14 @@ public class GoodsController {
 	@RequestMapping(value = "ajaxSelectGoodsList.go" , produces = "application/json; charset=UTF-8")
 	public String ajaxSelectGoodsList(int page, int pageSize) {
 		
+		// 상품 판매 정보
+		ArrayList<GoodsSell> gsList = goodsService.ajaxSelectGoodsSellList();
+		
 		// 상품 리스트
-		ArrayList<Goods> gList = goodsService.ajaxSelectGoodsList();
+		ArrayList<Goods> gList = new ArrayList<>();
 		
 		// System.out.println(gList);
-		
-		// 상품 판매 정보
-		ArrayList<GoodsSell> gsList = new ArrayList<>();
-		
+				
 		// 상품 파일
 		ArrayList<GoodsFile> gfList = new ArrayList<>();
 		
@@ -69,10 +71,10 @@ public class GoodsController {
 		ArrayList<Object> starList = new ArrayList<>();
 		
 		// 상품 댓글 수
-		ArrayList<Object> reviewList = new ArrayList<>();
+		ArrayList<Object> replyList = new ArrayList<>();
 	
 		// 상품 총 리스트 수
-		int totalList = gList.size();
+		int totalList = gsList.size();
 		
 		//System.out.println(totalList);
 		
@@ -86,48 +88,36 @@ public class GoodsController {
 			
 		} else { // 조회할 상품이 있을 경우
 					
-			for(Goods g : gList) {
+			for(GoodsSell gs : gsList) {
 				
-				int goodNo = g.getGoodNo();
+				int goodNo = gs.getGoodNo();
+				int sellNo = gs.getSellNo();
 				//System.out.println(goodNo);
 				
 				// 상품 판매 정보
-				GoodsSell goodsSell = goodsService.ajaxSelectGoodsSellList(goodNo);
-				
-				if(goodsSell != null) { // 상품 판매 정보가 있을 시
-					int sellNo = goodsSell.getSellNo();				
-					gsList.add(goodsSell);			
-					
-					// 상품 파일
-					GoodsFile goodsFile = goodsService.ajaxSelectGoodsFileList(sellNo);
-					if(goodsFile != null) { // 상품 파일이 있을 시
+				Goods goods = goodsService.ajaxSelectGoodsList(goodNo);
+				gList.add(goods);
 						
-						gfList.add(goodsFile);
-						
-					} else { // 상품 파일이 없을 시
-						
-						goodsFile = new GoodsFile();
-						gfList.add(goodsFile);
-						
-					}
+				// 상품 파일
+				GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
+				if(goodsFile != null) { // 상품 파일이 있을 시
 					
-				} else { // 상품 판매 정보가 없을 시
+					gfList.add(goodsFile);
 					
-					goodsSell = new GoodsSell();
-					gsList.add(goodsSell);	
+				} else { // 상품 파일이 없을 시
 					
-					GoodsFile goodsFile = new GoodsFile();
+					goodsFile = new GoodsFile();
 					gfList.add(goodsFile);
 					
 				}
-						
+							
 				// 상품 평균 별점
 				double starRating = goodsService.ajaxSelectStarRating(goodNo);
 				starList.add(starRating);
 				
 				// 상품 댓글 수
-				int reviews = goodsService.ajaxSelectReviews(goodNo);
-				reviewList.add(reviews);
+				int reply = goodsService.ajaxSelectReplyCount(sellNo);
+				replyList.add(reply);				
 				
 			}
 			
@@ -143,7 +133,7 @@ public class GoodsController {
 			arrList.add(gsList.get(i));
 			arrList.add(gfList.get(i));
 			arrList.add(starList.get(i));
-			arrList.add(reviewList.get(i));
+			arrList.add(replyList.get(i));
 			
 			// 상품 전체 리스트
 			resultList.add(arrList);		
@@ -155,21 +145,50 @@ public class GoodsController {
 	
 	// 상품 리스트 상세 페이지 이동
 	@RequestMapping("goodsDetailPage.go")
-	public String goodsDetailPage(int gno) {
-		
+	public String goodsDetailPage(int sno, Model model) {
+			
 		// 상품 번호
-		int goodNo = gno;
+		int sellNo = sno;
 		
+		// System.out.println("컨트롤" + sno);
+			
 		// 조회수 증가
-		int count;
+		int result = goodsService.updateGoodsCount(sellNo);	
 		
-		// 상품 정보
+		if(result > 0) { // 조회수 증가
+			
+			// 상품 글 정보
+			GoodsSell goodsSell = goodsService.selectGoodsSell(sellNo);
+				
+			int goodNo = goodsSell.getGoodNo();
+			
+			// 상품 정보
+			Goods goods = goodsService.selectGoodsByGoodNo(goodNo);			
+			
+			// 상품 파일 정보
+			GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
+			
+			// System.out.println(goodsFile);
+			
+			if(goodsFile == null) { // 상품 파일이 없을 시
+				
+				goodsFile = new GoodsFile();				
+			}
+			
+			model.addAttribute("goodsSell", goodsSell);
+			model.addAttribute("goods", goods);
+			model.addAttribute("goodsFile", goodsFile);
+			
+			return "goods/goodsDetailView";
+	
+		} else { // 조회수 증가 실패
+			
+			model.addAttribute("errorMsg","해당 상품글의 상세 페이지로 이동이 불가합니다.");
+			
+			return "common/errorPage";
+			
+		}
 		
-		// 상품 글 정보
-		
-		// 상품 파일 정보
-		
-		return "goods/goodsDetailView";
 	}
 	
 	// 판매자 상품 페이지 이동
@@ -419,6 +438,15 @@ public class GoodsController {
 		return new Gson().toJson(goodTitle);
 		
 	}
+	
+	// 장바구니 상품 추가
+	@RequestMapping("insertCart.go")
+	public String insertCart(String order, Cart cart) {	
+		
+		
+		return "";
+	}
+	
 	
 
 		

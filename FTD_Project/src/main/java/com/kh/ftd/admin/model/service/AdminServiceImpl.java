@@ -22,43 +22,43 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 전체 구매자 수 조회 (select)
 	@Override
-	public int countMember() {
+	public Integer countMember() {
 		return adminDao.countMember(sqlSession);
 	}
 	// 전체 판매자 수 조회 (select)
 	@Override
-	public int countSeller() {
+	public Integer countSeller() {
 		return adminDao.countSeller(sqlSession);
 	}
 	// 누적 전체 매출(select)
 	@Override
-	public int totalSales() {
+	public Integer totalSales() {
 		return adminDao.totalSales(sqlSession);
 	}
 	
 	// 구매자가 쓴 리뷰 게시글수 조회 (select)
 	@Override
-	public int countReviewBoard() {
+	public Integer countReviewBoard() {
 		return adminDao.countReviewBoard(sqlSession);
 	}
 	// 구매자가 쓴 문의 게시글수 조회 (select)
 	@Override
-	public int countInquiryBoard() {
+	public Integer countInquiryBoard() {
 		return adminDao.countInquiryBoard(sqlSession);
 	}
 	// 판매자가 쓴 홍보 게시글수 조회 (select)
 	@Override
-	public int countPromotionBoard() {
+	public Integer countPromotionBoard() {
 		return adminDao.countPromotionBoard(sqlSession);
 	}
 	// 판매자가 쓴 판매 게시글수 조회 (select)
 	@Override
-	public int countGoodsSellBoard() {
+	public Integer countGoodsSellBoard() {
 		return adminDao.countGoodsSellBoard(sqlSession);
 	}
 	// 관리자가 쓴 공지 수 조회 (select)
 	@Override
-	public int countNoticeBoard() {
+	public Integer countNoticeBoard() {
 		return adminDao.countNoticeBoard(sqlSession);
 	}
 	

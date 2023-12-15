@@ -287,6 +287,10 @@
 					
 					$(".goodsTitle").append("<option>상품을 먼저 등록해주세요.</option>");
 					
+					<% session.setAttribute("alertMsg", "상품을 먼저 등록해주세요."); %>
+					
+					$(".pay-button").attr("disabled", "true");
+					
 				} else {
 					
 					for(var i = 0; i < result.length; i++) {			

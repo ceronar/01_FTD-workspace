@@ -34,7 +34,7 @@
 	<!-- 1회성 알람문구 코드 추가해주세요. -->
 	<c:if test="${ not empty sessionScope.alertMsg }">
 		<script>
-			alertify.alert('Alert', '${ sessionScope.alertMsg }', function(){ alertify.success('Ok'); });
+			alertify.alert('${ sessionScope.alertMsg }', function(){ alertify.success('Ok'); });
 		</script>
 		
 		<!-- session 의 alertMsg 지우기 -->

@@ -22,21 +22,15 @@ public class GoodsServiceImpl implements GoodsService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Goods> ajaxSelectGoodsList() {
+	public ArrayList<GoodsSell> ajaxSelectGoodsSellList() {
 
-		return goodsDao.ajaxSelectGoodsList(sqlSession);
+		return goodsDao.ajaxSelectGoodsSellList(sqlSession);
 	}
 	
 	@Override
-	public GoodsSell ajaxSelectGoodsSellList(int goodNo) {
+	public Goods ajaxSelectGoodsList(int goodNo) {
 		
-		return goodsDao.ajaxSelectGoodsSellList(sqlSession, goodNo);
-	}
-
-	@Override
-	public GoodsFile ajaxSelectGoodsFileList(int sellNo) {
-
-		return goodsDao.ajaxSelectGoodsFileList(sqlSession, sellNo);
+		return goodsDao.ajaxSelectGoodsList(sqlSession, goodNo);
 	}
 
 	@Override
@@ -45,11 +39,6 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.ajaxSelectStarRating(sqlSession, goodNo);
 	}
 
-	@Override
-	public int ajaxSelectReviews(int goodNo) {
-
-		return goodsDao.ajaxSelectReviews(sqlSession, goodNo);
-	}
 
 	@Override
 	public ArrayList<Goods> ajaxSelectSellerGoodsList(int sellerNo) {
@@ -110,4 +99,22 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.insertSellerGoodsText(sqlSession, goodsSell);
 	}
 
+	@Override
+	public int updateGoodsCount(int sellNo) {
+			
+		return goodsDao.updateGoodsCount(sqlSession, sellNo);
+	}
+
+	@Override
+	public GoodsSell selectGoodsSell(int sellNo) {
+		
+		return goodsDao.selectGoodsSell(sqlSession, sellNo);
+	}
+
+	@Override
+	public Goods selectGoodsByGoodNo(int goodNo) {
+
+		return goodsDao.selectGoodsByGoodNo(sqlSession, goodNo);
+	}
+	
 }
