@@ -121,7 +121,17 @@
 						 , #{accountNo}
 						 )
 	</insert>
-
+	
+	<!-- 아이디 중복체크용 쿼리문 -->
+	<select id="idCheck" 
+			parameterType="string" 
+			resultType="_int">
+		
+		SELECT COUNT(*)
+		  FROM SELLER
+		 WHERE SELLER_ID = #{checkId}
+	</select>
+	
 	<!-- 회원정보수정용 쿼리문 -->
 	
 	<update id="updateSeller"

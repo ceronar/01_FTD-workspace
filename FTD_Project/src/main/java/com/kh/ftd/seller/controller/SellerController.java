@@ -24,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
-import com.kh.ftd.member.model.vo.Member;
-import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -599,7 +597,14 @@ public class SellerController {
 	
 	
 	
-	// 아이디 중복체크 만들어야함 
+	// 아이디 중복체크
+	@ResponseBody
+	@RequestMapping("idCheck.se")
+	public String idCheck(String checkId) {
+		
+		int count = sellerService.sellerIdCheck(checkId);
+		return (count > 0 ) ? "NNNNN" : "NNNNY";
+	}
 	
 	/*
     // 판매자 프로필 사진

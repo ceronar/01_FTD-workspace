@@ -18,7 +18,7 @@
 		height: 1100px;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
+        background-color: rgb(240, 243, 246);
 	}
 	
 	#login-form { /* 로그인 폼 영역 */
