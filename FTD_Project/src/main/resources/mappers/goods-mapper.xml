@@ -207,4 +207,10 @@
 		 WHERE GOOD_NO = #{goodNo}
 	</select>
 	
+	<update id="updateBuyGoodsStock" parameterType="orderGoods">
+		UPDATE GOODS
+		   SET STOCK = STOCK - #{count}
+		 WHERE GOOD_NO = #{goodNo}
+	</update>
+	
 </mapper>

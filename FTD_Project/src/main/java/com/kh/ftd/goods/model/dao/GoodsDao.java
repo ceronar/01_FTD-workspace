@@ -91,5 +91,9 @@ public class GoodsDao {
 		
 		return sqlSession.selectOne("goodsMapper.selectGoodsByGoodNo", goodNo);
 	}
+
+	public int updateBuyGoodsStock(SqlSessionTemplate sqlSession, OrderGoods orderGoods) {
+		return sqlSession.update("goodsMapper.updateBuyGoodsStock", orderGoods);
+	}
 	
 }

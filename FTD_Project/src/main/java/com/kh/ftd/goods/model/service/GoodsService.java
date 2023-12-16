@@ -56,5 +56,7 @@ public interface GoodsService {
 	
 	// 상품 글 상세조회 상품 조회 (select)
 	Goods selectGoodsByGoodNo(int goodNo);
-
+	
+	// 결제후 산 물품 STOCK COUNT 만큼 빼서 update
+	int updateBuyGoodsStock(OrderGoods orderGoods);
 }

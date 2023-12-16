@@ -201,7 +201,7 @@
 		
 		function changeStatus(orderDetailNo, url) {
 			// console.log(orderDetailNo);
-			console.log(url);
+			// console.log(url);
 			$.ajax({
 				url : url,
 				type: "POST",

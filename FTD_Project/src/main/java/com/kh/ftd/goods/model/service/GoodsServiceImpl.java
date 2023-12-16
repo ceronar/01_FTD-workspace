@@ -116,5 +116,10 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDao.selectGoodsByGoodNo(sqlSession, goodNo);
 	}
+
+	@Override
+	public int updateBuyGoodsStock(OrderGoods orderGoods) {
+		return goodsDao.updateBuyGoodsStock(sqlSession, orderGoods);
+	}
 	
 }

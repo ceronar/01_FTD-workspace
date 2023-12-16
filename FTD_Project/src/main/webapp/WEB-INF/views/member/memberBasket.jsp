@@ -241,6 +241,7 @@
 			                            	<button type="button" class="quantity-button" value="-1">-</button><input type="text" class="quantity-input" name="goodCount" value="${ c.count }" readonly><button type="button" class="quantity-button" value="1">+</button>
 			                            </div>
 			                            <input type="hidden" class="price" name="goodPrice" value="${ c.price }">
+			                            <input type="hidden" class="stock" name="goodStock" value="${ c.stock }">
 			                        </td>
 			                        <td>${ c.price * c.count }원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
@@ -380,15 +381,17 @@
             let currentQuantity = parseInt(quantityElement.value); // 수량
             let newQuantity = currentQuantity + parseInt(e.target.value); // 변경 될 수량
             let goodPrice = e.target.parentElement.nextSibling.nextSibling.value; // 상품의 개별 가격
+            let goodStock = e.target.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.value; // 상품의 최대 구매 가능 수량
             let quantityPrice = e.target.parentElement.parentElement.nextSibling.nextSibling; // 변경 후 표시될 가격 위치
             let newPrice = newQuantity * goodPrice; // 변경 후 가격 * 수량
-            if (newQuantity >= 1) {
-                quantityElement.value = newQuantity;
-                // 여기에 수량 변경 로직을 추가하세요.
+            if (newQuantity < 1) {
+            	alertify.alert('수량은 1 이상이어야 합니다.');
+            } else if(newQuantity > goodStock ) {
+            	alertify.alert('최대 구매 개수입니다.');
+            } else {
+            	quantityElement.value = newQuantity;
                 quantityPrice.innerText = newPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원";
                 updateTotalPrice();
-            } else {
-                alert('수량은 1 이상이어야 합니다.');
             }
         });
       	
