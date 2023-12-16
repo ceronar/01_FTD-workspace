@@ -60,6 +60,8 @@ public class OrderController {
 					// GOOD_NO 로 CART STATUS UPDATE
 					// ORDERGOODS 에 GOOD_NO 랑 COUNT 로 INSERT
 					result1 *= orderService.insertOrderGoods(orderGoods);
+					// GOODS 에 산 물품 STOCK COUNT 만큼 빼서 update
+					result1 *= goodsService.updateBuyGoodsStock(orderGoods);
 					// CART 에 memberNo 와 goodNo 로 산 STATUS update
 					cart.setGoodNo(goodNo[i]);
 					result1 *= orderService.updateBuyCart(cart);

@@ -10,6 +10,8 @@ import com.kh.ftd.goods.model.dao.GoodsDao;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Like;
+import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
 
 @Service
@@ -115,6 +117,35 @@ public class GoodsServiceImpl implements GoodsService {
 	public Goods selectGoodsByGoodNo(int goodNo) {
 
 		return goodsDao.selectGoodsByGoodNo(sqlSession, goodNo);
+	}
+
+	@Override
+	public int updateBuyGoodsStock(OrderGoods orderGoods) {
+		return goodsDao.updateBuyGoodsStock(sqlSession, orderGoods);
+	}
+
+	@Override
+	public int insertCart(Cart cart) {
+		
+		return goodsDao.insertCart(sqlSession, cart);
+	}
+
+	@Override
+	public int selectLike(Like like) {
+
+		return goodsDao.selectLike(sqlSession, like);
+	}
+
+	@Override
+	public int deleteLike(Like like) {
+		
+		return goodsDao.deleteLike(sqlSession, like);
+	}
+
+	@Override
+	public int insertLike(Like like) {
+	
+		return goodsDao.insertLike(sqlSession, like);
 	}
 	
 }

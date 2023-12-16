@@ -73,4 +73,8 @@ public interface SellerService {
 	// 구매자 찜한 목록 조회
 	ArrayList<Seller> memberSubscribeList(int memberNo);
 	
+	// 판매자 배송 상태 변경 메소드 to Y
+	int sellerOrderDetailChangeStatusToY(int orderDetailNo);
+	// 판매자 배송 상태 변경 메소드 to E
+	int sellerOrderDetailChangeStatusToE(int orderDetailNo);
 }
