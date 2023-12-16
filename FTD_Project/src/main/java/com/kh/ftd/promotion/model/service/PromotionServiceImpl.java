@@ -6,6 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.ftd.goods.model.vo.GoodsFile;
+import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.dao.PromotionDao;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -148,6 +151,36 @@ public class PromotionServiceImpl implements PromotionService{
 	public ArrayList<Promotion> selectPromotionSellerList(int sellerNo) {
 		
 		return promotionDao.selectPromotionSellerList(sqlSession,sellerNo);
+	}
+
+	@Override
+	public ArrayList<GoodsSell> goodSell(int sno) {
+		
+		return promotionDao.goodSell(sqlSession,sno);
+	}
+
+	@Override
+	public ArrayList<GoodsFile> goodFile(int sno) {
+	
+		return promotionDao.goodFile(sqlSession,sno);
+	}
+
+	@Override
+	public int selectSubscribeCount(Subscribe s) {
+		
+		return promotionDao.selectSubscribeCount(sqlSession,s);
+	}
+
+	@Override
+	public int deleteSubscribeCount(Subscribe s) {
+		
+		return promotionDao.deleteSubscribeCount(sqlSession,s);
+	}
+
+	@Override
+	public int insertSubscribeCount(Subscribe s) {
+	
+		return promotionDao.insertSubscribeCount(sqlSession,s);
 	}
 
 	

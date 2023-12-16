@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ftd.goods.model.vo.GoodsFile;
+import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
@@ -124,6 +127,31 @@ public class PromotionDao {
 	public ArrayList<Promotion> selectPromotionSellerList(SqlSessionTemplate sqlSession, int sellerNo) {
 		
 		return (ArrayList)sqlSession.selectList("promotionMapper.selectPromotionSellerList",sellerNo);
+	}
+
+	public ArrayList<GoodsSell> goodSell(SqlSessionTemplate sqlSession, int sno) {
+
+		return (ArrayList)sqlSession.selectList("promotionMapper.goodSell",sno);
+	}
+
+	public ArrayList<GoodsFile> goodFile(SqlSessionTemplate sqlSession, int sno) {
+		
+		return (ArrayList)sqlSession.selectList("promotionMapper.goodFile",sno);
+	}
+
+	public int selectSubscribeCount(SqlSessionTemplate sqlSession,Subscribe s) {
+		
+		return sqlSession.selectOne("promotionMapper.selectSubscribeCount",s);
+	}
+
+	public int deleteSubscribeCount(SqlSessionTemplate sqlSession, Subscribe s) {
+		
+		return sqlSession.delete("promotionMapper.deleteSubscribeCount",s);
+	}
+
+	public int insertSubscribeCount(SqlSessionTemplate sqlSession, Subscribe s) {
+		
+		return sqlSession.insert("promotionMapper.insertSubscribeCount",s);
 	}
 
 	

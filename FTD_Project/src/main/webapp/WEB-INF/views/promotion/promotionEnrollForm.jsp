@@ -153,6 +153,9 @@
         </div>
 	<form method="post" action="insertPromotion.pr">
        <div>
+       			<input type="hidden" name="" value="">
+       
+       
        			<input type="hidden" name="sellerNo" value="${sessionScope.loginSeller.sellerNo}">
             	<textarea id="summernote" name="promotionContent" required></textarea> 
             <div align="center">

@@ -191,10 +191,76 @@ public class SellerController {
 		ArrayList<Promotion> pList = promotionService.selectPromotionSellerList(sno);
 		//System.out.println(pList);
 		
+		ArrayList<Object> pC1List = new ArrayList<Object>(); //파일
+		ArrayList<Object> pC2List = new ArrayList<Object>(); //내용
+		
 		for(int i = 0; i < pList.size(); i++) {
+			
+			String pCList = pList.get(i).getPromotionContent();
+			String p2CList = pList.get(i).getPromotionContent();
+			
+	        // 최대 3개의 이미지 소스를 저장할 배열
+			ArrayList<Object> imageSources = new ArrayList<Object>();
+
+	        // 이미지 태그의 시작과 끝 인덱스를 찾기 위한 변수
+	        int startIndex, endIndex;
+	        
+	        
+	        
+	        // 이미지 태그의 시작 인덱스 찾기
+	        for (int l = 0; l < 3; l++) {
+	            startIndex = pCList.indexOf("<img");
+
+	            if (startIndex != -1) {
+	                // 이미지 태그의 끝 인덱스 찾기
+	                endIndex = pCList.indexOf(">", startIndex);
+
+	                // 이미지 태그 추출
+	                String imgTag = pCList.substring(startIndex, endIndex + 1);
+
+	                // src 속성값 찾기
+	                int srcStartIndex = imgTag.indexOf("src=\"") + 5;
+	                int srcEndIndex = imgTag.indexOf("\"", srcStartIndex);
+	                String srcAttributeValue = imgTag.substring(srcStartIndex, srcEndIndex);
+
+	                // 이미지 소스를 배열에 저장
+	                imageSources.add(srcAttributeValue);
+	     
+	                // 이미 처리한 부분은 제거
+	                pCList = pCList.substring(endIndex + 1);
+	            } else {
+	            	
+	            	break;
+	            }
+	        }
+	        
+	        pC1List.add(imageSources);
+     
+			
 			if(pList.get(i).getPromotionContent().length() > 80) {
 				String s = pList.get(i).getPromotionContent();
 				pList.get(i).setPromotionContent(s.substring(0, 77) + "...");
+			}
+			
+			p2CList = p2CList.replaceAll("<img.*?>", "");
+
+	        // <p> 태그 제거
+			p2CList = p2CList.replaceAll("<p.*?>|</p>", "");
+			
+			 // <b> 태그 제거
+			p2CList = p2CList.replaceAll("<b.*?>|</b>", "");
+			
+			p2CList = p2CList.trim();
+			
+			if(p2CList.length() > 80) {
+				String s = p2CList;
+				pC2List.add(s.substring(0, 77) + "...");
+			}else {
+			
+			
+	        // 결과 출력
+	        //System.out.println(p2CList);
+			pC2List.add(p2CList);
 			}
 		}
 		
@@ -278,6 +344,8 @@ public class SellerController {
 	        	arrList.add(sfList.get(i));
 	        	arrList.add(pfList.get(i));
 	        	arrList.add(rList.get(i));
+	        	arrList.add(pC1List.get(i));
+	        	arrList.add(pC2List.get(i));
 	        	
 	        	//System.out.println(arrList);
 	        	arrList2.add(arrList);

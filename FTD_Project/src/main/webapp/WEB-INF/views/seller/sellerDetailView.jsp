@@ -320,118 +320,135 @@
 	        		  			page: page,
 	        		  			size: pageSize
 	                    	},
-	    	               success : function(data) {
-								console.log(data);
-						           data.forEach(function (val) {
-		               let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : val[2].changeName;			
+	                        success: function (data) {
 
-		                           let str  ='<div>'
-		                                    + '<div class="profile">'
-		                                    + '<div id="profile_1" style="width : 50px; height : 50px;">'
-		                                    + '<img src="'+ marketImg +'" alt="">'
-		                                    + '</div>'
-		                                    + '<div id="profile_2">'
-		                                    + '<span>'
-		                                    + val[1].companyName
-
-		                                    + '</span>'
-		                                    + '<div id="profile_2_2">'
-		                                    + '<span>'
-		                                    + val[1].address
-		                                    + '</span>'
-		                                    + '<span>* 17분 전</span>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '</div>'
-
-		                                    + '<div>'
-		                                    + '<div >'
-		                                    + '<div class="detail" style="margin-left : 35px">'
-		                                    + '<input type="hidden" value="' + val[0].promotionNo + '">'
-		                                    + '<h2>판매</h2>'
-		                                    + val[0].promotionContent;
-		                                    
-		                                if(val[3].length == 3){
-		                                	  str += '<div class="product_image">'
-		      	                                + '<div>'
-		      	                                + '<div class="product_image_1">'
-		      	                                + '<img src="'+ val[3][0].changeName +'" >'
-		      	                                + '</div>'
-		      	                                + '<div class="product_image_2">'
-		      	                                + '<div class="product_image_2_1">'
-		      	                                + '<img src="'+ val[3][1].changeName +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
-		      	                                + '</div>'
-		      	                                + '<div class="product_image_2_2">'
-		      	                                + '<img src="'+ val[3][2].changeName +'">'
-		      	                                + '</div>'
-		      	                                + '</div>'
-		      	                                + '</div>'
-		      	                                + '</div>';
-		                                }else if(val[3].length == 2){
-		                                	
-		                                str +=	'<div class="product_image">'
-		                                    + '<div style="display : flex;">'
-		                                        + '<div class="product2_image_1">'
-		                                           +  '<img src="'+ val[3][0].changeName +'" >'
-		                                        + '</div>'
-		                                       + '<div class="product2_image_2">'
-		                                            + '<img src="'+ val[3][1].changeName +'">'
-		                                         +'</div>'
-		                                     +'</div>'
-		                          			+  '</div>'
-		                        		        	  
-		                                }else if(val[3].length == 1){
-		                                	
-		                                str += '<div class="product_image">'
-		                                    +'<div>'
-		                                        +'<div class="product1_image_1">'
-		                                           + '<img src="'+ val[3][0].changeName +'" >'
-		                                       + '</div>'
-		                                   + '</div>'
-		                           + '</div>'
-		                                	
-		                                }else{
-		                                	
-		                                	
-		                                }
-		                        
-		                                    str += '</div>'
-		                                    + '<div class="product_options">'
-		                                    + '<div>'
-		                                    + '<div class="swiper-wrapper">'
-		                                    + '<div class="product" id="product_1">'
-		                                    + '<div>'
-		                                    + '<span>해녀 채취 말똥성게</span>'
-		                                    + '<span>12,500원~</span>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '<div class="product" id="product_2">'
-		                                    + '<div>'
-		                                    + '<span>홍새우 (단새우)급냉</span>'
-		                                    + '<span>23,000원~</span>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '</div>'
-		                                    + '</div>'
-
-		                                    + '<div align="left" style="width : 710px">'
-		                                    + '<span><i class="far fa-comment"></i></span>'
-		                                    + '<span>'
-		                                    + val[4]
-		                                    + '</span>'
-		                                    + '</div>'
-
-		                                    + '<hr>';
+	                            console.log("통신성공!!!");
+	                            console.log(data);
 
 
-		                                    $('.promotion').append(str);
-		    								
-		                            });
-	    	    				
-	    	    			},
+	                            // Remove skeleton UI
+	                            $('.skeleton').remove();
+
+	                            // Append legacy data to the container
+
+	                            // 프로필사진, 홍보사진 정도남았고 로딩, 프론트좀더깍고 ㄹㅇ여유되면 ui클릭시 상품구매로이동까지
+
+	                            data.forEach(function (val) {
+	                            	
+	               let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : "${pageContext.request.contextPath}"+val[2].changeName;			
+
+	                           let str  ='<div>'
+	                                    + '<div class="profile">'
+	                                    + '<div id="profile_1" style="width : 50px; height : 50px;">'
+
+	                                    + '<img src="'+ marketImg +'" alt="">'
+
+	                                    + '</div>'
+	                                    + '<div id="profile_2">'
+	                                    + '<span>'
+	                                    + val[1].companyName
+
+	                                    + '</span>'
+	                                    + '<div id="profile_2_2">'
+	                                    + '<span>'
+	                                    + val[1].address
+	                                    + '</span>'
+	                                    + '<span>* 17분 전</span>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '</div>'
+
+	                                    + '<div>'
+	                                    + '<div >'
+	                                    + '<div class="detail" style="margin-left : 35px">'
+	                                    + '<input type="hidden" value="' + val[0].promotionNo + '">'
+	                                    + '<h2>판매</h2>'
+	                                    + val[6];
+	                                    
+	                                if(val[5].length == 3){
+	                                	  str += '<div class="product_image" >'
+	      	                                + '<div style="display : flex; justify-content: center; align-items: center; ">'
+	      	                                + '<div class="product_image_1">'
+	      	                                + '<img src="'+ val[5][0] +'" >'
+	      	                                + '</div>'
+	      	                                + '<div class="product_image_2">'
+	      	                                + '<div class="product_image_2_1">'
+	      	                                + '<img src="'+ val[5][1] +'">'  <!-- 체인지네임이 널일때는 기본사진이들어가게해야뎀 -->
+	      	                                + '</div>'
+	      	                                + '<div class="product_image_2_2">'
+	      	                                + '<img src="'+ val[5][2]+'">'
+	      	                                + '</div>'
+	      	                                + '</div>'
+	      	                                + '</div>'
+	      	                                + '</div>';
+	                                }else if(val[5].length == 2){
+	                                	
+	                                str +=	'<div class="product_image">'
+	                                    + '<div style="display : flex; justify-content: center; align-items: center; ">'
+	                                        + '<div class="product2_image_1">'
+	                                           +  '<img src="'+ val[5][0] +'" >'
+	                                        + '</div>'
+	                                       + '<div class="product2_image_2">'
+	                                            + '<img src="'+ val[5][1] +'">'
+	                                         +'</div>'
+	                                     +'</div>'
+	                          			+  '</div>'
+	                        		        	  
+	                                }else if(val[5].length == 1){
+	                                	
+	                                str += '<div class="product_image">'
+	                                    +'<div>'
+	                                        +'<div class="product1_image_1">'
+	                                           + '<img src="'+ val[5][0] +'" >'
+	                                       + '</div>'
+	                                   + '</div>'
+	                           + '</div>'
+	                                	
+	                                }else{
+	                                	
+	                                	
+	                                }
+	                        
+	                                    str += '</div>'
+	                                    + '<div class="product_options">'
+	                                    + '<div>'
+	                                    + '<div class="swiper-wrapper">'
+	                                    + '<div class="product" id="product_1">'
+	                                    + '<div>'
+	                                    + '<span>해녀 채취 말똥성게</span>'
+	                                    + '<span>12,500원~</span>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '<div class="product" id="product_2">'
+	                                    + '<div>'
+	                                    + '<span>홍새우 (단새우)급냉</span>'
+	                                    + '<span>23,000원~</span>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '</div>'
+	                                    + '</div>'
+
+	                                    + '<div align="left" style="width : 710px">'
+	                                    + '<span><i class="far fa-comment"></i></span>'
+	                                    + '<span>'
+	                                    + val[4]
+	                                    + '</span>'
+	                                    + '</div>'
+
+	                                    + '<hr>';
+
+
+	                                    $('.promotion').append(str);
+	    								
+	                            });
+
+
+
+
+	                        },
 	    	    			error : function() {
 	    	    				
 	    	    				console.log("댓글 작성용 ajax 통신 실패!");
