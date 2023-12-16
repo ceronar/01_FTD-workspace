@@ -669,4 +669,26 @@ public class SellerController {
 		
 		return "seller/sellerOrderGoodsList";
 	}
+	
+	@ResponseBody
+	@PostMapping("orderDetailChangeStatusToY.se")
+	public String sellerOrderDetailChangeStatusToY(int orderDetailNo) {
+		int result = sellerService.sellerOrderDetailChangeStatusToY(orderDetailNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping("orderDetailChangeStatusToE.se")
+	public String sellerOrderDetailChangeStatusToE(int orderDetailNo) {
+		int result = sellerService.sellerOrderDetailChangeStatusToE(orderDetailNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 }

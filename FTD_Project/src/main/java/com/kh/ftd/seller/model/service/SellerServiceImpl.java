@@ -143,5 +143,15 @@ public class SellerServiceImpl implements SellerService{
 	public ArrayList<Seller> memberSubscribeList(int memberNo) {
 		return sellerDao.memberSubscribeList(sqlSession, memberNo);
 	}
+
+	@Override
+	public int sellerOrderDetailChangeStatusToY(int orderDetailNo) {
+		return sellerDao.sellerOrderDetailChangeStatusToY(sqlSession, orderDetailNo);
+	}
+
+	@Override
+	public int sellerOrderDetailChangeStatusToE(int orderDetailNo) {
+		return sellerDao.sellerOrderDetailChangeStatusToE(sqlSession, orderDetailNo);
+	}
 	
 }
