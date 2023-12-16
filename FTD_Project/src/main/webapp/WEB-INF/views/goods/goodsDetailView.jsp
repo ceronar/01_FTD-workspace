@@ -76,17 +76,18 @@
 	}
 
 	.goods-title, .goods-price {
-		width: 95%;
+		width: 100%;
 		height: 70px;
 		padding-left: 20px;
 		text-align: left;
 		font-size: 35px;
 		line-height: 70px;
 		margin-bottom: 10px;
+		box-sizing: border-box;	
 	}
 
 	.goods-like {
-		width: 100px;
+		width: 70px;
 		height: 70px;
 		float: right;
 	}
@@ -346,10 +347,69 @@
 		width: 100%;
 		height: 100%;
 	}
+	
+	.like-icon {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+	}
 
 
 
 </style>
+<script type="text/javascript">
+	
+		
+	$(document).ready(function () {
+			
+
+		if(${ sessionScope.loginUser.memberId eq 'admin' }) { // 관리자 로그인인 경우
+			
+			
+		} else if(${ not empty sessionScope.loginUser }) { // 구매자 로그인 후
+			
+			ajaxSelectLike();
+			
+		} else if(${ not empty sessionScope.loginSeller }) { // 판매자 로그인 후
+			 
+		} else { // 로그인 전
+			
+			
+		}
+				
+	});
+		
+	function ajaxSelectLike() {
+		      
+		$.ajax({
+			url : 'ajaxSelectLike.go',
+	        type: 'get',
+	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        success: function(result) {	        
+	            	
+	        	if(result > 0) {
+	        		
+	        		$(".goods-like").html(
+	        			'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png">'	  
+	        		);  
+	        		
+	        	} else {
+	        		
+	        		$(".goods-like").html(
+		        		'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_off.png">'	  
+		        	); 	   
+	        	}
+	        	   
+	        },
+	        error : function() {
+	        	
+	        	console.log("ajax 통신 실패");
+	        }
+		});
+	}
+
+
+</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -395,11 +455,11 @@
 							</tr>
 							<tr>
 								<th>원산지</th>
-								<td>통영</td>
+								<td>${ requestScope.goods.origin }</td>
 							</tr>
 							<tr>
 								<th>보관방법</th>
-								<td>받으신 후 냉장 보관 해 주세요.</td>
+								<td>받으신 후 냉장 보관 해주세요.</td>
 							</tr>
 						</table>
 
@@ -469,6 +529,7 @@
 										${ requestScope.goodsSell.sellTitle }
 										<input type="hidden" name="goodNo" value="${ requestScope.goodsSell.goodNo }">
 										<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+										<input type="hidden" name="sellNo" value="${ requestScope.goodsSell.sellNo }">
 									</div>
 									<div class="goods-count-div2">
 										<button type="button" class="count-btn" id="countMinus">-</button>
@@ -491,7 +552,7 @@
 		</div>
 	</div>
 
-	<script>
+<script>
 	
 	$(function() {
 		
@@ -515,6 +576,7 @@
     	
     	});
 		
+		// 상품 수량 +- 클릭 이벤트
 		let count = parseInt($(".count-number").val());
 		
 		$(".goods-count-div2").on('click', '#countMinus', function () {
@@ -539,10 +601,52 @@
 		});
 		
 		
+		// 상품 찜 하기 클릭 이벤트
+		$(".goods-like").on("click", ".like-icon",function() {
+    		
+			ajaxClickLike();  	
+    	});
 		
 	});
 	
-	</script>
+	// 상품 찜 하기 클릭 이벤트 함수	
+	function ajaxClickLike() {
+	    
+		let loginUser
+		
+		$.ajax({
+			url : 'ajaxClickLike.go',
+	        type: 'get',
+	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        success: function(result) {
+	        	
+	        	console.log(result);	
+	            	
+	        	if(result == "추가") {
+	        		
+	        		$(".goods-like").html(
+	        			'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png">'	  
+	        		);  
+	        		
+	        	} else if(result == "삭제") {
+	        		
+	        		$(".goods-like").html(
+		        		'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_off.png">'	  
+		        	); 
+	        		
+	        	} else {
+	        		
+	        		location.href = "goodsDetailPage.go?sno=" + ${ requestScope.goodsSell.sellNo };
+	        	}       	   
+	        },
+	        error : function() {
+	        	
+	        	console.log("ajax 통신 실패");
+	        }
+	    });
+	
+	}
 
+</script>
 </body>
 </html>

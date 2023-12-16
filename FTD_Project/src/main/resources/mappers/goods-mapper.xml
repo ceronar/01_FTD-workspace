@@ -57,6 +57,11 @@
 		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 	
+	<resultMap id="likeResultSet" type="like">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="GOOD_NO" property="goodNo" />
+	</resultMap>
+	
 	<select id="ajaxSelectGoodsSellList" resultMap="goodsSellResultSet">
 		SELECT G.*
 		  FROM GOODS_SELL G
@@ -212,5 +217,37 @@
 		   SET STOCK = STOCK - #{count}
 		 WHERE GOOD_NO = #{goodNo}
 	</update>
+	
+	<insert id="insertCart" parameterType="cart">
+		INSERT INTO CART(CART_NO
+		               , MEMBER_NO
+		               , GOOD_NO
+		               , COUNT)
+		          VALUES(SEQ_CNO.NEXTVAL
+		             , #{memberNo}
+		             , #{goodNo}
+		             , #{count})
+	</insert>
+	
+	<select id="selectLike" parameterType="like" resultType="_int">
+		SELECT COUNT(*)
+		  FROM "LIKE"
+		 WHERE MEMBER_NO = #{memberNo}
+           AND GOOD_NO = #{goodNo}
+	</select>
+	
+	<delete id="deleteLike" parameterType="like">
+		DELETE
+		  FROM "LIKE"
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND GOOD_NO = #{goodNo}
+	</delete>
+	
+	<insert id="insertLike" parameterType="like">
+		INSERT INTO "LIKE" (MEMBER_NO
+		                  , GOOD_NO)                                      
+		             VALUES(#{memberNo}
+		                  , #{goodNo})	
+	</insert>
 	
 </mapper>

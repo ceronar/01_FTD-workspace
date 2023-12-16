@@ -22,6 +22,7 @@ import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 
 @Controller
@@ -441,13 +442,87 @@ public class GoodsController {
 	
 	// 장바구니 상품 추가
 	@RequestMapping("insertCart.go")
-	public String insertCart(String order, Cart cart) {	
+	public String insertCart(String order, Cart cart, int sellNo , HttpSession session, Model model) {	
 		
+		int insertResult = goodsService.insertCart(cart);
 		
-		return "";
+		if(insertResult > 0) { // 장바구니 추가 성공
+			
+			if(order.equals("cart")) { // 장바구니 담기 클릭
+				
+				session.setAttribute("successMsg", "해당 상품을 장바구니에 담기 했습니다.");
+				
+				return "redirect:/goodsDetailPage.go?sno=" + sellNo;
+				
+			} else { // 주문하기 클릭
+				
+				return "redirect:/basket.me";
+				
+			}
+					
+		} else { // 장바구니 추가 실패
+			
+			model.addAttribute("errorMsg","해당 상품을 장바구니에 담기 실패했습니다.");
+			
+			return "common/errorPage";			
+		}		
 	}
 	
-	
+	// 좋아요 조회
+	@ResponseBody
+	@RequestMapping("ajaxSelectLike.go")
+	public int selectLike(Like like) {
+		
+		int likeCount = goodsService.selectLike(like);
+		
+		return likeCount;
+		
+	}
+
+	// 좋아요 클릭
+	@ResponseBody
+	@RequestMapping(value = "ajaxClickLike.go", produces = "text/html; charset=UTF-8")
+	public String ajaxClickLike(Like like, HttpSession session) {
+		
+		int likeCount = goodsService.selectLike(like);
+			
+		if(likeCount > 0) { // 조회 후 좋아요 있을 경우
+			
+			int deleteLikeCount = goodsService.deleteLike(like);			
+			
+			if(deleteLikeCount > 0) { // 좋아요 삭제 성공했을 경우
+				
+				session.setAttribute("successMsg", "좋아하지 않게 되었어요.!");
+							
+				return "삭제";
+				
+			} else { // 좋아요 삭제 실패했을 경우
+				
+				session.setAttribute("successMsg", "좋아요 처리를 실패했습니다.");
+						
+				return "삭제실패";
+			}
+			
+		} else { // 조회 후 좋아요 없을 경우
+			
+			int insertLikeCount = goodsService.insertLike(like);
+			
+			if(insertLikeCount > 0) { // 좋아요 추가 성공했을 경우
+				
+				session.setAttribute("successMsg", "좋아요.");			
+				
+				return "추가";
+						
+			} else { // 좋아요 추가 실패했을 경우
+				
+				session.setAttribute("successMsg", "좋아요 처리를 실패했습니다.");
+							
+				return "추가실패";
+							
+			}
+		}
+		
+	}
 
 		
 }
