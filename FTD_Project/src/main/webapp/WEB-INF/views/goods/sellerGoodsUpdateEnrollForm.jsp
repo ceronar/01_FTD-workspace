@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 상품 글 등록 상세 페이지</title>
+<title>판매자 상품 글 수정 상세 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -275,53 +275,6 @@
 	}
 
 </style>
-<script>
-	
-	$(document).ready(function () {
-		
-		ajaxSelectSellerGoodTitle();
-				
-	});
-	
-	function ajaxSelectSellerGoodTitle() {
-	      
-	    $.ajax({
-	        url : 'ajaxSelectSellerGoodTitle.go',
-	        type: 'get',
-	        data: { sellerNo : ${sessionScope.loginSeller.sellerNo} },
-	        success: function(result) {
-	        	          	
-				console.log(result);
-				
-				if(result.length == 0) {
-					
-					$(".goodsTitle").append("<option>상품을 먼저 등록해주세요.</option>");
-										
-					$(".pay-button").attr("disabled", "true");
-					
-				} else {
-					
-					for(var i = 0; i < result.length; i++) {			
-						
-						$(".goodsTitle").append(
-								"<option>" + result[i].goodTitle + "</option>"
-							  + "<input type='hidden' value='"+ result[i].goodNo + "' name='goodNo'>"
-						);
-						
-						$("#origin").text(result[i].origin);
-					}
-									
-				}
-								
-			},
-			error : function() {
-				
-				console.log("ajax 통신 실패");
-			}
-	    });
-	}
-
-</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -341,15 +294,15 @@
 	            
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
-					<div class="header-title">상품 글 등록</div>
+					<div class="header-title">상품 글 수정</div>
 	            </div>
 	            
-	            <form method="post" action="insertSellerGoodsText.go" enctype="multipart/form-data">
+	            <form method="post" action="updateSellerGoodsText.go" enctype="multipart/form-data">
 	            <input type="hidden" value="${sessionScope.loginSeller.sellerNo}" name="sellerNo">
 	            
 				<div class="header-img">
-					<img id="thumbnail">
-					<input type="file" id="thumbnail-img" name="upfile" onchange="loadImg(this);">
+					<img id="thumbnail" src="${ requestScope.goodsFile.changeName }">
+					<input type="file" id="thumbnail-img" name="reupfile" onchange="loadImg(this);">
 				</div>
 	            
 	            <div class="content">					
@@ -357,12 +310,15 @@
 					<div class="goods">
 
 						<div class="goods-title">
-							<input type="text" id="" name="sellTitle">
+							<input type="text" 		id="" 	name="sellTitle" value="${ requestScope.goodsSell.sellTitle }">
+							<input type="hidden" 	id="" 	name="sellNo" value="${ requestScope.goodsSell.sellNo }">
+							<input type="hidden" 	id="" 	name="goodNo" value="${ requestScope.goodsSell.goodNo }">
+							<input type="hidden" 			name="originalName" value="${ requestScope.goodsFile.originalName }">
+                            <input type="hidden" 			name="changeName" value="${ requestScope.goodsFile.changeName }">
+							<input type="hidden" 	id="" 	name="fileNo" value="${ requestScope.goodsFile.fileNo }">			
 						</div>
 						<div class="goods-price">
-							<select class="goodsTitle">
-								
-							</select>
+							${ requestScope.goods.goodTitle }
 						</div>
 						
 						<div class="br-line"></div>
@@ -383,7 +339,7 @@
 							</tr>
 							<tr>
 								<th>원산지</th>
-								<td id="origin"></td>
+								<td>${ requestScope.goods.origin }</td>
 							</tr>
 							<tr>
 								<th>보관방법</th>
@@ -422,7 +378,14 @@
 		</div>
 	</div>
 <script>
+
        $(document).ready(function() {
+    	   
+   		// 상품 글 content 부분 삽입
+   		let sellContent = '${ requestScope.goodsSell.sellContent }';
+   		
+   		$("#summernote").html(sellContent);   
+    	
        	
        	// 써머 노트 이벤트
        	$('#summernote').summernote({
@@ -442,7 +405,7 @@
 	     		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
 	     		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
 	     		    // 글자색
-	     		    ['color', ['color']],
+	     		    ['color', ['forecolor','color']],
 	     		    // 표만들기
 	     		    ['table', ['table']],
 	     		    // 글머리 기호, 번호매기기, 문단정렬
@@ -497,8 +460,7 @@
 			}
 		});
 	}
-       
-       
+             
 	// 썸네일 실행 함수
 	function loadImg(inputFile) {
 

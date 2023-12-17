@@ -250,4 +250,38 @@
 		                  , #{goodNo})	
 	</insert>
 	
+	<insert id="insertGoodsFile" parameterType="goodsFile">
+		INSERT INTO GOODS_FILE (FILE_NO
+                              , SELL_NO
+                              , ORIGINAL_NAME
+                              , CHANGE_NAME
+                              , CREATE_DATE)                                      
+                         VALUES(SEQ_GFNO.NEXTVAL
+                              , #{sellNo}
+                              , #{originalName}
+                              , #{changeName}
+                              , SYSDATE)
+	</insert>
+	
+	<select id="selectGoodsTextByGoodNo" parameterType="_int" resultMap="goodsSellResultSet">
+		SELECT * 
+		  FROM GOODS_SELL
+		 WHERE GOOD_NO = #{goodNo}
+		   AND DELETE_DATE IS NULL
+	</select>
+	
+	<update id="updateSellerGoodsText" parameterType="goodsSell">
+		UPDATE GOODS_SELL
+		   SET SELL_TITLE = #{sellTitle}
+		     , SELL_CONTENT = #{sellContent}
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
+	<update id="updateGoodsFile" parameterType="goodsFile">
+		UPDATE GOODS_FILE
+		   SET ORIGINAL_NAME = #{originalName}
+		     , CHANGE_NAME = #{changeName}
+		 WHERE FILE_NO = #{fileNo}	
+	</update>
+	
 </mapper>

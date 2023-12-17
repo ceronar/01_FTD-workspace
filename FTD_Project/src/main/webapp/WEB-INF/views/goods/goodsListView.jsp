@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 리스트 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
@@ -179,19 +179,18 @@
                     
                 	$('.goods').append(
                 			'<div class="goods-list">'
-							+'<input type="hidden" value="' + item[1].sellNo + '">'
-							+'<div class="goods-img">'+item[2].changeName+'</div>'
-							+'<div class="goods-title">'+item[1].sellTitle+'</div>'
-							+'<div class="goods-price">'+item[0].price+'원</div>'
-							+'<div class="goods-detail">'
-								+'<div class="star-icon"><img src= "${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
-								+'<div class="goods-rating">'+item[3]+'</div>'
-								+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
-								+'<div class="goods-review">'+item[4]+'</div>'
-								+'<div class="goods-count-icon"></div>'
-								+'<div class="goods-count">'+ item[1].count +'</div>'
-							+'</div>'
-
+								+'<input type="hidden" value="' + item[1].sellNo + '">'
+								+'<div class="goods-img">'+item[2].changeName+'</div>'
+								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
+								+'<div class="goods-price">'+item[0].price+'원</div>'
+								+'<div class="goods-detail">'
+									+'<div class="star-icon"><img src="${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
+									+'<div class="goods-rating">'+item[3]+'</div>'
+									+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
+									+'<div class="goods-review">'+item[4]+'</div>'
+									+'<div class="goods-count-icon"></div>'
+									+'<div class="goods-count">'+ item[1].count +'</div>'
+								+'</div>'
 						+'</div>'
 						
                     );                    

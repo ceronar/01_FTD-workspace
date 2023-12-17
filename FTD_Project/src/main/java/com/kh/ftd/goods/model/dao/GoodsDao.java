@@ -117,6 +117,25 @@ public class GoodsDao {
 		
 		return sqlSession.insert("goodsMapper.insertLike", like);
 	}
+
+	public int insertGoodsFile(SqlSessionTemplate sqlSession, GoodsFile goodsFile) {
+		
+		return sqlSession.insert("goodsMapper.insertGoodsFile", goodsFile);
+	}
 	
+	public GoodsSell selectGoodsTextByGoodNo(SqlSessionTemplate sqlSession, int goodNo) {
+		
+		return sqlSession.selectOne("goodsMapper.selectGoodsTextByGoodNo", goodNo);
+	}
+	
+	public int updateSellerGoodsText(SqlSessionTemplate sqlSession, GoodsSell goodsSell) {
+		
+		return sqlSession.update("goodsMapper.updateSellerGoodsText", goodsSell);
+	}
+	
+	public int updateGoodsFile(SqlSessionTemplate sqlSession, GoodsFile goodsFile) {
+		
+		return sqlSession.update("goodsMapper.updateGoodsFile", goodsFile);
+	}
 	
 }

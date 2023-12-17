@@ -147,5 +147,31 @@ public class GoodsServiceImpl implements GoodsService {
 	
 		return goodsDao.insertLike(sqlSession, like);
 	}
+
+	@Override
+	public int insertGoodsFile(GoodsFile goodsFile) {
+		
+		return goodsDao.insertGoodsFile(sqlSession, goodsFile);
+	}
+
+	@Override
+	public GoodsSell selectGoodsTextByGoodNo(int goodNo) {
+		
+		return goodsDao.selectGoodsTextByGoodNo(sqlSession, goodNo);
+	}
+
+	@Override
+	public int updateSellerGoodsText(GoodsSell goodsSell) {
+		
+		return goodsDao.updateSellerGoodsText(sqlSession, goodsSell);
+	}
+
+	@Override
+	public int updateGoodsFile(GoodsFile goodsFile) {
+
+		return goodsDao.updateGoodsFile(sqlSession, goodsFile);
+	}
+	
+	
 	
 }
