@@ -127,12 +127,11 @@
 	</select>
 	
 	<!-- 마켓 찜 조회 쿼리문 -->
-	<select id="ajaxSelectSubscribe" parameterType="subscribe" resultMap="subscribeResultSet">
-		SELECT * 
+	<select id="ajaxSelectSubscribe" parameterType="subscribe" resultType="_int">
+		SELECT COUNT(*) 
 		  FROM SUBSCRIBE
 		 WHERE MEMBER_NO = #{memberNo}
-		   AND SELLER_NO = #{sellerNo}
-			
+		   AND SELLER_NO = #{sellerNo}			
 	</select>
 	
 	<!-- 마켓 찜 삭제 쿼리문 -->

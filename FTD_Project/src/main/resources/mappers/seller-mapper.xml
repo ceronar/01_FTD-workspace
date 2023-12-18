@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="ajaxSelectStarRating" resultType="_double" parameterType="_int">
-		SELECT NVL(TRUNC(AVG(STAR_RATING), 2), 0.0)
+		SELECT NVL(TRUNC(AVG(STAR_RATING), 2), 0)
 		  FROM REVIEW R
 		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
 		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
