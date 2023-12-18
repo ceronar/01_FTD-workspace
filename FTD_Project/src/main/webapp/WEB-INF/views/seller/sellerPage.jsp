@@ -180,45 +180,127 @@
 				        		</tr>
 				        	</table>
 				        </div>
-				        <label for="companyName">상호명:</label>
-				        <input type="text" id="companyName" name="companyName" value="${ sessionScope.loginSeller.companyName }" readonly required>
-						<br><br>
-				        
-                        <label for="sellerId">아이디:</label>
-				        <input type="text" id="sellerId" name="sellerId" value="${ sessionScope.loginSeller.sellerId }" readonly required>
-						<br><br>
-				        
-                        <label for="sellerName">대표자 이름:</label>
-				        <input type="text" id="sellerName" name="sellerName" value="${ sessionScope.loginSeller.sellerName }" required>
-						<br><br>
-				        
-                        <label for="companyNo">사업자 등록 번호:</label>
-				        <input type="text" id="companyNo" name="companyNo" value="${ sessionScope.loginSeller.companyNo }" readonly required>
-						<br><br>
-				        
-                        <label for="businessNo">통신 판매 번호:</label>
-				        <input type="text" id="businessNo" name="businessNo" value="${ sessionScope.loginSeller.businessNo }" readonly required>
-						<br><br>
-				        
-                        <label for="address">소재지:</label>
-				        <input type="text" id="address" name="address" value="${ sessionScope.loginSeller.address }" required>
-						<br><br>
-				        
-                        <label for="email">메일 주소:</label>
-				        <input type="email" id="email" name="email" value="${ sessionScope.loginSeller.email }" required>
-						<br><br>
-				        
-                        <label for="phone">전화 번호 ( - 포함):</label>
-				        <input type="tel" id="phone" name="phone" value="${ sessionScope.loginSeller.phone }" required>
-						<br><br>
-				        
-                        <label for="accountNo">계좌 번호 ( - 포함):</label>
-				        <input type="text" id="accountNo" name="accountNo" value="${ sessionScope.loginSeller.accountNo }" required>
-						<br><br>
-				        
-                        <label for="enrollDate">가입일:</label>
-				        <input type="text" id="enrollDate" name="enrollDate" value="${ sessionScope.loginSeller.enrollDate }"readonly required>
-				        <br><br>
+				        <table align="center">
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="companyName">상호명:</label>
+                                    <input type="text" id="companyName" name="companyName" value="${ sessionScope.loginSeller.companyName }" readonly required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="sellerId">아이디:</label>
+                                    <input type="text" id="sellerId" name="sellerId" value="${ sessionScope.loginSeller.sellerId }" readonly required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="sellerName">대표자 이름:</label>
+                                    <input type="text" id="sellerName" name="sellerName" value="${ sessionScope.loginSeller.sellerName }" required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="companyNo">사업자 등록 번호:</label>
+                                    <input type="text" id="companyNo" name="companyNo" value="${ sessionScope.loginSeller.companyNo }" readonly required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="businessNo">통신 판매 번호:</label>
+                                    <input type="text" id="businessNo" name="businessNo" value="${ sessionScope.loginSeller.businessNo }" readonly required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <div style=" align-items: center;">
+                                        <label for="address">소재지:</label>
+                                        <input type="text" class="form-control postcodify_postcode5" id="address" value="${ sessionScope.loginSeller.address }" name="address">
+                                    </div>
+                                </td>
+                                <td><button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px; margin-left: 10px;">검색</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="email">메일 주소:</label>
+                                    <input type="email" id="email" name="email" value="${ sessionScope.loginSeller.email }" required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="phone">전화 번호 ( - 포함):</label>
+                                    <input type="tel" id="phone" name="phone" value="${ sessionScope.loginSeller.phone }" required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="accountNo">계좌 번호 ( - 포함):</label>
+                                    <input type="text" id="accountNo" name="accountNo" value="${ sessionScope.loginSeller.accountNo }" required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="enrollDate">가입일:</label>
+                                    <input type="text" id="enrollDate" name="enrollDate" value="${ sessionScope.loginSeller.enrollDate }"readonly required>
+                                </td>
+                                <td></td>
+                            </tr>
+                        
+                        </table>
+                        <br><br><br>
 						
                         <button type="submit">정보 변경</button>
 				        <button type="button" onclick="openModal('passwordModal')">비밀번호 변경</button><br><br>
@@ -339,6 +421,11 @@
         }
     });
 </script>
+<!-- jQuery와 Postcodify를 로딩한다 -->
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+
+<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 
 </body>
 </html>

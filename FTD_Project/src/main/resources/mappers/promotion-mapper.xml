@@ -69,6 +69,7 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="GOOD_TITLE" property="sellTitle" />
 		<result column="PRICE" property="count" />
+		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 	
 	<resultMap id="goodsFileResultSet" type="goodsFile">
@@ -275,7 +276,7 @@
 	</select>
 	
 	<select id="goodSell" resultMap="goodsSellResultSet"  parameterType="_int">
-		SELECT 
+				SELECT 
 		    GS.SELL_NO,
 		    GS.SELLER_NO,
 		    GS.GOOD_NO,
@@ -283,9 +284,12 @@
 		    GS.SELL_CONTENT,
 		    G.PRICE,
 		    GS.CREATE_DATE,
-		    GS.DELETE_DATE
+		    GS.DELETE_DATE,
+            GF.CHANGE_NAME
+            
 		FROM 
 	    GOODS_SELL GS
+        JOIN GOODS_FILE GF ON GS.SELL_NO = GF.SELL_NO
         JOIN GOODS G ON GS.GOOD_NO = G.GOOD_NO
    
 	WHERE 
@@ -295,7 +299,7 @@
     AND
         GS.SELLER_NO = #{sno}
 	ORDER BY 
-	    GS.SELLER_NO DESC
+	    GS.SELL_NO DESC
 	</select>
 	
 	<select id="goodFile" resultMap="goodsFileResultSet"  parameterType="_int">

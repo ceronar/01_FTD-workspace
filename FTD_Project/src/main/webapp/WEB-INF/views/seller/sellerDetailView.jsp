@@ -390,7 +390,6 @@
 								data.forEach(function (val) {
 
 									let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : "${pageContext.request.contextPath}" + val[2].changeName;
-
 									let str = '<div>'
 										+ '<div class="profile">'
 										+ '<div id="profile_1" style="width : 50px; height : 50px;">'

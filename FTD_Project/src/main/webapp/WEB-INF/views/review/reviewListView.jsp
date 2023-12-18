@@ -10,6 +10,20 @@
     <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 
     <style>
+    
+          /* navi css */
+	#nav1 {
+	    display: none !important;
+	}
+	
+	#nav2 {
+	    display: block !important;
+	}
+	
+	#nav3 {
+	    display: none ;
+	}
+    
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;

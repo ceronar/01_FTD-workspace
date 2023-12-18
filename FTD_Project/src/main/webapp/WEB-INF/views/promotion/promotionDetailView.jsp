@@ -309,7 +309,7 @@
                     <div id="profile_2_2">
                         <span>${requestScope.seller.address }</span>
                         <!-- 지역 -->
-                        <span>* 17분 전</span>
+                        <span>${requestScope.p.createDate }</span>
                         <!-- 몇분전인지-->
                     </div>
             </div>
@@ -419,7 +419,7 @@
 			    </c:choose>
             </div>
             <div class="profile_2">
-                <span>100년 수산</span>
+                <span>${requestScope.seller.companyName}</span>
                 <div>
                     <span>
                         <span><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i>${requestScope.starRating}</span>
@@ -732,21 +732,13 @@
 					    	<c:forEach var="g" items="${requestScope.goodSell}">
 					    		<div style="display : flex; width :  " class="goodSell">
 					    		<input type="hidden" value="${g.sellNo}">
+					    		
 					    				<div style="width : 90px; height : 90px; margin : 10px 0px 10px 10px;">
-					    				  <c:forEach var="gf" items="${requestScope.goodFile}">
-					    				  	<c:choose>
-					    				  		<c:when test="${gf.changeName  == null}">
-					    				  			<img src="${gf.changeName }" style="width : 90px; height : 90px; border-radius: 10px;">
-					    				  		</c:when>
-					    				  		<c:otherwise>
-					    				  			<img src="${gf.changeName }" style="width : 90px; height : 90px; border-radius: 10px;">
-					    				  		</c:otherwise>
-					    				  	</c:choose>
-					    				  </c:forEach>	 
+					    					<img src="${g.changeName }" style="width : 90px; height : 90px; border-radius: 10px;">
 					    				</div>
 					    		
 					    			<div>
-						    			<div style="line-height: 50px; margin-left : 10px;">
+						    			<div style=" line-height: 50px; margin-left : 10px;">
 							    			<div>${g.sellTitle}</div>
 							    			<div>${g.count}원</div>
 						    			</div>					    		

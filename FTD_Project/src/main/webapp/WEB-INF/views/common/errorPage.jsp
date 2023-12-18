@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sorry</title>
+	<link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="wrapper">
@@ -18,7 +19,7 @@
 		           
 		        <div class="content">
 		        	
-		        	<img src="https://cdn2.iconfinder.com/data/icons/oops-404-error/64/208_balloon-bubble-chat-conversation-sorry-speech-256.png">
+		        	<img src="https://www.urbanbrush.net/web/wp-content/uploads/edd/2017/09/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7-2017-09-22-%EC%98%A4%ED%9B%84-8.48.41.png">
         			<br><br>
         			<h1 style="font-weight:bold;">${ requestScope.errorMsg }</h1>
 		        	

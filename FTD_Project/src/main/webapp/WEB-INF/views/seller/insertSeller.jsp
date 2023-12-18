@@ -16,7 +16,7 @@
     
         body {  
             font-family: Arial, sans-serif;
-			height: 2000px;
+			height: 1600px;
             margin: 0;
             padding: 0;
             background-color: rgb(240, 243, 246);
@@ -122,7 +122,7 @@
             width: 300px;
         }
         
-        .nessesary{ color: red; } /* 별 표시 */
+      
 
 
         #account-title{ /* "아이디/비밀번호 설정" */
@@ -238,13 +238,13 @@
             <br>
             <table id="register-form-table" align="center">
                 <tr>
-                    <th><span class="nessesary">*</span> 상호명 : </th>
+                    <th><span class="nessesary"></span> 상호명 : </th>
                     <td colspan="3">
                         <input type="text" id="companyName" name="companyName" required class="form-control form-control">
                     </td>
                 </tr>
                 <tr>
-                    <th><span class="nessesary">*</span> 대표자 이름 : </th>
+                    <th><span class="nessesary"></span> 대표자 이름 : </th>
                     <td>
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="sellerName" class="sellerName form-control form-control" required>                     
@@ -252,7 +252,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><span class="nessesary">*</span> 휴대폰번호</th>
+                    <th><span class="nessesary"></span> 휴대폰번호</th>
                     <td>
                         <div style="display:flex; width: 300px;">                
                             <input type="text" name="phone" 
@@ -264,7 +264,7 @@
                 </tr>
 
                 <tr>
-                    <th><span class="nessesary">*</span> 이메일</th>
+                    <th><span class="nessesary"></span> 이메일</th>
                     <td colspan="3">
                     <div style="display:flex; width: 500px;">
                     	<input type="hidden" id="email"  name="email">
@@ -281,7 +281,7 @@
                 </tr>
                 
                 <tr>
-                    <th><span class="nessesary">*</span> 사업자 등록 번호 : </th>
+                    <th><span class="nessesary"></span> 사업자 등록 번호 : </th>
                     <td>
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="companyNo" class="companyNo form-control form-control" required>                     
@@ -290,7 +290,7 @@
                 </tr>
 
                 <tr>
-                    <th><span class="nessesary">*</span> 통신 판매 번호 : </th>
+                    <th><span class="nessesary"></span> 통신 판매 번호 : </th>
                     <td>
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="businessNo" class="businessNo form-control form-control" required>                     
@@ -299,7 +299,7 @@
                 </tr>
 
                 <tr>
-                    <th><span class="nessesary">*</span> 주소 : </th>
+                    <th><span class="nessesary"></span> 주소 : </th>
                     <td colspan="3">
                         <div style="display: flex;">
                             <input type="text" id="address" name="address" required class="postcodify_postcode5 form-control form-control" value="" />
@@ -309,7 +309,7 @@
                 </tr>
                 
                 <tr>
-                    <th><span class="nessesary">*</span> 계좌 번호 : </th>
+                    <th><span class="nessesary"></span> 계좌 번호 : </th>
                     <td>
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="accountNo" class="accountNo form-control form-control" required>                     
