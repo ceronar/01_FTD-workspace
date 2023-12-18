@@ -23,4 +23,5 @@ public class Goods {
 	private int stock; 				//	STOCK	NUMBER
 	private String changeName;		// 상품 이미지 조회용
 	private int sellNo;				// 판매글 번호 조회용
+	private int likeCount;			// 상품 찜 갯수
 }

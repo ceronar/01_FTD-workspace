@@ -121,6 +121,10 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return reviewDao.updateReview(sqlSession, r);
 	}
+	@Override
+	public ArrayList<Review> selectReviewListTop() {
+		return reviewDao.selectReviewListTop(sqlSession);
+	}
 
 
 

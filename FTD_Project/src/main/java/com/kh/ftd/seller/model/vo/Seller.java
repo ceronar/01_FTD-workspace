@@ -27,5 +27,6 @@ public class Seller {
 	private String acceptDate;	//	ACCEPT_DATE		DATE
 	private String refuseReason;//	REFUSE_REASON	VARCHAR2(30 BYTE)
 	private String changeName; 	//  판매자 이미지 path
-	
+	private int subscribeCount; // 찜 갯수
+	private double starRating;	// 별점
 }

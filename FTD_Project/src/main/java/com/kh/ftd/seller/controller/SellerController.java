@@ -94,11 +94,19 @@ public class SellerController {
 			
 			int sellerNo = s.getSellerNo();
 			// System.out.println(sellerNo);
-			
+					
 			// 마켓 파일
 			SellerFile sellerFile = sellerService.ajaxSelectSellerFileList(sellerNo);
-			sfList.add(sellerFile);
-			
+			if(sellerFile != null) { // 상품 파일이 있을 시
+				
+				sfList.add(sellerFile);
+				
+			} else { // 상품 파일이 없을 시
+				sellerFile = new SellerFile();
+				sellerFile.setChangeName("resources/images/sample/default.png");
+				sfList.add(sellerFile);
+				
+			}
 			// 마켓 평균 별점
 			double starRating = sellerService.ajaxSelectStarRating(sellerNo);
 			starList.add(starRating);
@@ -130,7 +138,7 @@ public class SellerController {
 		}	
 		//System.out.println(startPage);
 		//System.out.println(endPage);
-		
+		System.out.println(resultList);
 		return new Gson().toJson(resultList);
 	}
 	
@@ -156,6 +164,15 @@ public class SellerController {
 		// 마켓 리스트
 		Seller sList = sellerService.ajaxSelectSellerMarketList(sellerNo);
 		
+		// 마켓 파일
+		SellerFile sellerFile = sellerService.ajaxSelectSellerFileList(sellerNo);
+		if(sellerFile == null) { // 상품 파일이 없을시
+			
+			sellerFile = new SellerFile();
+			sellerFile.setChangeName("resources/images/sample/default.png");
+			
+		}
+		
 		// 마켓 평균 별점
 		double starRating = sellerService.ajaxSelectStarRating(sellerNo);
 		
@@ -171,6 +188,7 @@ public class SellerController {
 		resultList.add(starRating);
 		resultList.add(reviews);
 		resultList.add(subscribe);
+		resultList.add(sellerFile);
 			
 		return new Gson().toJson(resultList);
 	}
@@ -568,6 +586,7 @@ public class SellerController {
 			// 로그인 성공
 			session.setAttribute("loginSeller", loginSeller);
 			session.setAttribute("alertMsg", "로그인에 성공했습니다.");
+			System.out.println(loginSeller);
 			mv.setViewName("redirect:/");
 		} else { 
 			// 로그인 실패
@@ -622,8 +641,6 @@ public class SellerController {
 	// 판매자 페이지
 	@RequestMapping("sellerPage")
 	public String sellerPage(HttpSession session) {
-		SellerFile sf = sellerService.getSellerFile(((Seller)session.getAttribute("loginSeller")).getSellerNo());
-		session.setAttribute("profileImage", sf);
 		return "seller/sellerPage";
 	}
 	
@@ -633,7 +650,7 @@ public class SellerController {
             Seller s,
             Model model,
             HttpSession session,
-            @RequestPart("upFile") MultipartFile upfile, HttpServletRequest req) {
+            @RequestPart("upFile") MultipartFile upfile, HttpServletRequest req, SellerFile sf) {
 		
         if (upfile != null && !upfile.isEmpty()) {
         	
@@ -646,8 +663,10 @@ public class SellerController {
             // String imageUrl = handleFileUpload(upfile);
             
             s.setChangeName(filePath);
-            
-            SellerFile sf = new SellerFile(-1, s.getSellerNo(), upfile.getOriginalFilename(), "/resources/uploadFiles/sellerPage" + "/" + fileName, null, null);
+            // = new SellerFile(-1, s.getSellerNo(), upfile.getOriginalFilename(), "/resources/uploadFiles/sellerPage" + "/" + fileName, null, null);
+            sf.setSellerNo(s.getSellerNo());
+            sf.setOriginalName(upfile.getOriginalFilename());
+            sf.setChangeName("resources/uploadFiles/sellerPage/" + fileName);
             
             int upfile_delete = sellerService.deleteSellerFile(s.getSellerNo());
             int upfile_result = sellerService.sellerFile(sf);

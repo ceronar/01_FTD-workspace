@@ -103,6 +103,8 @@ public class InquiryController {
 //			System.out.println("upfile : " + uf);
 //		}
 		
+		i.setInqTitle(changeTagMethod(i.getInqTitle()));
+		
 		// 제목과 내용을 업로드
 		int result = inquiryService.insertInquiry(i);
 		
@@ -220,8 +222,11 @@ public class InquiryController {
 	@RequestMapping("updateForm.in")
 	public ModelAndView updateInquiry(Inquiry i,HttpSession session, ModelAndView mv) {
 		
-		System.out.println("i : " + i);
+//		System.out.println("i : " + i);
 //		System.out.println("changeName : " + changeName);
+		
+
+		
 		ArrayList<InquiryFile> inf = inquiryService.selectInquiryFile(i);
 		
 		Seller seller = inquiryService.sellectSeller(Integer.parseInt(i.getSellerNo()));
@@ -254,6 +259,9 @@ public class InquiryController {
 							  String[] originName,
 							  String[] changeName,
 							  Model model) {
+		
+		i.setInqTitle(changeTagMethod(i.getInqTitle()));
+		
 //		System.out.println("i : " + i);
 //		System.out.println("inf : " + inf);
 		for(MultipartFile uf : upfile) {
@@ -393,12 +401,14 @@ public class InquiryController {
 		
 	}
 	
-	//
+	// 댓글 작성
 	@Transactional
 	@RequestMapping("insert.rep")
 	public String insertReply(Inquiry i, InquiryReply r, HttpSession session, Model model) {
 		
-		System.out.println(r);
+		r.setReplyContent(changeTagMethod(r.getReplyContent()));
+		
+//		System.out.println(r);
 		int result = inquiryService.insertReply(r);
 		if(result > 0) {
 			session.setAttribute("alertMsg", "성공적으로 댓글이 작성되었습니다.");
@@ -410,13 +420,17 @@ public class InquiryController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 댓글 수정 기능
 	@ResponseBody
 	@RequestMapping(value="update.rep" , produces = "text/html; charset=UTF-8")
 	public String updateReply(InquiryReply ir, Model model, HttpSession session) {
+		ir.setReplyContent(changeTagMethod(ir.getReplyContent()));
 		int result = inquiryService.updateReply(ir);
 		return (result > 0) ? "success" : "fail";
 	}
 	
+	// 댓글 삭제 기능
 	@ResponseBody
 	@RequestMapping(value="delete.rep" , produces = "text/html; charset=UTF-8")
 	public void deleteReply(int replyNo) {
@@ -472,4 +486,24 @@ public class InquiryController {
 		return changeName;
 	}
 	
+	//---------------------------------------
+	public String changeTagMethod(String message) {
+
+		String rtnStr = null;
+	    StringBuffer strTxt = new StringBuffer("");
+	    char chrBuff;
+	    int len = message.length();
+	    for(int i = 0; i < len; i++) {
+	    	chrBuff = (char)message.charAt(i);
+	    	switch(chrBuff) {
+          		case '<': strTxt.append("&lt;"); break;
+          		case '>': strTxt.append("&gt;"); break;
+          		case '&': strTxt.append("&amp;"); break;
+          		default:
+          		strTxt.append(chrBuff);
+        	}
+      	}
+      	rtnStr = strTxt.toString();
+		return rtnStr;
+	}
 }

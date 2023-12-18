@@ -72,7 +72,8 @@ public class NoticeController {
 		// System.out.println("n :" +  n); // 제목, 작성자아이디, 내용
 		// System.out.println("upfile : " + upfile); // 첨부파일에 대한 정보
 		
-		
+		String noticeTitle = changeTagMethod(n.getNoticeTitle());
+		n.setNoticeTitle(noticeTitle);
 		// 내용물 업로드
 		int result = noticeService.insertNotice(n);
 		
@@ -208,6 +209,9 @@ public class NoticeController {
 		
 		int result = 1;
 		
+		String noticeTitle = changeTagMethod(n.getNoticeTitle());
+		n.setNoticeTitle(noticeTitle);
+		
 		// 새로 넘어온 첨부파일이 있을 경우
 		// upfile 의 filename 속성값이 빈문자열과 일치하지 않을 경우
 		if(!upfile[0].getOriginalFilename().equals("")) {
@@ -330,6 +334,25 @@ public class NoticeController {
 		return changeName;
 	}
 
+//---------------------------------
+	public String changeTagMethod(String message) {
 
+		String rtnStr = null;
+	    StringBuffer strTxt = new StringBuffer("");
+	    char chrBuff;
+	    int len = message.length();
+	    for(int i = 0; i < len; i++) {
+	    	chrBuff = (char)message.charAt(i);
+	    	switch(chrBuff) {
+          		case '<': strTxt.append("&lt;"); break;
+          		case '>': strTxt.append("&gt;"); break;
+          		case '&': strTxt.append("&amp;"); break;
+          		default:
+          		strTxt.append(chrBuff);
+        	}
+      	}
+      	rtnStr = strTxt.toString();
+		return rtnStr;
+	}
 
 }

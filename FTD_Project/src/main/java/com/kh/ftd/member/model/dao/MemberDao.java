@@ -49,7 +49,7 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.findId", email);
 	}
 		
-	public Subscribe ajaxSelectSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribeNo) {
+	public int ajaxSelectSubscribe(SqlSessionTemplate sqlSession, Subscribe subscribeNo) {
 		
 		return sqlSession.selectOne("memberMapper.ajaxSelectSubscribe", subscribeNo);
 	}

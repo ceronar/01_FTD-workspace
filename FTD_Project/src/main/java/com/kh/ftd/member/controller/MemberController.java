@@ -26,6 +26,7 @@ import com.kh.ftd.review.model.service.ReviewService;
 import com.kh.ftd.review.model.vo.Review;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
+import com.kh.ftd.seller.model.vo.SellerFile;
 
 @Controller
 public class MemberController {
@@ -49,8 +50,30 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("main")
-	public String mainPage() {
-		return "main";
+	public ModelAndView mainPage(ModelAndView mv) {
+		
+		// 추천가게 리스트 조회 top 10
+		ArrayList<Seller> sList = sellerService.sellerListTop();
+//		for(Seller s : sList) {
+//			System.out.println("s : " + s);
+//		}
+		
+		
+		// 추천상품 리스트 조회 top 10 (홍보)
+		ArrayList<Goods> gList = goodsService.selectGoodsListTop();
+//		for(Goods g : gList) {
+//			System.out.println("g : " + g);
+//		}
+		
+		// 추천후기 리스트 조회 top 10
+		ArrayList<Review> rList = reviewService.selectReviewListTop();
+//		for(Review r : rList) {
+//			System.out.println("r : " + r);
+//		}
+		
+		mv.addObject("sList", sList).addObject("gList", gList).addObject("rList", rList).setViewName("main");
+		
+		return mv;
 	}
 	
 	
@@ -178,11 +201,7 @@ public class MemberController {
 		}
 		
 	}
-	
-	
-	
-	
-	
+		
 	// 마이페이지
 	@RequestMapping("myPage.me")
 	public String myPage() {
@@ -302,64 +321,46 @@ public class MemberController {
 	
 	// 2023-12-07 천재영
 	// 회원의 마켓 찜 조회
-	@RequestMapping(value = "ajaxSelectSubscribe.se" , produces = "application/json; charset=UTF-8")
-	public String ajaxSelectSubscribe(Subscribe subscribeNo) {
+	@ResponseBody
+	@RequestMapping("ajaxSelectSubscribe.se")
+	public int ajaxSelectSubscribe(Subscribe subscribeNo) {
+		
+		// System.out.println(subscribeNo);
+		
+		// 회원의 마켓 찜 조회		
+		int checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
+			
+		return checkSubscribe;
+	}
+	
+	// 회원의 마켓 찜 클릭 ( 삭제 및 추가)
+	@ResponseBody
+	@RequestMapping("ajaxClickSubscribe.se")
+	public String ajaxClickSubscribe(Subscribe subscribeNo, Model model, HttpSession session) {
 		
 		System.out.println(subscribeNo);
 		
 		// 회원의 마켓 찜 조회		
-		Subscribe checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
-		
-		System.out.println(checkSubscribe);
-		
-		// 결과 담을 변수 셋팅
-		String subscribeColor = "";
-		
+		int checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
+					
 		// 회원의 마켓 찜 조회 후 조건문
-		if(checkSubscribe != null) { // 조회 결과가 있을 경우
-			
-			subscribeColor = "btn btn-secondary";
-			
-		} else { // 조회 결과가 없을 경우
-			
-			subscribeColor = "btn btn-primary";
-		}
-		
-		System.out.println(checkSubscribe);
-		
-		return subscribeColor;
-	}
-	
-	// 회원의 마켓 찜 클릭 ( 조회 후 삭제 및 추가)
-	@ResponseBody
-	@RequestMapping(value = "ajaxClickSubscribe.se" , produces = "application/json; charset=UTF-8")
-	public String ajaxClickSubscribe(Subscribe subscribeNo, Model model) {
-		
-		System.out.println("멤버 : " + subscribeNo.getMemberNo());
-		System.out.println("판매자 : " + subscribeNo.getSellerNo());
-		
-		// 회원의 마켓 찜 조회		
-		Subscribe checkSubscribe = memberService.ajaxSelectSubscribe(subscribeNo);
-		
-		System.out.println(checkSubscribe);
-		
-		String subscribeColor = "";
-				
-		// 회원의 마켓 찜 조회 후 조건문
-		if(checkSubscribe != null) { // 조회 결과가 있을 경우
+		if(checkSubscribe > 0) { // 조회 결과가 있을 경우
 			
 			// 회원의 마켓 찜 삭제
-			int deleteSubscribe = memberService.ajaxDeleteSubscribe(checkSubscribe);
+			int deleteSubscribe = memberService.ajaxDeleteSubscribe(subscribeNo);
 			
 			if(deleteSubscribe > 0) { // 삭제 성공
 				
-				subscribeColor = "btn btn-primary";
+				session.setAttribute("successMsg", "좋아하지 않게 되었어요.!");
+				
+				return "삭제";
 								
 			} else { // 삭제 실패
 				
-				model.addAttribute("errorMsg", "회원님의 마켓 찜 삭제가 실패했습니다.");
+				session.setAttribute("successMsg", "찜하기 처리를 실패했습니다.");
+				
+				return "삭제실패";
 			}
-			
 			
 		} else { // 조회 결과가 없을 경우
 			
@@ -368,15 +369,18 @@ public class MemberController {
 			
 			if(insertSubscribe > 0) { // 추가 성공
 				
-				subscribeColor = "btn btn-secondary";
+				session.setAttribute("successMsg", "찜하기.");			
+				
+				return "추가";
 				
 			} else { // 추가 실패
 				
-				model.addAttribute("errorMsg", "회원님의 마켓 찜 추가가 실패했습니다.");
+				session.setAttribute("successMsg", "찜하기 처리를 실패했습니다.");
+				
+				return "추가실패";
 			}
 		}
 		
-		return subscribeColor;
 	}
 	
 	@RequestMapping("like.me")
