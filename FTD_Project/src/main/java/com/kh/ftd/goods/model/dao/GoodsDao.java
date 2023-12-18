@@ -11,6 +11,7 @@ import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
+import com.kh.ftd.review.model.vo.Review;
 
 @Repository
 public class GoodsDao {
@@ -136,6 +137,12 @@ public class GoodsDao {
 	public int updateGoodsFile(SqlSessionTemplate sqlSession, GoodsFile goodsFile) {
 		
 		return sqlSession.update("goodsMapper.updateGoodsFile", goodsFile);
+	}
+
+	public ArrayList<Review> selectGoodReview(SqlSessionTemplate sqlSession, int goodNo) {
+	
+		System.out.println(goodNo);
+		return (ArrayList)sqlSession.selectList("goodsMapper.selectGoodReview", goodNo);
 	}
 	
 }

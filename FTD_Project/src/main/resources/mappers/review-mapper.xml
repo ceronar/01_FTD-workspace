@@ -14,6 +14,7 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="MEMBER_ID" property="memberNo"/>
 		<result column="GOOD_TITLE" property="goodTitle"/>
+	
 	</resultMap>
 
 	<resultMap id="reviewFileResultSet" type="reviewFile">
@@ -231,7 +232,7 @@
 	    R.DELETE_DATE
 	FROM 
 	    REVIEW R
-	    JOIN GOODS G ON (R.GOOD_NO = G.SELLER_NO)
+	    JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
         JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
         JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
 	WHERE 

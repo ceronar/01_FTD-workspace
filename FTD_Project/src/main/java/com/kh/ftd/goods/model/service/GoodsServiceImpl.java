@@ -13,6 +13,7 @@ import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
+import com.kh.ftd.review.model.vo.Review;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -170,6 +171,12 @@ public class GoodsServiceImpl implements GoodsService {
 	public int updateGoodsFile(GoodsFile goodsFile) {
 
 		return goodsDao.updateGoodsFile(sqlSession, goodsFile);
+	}
+
+	@Override
+	public ArrayList<Review> selectGoodReview(int goodNo) {
+		
+		return goodsDao.selectGoodReview(sqlSession,goodNo);
 	}
 	
 	

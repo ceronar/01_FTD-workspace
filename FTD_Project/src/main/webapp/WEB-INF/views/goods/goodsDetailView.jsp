@@ -12,7 +12,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
 <style>
+
+.sub-review-content {
+    margin: 20px;
+     border : 0px;
+}
+
+.profile_under_1 {
+    border: 1px solid #ccc;
+    padding: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+     border : 0px;
+}
+
+.profile_2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+     border : 0px;
+}
+
+#profile_2_2 {
+    font-size: 12px;
+    color: #888;
+     border : 0px;
+}
+.starRating{
+	border : 0px;
+}
+
+.star-rating {
+    margin-top: 5px;
+     border : 0px;
+}
+
+.star-rating span {
+    margin-right: 3px;
+     border : 0px;
+}
+
+#content {
+ 
+    border : 0px;
+}
 
 	div {
 		border: 1px solid black;
@@ -533,7 +582,35 @@
 						
 						<div class="br-line"></div>
 
-						<div class="sub-review-content"></div>
+						<div class="sub-review-content" >
+						<c:forEach var="r" items="${requestScope.r }">
+							 <div class="profile_under_1">
+							 	<!-- 프로필 -->
+							 <div class="profile_2">
+				                <span>${r.memberNo}</span>
+				                <div id="profile_2_2">
+				                    <span>${r.createDate }</span>
+				                    <!-- 몇분전인지-->
+				                </div>
+				            </div>
+					            <%-- 별점 --%>
+					         
+					            <div class="starRating">
+					             <c:forEach var="star" begin="1" step="1" end="${r.starRating}">
+					                <span ><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i></span>
+					             </c:forEach>   
+					             ${r.starRating} 
+					            </div>
+					         
+				       		 </div>
+				       		 	<%-- 내용 --%>
+				       		   <div id="content">
+						
+						           ${r.revContent }
+						
+						      </div>
+					       </c:forEach> 
+						</div>
 					</div>
 
 					<div class="br2-line"></div>

@@ -406,7 +406,7 @@
 										+ '<span>'
 										+ val[1].address
 										+ '</span>'
-										+ '<span>* 17분 전</span>'
+										+ '<span>('+val[0].createDate+')</span>'
 										+ '</div>'
 										+ '</div>'
 										+ '</div>'

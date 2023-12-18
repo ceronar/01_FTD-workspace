@@ -25,6 +25,7 @@ import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.order.model.vo.Cart;
+import com.kh.ftd.review.model.vo.Review;
 import com.kh.ftd.seller.model.vo.Seller;
 
 @Controller
@@ -171,6 +172,11 @@ public class GoodsController {
 			// 상품 파일 정보
 			GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
 			
+			// 상품의 후기
+			ArrayList<Review> r = goodsService.selectGoodReview(goodNo);
+			//System.out.println(goodNo);
+			System.out.println(r);
+			
 			// System.out.println(goodsFile);
 			
 			if(goodsFile == null) { // 상품 파일이 없을 시
@@ -181,7 +187,8 @@ public class GoodsController {
 			model.addAttribute("goodsSell", goodsSell);
 			model.addAttribute("goods", goods);
 			model.addAttribute("goodsFile", goodsFile);
-					
+			model.addAttribute("r", r);	
+			
 			return "goods/goodsDetailView";
 	
 		} else { // 조회수 증가 실패

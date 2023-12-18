@@ -241,12 +241,12 @@
                 <span>${requestScope.r.memberNo}</span>
                 <div id="profile_2_2">
                    
-                    <span> 17분 전</span>
+                    <span>${requestScope.r.createDate }</span>
                     <!-- 몇분전인지-->
                 </div>
             </div>
            	<div class="count">
-           		조횟수 ${requestScope.r.count}
+           		조회수 ${requestScope.r.count}
            	</div>
         </div>
     <div id="profile_under">
