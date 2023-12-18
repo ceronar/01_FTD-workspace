@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>메인</title>
+	<title>FTD</title>
 	<link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -17,6 +17,15 @@
 		.slider img {
 			height : 250px;
 		}
+		.top10List div {
+			border: 1px solid lightgray;
+			width: 100%;
+			height: 300px;
+		}
+		.top10List a {
+			text-decoration: none;
+			color: black;
+		}
 	</style>
 </head>
 <body>
@@ -25,31 +34,39 @@
 			<jsp:include page="common/sidebar.jsp" />
 			<div class="main-div">
 				<jsp:include page="common/header.jsp" />
-				<div class="content">메인 컨텐츠<br>
+				<div class="content">
 					<!-- 슬라이드 화면 -->
-						<section id="cont_center">
-			            	<article class="column col4">
-					            	<div class="slider">
-					            		
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            		
-									</div>	
-								
-								<br><br><br><br>
-								<div></div>
-								<br><br><br><br>
-							</article>	
-						</section>
-
-					
-					<a href="list.se">가게</a>
-					<a href="plist.bo">홍보</a>
-					<a href="rlist.bo">후기</a>
-					<a href="list.go">상품</a>
+					<section id="cont_center">
+		            	<article class="column col4">
+			            	<div class="slider">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+							</div>
+							<br>
+						</article>
+					</section>
+					<div class="top10List">
+						<h3>추천 가게</h3>
+						<div class="">
+							
+						</div>
+						<h4><a href="sellerListPage.se">산지마켓 더보기 ></a></h4>
+						<br>
+						<h3>추천 상품</h3>
+						<div class="">
+							
+						</div>
+						<h4><a href="goodsListPage.go">상품 더보기 ></a></h4>
+						<br>
+						<h3>후기</h3>
+						<div class="">
+							
+						</div>
+						<h4><a href="rlist.bo">후기 더보기 ></a></h4>
+					</div>
 				</div>
 				<jsp:include page="common/footer.jsp" />
 			</div>  

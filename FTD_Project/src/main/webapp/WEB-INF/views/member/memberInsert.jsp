@@ -336,12 +336,14 @@
                     </td>
                 </tr>
             </table>
+            <br><br>
+            <div align="center">
+                <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
+                <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
+            </div>
         </div>
 
-        <div align="center">
-            <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
-            <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
-        </div>
+       
 
     </form>
         <!-- jQuery와 Postcodify를 로딩한다 -->

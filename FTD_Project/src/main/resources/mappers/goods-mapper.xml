@@ -14,6 +14,7 @@
 		<result column="EXPIRATION_DATE" property="expiration" />
 		<result column="STOCK" property="stock" />
 		<result column="CHANGE_NAME" property="changeName" />
+		<result column="SELL_NO" property="sellNo" />
 	</resultMap>
 
 	<resultMap id="goodsFileResultSet" type="goodsFile">

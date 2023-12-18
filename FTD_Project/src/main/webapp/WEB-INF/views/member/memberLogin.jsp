@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FTD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 
 	body {  
         font-family: Arial, sans-serif;
-		height: 1100px;
+		height: auto;
         margin: 0;
         padding: 0;
         background-color: rgb(240, 243, 246);
@@ -27,7 +27,14 @@
 	}
 	
     #login-area {
-    	margin-bottom: 150px;
+    	background-color: white;
+    	margin: auto;
+    	margin-top : 100px;
+    	width: 900px;
+    	height: 700px;
+    	padding: 50px;
+    	border-radius: 50px;
+    	box-shadow: 5px 5px 5px 5px lightgray;
     }
 
     .form-group { /* 폼 안쪽 요소들 */
@@ -121,9 +128,8 @@
                   <br>
 
                   <div class="form-group-etc">
-                    <a href="insertForm.me">회원가입</a> 
-                    <a href="find-id">ID 찾기</a>
-                    <a href="">PW 찾기</a>
+                    <a href="insertForm.me">회원가입</a> | 
+                    <a href="find-id">아이디 찾기</a>
                   </div>
         </form>
 	</div>
