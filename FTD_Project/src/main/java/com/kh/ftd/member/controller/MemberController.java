@@ -26,6 +26,7 @@ import com.kh.ftd.review.model.service.ReviewService;
 import com.kh.ftd.review.model.vo.Review;
 import com.kh.ftd.seller.model.service.SellerService;
 import com.kh.ftd.seller.model.vo.Seller;
+import com.kh.ftd.seller.model.vo.SellerFile;
 
 @Controller
 public class MemberController {
@@ -49,8 +50,30 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("main")
-	public String mainPage() {
-		return "main";
+	public ModelAndView mainPage(ModelAndView mv) {
+		
+		// 추천가게 리스트 조회 top 10
+		ArrayList<Seller> sList = sellerService.sellerListTop();
+//		for(Seller s : sList) {
+//			System.out.println("s : " + s);
+//		}
+		
+		
+		// 추천상품 리스트 조회 top 10 (홍보)
+		ArrayList<Goods> gList = goodsService.selectGoodsListTop();
+//		for(Goods g : gList) {
+//			System.out.println("g : " + g);
+//		}
+		
+		// 추천후기 리스트 조회 top 10
+		ArrayList<Review> rList = reviewService.selectReviewListTop();
+//		for(Review r : rList) {
+//			System.out.println("r : " + r);
+//		}
+		
+		mv.addObject("sList", sList).addObject("gList", gList).addObject("rList", rList).setViewName("main");
+		
+		return mv;
 	}
 	
 	

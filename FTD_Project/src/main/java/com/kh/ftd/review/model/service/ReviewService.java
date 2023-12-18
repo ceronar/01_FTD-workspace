@@ -60,5 +60,8 @@ public interface ReviewService {
 	
 	// 리뷰 작성 기능
 	int insertReview(Review rev);
+	
+	// 후기 조회수 기준 조회
+	ArrayList<Review> selectReviewListTop();
 
 }

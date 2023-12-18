@@ -103,4 +103,7 @@ public interface GoodsService {
 	// 판매자 상품 삭제
 	int deleteSellerGoods(int goodNo);
 	
+	// 상품 추천순 조회
+	ArrayList<Goods> selectGoodsListTop();
+	
 }

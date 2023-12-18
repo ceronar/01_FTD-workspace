@@ -325,7 +325,41 @@
 							<button class="inquiry-btn" onclick="selectSellerInquiry()">문의</button>
 						</div>
 
-						<script>
+						
+						<div align="center">
+							<ul>
+								<li class="promotion">
+								</li>
+							</ul>
+							<div class="review">
+							</div>
+							<div class="inquiry">
+								<table class="list-area">
+									<thead>
+										<tr>
+											<td colspan="6">문의 작성 하기</td>
+										</tr>
+										<tr>
+											<th class="inqNo" style="width : 7%;">번호</th>
+											<th style="width : 15%;">답변여부</th>
+											<th style="width : 38%;">제목</th>
+											<th style="width : 10%;">문의자</th>
+											<th style="width : 10%">조회수</th>
+											<th style="width : 15%;">등록일</th>
+										</tr>
+
+									</thead>
+									<tbody class="list-tbody">
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
 							function toggle_layer() {
 								if ($(".promotion").css("display") == "none") {
 									$(".promotion").show();
@@ -700,39 +734,6 @@
 								});
 							}); 
 						</script>
-						<div align="center">
-							<ul>
-								<li class="promotion">
-								</li>
-							</ul>
-							<div class="review">
-							</div>
-							<div class="inquiry">
-								<table class="list-area">
-									<thead>
-										<tr>
-											<td colspan="6">문의 작성 하기</td>
-										</tr>
-										<tr>
-											<th class="inqNo" style="width : 7%;">번호</th>
-											<th style="width : 15%;">답변여부</th>
-											<th style="width : 38%;">제목</th>
-											<th style="width : 10%;">문의자</th>
-											<th style="width : 10%">조회수</th>
-											<th style="width : 15%;">등록일</th>
-										</tr>
-
-									</thead>
-									<tbody class="list-tbody">
-
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<script>
 			// console.log(document.getElementById("subscribe"))
 			$(function () {

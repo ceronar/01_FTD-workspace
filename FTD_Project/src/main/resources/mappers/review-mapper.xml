@@ -14,7 +14,6 @@
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="MEMBER_ID" property="memberNo"/>
 		<result column="GOOD_TITLE" property="goodTitle"/>
-	
 	</resultMap>
 
 	<resultMap id="reviewFileResultSet" type="reviewFile">
@@ -270,7 +269,16 @@
 					 	 	   , #{revTitle}
 					 	 	   , #{revContent}
 					 	 	   , #{starRating})
-			
 	</insert>
+	
+	<select id="selectReviewListTop" resultMap="reviewResultSet">
+		SELECT *
+		FROM(SELECT R.*,  M.MEMBER_ID
+		  FROM REVIEW R
+		  LEFT JOIN "MEMBER" M ON (R.MEMBER_NO = M.MEMBER_NO AND M.STATUS IS NULL)
+		 WHERE DELETE_DATE IS NULL
+		 ORDER BY "COUNT" DESC)
+		 WHERE ROWNUM &lt;= 10
+	</select>
 
 </mapper>

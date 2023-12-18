@@ -202,6 +202,11 @@ public class GoodsServiceImpl implements GoodsService {
 		// TODO Auto-generated method stub
 		return goodsDao.deleteSellerGoods(sqlSession, goodNo);
 	}
+
+	@Override
+	public ArrayList<Goods> selectGoodsListTop() {
+		return goodsDao.selectGoodsListTop(sqlSession);
+	}
 	
 	
 	

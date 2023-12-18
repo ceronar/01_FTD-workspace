@@ -153,5 +153,11 @@ public class SellerServiceImpl implements SellerService{
 	public int sellerOrderDetailChangeStatusToE(int orderDetailNo) {
 		return sellerDao.sellerOrderDetailChangeStatusToE(sqlSession, orderDetailNo);
 	}
+
+	@Override
+	public ArrayList<Seller> sellerListTop() {
+		
+		return sellerDao.sellerListTop(sqlSession);
+	}
 	
 }

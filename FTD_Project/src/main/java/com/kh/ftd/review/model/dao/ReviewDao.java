@@ -93,6 +93,10 @@ public class ReviewDao {
 		return sqlSession.insert("reviewMapper.insertReview", rev);
 	}
 
+	public ArrayList<Review> selectReviewListTop(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewListTop");
+	}
+
 	
 
 
