@@ -284,4 +284,16 @@
 		 WHERE FILE_NO = #{fileNo}	
 	</update>
 	
+	<update id="deleteGoodsFile" parameterType="_int">
+		UPDATE GOODS_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
+	<update id="deleteSellerGoodsText" parameterType="_int">
+		UPDATE GOODS_SELL
+		   SET DELETE_DATE = SYSDATE
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
 </mapper>

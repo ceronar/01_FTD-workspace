@@ -384,6 +384,8 @@ public class GoodsController {
 		GoodsFile goodsFile = new GoodsFile();
 		
 		int goodNo = goodsSell.getGoodNo();
+		
+		System.out.println(goodNo);
 			
 		if(!upfile.getOriginalFilename().equals("")) {
 			
@@ -518,6 +520,11 @@ public class GoodsController {
 		
 		int likeCount = goodsService.selectLike(like);
 		
+		if(like.getMemberNo() == 0) {
+			
+			return -1;
+		}
+		
 		return likeCount;
 		
 	}
@@ -600,7 +607,6 @@ public class GoodsController {
 	}
 	
 	// 판매자 상품 글 수정
-	
 	@RequestMapping(value = "updateSellerGoodsText.go", produces = "text/html; charset=UTF-8")
 	public String updateSellerGoodsText(HttpSession session, GoodsSell goodsSell, MultipartFile reupfile, GoodsFile goodsFile) {				
 					
@@ -624,7 +630,7 @@ public class GoodsController {
 		
 		if(result > 0) { // 상품 글 수정 성공 
 									
-			System.out.println(goodsFile);
+			// System.out.println(goodsFile);
 			
 			int resultFile = goodsService.updateGoodsFile(goodsFile);
 						
@@ -649,5 +655,52 @@ public class GoodsController {
 		}
 		
 	}
+	
+	// 판매자 상품 글 삭제
+	@RequestMapping("sellerGoodsDelete.go")
+	public String sellerGoodsDeleteEnrollForm(HttpSession session, int sno) {
+		
+		int sellNo = sno;
+		
+		System.out.println(sellNo);
+		
+		int resultFile = goodsService.deleteGoodsFile(sellNo);
+		
+		if(resultFile > 0) { // 판매자 상품 글 파일 삭제 성공
+			
+			int result = goodsService.deleteSellerGoodsText(sellNo);
+			
+			if(result > 0) { // 판매자 상품 글 삭제 성공
+				
+				session.setAttribute("successMsg", "상품 글 삭제를 했습니다.");
+				
+				return "redirect:/sellerGoodsListPage.go";
+				
+			} else { // 판매자 상품 글 삭제 실패
+				
+				session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
+				
+				return "redirect:/sellerGoodsListPage.go";
+			}
+			
+		} else { // 판매자 상품 글 파일 삭제 실패
+			
+			session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
+			
+			return "redirect:/sellerGoodsListPage.go";
+			
+		}
+		
+	}
+	
+	// 판매자 상품 상세 페이지 이동
+	@RequestMapping("sellerGoodsListDetailPage.go")
+	public String sellerGoodsListDetailView(int gno) {
+		
+		System.out.println(gno);
+		
+		return "goods/sellerGoodsListDetailView";
+	}
+		
 		
 }

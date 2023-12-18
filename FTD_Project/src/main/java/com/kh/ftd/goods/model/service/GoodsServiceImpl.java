@@ -171,6 +171,20 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDao.updateGoodsFile(sqlSession, goodsFile);
 	}
+
+	@Override
+	public int deleteGoodsFile(int sellNo) {
+
+		return goodsDao.deleteGoodsFile(sqlSession, sellNo);
+	}
+
+	@Override
+	public int deleteSellerGoodsText(int sellNo) {
+
+		return goodsDao.deleteSellerGoodsText(sqlSession, sellNo);
+	}
+	
+	
 	
 	
 	
