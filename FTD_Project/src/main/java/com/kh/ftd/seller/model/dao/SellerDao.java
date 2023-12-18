@@ -116,4 +116,12 @@ public class SellerDao {
 		
 		return sqlSession.selectOne("sellerMapper.idCheck", checkId );
 	}
+
+	public int sellerOrderDetailChangeStatusToY(SqlSession sqlSession, int orderDetailNo) {
+		return sqlSession.update("sellerMapper.sellerOrderDetailChangeStatusToY", orderDetailNo);
+	}
+
+	public int sellerOrderDetailChangeStatusToE(SqlSession sqlSession, int orderDetailNo) {
+		return sqlSession.update("sellerMapper.sellerOrderDetailChangeStatusToE", orderDetailNo);
+	}
 }

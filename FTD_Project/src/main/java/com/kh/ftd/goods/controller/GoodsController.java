@@ -22,7 +22,10 @@ import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Like;
+import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.order.model.vo.Cart;
+import com.kh.ftd.seller.model.vo.Seller;
 
 @Controller
 public class GoodsController {
@@ -178,7 +181,7 @@ public class GoodsController {
 			model.addAttribute("goodsSell", goodsSell);
 			model.addAttribute("goods", goods);
 			model.addAttribute("goodsFile", goodsFile);
-			
+					
 			return "goods/goodsDetailView";
 	
 		} else { // 조회수 증가 실패
@@ -312,6 +315,8 @@ public class GoodsController {
 				goodsFile = new GoodsFile();
 				gfList.add(goodsFile);
 						
+			}
+			
 			// 상품 평균 별점
 			double starRating = goodsService.ajaxSelectStarRating(goodNo);
 			starList.add(starRating);
@@ -320,7 +325,6 @@ public class GoodsController {
 			int reply = goodsService.ajaxSelectReplyCount(sellNo);
 			replyList.add(reply);
 			
-			}
 		}
 
 		ArrayList<Object> resultList = new ArrayList<>();
@@ -337,16 +341,27 @@ public class GoodsController {
 			
 			// 상품 전체 리스트
 			resultList.add(arrList);		
-		
+						
 		}
-	
+			
 		return new Gson().toJson(resultList);
 					
 	}
 	
 	// 판매자 상품 글 등록 페이지 이동
 	@RequestMapping("sellerGoodsTextEnrollForm.go")
-	public String sellerGoodsTextEnrollFormPage() {
+	public String sellerGoodsTextEnrollFormPage(HttpSession session) {
+		
+		Seller loginSeller = (Seller)session.getAttribute("loginSeller");
+		
+		int sellerNo = loginSeller.getSellerNo();
+		
+		ArrayList<Goods> goodTitle = goodsService.ajaxSelectSellerGoodTitle(sellerNo);
+		
+		if(goodTitle.size() == 0 ) {
+			
+			session.setAttribute("alertMsg", "상품을 먼저 등록해주세요.");
+		}
 		
 		return "goods/sellerGoodsTextEnrollForm";
 	}
@@ -364,17 +379,46 @@ public class GoodsController {
 	
 	// 판매자 상품 글 등록 
 	@RequestMapping("insertSellerGoodsText.go")
-	public String insertSellerGoodsText(HttpSession session, GoodsSell goodsSell) {
+	public String insertSellerGoodsText(HttpSession session, GoodsSell goodsSell, MultipartFile upfile) {		
 		
-		int result = goodsService.insertSellerGoodsText(goodsSell);
+		GoodsFile goodsFile = new GoodsFile();
+		
+		int goodNo = goodsSell.getGoodNo();
+			
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String changeName = saveFile(upfile, session);
+			
+			goodsFile.setOriginalName(upfile.getOriginalFilename());
+			goodsFile.setChangeName("resources/uploadFiles/goods/"+ changeName);
+			
+		}
+		
+		int result = goodsService.insertSellerGoodsText(goodsSell);	
 		
 		if(result > 0) { // 상품 등록 성공 
 			
-			session.setAttribute("successMsg", "상품 글 등록을 성공했습니다.");
+			GoodsSell selectText = goodsService.selectGoodsTextByGoodNo(goodNo);			
 			
-			return "redirect:/sellerGoodsTextListPage.go";
+			int sellNo = selectText.getSellNo();			
 			
+			goodsFile.setSellNo(sellNo);		
 			
+			int resultFile = goodsService.insertGoodsFile(goodsFile);
+						
+			if(resultFile > 0) {
+				
+				session.setAttribute("successMsg", "상품 글 등록을 성공했습니다.");
+				
+				return "redirect:/sellerGoodsTextListPage.go";
+			
+			} else {
+				
+				session.setAttribute("successMsg", "상품 글 등록을 실패했습니다.");
+				
+				return "redirect:/sellerGoodsTextListPage.go";				
+			}
+					
 		} else { // 상품 등록 실패
 			
 			session.setAttribute("successMsg", "상품 글 등록을 실패했습니다.");
@@ -431,23 +475,179 @@ public class GoodsController {
 	// 판매자 상품 타이틀 조회
 	@ResponseBody
 	@RequestMapping(value="ajaxSelectSellerGoodTitle.go", produces = "application/json; charset=UTF-8")
-	public String ajaxSelectSellerGoodTitle(int sellerNo)  {
+	public String ajaxSelectSellerGoodTitle(int sellerNo, HttpSession session)  {
 		
 		ArrayList<Goods> goodTitle = goodsService.ajaxSelectSellerGoodTitle(sellerNo);
-		
+						
 		return new Gson().toJson(goodTitle);
 		
 	}
 	
 	// 장바구니 상품 추가
 	@RequestMapping("insertCart.go")
-	public String insertCart(String order, Cart cart) {	
+	public String insertCart(String order, Cart cart, int sellNo , HttpSession session, Model model) {	
 		
+		int insertResult = goodsService.insertCart(cart);
 		
-		return "";
+		if(insertResult > 0) { // 장바구니 추가 성공
+			
+			if(order.equals("cart")) { // 장바구니 담기 클릭
+				
+				session.setAttribute("successMsg", "해당 상품을 장바구니에 담기 했습니다.");
+				
+				return "redirect:/goodsDetailPage.go?sno=" + sellNo;
+				
+			} else { // 주문하기 클릭
+				
+				return "redirect:/basket.me";
+				
+			}
+					
+		} else { // 장바구니 추가 실패
+			
+			model.addAttribute("errorMsg","해당 상품을 장바구니에 담기 실패했습니다.");
+			
+			return "common/errorPage";			
+		}		
 	}
 	
-	
+	// 좋아요 조회
+	@ResponseBody
+	@RequestMapping("ajaxSelectLike.go")
+	public int selectLike(Like like) {
+		
+		int likeCount = goodsService.selectLike(like);
+		
+		return likeCount;
+		
+	}
 
+	// 좋아요 클릭
+	@ResponseBody
+	@RequestMapping(value = "ajaxClickLike.go", produces = "text/html; charset=UTF-8")
+	public String ajaxClickLike(Like like, HttpSession session) {
+		
+		int likeCount = goodsService.selectLike(like);
+			
+		if(likeCount > 0) { // 조회 후 좋아요 있을 경우
+			
+			int deleteLikeCount = goodsService.deleteLike(like);			
+			
+			if(deleteLikeCount > 0) { // 좋아요 삭제 성공했을 경우
+				
+				session.setAttribute("successMsg", "좋아하지 않게 되었어요.!");
+							
+				return "삭제";
+				
+			} else { // 좋아요 삭제 실패했을 경우
+				
+				session.setAttribute("successMsg", "좋아요 처리를 실패했습니다.");
+						
+				return "삭제실패";
+			}
+			
+		} else { // 조회 후 좋아요 없을 경우
+			
+			int insertLikeCount = goodsService.insertLike(like);
+			
+			if(insertLikeCount > 0) { // 좋아요 추가 성공했을 경우
+				
+				session.setAttribute("successMsg", "좋아요.");			
+				
+				return "추가";
+						
+			} else { // 좋아요 추가 실패했을 경우
+				
+				session.setAttribute("successMsg", "좋아요 처리를 실패했습니다.");
+							
+				return "추가실패";
+							
+			}
+		}
+		
+	}
+	
+	// 판매자 상품 글 수정 페이지 이동
+	@RequestMapping("sellerGoodsUpdateEnrollForm.go")
+	public String sellerGoodsUpdateEnrollFormPage(int sno, Model model) {
+		
+		// 상품 번호
+		int sellNo = sno;
+		
+		// 상품 글 정보
+		GoodsSell goodsSell = goodsService.selectGoodsSell(sellNo);
+			
+		int goodNo = goodsSell.getGoodNo();
+		
+		// 상품 정보
+		Goods goods = goodsService.selectGoodsByGoodNo(goodNo);			
+		
+		// 상품 파일 정보
+		GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
+		
+		// System.out.println(goodsFile);
+		
+		if(goodsFile == null) { // 상품 파일이 없을 시
+			
+			goodsFile = new GoodsFile();				
+		}
+		
+		model.addAttribute("goodsSell", goodsSell);
+		model.addAttribute("goods", goods);
+		model.addAttribute("goodsFile", goodsFile);
+				
+		return "goods/sellerGoodsUpdateEnrollForm";
+	}
+	
+	// 판매자 상품 글 수정
+	
+	@RequestMapping(value = "updateSellerGoodsText.go", produces = "text/html; charset=UTF-8")
+	public String updateSellerGoodsText(HttpSession session, GoodsSell goodsSell, MultipartFile reupfile, GoodsFile goodsFile) {				
+					
+		if(!reupfile.getOriginalFilename().equals("")) {
+			
+			if(goodsFile.getChangeName() != null) {
+				
+				String realPath = session.getServletContext().getRealPath(goodsFile.getChangeName());
+				
+				new File(realPath).delete();
+			}
+			
+			String changeName = saveFile(reupfile, session);
+			
+			goodsFile.setOriginalName(reupfile.getOriginalFilename());
+			goodsFile.setChangeName("resources/uploadFiles/goods/" + changeName);	
+			
+		}
+			
+		int result = goodsService.updateSellerGoodsText(goodsSell);	
+		
+		if(result > 0) { // 상품 글 수정 성공 
+									
+			System.out.println(goodsFile);
+			
+			int resultFile = goodsService.updateGoodsFile(goodsFile);
+						
+			if(resultFile > 0) { // 상품 글 수정 성공
+				
+				session.setAttribute("successMsg", "상품 글 수정을 성공했습니다.");
+				
+				return "redirect:/goodsDetailPage.go?sno=" + goodsSell.getSellNo();
+			
+			} else {
+							
+				session.setAttribute("successMsg", "상품 글 수정을 실패했습니다.");
+				
+				return "redirect:/goodsDetailPage.go?sno=" + goodsSell.getSellNo();				
+			}
+					
+		} else { // 상품 등록 실패
+					
+			session.setAttribute("successMsg", "상품 글 수정을 실패했습니다.");
+			
+			return "redirect:/goodsDetailPage.go?sno=" + goodsSell.getSellNo();
+		}
+		
+	}
 		
 }

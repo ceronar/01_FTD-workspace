@@ -19,4 +19,5 @@ public class Cart {
 	private String changeName; 	// CHANGE_NAME GOODS_FILE 에서 이미지 조회용
 	private String goodTitle;	// GOOD_TITLE 상품 이름
 	private int price;			// PRICE 상품 개별 가격
+	private int stock;			// STOCK 상품 최대 개수
 }

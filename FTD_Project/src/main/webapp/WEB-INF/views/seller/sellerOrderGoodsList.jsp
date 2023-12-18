@@ -177,6 +177,45 @@
 		</div>
 	
 	<script type="text/javascript">
+		$(function(){
+			$(".orderDetail-table>tbody").on("click", "tr", e => {
+				let target = e.target;
+				let orderDetailNo = target.parentElement.firstElementChild.innerText;
+				let statusSpan = target.parentElement.lastElementChild.children.item(0);
+				// 상태가 배송전인 컬럼을 선택했을 경우
+				if(statusSpan.innerText == "배송전"){
+					alertify.confirm('', '배송중으로 변경하시겠습니까?', () => {
+						changeStatus(orderDetailNo, "orderDetailChangeStatusToY.se");
+						statusSpan.innerText = "배송중";
+						statusSpan.classList.replace('red','orange');
+					}, () => {});
+				} else if(statusSpan.innerText == "배송중") {
+					alertify.confirm('', '배송완료로 변경하시겠습니까?', () => {
+						changeStatus(orderDetailNo, "orderDetailChangeStatusToE.se");
+						statusSpan.innerText = "배송완료";
+						statusSpan.classList.replace('orange','green');
+					}, () => {});
+				}
+			});
+		});
+		
+		function changeStatus(orderDetailNo, url) {
+			// console.log(orderDetailNo);
+			// console.log(url);
+			$.ajax({
+				url : url,
+				type: "POST",
+				data: { orderDetailNo: orderDetailNo },
+  				success : function(result) { 
+					if(result == "success") {
+						alertify.success('배송 상태 변경');
+					}
+				},
+				error : function() {
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
 	</script>
 	
 	</div>

@@ -57,6 +57,11 @@
 		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 	
+	<resultMap id="likeResultSet" type="like">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="GOOD_NO" property="goodNo" />
+	</resultMap>
+	
 	<select id="ajaxSelectGoodsSellList" resultMap="goodsSellResultSet">
 		SELECT G.*
 		  FROM GOODS_SELL G
@@ -206,5 +211,77 @@
 		  FROM GOODS
 		 WHERE GOOD_NO = #{goodNo}
 	</select>
+	
+	<update id="updateBuyGoodsStock" parameterType="orderGoods">
+		UPDATE GOODS
+		   SET STOCK = STOCK - #{count}
+		 WHERE GOOD_NO = #{goodNo}
+	</update>
+	
+	<insert id="insertCart" parameterType="cart">
+		INSERT INTO CART(CART_NO
+		               , MEMBER_NO
+		               , GOOD_NO
+		               , COUNT)
+		          VALUES(SEQ_CNO.NEXTVAL
+		             , #{memberNo}
+		             , #{goodNo}
+		             , #{count})
+	</insert>
+	
+	<select id="selectLike" parameterType="like" resultType="_int">
+		SELECT COUNT(*)
+		  FROM "LIKE"
+		 WHERE MEMBER_NO = #{memberNo}
+           AND GOOD_NO = #{goodNo}
+	</select>
+	
+	<delete id="deleteLike" parameterType="like">
+		DELETE
+		  FROM "LIKE"
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND GOOD_NO = #{goodNo}
+	</delete>
+	
+	<insert id="insertLike" parameterType="like">
+		INSERT INTO "LIKE" (MEMBER_NO
+		                  , GOOD_NO)                                      
+		             VALUES(#{memberNo}
+		                  , #{goodNo})	
+	</insert>
+	
+	<insert id="insertGoodsFile" parameterType="goodsFile">
+		INSERT INTO GOODS_FILE (FILE_NO
+                              , SELL_NO
+                              , ORIGINAL_NAME
+                              , CHANGE_NAME
+                              , CREATE_DATE)                                      
+                         VALUES(SEQ_GFNO.NEXTVAL
+                              , #{sellNo}
+                              , #{originalName}
+                              , #{changeName}
+                              , SYSDATE)
+	</insert>
+	
+	<select id="selectGoodsTextByGoodNo" parameterType="_int" resultMap="goodsSellResultSet">
+		SELECT * 
+		  FROM GOODS_SELL
+		 WHERE GOOD_NO = #{goodNo}
+		   AND DELETE_DATE IS NULL
+	</select>
+	
+	<update id="updateSellerGoodsText" parameterType="goodsSell">
+		UPDATE GOODS_SELL
+		   SET SELL_TITLE = #{sellTitle}
+		     , SELL_CONTENT = #{sellContent}
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
+	<update id="updateGoodsFile" parameterType="goodsFile">
+		UPDATE GOODS_FILE
+		   SET ORIGINAL_NAME = #{originalName}
+		     , CHANGE_NAME = #{changeName}
+		 WHERE FILE_NO = #{fileNo}	
+	</update>
 	
 </mapper>

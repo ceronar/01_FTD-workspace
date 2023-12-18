@@ -2,6 +2,9 @@ package com.kh.ftd.promotion.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ftd.goods.model.vo.GoodsFile;
+import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
@@ -80,6 +83,19 @@ public interface PromotionService {
 	
 	//판매자 서브메뉴 그마켓 홍보리스트 조회
 	ArrayList<Promotion> selectPromotionSellerList(int sellerNo);
+
+	//이 마켓에서 지금 파는 상품
+	ArrayList<GoodsSell> goodSell(int sno);
+
+	//이 마켓에서 지금 파는 상품게시글의 이미지
+	ArrayList<GoodsFile> goodFile(int sno);
+
+	//찜기능
+	int selectSubscribeCount(Subscribe s);
+
+	int deleteSubscribeCount(Subscribe s);
+
+	int insertSubscribeCount(Subscribe s);
 
 	
 

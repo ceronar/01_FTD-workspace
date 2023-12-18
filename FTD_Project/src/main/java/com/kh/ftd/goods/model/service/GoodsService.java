@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Like;
+import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
 
 public interface GoodsService {
@@ -51,10 +53,39 @@ public interface GoodsService {
 	// 상품 글 리스트 조회수 증가 (update)
 	int updateGoodsCount(int sellNo);
 	
-	// 상품 글 상세조회 상품 글 정보 조회 (select)
+	// 상품 글 상세조회 글 정보 조회 (select)
 	GoodsSell selectGoodsSell(int sellNo);
 	
 	// 상품 글 상세조회 상품 조회 (select)
 	Goods selectGoodsByGoodNo(int goodNo);
-
+	
+	// 결제후 산 물품 STOCK COUNT 만큼 빼서 update
+	int updateBuyGoodsStock(OrderGoods orderGoods);
+	
+	// 상품 글 상품 주문 후 장바구니 추가 (insert)
+	int insertCart(Cart cart);
+	
+	// 상품 글 상품 좋아요 조회 (select)
+	int selectLike(Like like);
+	
+	// 상품 글 상품 좋아요 삭제 (delete)
+	int deleteLike(Like like);
+	
+	// 상품 글 상품 좋아요 추가 (insert)
+	int insertLike(Like like);
+	
+	// 상품 글 상세조회 대표 파일 추가 (insert)
+	int insertGoodsFile(GoodsFile goodsFile);
+	
+	// 상품 번호를 통해 상품 글 번호 조회 (select)
+	GoodsSell selectGoodsTextByGoodNo(int goodNo);
+	
+	// 상품 글 상세조회 수정 (update)
+	int updateSellerGoodsText(GoodsSell goodsSell);
+	
+	// 상품 글 상세조회 대표 파일 수정 (update)
+	int updateGoodsFile(GoodsFile goodsFile);
+	
+	
+	
 }

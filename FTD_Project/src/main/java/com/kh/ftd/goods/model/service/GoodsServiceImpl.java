@@ -10,6 +10,8 @@ import com.kh.ftd.goods.model.dao.GoodsDao;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Like;
+import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
 
 @Service
@@ -116,5 +118,60 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDao.selectGoodsByGoodNo(sqlSession, goodNo);
 	}
+
+	@Override
+	public int updateBuyGoodsStock(OrderGoods orderGoods) {
+		return goodsDao.updateBuyGoodsStock(sqlSession, orderGoods);
+	}
+
+	@Override
+	public int insertCart(Cart cart) {
+		
+		return goodsDao.insertCart(sqlSession, cart);
+	}
+
+	@Override
+	public int selectLike(Like like) {
+
+		return goodsDao.selectLike(sqlSession, like);
+	}
+
+	@Override
+	public int deleteLike(Like like) {
+		
+		return goodsDao.deleteLike(sqlSession, like);
+	}
+
+	@Override
+	public int insertLike(Like like) {
+	
+		return goodsDao.insertLike(sqlSession, like);
+	}
+
+	@Override
+	public int insertGoodsFile(GoodsFile goodsFile) {
+		
+		return goodsDao.insertGoodsFile(sqlSession, goodsFile);
+	}
+
+	@Override
+	public GoodsSell selectGoodsTextByGoodNo(int goodNo) {
+		
+		return goodsDao.selectGoodsTextByGoodNo(sqlSession, goodNo);
+	}
+
+	@Override
+	public int updateSellerGoodsText(GoodsSell goodsSell) {
+		
+		return goodsDao.updateSellerGoodsText(sqlSession, goodsSell);
+	}
+
+	@Override
+	public int updateGoodsFile(GoodsFile goodsFile) {
+
+		return goodsDao.updateGoodsFile(sqlSession, goodsFile);
+	}
+	
+	
 	
 }

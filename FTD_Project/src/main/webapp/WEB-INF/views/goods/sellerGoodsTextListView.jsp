@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>판매자 상품 글 관리 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
@@ -154,7 +154,7 @@
 	}
 	
 	.goods-div {
-		height: 510px;
+		min-height: 510px;
 	}
 	
 
@@ -197,19 +197,19 @@
 				}
             	
                 result.forEach(function (item, index) {
-                    
+                	                    
                 	$('.goods-div').append(
                 			'<div class="goods-list">'
-							+'<input type="hidden" value="' + item[0].goodNo + '">'
-							+'<div class="goods-img">'+item[2].changeName+'</div>'
-							+'<div class="goods-title">'+item[1].sellTitle+'</div>'
-							+'<div class="goods-price">'+item[0].price+'원</div>'
-							+'<div class="goods-detail">'
-								+'<div class="star-icon"><img src= "${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
-								+'<div class="goods-rating">'+item[3]+'</div>'
-								+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
-								+'<div class="goods-review">'+item[4]+'</div>'
-							+'</div>'
+								+'<input type="hidden" value="' + item[1].sellNo + '">'
+								+'<div class="goods-img">'+ item[2].changeName +'</div>'
+								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
+								+'<div class="goods-price">'+item[0].price+'원</div>'
+								+'<div class="goods-detail">'
+									+'<div class="star-icon"><img src= "${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
+									+'<div class="goods-rating">'+item[3]+'</div>'
+									+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
+									+'<div class="goods-review">'+item[4]+'</div>'
+								+'</div>'
 
 						+'</div>'
 						
@@ -260,5 +260,22 @@
 	        </div>             
         </div>
 	</div>
+
+<script>
+
+	$(function () {
+				
+		$(".goods-div").on('click', '.goods-list', function (e) {
+
+			let sno = e.currentTarget.children.item(0).value;
+
+			console.log(sno);
+			
+            location.href = "goodsDetailPage.go?sno=" + sno;
+               
+		});
+		
+	});
+</script>
 </body>
 </html>

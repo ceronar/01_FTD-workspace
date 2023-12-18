@@ -227,4 +227,17 @@
 		 WHERE MEMBER_NO = #{memberNo}
 		   AND S.DELETE_DATE IS NULL
 	</select>
+	
+	<update id="sellerOrderDetailChangeStatusToY" parameterType="_int">
+		UPDATE ORDER_GOODS 
+		   SET STATUS = 'Y'
+		 WHERE ORDER_DETAIL_NO = #{orderDetailNo}
+	</update>
+	
+	<update id="sellerOrderDetailChangeStatusToE" parameterType="_int">
+		UPDATE ORDER_GOODS 
+		   SET STATUS = 'E'
+		 WHERE ORDER_DETAIL_NO = #{orderDetailNo}
+	</update>
+	
 </mapper>

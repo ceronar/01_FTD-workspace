@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Like;
+import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
 
 @Repository
@@ -90,6 +92,50 @@ public class GoodsDao {
 	public Goods selectGoodsByGoodNo(SqlSessionTemplate sqlSession, int goodNo) {
 		
 		return sqlSession.selectOne("goodsMapper.selectGoodsByGoodNo", goodNo);
+	}
+
+	public int updateBuyGoodsStock(SqlSessionTemplate sqlSession, OrderGoods orderGoods) {
+		return sqlSession.update("goodsMapper.updateBuyGoodsStock", orderGoods);
+	}
+	
+	public int insertCart(SqlSessionTemplate sqlSession, Cart cart) {
+		
+		return sqlSession.insert("goodsMapper.insertCart", cart);
+	}
+	
+	public int selectLike(SqlSessionTemplate sqlSession, Like like) {
+		
+		return sqlSession.selectOne("goodsMapper.selectLike", like);
+	}
+	
+	public int deleteLike(SqlSessionTemplate sqlSession, Like like) {
+		
+		return sqlSession.delete("goodsMapper.deleteLike", like);
+	}
+	
+	public int insertLike(SqlSessionTemplate sqlSession, Like like) {
+		
+		return sqlSession.insert("goodsMapper.insertLike", like);
+	}
+
+	public int insertGoodsFile(SqlSessionTemplate sqlSession, GoodsFile goodsFile) {
+		
+		return sqlSession.insert("goodsMapper.insertGoodsFile", goodsFile);
+	}
+	
+	public GoodsSell selectGoodsTextByGoodNo(SqlSessionTemplate sqlSession, int goodNo) {
+		
+		return sqlSession.selectOne("goodsMapper.selectGoodsTextByGoodNo", goodNo);
+	}
+	
+	public int updateSellerGoodsText(SqlSessionTemplate sqlSession, GoodsSell goodsSell) {
+		
+		return sqlSession.update("goodsMapper.updateSellerGoodsText", goodsSell);
+	}
+	
+	public int updateGoodsFile(SqlSessionTemplate sqlSession, GoodsFile goodsFile) {
+		
+		return sqlSession.update("goodsMapper.updateGoodsFile", goodsFile);
 	}
 	
 }

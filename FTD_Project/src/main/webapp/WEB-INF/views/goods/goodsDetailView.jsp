@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 리스트 상세 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,17 +77,18 @@
 	}
 
 	.goods-title, .goods-price {
-		width: 95%;
+		width: 100%;
 		height: 70px;
 		padding-left: 20px;
 		text-align: left;
 		font-size: 35px;
 		line-height: 70px;
 		margin-bottom: 10px;
+		box-sizing: border-box;	
 	}
 
 	.goods-like {
-		width: 100px;
+		width: 70px;
 		height: 70px;
 		float: right;
 	}
@@ -345,13 +347,108 @@
 	.goodsSell-content {
 		width: 100%;
 		height: 100%;
+		box-sizing: border-box;
+	}
+	
+	.like-icon {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+	}
+	
+	.sub-footer3 {
+		width: 100%;
+		height: 50px;
+		position: sticky; /* 스크롤에 고정 */
+		bottom : 0px;
+		background-color: #ffffff;
+		border-top-left-radius: 4px;
+    	border-top-right-radius: 4px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		/* padding-top: 5px; */
+	}
+	
+	.update-button {
+		width: 45%;
+		height: 40px;
+		display: inline;
+		font-size: 20px;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+	.delete-button {
+		width: 45%;
+		height: 40px;
+		margin-top: 5px;
+		margin-left: 20px;
+		box-sizing: border-box;
+		display: inline;
+		font-size: 20px;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	#thumbnail {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
 	}
 
 
-
 </style>
+<script type="text/javascript">
+	
+		
+	$(document).ready(function () {
+			
+		if( sessionScope.loginUser !=  null) { // 구매자 로그인 후
+			
+			ajaxSelectLike();
+				
+			
+		} else if( sessionScope.loginSeller != null) { // 판매자 로그인 후
+			
+
+		} else { // 로그인 전
+			
+			
+		}
+		
+	});
+		
+	function ajaxSelectLike() {
+		      
+		$.ajax({
+			url : 'ajaxSelectLike.go',
+	        type: 'get',
+	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        success: function(result) {	        
+	            	
+	        	if(result > 0) {
+	        		
+	        		$(".goods-like").html(
+	        			'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png">'	  
+	        		);  
+	        		
+	        	} else {
+	        		
+	        		$(".goods-like").html(
+		        		'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_off.png">'	  
+		        	); 	   
+	        	}
+	        	   
+	        },
+	        error : function() {
+	        	
+	        	console.log("ajax 통신 실패");
+	        }
+		});
+	}
+
+
+</script>
 </head>
 <body>
+	
 	<div class="wrapper">
         
         <div class="center-div">  
@@ -363,10 +460,12 @@
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
 					<div class="header-title">${ requestScope.goodsSell.sellTitle }</div>
-					<div class="header-cart"><span class="material-symbols-outlined">shopping_cart</span></div>
+					<div class="header-cart" onclick="location.href='basket.me';"><span class="material-symbols-outlined">shopping_cart</span></div>
 	            </div>
 	            
-				<div class="header-img"></div>
+				<div class="header-img">
+					<img id="thumbnail" src="${ requestScope.goodsFile.changeName }">
+				</div>
 	            
 	            <div class="content">					
            				
@@ -395,11 +494,11 @@
 							</tr>
 							<tr>
 								<th>원산지</th>
-								<td>통영</td>
+								<td>${ requestScope.goods.origin }</td>
 							</tr>
 							<tr>
 								<th>보관방법</th>
-								<td>받으신 후 냉장 보관 해 주세요.</td>
+								<td>받으신 후 냉장 보관 해주세요.</td>
 							</tr>
 						</table>
 
@@ -414,13 +513,13 @@
 
 					<div class="sub-menu">
 						<a href="#goods-content" 							class="menu1">상품소개</a>
-						<a href="#sub-review" 								class="menu2">후기 1</a>
+						<a href="#sub-review" 								class="menu2">후기</a>
 						<a href="#goods-reply" 								class="menu3">상품문의</a>
 					</div>
 
 					<div class="goods-content" id="goods-content">
 					
-						<div class="goodsSell-content"></div>
+						<textarea class="goodsSell-content" id="goodsSell-content"></textarea>
 
 					</div>
 
@@ -428,7 +527,7 @@
 
 					<div class="sub-review" id="sub-review">
 						<div class="sub-header">
-							<div class="sub-header-title" style="width: 110px;">후기 1건</div>
+							<div class="sub-header-title" style="width: 110px;">후기 건</div>
 							<div class="sub-header-icon"><span class="material-symbols-outlined">arrow_forward_ios</span></div>	
 						</div>
 						
@@ -450,12 +549,28 @@
 						<div class="goods-reply-content"></div>
 
 					</div>
-									
 					
+					<c:choose>
+	            	<%-- 관리자 로그인인 경우 --%>
+	            	<c:when test="${ sessionScope.loginUser.memberId eq 'admin' }">
+	            		
+	            	</c:when>
+	            	
+	            	<%-- 판매자 로그인 후 --%>
+	            	<c:when test="${ (not empty sessionScope.loginSeller) and (sessionScope.loginSeller.sellerNo eq requestScope.goodsSell.sellerNo) }">
+	            	<div class="sub-footer3">
+						<button class="update-button" type="button" onclick="location.href='sellerGoodsUpdateEnrollForm.go?sno=' + ${requestScope.goodsSell.sellNo};">수정하기</button>
+						<button class="delete-button" type="button" onclick="location.href='sellerGoodsDeleteEnrollForm.go';">삭제하기</button>
+					</div>	            		
+	            	</c:when>
+	            	
+					<%-- 로그인 회원과 비회원 --%>
+	            	<c:otherwise>
+	            	
 					<div class="sub-footer1">
 						<div class="btn-icon" id="footer-icon1"><span class="material-symbols-outlined">keyboard_arrow_up</span></div>
-						<button class="like-button">찜 하기</button>
-						<button class="pay-button">주문하기</button>
+						<button class="like-button" type="button">찜 하기</button>
+						<button class="pay-button" type="button">주문하기</button>
 					</div>
 
 					<div class="sub-footer2">
@@ -469,6 +584,7 @@
 										${ requestScope.goodsSell.sellTitle }
 										<input type="hidden" name="goodNo" value="${ requestScope.goodsSell.goodNo }">
 										<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+										<input type="hidden" name="sellNo" value="${ requestScope.goodsSell.sellNo }">
 									</div>
 									<div class="goods-count-div2">
 										<button type="button" class="count-btn" id="countMinus">-</button>
@@ -483,6 +599,13 @@
 							<button class="pay2-button" type="submit" name="order" value="order">주문하기</button>
 						</form>
 					</div>
+							
+	            	</c:otherwise>         	
+       				</c:choose>
+							
+				
+					
+					
         		</div>
         		
         		
@@ -491,14 +614,14 @@
 		</div>
 	</div>
 
-	<script>
+<script>
 	
 	$(function() {
 		
 		// 상품 글 content 부분 삽입
-		let sellContent = '${ requestScope.goodsSell.sellContent }';
-		
-		$(".goodsSell-content").html(sellContent);
+   		let sellContent = '${ requestScope.goodsSell.sellContent }';
+   		
+   		$("#goodsSell-content").html(sellContent);  
 		  	
 		// 아래 화살표 누룰시 이벤트 처리
 		$(".sub-footer1").on("click", "#footer-icon1",function() {
@@ -515,6 +638,15 @@
     	
     	});
 		
+		// 아래 처음 주문하기 누룰시 이벤트 처리
+		$(".sub-footer1").on("click", ".pay-button",function() {
+    		
+			$(".sub-footer1").css('display', 'none');
+			$(".sub-footer2").css('display', 'block');
+    	
+    	});
+		
+		// 상품 수량 +- 클릭 이벤트
 		let count = parseInt($(".count-number").val());
 		
 		$(".goods-count-div2").on('click', '#countMinus', function () {
@@ -539,10 +671,59 @@
 		});
 		
 		
+		// 상단 상품 찜 하기 클릭 이벤트
+		$(".goods-like").on("click", ".like-icon", function() {
+    		
+			ajaxClickLike();  	
+    	});
+		
+		// 하단 상품 찜 하기 클릭 이벤트
+		$(".sub-footer1").on("click", ".like-button", function() {
+    		
+			ajaxClickLike();  	
+    	});
+		
 		
 	});
 	
-	</script>
+	// 상품 찜 하기 클릭 이벤트 함수	
+	function ajaxClickLike() {
+	    
+		let loginUser
+		
+		$.ajax({
+			url : 'ajaxClickLike.go',
+	        type: 'get',
+	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        success: function(result) {
+	        	
+	        	console.log(result);	
+	            	
+	        	if(result == "추가") {
+	        		
+	        		$(".goods-like").html(
+	        			'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png">'	  
+	        		);  
+	        		
+	        	} else if(result == "삭제") {
+	        		
+	        		$(".goods-like").html(
+		        		'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_off.png">'	  
+		        	); 
+	        		
+	        	} else {
+	        		
+	        		location.href = "goodsDetailPage.go?sno=" + ${ requestScope.goodsSell.sellNo };
+	        	}       	   
+	        },
+	        error : function() {
+	        	
+	        	console.log("ajax 통신 실패");
+	        }
+	    });
+	
+	}
 
+</script>
 </body>
 </html>

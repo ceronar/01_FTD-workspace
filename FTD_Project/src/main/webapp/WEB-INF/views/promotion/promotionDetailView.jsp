@@ -198,7 +198,24 @@
     display: inline-block;
     margin-right: 10px; 
   }
-		
+     <!-- 구매 모달창-->
+     div.replyModal_Buy { position:relative; z-index:1;} 
+	 div.modalBackground_Buy { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:100000; }
+	 div.modalContent_Buy { position:fixed; top:40%; left:calc(50% - 250px); width:500px; height:100%; padding:20px 20px; background:#fff; border:2px solid #2ECC71; z-index:100001 }
+	 div.modalContent_Buy textarea { font-size:16px; font-family:'맑은 고딕', verdana; padding:10px; width:475px; height:200px; resize: none;}
+	 div.modalContent_Buy a{ margin-left : auto;}
+	 div.modalContent_Buy button.modal_cancel_Buy { margin : 0px; width: 100px; height : 40px; padding : 0px;}
+	 .button_option_Buy div {
+    display: inline-block;
+    margin-right: 10px; 
+  }
+  
+  
+	.goodSell:hover{
+		background : #f2fff6;
+	}
+	
+	
     </style>
     
     <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -206,6 +223,56 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>홍보(리스트)</title>
+    
+     <script>
+    function toggleSubscribe() {
+        var comIcon = $("#com-icon");
+
+        if (comIcon.hasClass("sub12")) {
+            // Already subscribed, change to "찜"
+            comIcon.removeClass("sub12").addClass("sub1").text("찜");
+            let memberNo = ${!empty sessionScope.loginUser ? sessionScope.loginUser.memberNo : 0};
+            // AJAX call to controller (adjust the URL and data accordingly)
+            $.ajax({
+                url: "sub.po",
+                type: "post",
+                data: {
+                    sno: ${requestScope.p.sellerNo},
+                    mno: memberNo
+                },
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function () {
+                    console.log("ajax 통신 실패!");
+                }
+            });
+        } else {
+            // Not subscribed, change to "찜 이미함"
+            comIcon.removeClass("sub1").addClass("sub12").text("찜 이미함");
+            let memberNo = ${!empty sessionScope.loginUser ? sessionScope.loginUser.memberNo : 0};
+            // AJAX call to controller (adjust the URL and data accordingly)
+            $.ajax({
+                url: "sub.po",
+                type: "post",
+                data: {
+                    pno: ${requestScope.p.promotionNo},
+                    mno: memberNo
+                },
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function () {
+                    console.log("ajax 통신 실패!");
+                }
+            });
+        }
+        
+        $(".sub1234").click(function() {
+        	alert("로그인 후 이용하실 수 있습니다.")
+        });
+    }
+</script>
 </head>
 <body>
     <header>
@@ -233,7 +300,7 @@
 			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<img src="${sellerFile.changeName }">
+			    		<img src="${pageContext.request.contextPath}${sellerFile.changeName }">
 			    	</c:otherwise>
 			    </c:choose>
             </div>
@@ -253,13 +320,14 @@
              <c:when test="${ not empty sessionScope.loginSeller and sessionScope.loginSeller.sellerNo eq requestScope.p.sellerNo}">
            <div class="profile_3">
 	             <div class="profile_3_1">
-	             <a style="width : 50px"><i class="fas fa-store"></i></a>
-	             <a>마켓 찜</a>
+		              <a href="sellerDetailPage.se?sno=${sessionScope.loginSeller.sellerNo}" style="width : 50px"><i class="fas fa-store"></i></a>
+		              
+		        
+		              
 	             </div>
 	             <div class="profile_3_1">
-	               
-	                <a onclick="postFormSubmit(1)">수정</a>
-		            <a onclick="postFormSubmit(2)">삭제</a>
+		              <a onclick="postFormSubmit(1)"> 수정</a>
+			          <a onclick="postFormSubmit(2)">삭제</a>
 	             </div>
            </div> 
             <form action="" id="postForm" method="post">
@@ -280,7 +348,7 @@
                		if(num == 1) { 
                			// num == 1 일 경우 : 수정하기 버튼을 클릭한 상태
                			
-               			$("#postForm").attr("action", "updateForm.bo").submit();
+               			$("#postForm").attr("action", "updatePromotion.pr").submit();
                			
                		} else {
                			// num == 2 일 경우 : 삭제하기 버튼을 클릭한 상태
@@ -291,19 +359,40 @@
                		}
                	}
                </script>
+               
+               <!-- 찜(단골) -->
+              
+                
                </c:when>
                <c:otherwise>
-                <div class="profile_3">
-	             <div class="profile_3_1">
-	             <a style="width : 50px"><i class="fas fa-store"></i></a>
-	             <a>마켓 찜</a>
-	             </div>
-           		</div>
+            <div class="profile_3">
+			    <div class="profile_3_1">
+			        <a href="sellerDetailPage.se?sno=${requestScope.p.sellerNo}" style="width: 50px">
+			            <i class="fas fa-store"></i>
+			        </a>
+			        <div>
+			            <c:choose>
+			                <c:when test="${sessionScope.loginUser != null}">
+			                    <c:choose>
+			                        <c:when test="">
+			                            <button class="sub1" onclick="toggleSubscribe()" id="com-icon">찜</button>
+			                        </c:when>
+			                        <c:otherwise>
+			                            <button class="sub12" onclick="toggleSubscribe()" id="com-icon">찜 이미함</button>
+			                        </c:otherwise>
+			                    </c:choose>
+			                </c:when>
+			                <c:otherwise>
+			                    <button class="sub1234" id="com-icon">찜</button>
+			                </c:otherwise>
+			            </c:choose>
+			        </div>
+			    </div>
+			</div>
            	   </c:otherwise>
            	   </c:choose> 
         </div>
-
-
+		
         <div id="content" align="center">
             
          
@@ -314,7 +403,7 @@
         </div>
 
 
-        <button>구매하기</button>
+        <button class="modify_Buy">구매하기</button>
     </main>
 
     <main>
@@ -325,7 +414,7 @@
 			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<img src="${sellerFile.changeName }">
+			    		<img src="${pageContext.request.contextPath}${sellerFile.changeName }">
 			    	</c:otherwise>
 			    </c:choose>
             </div>
@@ -561,35 +650,10 @@
     			});
     		</script>
     
-    <!-- 모달(수정) -->
-			<script>	
-			$(document).on("click", ".modify", function(){
-				 //$(".replyModal").attr("style", "display:block;");
-			
-				 $(".replyModal").fadeIn(200);
-			
-				 var repNum = $(this).attr("data-repNum");	  
-				
-				 var repCon = $(this).parent().parent().parent().children(".replyContent").text();
-				 
-				 $(".modal_repCon").val(repCon);
-				 $(".modal_modify_btn").attr("data-repNum", repNum);
-				 
-				 
-				});
-			$(document).on("click", ".modal_cancel", function(){
-				 //$(".replyModal").attr("style", "display:block;");
-			
-				$(".replyModal").fadeOut(200);
-	
-				 
-				});
-			
-			</script>	
-       
+   
         </div>
         <!-- 삭제 -->
-         	<button onclick="insertReply()">입력</button>
+         	<button onclick="insertReply()">입력 </button>
          	
        		 <form action="" id="postFormReply" method="post">
                	<input type="hidden" id="prno" name="replyNo" value="">
@@ -642,9 +706,154 @@
 					
 					   <div class="modalBackground"></div>
 				   
+				   
+					</div>
+					
+					
+					  <!-- 모달창 구매 -->
+					  <div class="replyModal_Buy" style="display:none">
+		
+					   <div class="modalContent_Buy">
+					    <div> 
+					    <i class="fas fa-times modal_cancel_Buy" style="cursor: pointer;"></i>
+					    </div>
+					    <br>
+				    	<div class="goods" style="border: 1px solid #2ECC71; width:100%; height : 6%; border-radius: 5px; display : flex; cursor : pointer;">
+					    	<div style="margin-top : 15px; margin-left : 15px;">
+								 상품을 선택해주세요
+					    	</div>
+					    	<div style="margin-top : 17px; margin-left : auto; margin-right : 15px;">
+					    	<i class="fas fa-chevron-down"></i>
+					    	</div>
+					    </div>
+					    
+					    <div class="goods_1" style="border: 1px solid #2ECC71; width:100%; height : 100%; border-radius: 5px; display : flex; cursor : pointer; display : none; overflow-y: auto; max-height: 400px;"" >
+					    
+					    	<c:forEach var="g" items="${requestScope.goodSell}">
+					    		<div style="display : flex; width :  " class="goodSell">
+					    		<input type="hidden" value="${g.sellNo}">
+					    				<div style="width : 90px; height : 90px; margin : 10px 0px 10px 10px;">
+					    				  <c:forEach var="gf" items="${requestScope.goodFile}">
+					    				  	<c:choose>
+					    				  		<c:when test="${gf.changeName  == null}">
+					    				  			<img src="${gf.changeName }" style="width : 90px; height : 90px; border-radius: 10px;">
+					    				  		</c:when>
+					    				  		<c:otherwise>
+					    				  			<img src="${gf.changeName }" style="width : 90px; height : 90px; border-radius: 10px;">
+					    				  		</c:otherwise>
+					    				  	</c:choose>
+					    				  </c:forEach>	 
+					    				</div>
+					    		
+					    			<div>
+						    			<div style="line-height: 50px; margin-left : 10px;">
+							    			<div>${g.sellTitle}</div>
+							    			<div>${g.count}원</div>
+						    			</div>					    		
+					    			</div>
+					    			<div style=" margin-left : auto; margin-right : 30px; line-height: 110px;" >
+							    		<i class="fas fa-chevron-right"></i>
+							    	</div>
+					    		</div>
+					    		<hr style="margin : 0;">
+					    	</c:forEach>
+					    		
+					    	
+					    </div>
+					    
+					   </div>
+					
+					   <div class="modalBackground_Buy"></div>
+				   
 					</div>
 		           
             </div>
+              <script>
+            $(function () {
+
+                $(".goods_1").on('click', '.goodSell', function (e) {
+
+                	// console.log(e.currentTarget.children.item(0).value);
+                	 
+                    let sno = e.currentTarget.children.item(0).value;
+
+                    //
+
+                    location.href = "goodsDetailPage.go?sno=" + sno;
+                });
+            });
+        </script>
+            
+            <!-- 모달(구매) -->
+			<script>	
+			$(document).on("click", ".modify_Buy", function(){
+				 //$(".replyModal").attr("style", "display:block;");
+			
+				 $(".replyModal_Buy").fadeIn(200);
+			
+				// var repNum = $(this).attr("data-repNum");	  
+				
+				// var repCon = $(this).parent().parent().parent().children(".replyContent").text();
+				 
+				// $(".modal_repCon").val(repCon);
+				//$(".modal_modify_btn").attr("data-repNum", repNum);
+				 
+				 
+				});
+			
+			$(document).on("click", ".modal_cancel_Buy", function(){
+				 //$(".replyModal").attr("style", "display:block;");
+			
+				$(".replyModal_Buy").fadeOut(200);
+	
+				 
+				});
+			
+			$(document).on("click", ".goods", function(){
+				 //$(".replyModal").attr("style", "display:block;");
+			
+			toggle_layer();
+
+			});
+			</script>
+				
+            <script>
+				function toggle_layer() {
+					
+					if($(".goods_1").css("display") == "block"){
+						$(".goods_1").hide(200);
+					}else {
+						$(".goods_1").show(200);
+						
+					}
+				}
+			</script>
+             <!-- 모달(수정) -->
+			<script>	
+			$(document).on("click", ".modify", function(){
+				 //$(".replyModal").attr("style", "display:block;");
+			
+				 $(".replyModal").fadeIn(200);
+			
+				 var repNum = $(this).attr("data-repNum");	  
+				
+				 var repCon = $(this).parent().parent().parent().children(".replyContent").text();
+				 
+				 $(".modal_repCon").val(repCon);
+				 $(".modal_modify_btn").attr("data-repNum", repNum);
+				 
+				 
+				});
+			$(document).on("click", ".modal_cancel", function(){
+				 //$(".replyModal").attr("style", "display:block;");
+			
+				$(".replyModal").fadeOut(200);
+	
+				 
+				});
+			
+			</script>	
+       
     </main>
 
 

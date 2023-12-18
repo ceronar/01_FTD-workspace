@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.member.model.vo.Subscribe;
 import com.kh.ftd.promotion.model.service.PromotionService;
 import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionFile;
@@ -91,11 +92,22 @@ public class PromotionController {
 					int reviewCount = promotionService.reviewCount(sno);
 					//System.out.println(reviewCount);
 					
+					//이 마켓에서 지금 파는 상품
+					ArrayList<GoodsSell> goodSell = promotionService.goodSell(sno);
+					//System.out.println(goodSell);
+					
+					//이 마켓에서 지금 파는 상품게시글의 이미지 없을경우 널일때 기본이미지들가게 해야뎀
+					ArrayList<GoodsFile> goodFile = promotionService.goodFile(sno);
+					//System.out.println(goodFile);
+					
+					//찜
+					//int result = promotionService.selectSubscribeCount(s);
 					
 					// 조회된 데이터를 담아서 상세보기 페이지로 포워딩
 					mv.addObject("p", p).addObject("pfList", pfList).addObject("prList",prList).addObject("seller",seller)
 					.addObject("sellerFile",sellerFile).addObject("starRating",starRating).addObject("replyList", replyList)
-					.addObject("reviewCount", reviewCount)
+					.addObject("reviewCount", reviewCount).addObject("goodSell", goodSell).addObject("goodFile", goodFile)
+					
 					  .setViewName("promotion/promotionDetailView"); 
 					// /WEB-INF/views/board/boardDetailView.jsp
 					
@@ -114,6 +126,7 @@ public class PromotionController {
 	
 	@RequestMapping(value = "promoptionEnrollForm.bo")
 	public String enrollForm(Model mv) {
+		
 		
 		
 		return "promotion/promotionEnrollForm";
@@ -156,7 +169,7 @@ public class PromotionController {
 			
 		}
 		
-	//홍보리스트 글 등록 
+	//홍보리스트 글 수정
 		@RequestMapping("updatePromotion.pr")
 		public String updatePromotion(HttpSession session, Promotion p) {
 			
@@ -231,7 +244,30 @@ public class PromotionController {
 		}
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value= "sub.po")
+	public String subscribe(Subscribe s) {
+		
+		System.out.println(s);
+
+		
+		int result = promotionService.selectSubscribeCount(s);
+		System.out.println(result);
+		
+		if(result > 0) {//이 로그인유저로 찜을 했음
+			
+			int result1 = promotionService.deleteSubscribeCount(s);
+			
+			return (result1 > 0) ? "success" : "fail";
+		}else {//이 로그인 유저로 찜을 아직안함
+			
+			int result1 = promotionService.insertSubscribeCount(s);
+			
+			return (result1 > 0) ? "success" : "fail";
+		}
+		
+		
+	}
 	
 	
 	
@@ -323,7 +359,7 @@ public class PromotionController {
 			}
 		}
 		
-		System.out.println(pC1List);
+		//System.out.println(pC1List);
 		
 		//홍보리스트 판매자용 어레이 리스트
 		ArrayList<Object> sList = new ArrayList<Object>();
