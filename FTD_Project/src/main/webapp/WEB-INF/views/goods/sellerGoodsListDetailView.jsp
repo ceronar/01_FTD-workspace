@@ -139,7 +139,7 @@
 	}
 
 	.pay-button {
-		width: 60%;
+		width: 40%;
 		height: 40px;
 		margin-top: 5px;
 		margin-left: 20px;
@@ -201,10 +201,10 @@
 	            
 	            <div class="goods-header">
 					<div class="header-back"><span class="material-symbols-outlined" onClick = "history.back();">arrow_back_ios_new</span></div>
-					<div class="header-title">상품 세부 페이지</div>
+					<div class="header-title">상품 등록 세부 페이지</div>
 	            </div>
 	        	            
-				<form action="insertSellerGoods.go" method="post">
+				<form action="updateSellerGoods.go" method="post">
 		            <div class="content">					
 	           				
 						<div class="goods">
@@ -221,11 +221,12 @@
 							<div class="br-line"></div>
 							<br>
 							
+							<input type="hidden" name="goodNo" value="${ requestScope.goods.goodNo }">
 							<input type="hidden" name="sellerNo" value="${sessionScope.loginSeller.sellerNo }">
 							<table>
 								<tr>
 									<th>품목</th>
-									<td><input type="text" name="goodTitle"></td>
+									<td><input type="text" name="goodTitle" value="${ requestScope.goods.goodTitle }"></td>
 								</tr>
 								<tr>
 									<th class="td-size"></th>
@@ -233,11 +234,11 @@
 								</tr>
 								<tr>
 									<th>품목상세정보</th>
-									<td><input type="text" name="goodDetail"></td>
+									<td><input type="text" name="goodDetail" value="${ requestScope.goods.goodDetail }"></td>
 								</tr>
 								<tr>
 									<th>원산지</th>
-									<td><input type="text" name="origin"></td>
+									<td><input type="text" name="origin" value="${ requestScope.goods.origin }"></td>
 								</tr>
 								<tr>
 									<th class="td-size"></th>
@@ -245,15 +246,15 @@
 								</tr>
 								<tr>
 									<th>판매가</th>
-									<td><input type="number" name="price"></td>
+									<td><input type="number" name="price" value="${ requestScope.goods.price }"></td>
 								</tr>
 								<tr>
 									<th>유통기한</th>
-									<td><input type="date" name="expiration"></td>
+									<td><input type="date" id="expiration" name="expiration"></td>
 								</tr>
 								<tr>
 									<th>재고</th>
-									<td><input type="number" name="stock"></td>
+									<td><input type="number" name="stock" value="${ requestScope.goods.stock }"></td>
 								</tr>
 							</table>	
 
@@ -265,7 +266,7 @@
 					<div class="sub-content">				
 						<div class="sub-footer1">
 							<button class="pay-button" type="submit">수정하기</button>
-							<button class="pay-button" type="submit">삭제하기</button>
+							<button class="pay-button" type="button" onclick="location.href='deleteSellerGoods.go?gno=' + ${requestScope.goods.goodNo};">삭제하기</button>
 						</div>
 	        		</div>
 				</form>
@@ -278,6 +279,13 @@
 	
 	$(function() {
     	
+		let date = '${ requestScope.goods.expiration }';
+		
+		let expiration = date.substr(0, 10);
+		
+		$("#expiration").val(expiration);
+		
+		console.log(expiration);
 
 	});
 	

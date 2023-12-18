@@ -2,6 +2,7 @@ package com.kh.ftd.goods.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,7 +100,14 @@ public class GoodsController {
 				
 				// 상품 판매 정보
 				Goods goods = goodsService.ajaxSelectGoodsList(goodNo);
-				gList.add(goods);
+				if(goods != null) {		
+					
+					gList.add(goods);			
+				} else {
+					
+					goods = new Goods();
+					gList.add(goods);				
+				}
 						
 				// 상품 파일
 				GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
@@ -672,22 +680,22 @@ public class GoodsController {
 			
 			if(result > 0) { // 판매자 상품 글 삭제 성공
 				
-				session.setAttribute("successMsg", "상품 글 삭제를 했습니다.");
+				session.setAttribute("successMsg", "상품 글 삭제를 성공했습니다.");
 				
-				return "redirect:/sellerGoodsListPage.go";
+				return "redirect:/sellerGoodsTextListPage.go";
 				
 			} else { // 판매자 상품 글 삭제 실패
 				
 				session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
 				
-				return "redirect:/sellerGoodsListPage.go";
+				return "redirect:/sellerGoodsTextListPage.go";
 			}
 			
 		} else { // 판매자 상품 글 파일 삭제 실패
 			
 			session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
 			
-			return "redirect:/sellerGoodsListPage.go";
+			return "redirect:/sellerGoodsTextListPage.go";
 			
 		}
 		
@@ -695,12 +703,89 @@ public class GoodsController {
 	
 	// 판매자 상품 상세 페이지 이동
 	@RequestMapping("sellerGoodsListDetailPage.go")
-	public String sellerGoodsListDetailView(int gno) {
+	public String sellerGoodsListDetailView(int gno, Model model) {
 		
-		System.out.println(gno);
+		int goodNo = gno;
+		
+		// 판매자 상품 정보 조회
+		Goods goods = goodsService.selectGoodsByGoodNo(goodNo);
+	
+		model.addAttribute("goods", goods);
 		
 		return "goods/sellerGoodsListDetailView";
 	}
+	
+	// 판매자 상품 수정
+	@RequestMapping("updateSellerGoods.go")
+	public String updateSellerGoods(HttpSession session, Goods goods) {
+		
+		int result = goodsService.updateSellerGoods(goods);
+		
+		if(result > 0) { // 판매자 상품 수정 성공
+			
+			session.setAttribute("successMsg", "상품 수정을 성공했습니다.");
+			
+			return "redirect:/sellerGoodsListDetailPage.go?gno=" + goods.getGoodNo();
+			
+		} else { // 판매자 상품 수정 실패
+			
+			session.setAttribute("successMsg", "상품 수정을 실패했습니다.");
+			
+			return "redirect:/sellerGoodsListDetailPage.go?gno=" + goods.getGoodNo();
+			
+		}
+		
+	}
+	
+	// 판매자 상품 삭제
+	@RequestMapping("deleteSellerGoods.go")
+	public String deleteSellerGoods(HttpSession session, int gno) {
+		
+		// 사용할 변수 셋팅
+		int goodNo = gno;	
+		GoodsSell goodsSell = goodsService.selectGoodsTextByGoodNo(goodNo);	
+		int sellNo = goodsSell.getSellNo();
+		
+		// 상품 파일 삭제
+		int resultFile = goodsService.deleteGoodsFile(sellNo);
+		
+		if(resultFile < 0) { // 판매자 상품 글 파일 삭제 성공
+			
+			session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
+		
+		}
+		
+		if(goodsSell != null) {
+			
+			// 상품 글 삭제
+			int resultText = goodsService.deleteSellerGoodsText(sellNo);
+			
+			if(resultText < 0) { // 판매자 상품 글 삭제 성공
+				
+				session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");								
+			}			
+		}
+			
+		// 상품 삭제
+		int result = goodsService.deleteSellerGoods(goodNo);
+		
+		if(result > 0) {
+			
+			session.setAttribute("successMsg", "상품 삭제를 성공했습니다.");
+			
+			return "redirect:/sellerGoodsListPage.go";
+			
+		} else {
+			
+			session.setAttribute("successMsg", "상품 삭제를 실패했습니다.");
+			
+			return "redirect:/sellerGoodsListPage.go";
+			
+		}
+	
+	}
+	
+		
 		
 		
 }

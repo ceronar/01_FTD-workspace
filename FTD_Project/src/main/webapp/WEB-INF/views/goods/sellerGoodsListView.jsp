@@ -311,7 +311,7 @@
 
 			let gno = e.currentTarget.children.item(0).value;
 
-            location.href = "sellerGoodsListDetailPage.go?sno=" + gno;
+            location.href = "sellerGoodsListDetailPage.go?gno=" + gno;
                
 		});
 		

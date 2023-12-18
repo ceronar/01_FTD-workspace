@@ -296,4 +296,21 @@
 		 WHERE SELL_NO = #{sellNo}
 	</update>
 	
+	<update id="updateSellerGoods" parameterType="goods">
+		UPDATE GOODS
+		   SET GOOD_TITLE = #{goodTitle},
+		       GOOD_DETAIL = #{goodDetail},
+		       ORIGIN = #{origin},
+		       PRICE = #{price},
+		       EXPIRATION_DATE = #{expiration},
+		       STOCK = #{stock}
+		 WHERE GOOD_NO = #{goodNo}
+	</update>
+	
+	<update id="deleteSellerGoods" parameterType="_int">
+		UPDATE GOODS
+		   SET DELETE_DATE = SYSDATE
+		 WHERE GOOD_NO = #{goodNo}
+	</update>
+	
 </mapper>
