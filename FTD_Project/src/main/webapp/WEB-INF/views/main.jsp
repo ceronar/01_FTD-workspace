@@ -17,6 +17,15 @@
 		.slider img {
 			height : 250px;
 		}
+		.top10List div {
+			border: 1px solid lightgray;
+			width: 100%;
+			height: 300px;
+		}
+		.top10List a {
+			text-decoration: none;
+			color: black;
+		}
 	</style>
 </head>
 <body>
@@ -27,29 +36,35 @@
 				<jsp:include page="common/header.jsp" />
 				<div class="content">메인 컨텐츠<br>
 					<!-- 슬라이드 화면 -->
-						<section id="cont_center">
-			            	<article class="column col4">
-					            	<div class="slider">
-					            		
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            			<img src="resources/images/notice/다운로드.jpg">
-						            		
-									</div>	
-								
-								<br><br><br><br>
-								<div></div>
-								<br><br><br><br>
-							</article>	
-						</section>
-
-					
-					<a href="list.se">가게</a>
-					<a href="plist.bo">홍보</a>
-					<a href="rlist.bo">후기</a>
-					<a href="list.go">상품</a>
+					<section id="cont_center">
+		            	<article class="column col4">
+			            	<div class="slider">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드.jpg">
+							</div>
+							<br><br><br><br>
+							<div></div>
+							<br><br><br><br>
+						</article>
+					</section>
+					<h2>추천 </h2>
+					<div class="top10List">
+						<div class="">
+							
+						</div>
+						<h3><a href="sellerListPage.se">산지마켓 더보기 ></a></h3>
+						<div class="">
+							
+						</div>
+						<h3><a href="goodsListPage.go">상품 더보기 ></a></h3>
+						<div class="">
+							
+						</div>
+						<h3><a href="rlist.bo">후기 더보기 ></a></h3>
+					</div>
 				</div>
 				<jsp:include page="common/footer.jsp" />
 			</div>  
