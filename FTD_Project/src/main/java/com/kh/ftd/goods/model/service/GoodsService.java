@@ -86,7 +86,6 @@ public interface GoodsService {
 	
 	// 상품 글 상세조회 대표 파일 수정 (update)
 	int updateGoodsFile(GoodsFile goodsFile);
-
 	
 	// 상품의 후기
 	ArrayList<Review> selectGoodReview(int goodNo);
