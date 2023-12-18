@@ -255,7 +255,22 @@
 		  JOIN GOODS G ON(R.GOOD_NO = G.GOOD_NO)
 		 WHERE R.MEMBER_NO = #{memberNo}
 		   AND R.DELETE_DATE IS NULL
-
 	</select>
+	
+	<insert id="insertReview" parameterType="review">
+		INSERT INTO REVIEW (REV_NO
+							   , MEMBER_NO
+							   , GOOD_NO
+							   , REV_TITLE
+							   , REV_CONTENT
+							   , STAR_RATING)
+					 	  VALUES(SEQ_RNO.NEXTVAL
+					 	 	   , #{memberNo}
+					 	 	   , #{goodNo}
+					 	 	   , #{revTitle}
+					 	 	   , #{revContent}
+					 	 	   , #{starRating})
+			
+	</insert>
 
 </mapper>

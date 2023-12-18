@@ -135,7 +135,7 @@
 			 , INQ_NO
 			 , ORIGIN_NAME
 			 , CHANGE_NAME
-			 , CREATE_DATE
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
 		  FROM INQUIRY_FILE
 		 WHERE DELETE_DATE IS NULL
 		   AND INQ_NO = #{inqNo}
@@ -147,7 +147,7 @@
 			 , MEMBER_NO
 			 , M.MEMBER_ID
 			 , REPLY_CONTENT
-			 , CREATE_DATE
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
 		  FROM INQUIRY_REPLY
 		  JOIN MEMBER M USING (MEMBER_NO)
 		 WHERE DELETE_DATE IS NULL
@@ -217,7 +217,7 @@
 		                        , INQ_NO
 		                        , MEMBER_NO
 		                        , REPLY_CONTENT
-		                        , CREATE_DATE)
+		     					, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE")
 		                   VALUES(SEQ_IRNO.NEXTVAL
 		                        , #{inqNo}
 		                        , #{memberNo}

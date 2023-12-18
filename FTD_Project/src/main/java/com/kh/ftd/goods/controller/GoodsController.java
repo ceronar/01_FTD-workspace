@@ -747,22 +747,15 @@ public class GoodsController {
 	// 판매자 상품 삭제
 	@RequestMapping("deleteSellerGoods.go")
 	public String deleteSellerGoods(HttpSession session, int gno) {
-		
-		// 사용할 변수 셋팅
-		int goodNo = gno;	
-		GoodsSell goodsSell = goodsService.selectGoodsTextByGoodNo(goodNo);	
-		int sellNo = goodsSell.getSellNo();
-		
-		// 상품 파일 삭제
-		int resultFile = goodsService.deleteGoodsFile(sellNo);
-		
-		if(resultFile < 0) { // 판매자 상품 글 파일 삭제 성공
 			
-			session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
-		
-		}
-		
+		// 사용할 변수 셋팅
+		int goodNo = gno;
+			
+		GoodsSell goodsSell = goodsService.selectGoodsTextByGoodNo(goodNo);	
+						
 		if(goodsSell != null) {
+			
+			int sellNo = goodsSell.getSellNo();
 			
 			// 상품 글 삭제
 			int resultText = goodsService.deleteSellerGoodsText(sellNo);
@@ -770,9 +763,24 @@ public class GoodsController {
 			if(resultText < 0) { // 판매자 상품 글 삭제 성공
 				
 				session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");								
+				
+				GoodsFile goodsFile =  goodsService.ajaxSelectGoodsMainFileList(sellNo);
+				
+				// 상품 파일 삭제
+				if(goodsFile != null) {
+					
+					int resultFile = goodsService.deleteGoodsFile(sellNo);
+					
+					if(resultFile < 0) { // 판매자 상품 글 파일 삭제 성공
+						
+						session.setAttribute("successMsg", "상품 글 삭제를 실패했습니다.");
+						
+					}	
+				}
+				
 			}			
-		}
-			
+		} 
+						
 		// 상품 삭제
 		int result = goodsService.deleteSellerGoods(goodNo);
 		

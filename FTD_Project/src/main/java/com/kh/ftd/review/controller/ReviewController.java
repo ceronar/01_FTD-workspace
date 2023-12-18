@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
 import com.kh.ftd.review.model.service.ReviewService;
 import com.kh.ftd.review.model.vo.Review;
@@ -48,12 +50,81 @@ public class ReviewController {
 		//System.out.println(rList); //홍보리스트 다 불어와짐 + 구매자 이름 + 구매자 후기내용
 		// + 별점까지가지고있음
 		
+		ArrayList<Object> rC1List = new ArrayList<Object>(); //파일
+		ArrayList<Object> rC2List = new ArrayList<Object>(); //내용
+		
 		for(int i = 0; i < rList.size(); i++) {
+			
+			String rCList = rList.get(i).getRevContent();
+			String r2CList = rList.get(i).getRevContent();
+			
+		      // 최대 3개의 이미지 소스를 저장할 배열
+					ArrayList<Object> imageSources = new ArrayList<Object>();
+
+			        // 이미지 태그의 시작과 끝 인덱스를 찾기 위한 변수
+			        int startIndex, endIndex;
+			        
+			        
+			        
+			        // 이미지 태그의 시작 인덱스 찾기
+			        for (int l = 0; l < 3; l++) {
+			            startIndex = rCList.indexOf("<img");
+
+			            if (startIndex != -1) {
+			                // 이미지 태그의 끝 인덱스 찾기
+			                endIndex = rCList.indexOf(">", startIndex);
+
+			                // 이미지 태그 추출
+			                String imgTag = rCList.substring(startIndex, endIndex + 1);
+
+			                // src 속성값 찾기
+			                int srcStartIndex = imgTag.indexOf("src=\"") + 5;
+			                int srcEndIndex = imgTag.indexOf("\"", srcStartIndex);
+			                String srcAttributeValue = imgTag.substring(srcStartIndex, srcEndIndex);
+
+			                // 이미지 소스를 배열에 저장
+			                imageSources.add(srcAttributeValue);
+			     
+			                // 이미 처리한 부분은 제거
+			                rCList = rCList.substring(endIndex + 1);
+			            } else {
+			            	
+			            	break;
+			            }
+			        }
+			        
+			        rC1List.add(imageSources);
+		     
+					
+			
 			if(rList.get(i).getRevContent().length() > 80) {
 				String s = rList.get(i).getRevContent();
 				rList.get(i).setRevContent(s.substring(0, 77) + "...");
 			}
-		}
+			
+				r2CList = r2CList.replaceAll("<img.*?>", "");
+	
+		        // <p> 태그 제거
+				r2CList = r2CList.replaceAll("<p.*?>|</p>", "");
+				
+				 // <b> 태그 제거
+				r2CList = r2CList.replaceAll("<b.*?>|</b>", "");
+				
+				r2CList = r2CList.trim();
+				
+				if(r2CList.length() > 80) {
+					String s = r2CList;
+					rC2List.add(s.substring(0, 77) + "...");
+				}else {
+				
+				
+		        // 결과 출력
+		        //System.out.println(p2CList);
+					rC2List.add(r2CList);
+				}
+			}
+			
+		
 		
 		
 		//후기리스트 사진조회 어레이 리스트
@@ -129,6 +200,8 @@ public class ReviewController {
 	        	arrList.add(gfList.get(i));
 	        	arrList.add(replyList.get(i));
 	        	arrList.add(gList.get(i));
+	        	arrList.add(rC1List.get(i));
+	        	arrList.add(rC2List.get(i));
 	        	
 	        	//System.out.println(arrList);
 	        	arrList2.add(arrList);
@@ -197,8 +270,41 @@ public class ReviewController {
 				}
 		
 				return mv;
+	}
+	
+	@RequestMapping("enrollForm.rev")
+	public ModelAndView reviewEnrollForm(Review rev, ModelAndView mv) {
+		
+		System.out.println(rev);
+		
+		mv.addObject("rev", rev).setViewName("review/reviewEnrollForm");
+		
+		return mv;
+	}
+	
+	//후기리스트 글 등록 
+	@RequestMapping("insert.rev")
+	public String insertPromotion(HttpSession session, Review rev) {
 		
 		
+		System.out.println(rev);
+		
+		int result = reviewService.insertReview(rev);
+		
+		if(result > 0) { // 작성 성공 
+			
+		session.setAttribute("successMsg", "글 등록을 성공했습니다.");
+			
+			return "redirect:/rlist.bo";
+			
+			
+		} else { // 작성 실패
+			
+			session.setAttribute("successMsg", "글 등록을 실패했습니다.");
+			
+			return "common/errorPage";
+		}
+	
 		
 	}
 	

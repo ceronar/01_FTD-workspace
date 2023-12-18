@@ -1,211 +1,213 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<!DOCTYPE html>
-	<html>
+<!DOCTYPE html>
+<html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet"
-			type="text/css">
-		<link href="${pageContext.request.contextPath}/resources/css/promotion.css?version=1.2" rel="stylesheet"
-			type="text/css">
-		<link href="${pageContext.request.contextPath}/resources/css/review.css?version=1.2" rel="stylesheet"
-			type="text/css">
-		<link href="${pageContext.request.contextPath}/resources/css/inquiry.css?version=1.2" rel="stylesheet"
-			type="text/css">
-		<style>
-			.main-div {
-				margin-left: 140px;
-			}
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath}/resources/css/promotion.css?version=1.2" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath}/resources/css/review.css?version=1.2" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath}/resources/css/inquiry.css?version=1.2" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
+	<style>
+		.main-div {
+			margin-left: 140px;
+		}
 
-			/* 테스트 */
-			.store,
-			.store div {
-				border: 1px solid black;
-			}
+		/* 테스트 */
+		.store,
+		.store div {
+			border: 1px solid black;
+		}
 
-			.store {
-				width: 100%;
-				height: 300px;
-			}
+		.store {
+			width: 100%;
+			height: 300px;
+		}
+		
+		.store > div {
+			
+		}
 
-			/* store */
-			.store-address-title,
-			.store-title,
-			.store-detail {
-				width: 100%;
-				display: block;
-				box-sizing: border-box;
-			}
+		/* store */
+		.store-address-title,
+		.store-title,
+		.store-detail {
+			width: 100%;
+			display: block;
+			box-sizing: border-box;
+		}
 
-			.store-address-title {
-				height: 15%;
-			}
+		.store-address-title {
+			height: 15%;
+		}
 
-			.store-title {
-				height: 30%;
-			}
+		.store-title {
+			height: 30%;
+		}
 
-			.store-detail {
-				height: 55%;
-			}
+		.store-detail {
+			height: 55%;
+		}
 
-			/* store-address-title */
-			.store-address-icon,
-			.store-address {
-				float: left;
-				height: 100%;
-				box-sizing: border-box;
-			}
+		/* store-address-title */
+		.store-address-icon,
+		.store-address {
+			float: left;
+			height: 100%;
+			box-sizing: border-box;
+		}
 
-			.store-address-icon {
-				width: 8%;
-			}
+		.store-address-icon {
+			width: 8%;
+		}
 
-			.store-address {
-				width: 40%;
-			}
+		.store-address {
+			width: 40%;
+		}
 
-			/* store-title */
-			.store-name,
-			.store-subscribe-button {
-				float: left;
-				box-sizing: border-box;
-			}
+		/* store-title */
+		.store-name,
+		.store-subscribe-button {
+			float: left;
+			box-sizing: border-box;
+		}
 
-			.store-name {
-				width: 70%;
-			}
+		.store-name {
+			width: 70%;
+			height: 100%;
+		}
 
-			.store-subscribe-button {
-				width: 30%;
-			}
+		.store-subscribe-button {
+			width: 30%;
+			height: 100%;
+		}
 
-			/* store-detail */
-			.store-subscribe,
-			.store-rating,
-			.store-review {
-				float: left;
-				height: 100%;
-				box-sizing: border-box;
-			}
+		/* store-detail */
+		.store-subscribe,
+		.store-rating,
+		.store-review {
+			float: left;
+			height: 100%;
+			box-sizing: border-box;
+		}
 
-			.store-subscribe {
-				width: 33.4%;
-			}
+		.store-subscribe {
+			width: 33.4%;
+		}
 
-			.store-rating {
-				width: 33.3%;
-			}
+		.store-rating {
+			width: 33.3%;
+		}
 
-			.store-review {
-				width: 33.3%;
-			}
+		.store-review {
+			width: 33.3%;
+		}
 
-			/* store-subscribe */
-			.store-subscribe-text,
-			.store-subscribe-count {
-				width: 100%;
-				display: block;
-				box-sizing: border-box;
-			}
+		/* store-subscribe */
+		.store-subscribe-text,
+		.store-subscribe-count {
+			width: 100%;
+			display: block;
+			box-sizing: border-box;
+		}
 
-			.store-subscribe-text {
-				height: 50%;
-			}
+		.store-subscribe-text {
+			height: 50%;
+		}
 
-			.store-subscribe-count {
-				height: 50%;
-			}
+		.store-subscribe-count {
+			height: 50%;
+		}
 
-			/* store-rating */
-			.store-rating-text,
-			.store-rating-count {
-				width: 100%;
-				display: block;
-				box-sizing: border-box;
-			}
+		/* store-rating */
+		.store-rating-text,
+		.store-rating-count {
+			width: 100%;
+			display: block;
+			box-sizing: border-box;
+		}
 
-			.store-rating-text {
-				height: 50%;
-			}
+		.store-rating-text {
+			height: 50%;
+		}
 
-			.store-rating-count {
-				height: 50%;
-			}
+		.store-rating-count {
+			height: 50%;
+		}
 
-			/* store-review */
-			.store-review-text,
-			.store-review-count {
-				width: 100%;
-				display: block;
-				box-sizing: border-box;
-			}
+		/* store-review */
+		.store-review-text,
+		.store-review-count {
+			width: 100%;
+			display: block;
+			box-sizing: border-box;
+		}
 
-			.store-review-text {
-				height: 50%;
-			}
+		.store-review-text {
+			height: 50%;
+		}
 
-			.store-review-count {
-				height: 50%;
-			}
+		.store-review-count {
+			height: 50%;
+		}
 
-			.inquiry {
-				display: none;
-			}
+		.inquiry {
+			display: none;
+		}
 
-			.sub-content {
-				width: 100%;
-				/* content 영역 크기 조정 */
-				height: 800px;
-				background-color: #ffffff;
-				padding: 20px;
-				box-sizing: border-box;
-				/* border: 1px solid rgb(85, 85, 85); 위쪽(top)만 0으로 수정 */
-				box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-				margin: 0;
-				/* content의 마진 제거 */
-				border-top: 10px solid rgb(232, 235, 237);
-				
-			}
+		.sub-content {
+			width: 100%;
+			/* content 영역 크기 조정 */
+			height: 800px;
+			background-color: #ffffff;
+			padding: 20px;
+			box-sizing: border-box;
+			/* border: 1px solid rgb(85, 85, 85); 위쪽(top)만 0으로 수정 */
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+			margin: 0;
+			/* content의 마진 제거 */
+			border-top: 10px solid rgb(232, 235, 237);
+			
+		}
 
-			/* 네비게이션 메뉴 스타일 */
-			.sub-menu button {
-				width: 180px;
-				display: inline-block;
-				/* 가로로 나열되도록 변경합니다. */
-				text-decoration: none;
-				padding: 10px;
-				/* 위아래 좌우 여백 조절 */
-				margin: 0 5px;
-				/* 좌우 간격 조절 */
-				font-size: 22px;
-				color: rgb(85, 85, 85);
-				font-family: 'Noto Sans KR', sans-serif;
-				/* background-color: #ccc; */
-				/* border-radius: 5px; */
-			}
+		/* 네비게이션 메뉴 스타일 */
+		.sub-menu button {
+			width: 180px;
+			display: inline-block;
+			/* 가로로 나열되도록 변경합니다. */
+			text-decoration: none;
+			padding: 10px;
+			/* 위아래 좌우 여백 조절 */
+			margin: 0 5px;
+			/* 좌우 간격 조절 */
+			font-size: 22px;
+			color: rgb(85, 85, 85);
+			font-family: 'Noto Sans KR', sans-serif;
+			/* background-color: #ccc; */
+			/* border-radius: 5px; */
+		}
 
-			.enrollForm-btn {
-				width: 100%;
-			}
+		.enrollForm-btn {
+			width: 100%;
+		}
 
-			.list-area>thead>tr>td {
-				background-color: #4dcf42;
-				color: white;
-				text-decoration: double;
-				font-weight: bold;
-				font-size: 20px;
-			}
+		.list-area>thead>tr>td {
+			background-color: #4dcf42;
+			color: white;
+			text-decoration: double;
+			font-weight: bold;
+			font-size: 20px;
+		}
 
-			.list-area>thead>tr>td:hover {
-				cursor: pointer;
-				background-color: #27ae60;
-			}
-		</style>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
-		<script>
+		.list-area>thead>tr>td:hover {
+			cursor: pointer;
+			background-color: #27ae60;
+		}
+	</style>
+	<script>
 
 			$(document).ready(function () {
 
@@ -222,43 +224,43 @@
 					url: 'ajaxSelectSellerMarketList.se',
 					type: 'get',
 					data: { sellerNo: ${ requestScope.sellerNo }},
-			success: function(result) {
-
-				$('.store').append(
-
-					'<div class="store-address-title">'
-					+ '<div class="store-address-icon">아이콘</div>'
-					+ '<div class="store-address">' + result[0].address + '</div>'
-					+ '</div>'
-					+ '<div class="store-title">'
-					+ '<div class="store-name">' + result[0].companyName + '</div>'
-					+ '<div class="store-subscribe-button"><button id="subscribe">단골맺기</button></div>'
-					+ '</div>'
-					+ '<div class="store-detail">'
-					+ '<div class="store-subscribe">'
-					+ '<div class="store-subscribe-text">단골</div>'
-					+ '<div class="store-subscribe-count">' + result[3] + '</div>'
-					+ '</div>'
-					+ '<div class="store-rating">'
-					+ '<div class="store-rating-text">평점</div>'
-					+ '<div class="store-rating-count">' + result[1] + '</div>'
-					+ '</div>'
-					+ '<div class="store-review">'
-					+ '<div class="store-review-text">후기</div>'
-					+ '<div class="store-review-count">' + result[2] + '</div>'
-					+ '</div>'
-					+ '</div>'
-				);
-
-			},
-			error: function() {
-
-				console.log("ajax 통신 실패");
+					success: function(result) {
+		
+						$('.store').append(
+		
+							'<div class="store-address-title">'
+							+ '<div class="store-address-icon">아이콘</div>'
+							+ '<div class="store-address">' + result[0].address + '</div>'
+							+ '</div>'
+							+ '<div class="store-title">'
+							+ '<div class="store-name">' + result[0].companyName + '</div>'
+							+ '<div class="store-subscribe-button"><button id="subscribe">단골맺기</button></div>'
+							+ '</div>'
+							+ '<div class="store-detail">'
+							+ '<div class="store-subscribe">'
+							+ '<div class="store-subscribe-text">단골</div>'
+							+ '<div class="store-subscribe-count">' + result[3] + '</div>'
+							+ '</div>'
+							+ '<div class="store-rating">'
+							+ '<div class="store-rating-text">평점</div>'
+							+ '<div class="store-rating-count">' + result[1] + '</div>'
+							+ '</div>'
+							+ '<div class="store-review">'
+							+ '<div class="store-review-text">후기</div>'
+							+ '<div class="store-review-count">' + result[2] + '</div>'
+							+ '</div>'
+							+ '</div>'
+						);
+		
+					},
+					error: function() {
+		
+						console.log("ajax 통신 실패");
+					}
+		            
+				});
+						
 			}
-            
-		});
-				
-	}
 
 	function ajaxSelectSubscribe() {
 		
@@ -295,7 +297,7 @@
 
 
 
-		</script>
+	</script>
 	</head>
 
 	<body>
