@@ -174,11 +174,39 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+
 	public ArrayList<Review> selectGoodReview(int goodNo) {
 		
 		return goodsDao.selectGoodReview(sqlSession,goodNo);
 	}
+
+	public int deleteGoodsFile(int sellNo) {
+
+		return goodsDao.deleteGoodsFile(sqlSession, sellNo);
+	}
+
+	@Override
+	public int deleteSellerGoodsText(int sellNo) {
+
+		return goodsDao.deleteSellerGoodsText(sqlSession, sellNo);
+	}
+
+	@Override
+	public int updateSellerGoods(Goods goods) {
+		
+		return goodsDao.updateSellerGoods(sqlSession, goods);
+	}
+
+	@Override
+	public int deleteSellerGoods(int goodNo) {
+		// TODO Auto-generated method stub
+		return goodsDao.deleteSellerGoods(sqlSession, goodNo);
+	}
 	
+	
+	
+	
+
 	
 	
 }

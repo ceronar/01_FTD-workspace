@@ -16,7 +16,7 @@
     
         body {  
             font-family: Arial, sans-serif;
-			height: 2000px;
+			height: 1600px;
             margin: 0;
             padding: 0;
             background-color: rgb(240, 243, 246);
@@ -121,9 +121,6 @@
         #address, #zipCode, #detailAddress{ /* 주소입력칸 */
             width: 300px;
         }
-        
-        .nessesary{ color: red; } /* 별 표시 */
-
 
         #account-title{ /* "아이디/비밀번호 설정" */
             padding: 10px;
@@ -238,13 +235,13 @@
             <br>
             <table id="register-form-table" align="center">
                 <tr>
-                    <th><span class="nessesary">*</span> 성명 : </th>
+                    <th><span class="nessesary"></span> 성명 : </th>
                     <td colspan="3">
                         <input type="text" id="memberName" name="memberName" required class="form-control form-control">
                     </td>
                 </tr>
                 <tr>
-                    <th><span class="nessesary">*</span> 휴대폰번호</th>
+                    <th><span class="nessesary"></span> 휴대폰번호</th>
                     <td>
                         <div style="display:flex; width: 300px;">                
                             <input type="text" name="phone" 
@@ -255,7 +252,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><span class="nessesary">*</span> 이메일</th>
+                    <th><span class="nessesary"></span> 이메일</th>
                     <td colspan="3">
                     <div style="display:flex; width: 500px;">
                     	<input type="hidden" id="email"  name="email">
@@ -272,7 +269,7 @@
                 </tr>
 
                 <tr>
-                    <th><span class="nessesary">*</span>우편번호</th>
+                    <th><span class="nessesary"></span>우편번호</th>
                     <td colspan="3">
                         <div style="display: flex;">
                             <input type="text" id="zipCode" name="zipCode" required class="postcodify_postcode5 form-control form-control" value="" />
@@ -282,14 +279,14 @@
                 </tr>
                 
                 <tr>
-                    <th><span class="nessesary">*</span>주소</th>
+                    <th><span class="nessesary"></span>주소</th>
                     <td colspan="3">
                         <input type="text" id="address" name="address" required class="postcodify_address form-control form-control">
                     </td>
                 </tr>
 
                 <tr>
-                    <th><span class="nessesary">*</span>상세주소</th>
+                    <th><span class="nessesary"></span>상세주소</th>
                     <td colspan="3">
                         <input type="text" id="detailAddress" name="detailAddress" required class="postcodify_details form-control form-control" value="" />
                     </td>
@@ -297,7 +294,7 @@
 
 
                 <tr>
-                    <th><span class="nessesary">*</span> 성별</th>
+                    <th><span class="nessesary"></span> 성별</th>
                     <td colspan="3">
                         <input type="radio" id="Male" value="M" name="gender" checked>
                         <label for="Male">남자</label> &nbsp;&nbsp;
@@ -339,12 +336,14 @@
                     </td>
                 </tr>
             </table>
+            <br><br>
+            <div align="center">
+                <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
+                <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
+            </div>
         </div>
 
-        <div align="center">
-            <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
-            <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
-        </div>
+       
 
     </form>
         <!-- jQuery와 Postcodify를 로딩한다 -->

@@ -33,6 +33,13 @@
 			cursor: pointer;
 		}
 		
+		.like-table img {
+			max-width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+		}
+		
 		.deleteBtn {
 			background-color: rgba(0,0,0,0);
 			border: none;
@@ -116,7 +123,7 @@
     				}, function(){ alertify.error('취소')});
     			} else {
     				let sellNo = parentTrTag.children.item(5).innerText;
-    				location.href = "goodsDetailPage.go?gno=" + sellNo;
+    				location.href = "goodsDetailPage.go?sno=" + sellNo;
     			}
 			});
 		});

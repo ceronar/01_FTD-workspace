@@ -82,10 +82,19 @@
            	</c:otherwise>
 		
 		</c:choose>
-		<div class="sidebar-menu" onclick="location.href='basket.me';">
-			<div class="icon"><span class="material-symbols-outlined">shopping_cart</span></div>
-			<div class="text">장바구니</div>
-		</div>
+		<c:choose>
+			<c:when test="${ not empty sessionScope.loginSeller }">
+			<div class=""></div>
+			</c:when>
+			<c:otherwise>
+				<div class="sidebar-menu" onclick="location.href='basket.me';">
+					<div class="icon"><span class="material-symbols-outlined">shopping_cart</span></div>
+					<div class="text">장바구니</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		
+		
 		<c:choose>
 			<c:when test="${ not empty sessionScope.loginSeller }">
 				<div class="sidebar-menu" onclick="location.href='sellerPage';">

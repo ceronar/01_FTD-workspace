@@ -91,6 +91,16 @@ public interface GoodsService {
 	// 상품의 후기
 	ArrayList<Review> selectGoodReview(int goodNo);
 	
+	// 판매자 상품 글 파일 삭제
+	int deleteGoodsFile(int sellNo);
 	
+	// 판매자 상품 글 삭제 
+	int deleteSellerGoodsText(int sellNo);
+	
+	// 판매자 상품 수정
+	int updateSellerGoods(Goods goods);
+	
+	// 판매자 상품 삭제
+	int deleteSellerGoods(int goodNo);
 	
 }

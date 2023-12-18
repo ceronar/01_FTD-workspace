@@ -145,4 +145,24 @@ public class GoodsDao {
 		return (ArrayList)sqlSession.selectList("goodsMapper.selectGoodReview", goodNo);
 	}
 	
+	public int deleteGoodsFile(SqlSessionTemplate sqlSession, int sellNo) {
+		
+		return sqlSession.update("goodsMapper.deleteGoodsFile", sellNo);
+	}
+	
+	public int deleteSellerGoodsText(SqlSessionTemplate sqlSession, int sellNo) {
+		
+		return sqlSession.update("goodsMapper.deleteSellerGoodsText", sellNo);
+	}
+	
+	public int updateSellerGoods(SqlSessionTemplate sqlSession, Goods goods) {
+		
+		return sqlSession.update("goodsMapper.updateSellerGoods", goods);
+	}
+	
+	public int deleteSellerGoods(SqlSessionTemplate sqlSession, int goodNo) {
+		
+		return sqlSession.update("goodsMapper.deleteSellerGoods", goodNo);
+	}
+	
 }

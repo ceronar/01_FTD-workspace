@@ -157,6 +157,12 @@
 		min-height: 510px;
 	}
 	
+	#img-div {
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;	
+	}
+	
 
 </style>
 <script>
@@ -201,7 +207,7 @@
                 	$('.goods-div').append(
                 			'<div class="goods-list">'
 								+'<input type="hidden" value="' + item[1].sellNo + '">'
-								+'<div class="goods-img">'+ item[2].changeName +'</div>'
+								+'<div class="goods-img"><img id="img-div" src="'+ item[2].changeName +'"></div>'
 								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
 								+'<div class="goods-price">'+item[0].price+'원</div>'
 								+'<div class="goods-detail">'
