@@ -179,13 +179,14 @@ public class GoodsController {
 			
 			// 상품 파일 정보
 			GoodsFile goodsFile = goodsService.ajaxSelectGoodsMainFileList(sellNo);
+		
 			
 			// 상품의 후기
 			ArrayList<Review> r = goodsService.selectGoodReview(goodNo);
 			//System.out.println(goodNo);
 			System.out.println(r);
 			
-			// System.out.println(goodsFile);
+			System.out.println(goodsFile);
 			
 			if(goodsFile == null) { // 상품 파일이 없을 시
 				
@@ -716,7 +717,7 @@ public class GoodsController {
 		
 		// 판매자 상품 정보 조회
 		Goods goods = goodsService.selectGoodsByGoodNo(goodNo);
-	
+		
 		model.addAttribute("goods", goods);
 		
 		return "goods/sellerGoodsListDetailView";
