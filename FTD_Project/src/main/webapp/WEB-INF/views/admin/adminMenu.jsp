@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -222,7 +223,7 @@
 		            <div class="card-body d-flex justify-content-between">
 		              <div>
 		                <p class="card-text mb-2">전체 회원 수</p>
-		                <h4>${ requestScope.countMember + requestScope.countSeller } 명</h4>
+		                <h4><fmt:formatNumber type="number" maxFractionDigits="3" value="${ requestScope.countMember + requestScope.countSeller }" /> 명</h4>
 		              </div>
 		              <span class="material-symbols-outlined"
 		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
@@ -236,7 +237,7 @@
 		            <div class="card-body d-flex justify-content-between">
 		              <div>
 		                <p class="card-text mb-2">누적 게시글 수</p>
-		                <h4>${ requestScope.countReview + requestScope.countInquiry + requestScope.countPromotion + requestScope.countGoodsSell + requestScope.countNotice } 개</h4>
+		                <h4><fmt:formatNumber type="number" maxFractionDigits="3" value="${ requestScope.countReview + requestScope.countInquiry + requestScope.countPromotion + requestScope.countGoodsSell + requestScope.countNotice }" /> 개</h4>
 		              </div>
 		              <span class="material-symbols-outlined"
 		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
@@ -250,7 +251,7 @@
 		            <div class="card-body d-flex justify-content-between">
 		              <div>
 		                <p class="card-text mb-2">전체 매출</p>
-		                <h4>${ requestScope.totalSales } 원</h4>
+		                <h4><fmt:formatNumber type="number" maxFractionDigits="3" value="${ requestScope.totalSales }" /> 원</h4>
 		              </div>
 		              <span class="material-symbols-outlined"
 		              		style="font-size: 30px; margin-top: 20px; color: #6c757d">
