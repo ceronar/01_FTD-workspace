@@ -15,56 +15,55 @@
 <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
 <style>
 
-.sub-review-content {
-    margin: 20px;
-     border : 0px;
-}
+	.sub-review-content {
+	    margin: 20px;
+	     border : 0px;
+	}
+	
+	.profile_under_1 {
+	    border: 1px solid #ccc;
+	    padding: 10px;
+	    
+	    display: flex;
+	    flex-direction: column;
+	    align-items: flex-start;
+	     border : 0px;
+	}
+	
+	.profile_2 {
+	    width: 100%;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    margin-bottom: 10px;
+	     border : 0px;
+	}
+	
+	#profile_2_2 {
+	    font-size: 12px;
+	    color: #888;
+	     border : 0px;
+	}
+	.starRating{
+		border : 0px;
+	}
+	
+	.star-rating {
+	    margin-top: 5px;
+	     border : 0px;
+	}
+	
+	.star-rating span {
+	    margin-right: 3px;
+	     border : 0px;
+	}
 
-.profile_under_1 {
-    border: 1px solid #ccc;
-    padding: 10px;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-     border : 0px;
-}
-
-.profile_2 {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-     border : 0px;
-}
-
-#profile_2_2 {
-    font-size: 12px;
-    color: #888;
-     border : 0px;
-}
-.starRating{
-	border : 0px;
-}
-
-.star-rating {
-    margin-top: 5px;
-     border : 0px;
-}
-
-.star-rating span {
-    margin-right: 3px;
-     border : 0px;
-}
-
-#content {
- 
-    border : 0px;
-}
+	#content {	 
+	    border : 0px;
+	}
 
 	div {
-		border: 1px solid black;
+		/* border: 1px solid black; */
 	}
 
 	.main-div {

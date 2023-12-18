@@ -54,7 +54,18 @@
 	<div class="header">
 
 		<div class="title-div">
-			<div class="title-logo"><img class="logo" src= "${pageContext.request.contextPath}/resources/images/sample/logo.png" onclick="location.href='${pageContext.request.contextPath}';"></div>
+			
+			<div class="title-logo">
+				<c:choose>
+					<c:when test="${ sessionScope.loginUser.memberId eq 'admin' }">
+						<img class="logo" src= "${pageContext.request.contextPath}/resources/images/sample/default.png" onclick="location.href='menu.ad';">
+					</c:when>
+					<c:otherwise>
+						<img class="logo" src= "${pageContext.request.contextPath}/resources/images/sample/logo.png" onclick="location.href='${pageContext.request.contextPath}';">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 			<div class="title-name"><a href="${pageContext.request.contextPath}/">신선한 땅의 맛</a></div>
 			<div class="title-search"><span class="material-symbols-outlined" onclick="location.href='${pageContext.request.contextPath}';">search</span></div>
 			<div class="title-cart"><span class="material-symbols-outlined" onclick="location.href='basket.me';">shopping_cart</span></div>

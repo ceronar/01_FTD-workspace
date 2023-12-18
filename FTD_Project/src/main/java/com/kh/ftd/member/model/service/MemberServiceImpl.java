@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public Subscribe ajaxSelectSubscribe(Subscribe subscribeNo) {
+	public int ajaxSelectSubscribe(Subscribe subscribeNo) {
 		
 		return memberDao.ajaxSelectSubscribe(sqlSession, subscribeNo);
 	}
