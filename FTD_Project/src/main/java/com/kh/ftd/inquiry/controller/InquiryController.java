@@ -126,7 +126,7 @@ public class InquiryController {
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
 			
-			return "redirect:/list.in?sellerNo=" + i.getSellerNo();
+			return "redirect:/sellerDetailPage.se?sno=" + i.getSellerNo();
 		} else {
 			
 			model.addAttribute("errorMsg", "게시글 등록 실패");
@@ -332,7 +332,7 @@ public class InquiryController {
 		if(result > 0) {
 			session.setAttribute("alertMsg", "성공적으로 문의글이 삭제되었습니다.");
 			
-			return "redirect:/list.in?sellerNo=" + i.getSellerNo();
+			return "redirect:/sellerDetailPage.se?sno=" + i.getSellerNo();
 		} else {
 			
 			

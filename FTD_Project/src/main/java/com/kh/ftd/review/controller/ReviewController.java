@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.promotion.model.vo.Promotion;
 import com.kh.ftd.promotion.model.vo.PromotionReply;
 import com.kh.ftd.review.model.service.ReviewService;
 import com.kh.ftd.review.model.vo.Review;
@@ -268,8 +270,41 @@ public class ReviewController {
 				}
 		
 				return mv;
+	}
+	
+	@RequestMapping("enrollForm.rev")
+	public ModelAndView reviewEnrollForm(Review rev, ModelAndView mv) {
+		
+		System.out.println(rev);
+		
+		mv.addObject("rev", rev).setViewName("review/reviewEnrollForm");
+		
+		return mv;
+	}
+	
+	//후기리스트 글 등록 
+	@RequestMapping("insert.rev")
+	public String insertPromotion(HttpSession session, Review rev) {
 		
 		
+		System.out.println(rev);
+		
+		int result = reviewService.insertReview(rev);
+		
+		if(result > 0) { // 작성 성공 
+			
+		session.setAttribute("successMsg", "글 등록을 성공했습니다.");
+			
+			return "redirect:/rlist.bo";
+			
+			
+		} else { // 작성 실패
+			
+			session.setAttribute("successMsg", "글 등록을 실패했습니다.");
+			
+			return "common/errorPage";
+		}
+	
 		
 	}
 	

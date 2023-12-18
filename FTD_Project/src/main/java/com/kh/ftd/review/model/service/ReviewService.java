@@ -57,5 +57,8 @@ public interface ReviewService {
 	
 	// 구매자 작성 리뷰 리스트 조회
 	ArrayList<Review> memberBoardList(int memberNo);
+	
+	// 리뷰 작성 기능
+	int insertReview(Review rev);
 
 }

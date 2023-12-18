@@ -89,6 +89,10 @@ public class ReviewDao {
 
 	}
 
+	public int insertReview(SqlSessionTemplate sqlSession, Review rev) {
+		return sqlSession.insert("reviewMapper.insertReview", rev);
+	}
+
 	
 
 
