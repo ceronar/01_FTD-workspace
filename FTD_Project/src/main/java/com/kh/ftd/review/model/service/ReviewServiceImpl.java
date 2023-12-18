@@ -111,6 +111,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	}
 
+	@Override
+	public int insertReview(Review rev) {
+		return reviewDao.insertReview(sqlSession, rev);
+	}
+
 
 
 }

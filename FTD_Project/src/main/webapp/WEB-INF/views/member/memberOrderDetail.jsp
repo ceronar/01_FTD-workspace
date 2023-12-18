@@ -67,7 +67,9 @@
             padding: 8px;
             text-align: left;
 		}
-		
+		.review-btn {
+			width : 80px;
+		}
 		.orderDetail-table img {
 			max-width: 100px;
             max-height: 100px;
@@ -124,6 +126,7 @@
 							<td>${ og.count * og.price }</td>
 							<td>${ og.status eq "N" ? "<span class='red'>배송전</span>" : og.status eq "Y" ? "<span class='orange'>배송중</span>" : "<span class='green'>배송완료</span>" }</td>
 							<td hidden>${ og.sellNo }</td>
+							<td class="review-btn"><button>후기 작성</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -137,6 +140,14 @@
 				location.href = "goodsDetailPage.go?gno=" + sellNo;
 			});
 		});
+		
+		$('.review-btn button').click(function() {
+	        // var sellNo = $(this).closest('tr').find('td:hidden').last().text();
+	         let goodNo = $(this).closest('tr').find('td:hidden:first').text();
+			console.log(goodNo);
+	        window.location.href = 'enrollForm.rev?goodNo=' + goodNo;
+	        
+	    });
 	</script>
 	
 	</div>
