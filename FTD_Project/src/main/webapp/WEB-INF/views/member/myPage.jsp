@@ -45,8 +45,9 @@
             gap: 10px;
         }
       --%>
+
       .content {
-		height: 1400px;
+		height: 900px;
       }
       
       label {
@@ -168,7 +169,15 @@
 	#nav5 {
 	    display: none !important;
 	}
-	
+	.insert {
+        height: 900px;
+        width: 900px;
+        align-content: center;
+    }
+    .information {
+        width: ;
+    }
+
     </style>
 </head>
 <body>
@@ -181,41 +190,92 @@
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
 			    <h1>구매자 정보</h1>
-				    <form action="update.me" method="post" >
+				    <form action="update.me" method="post" class="insert">
 				    	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
 				    	
-				        <label for="memberId">* 아이디 : </label>
-                        <input type="text" class="form-control" id="memberId" value="${ sessionScope.loginUser.memberId }" name="memberId" readonly> <br>
-                        <br><br>
-                        
-                        <label for="memberName">* 이름 : </label>
-                        <input type="text" class="form-control" id="memberName" value="${ sessionScope.loginUser.memberName }" name="memberName" required> <br>
-                        <br><br>
-                        
-                        <label for="email"> &nbsp; 이메일 : </label>
-                        <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email"> <br>
-                        <br><br>
-                        
-                        <label for="phone"> &nbsp; 폰번호 : </label>
-                        <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone"> <br>
-                        <br><br>
-
-                        <label for="zipCode"> &nbsp; 우편번호 : </label>
-                        
-                        <div style=" align-items: center;">
-                            <input type="text" class="form-control postcodify_postcode5" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode">
-                            <button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px; margin-left: 10px;">검색</button>
-                        </div>
-                        
-                        <br>
-                        
-                        <label for="address"> &nbsp; 주소 : </label>
-                        <input type="text" class="form-control postcodify_address" id="address" value="${ sessionScope.loginUser.address }" name="address"> <br>
-                        <br><br>
-                        
-                        <label for="detailAddress"> &nbsp; 상세주소 : </label>
-                        <input type="text" class="form-control postcodify_details" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress"> <br>
-                        <br><br>
+				        <table align="center">
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="memberId">* 아이디 : </label>
+                                    <input type="text" class="form-control" id="memberId" value="${ sessionScope.loginUser.memberId }" name="memberId" readonly>
+                                
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="memberName">* 이름 : </label>
+                                    <input type="text" class="form-control" id="memberName" value="${ sessionScope.loginUser.memberName }" name="memberName" required>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="email"> &nbsp; 이메일 : </label>
+                                    <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email">
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="phone"> &nbsp; 폰번호 : </label>
+                                    <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone">
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <div style=" align-items: center;">
+                                        <label for="zipCode"> &nbsp; 우편번호 : </label>
+                                        <input type="text" class="form-control postcodify_postcode5" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode">
+                                    </div>
+                                </td>
+                                <td><button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px; margin-left: 10px;">검색</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="address"> &nbsp; 주소 : </label>
+                                    <input type="text" class="form-control postcodify_address" id="address" value="${ sessionScope.loginUser.address }" name="address">
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="information">
+                                    <label for="detailAddress"> &nbsp; 상세주소 : </label>
+                                    <input type="text" class="form-control postcodify_details" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress">
+                                </td>
+                                <td></td>
+                        </table>
                     
                     <div class="Gender">
                         <label for=""> &nbsp; Gender : </label>

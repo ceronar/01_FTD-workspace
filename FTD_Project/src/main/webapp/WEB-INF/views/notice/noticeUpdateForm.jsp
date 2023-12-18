@@ -67,7 +67,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
 	 -->
-	 
+	 <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="wrapper">

@@ -96,6 +96,28 @@
             background-color: #4caf50;
             color: #fff;
         }
+        
+        /* navi css */
+		#nav1 {
+		    display: none !important;
+		}
+		
+		#nav2 {
+		    display: none !important;
+		}
+		
+		#nav3 {
+		    display: none !important;
+		}
+		
+		#nav4 {
+		    display: block !important;
+		}
+		
+		#nav5 {
+		    display: none !important;
+		}
+        
 	</style>
 </head>
 <body>
@@ -196,7 +218,7 @@
 					            for(let j = 0; j < data[i].length; j++){
 					                let cell = document.createElement("td");
 					                cell.textContent = data[i][j];
-					                if(j == 0){
+					                if(j == 0 || j == 5){
 					                    cell.style.display = "none";
 					                }
 					                row.appendChild(cell);
