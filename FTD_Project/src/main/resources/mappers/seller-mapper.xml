@@ -93,9 +93,9 @@
 	
 	<!-- 로그인용 쿼리문 -->
 	<select id="loginSeller" parameterType="seller" resultMap="sellerResultSet">
-	 SELECT *
+	 SELECT S.*, F.CHANGE_NAME
 	   FROM SELLER S
-	   LEFT JOIN SELLER_FILE F USING (SELLER_NO)
+	   LEFT JOIN SELLER_FILE F ON (S.SELLER_NO = F.SELLER_NO AND F.DELETE_DATE IS NULL)
 	  WHERE SELLER_ID = #{sellerId}
 	    AND S.DELETE_DATE IS NULL
 	    AND F.DELETE_DATE IS NULL

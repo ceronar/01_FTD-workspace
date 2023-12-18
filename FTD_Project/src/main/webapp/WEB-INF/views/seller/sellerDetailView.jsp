@@ -23,8 +23,9 @@
 
 	/* 테스트 */
 	.store,
-	.store div {
-		border: 1px solid black;
+	.store * {
+		/* border: 1px solid black; */
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	.store {
@@ -53,10 +54,16 @@
 	.store-title {
 		height: 30%;
 		line-height: 90px;
+		margin-bottom: 15px;
 	}
 
 	.store-detail {
+		border-top: 3px solid rgba(235, 234, 234, 0.589);
 		height: 55%;
+	}
+	
+	.store-detail > div {
+		font-size: 30px;
 	}
 
 	/* store-address-title */
@@ -83,8 +90,11 @@
 	}
 
 	.store-name {
+		padding-left: 20px;
+		text-align: left;
 		width: 70%;
 		height: 100%;
+		font-size: 60px;
 	}
 
 	.store-subscribe-button {
@@ -122,11 +132,13 @@
 	}
 
 	.store-subscribe-text {
+		color: rgb(85, 85, 85);
 		line-height: 82.5px;
 		height: 50%;
 	}
 
 	.store-subscribe-count {
+		font-size: 50px;
 		line-height: 82.5px;
 		height: 50%;
 	}
@@ -140,11 +152,13 @@
 	}
 
 	.store-rating-text {
+		color: rgb(85, 85, 85);
 		line-height: 82.5px;
 		height: 50%;
 	}
 
 	.store-rating-count {
+		font-size: 50px;
 		line-height: 82.5px;
 		height: 50%;
 	}
@@ -158,11 +172,13 @@
 	}
 
 	.store-review-text {
+		color: rgb(85, 85, 85);
 		line-height: 82.5px;
 		height: 50%;
 	}
 
 	.store-review-count {
+		font-size: 50px;
 		line-height: 82.5px;
 		height: 50%;
 	}
@@ -278,7 +294,7 @@
 	}
 	
 	#thumbnail {
-		width: 100%;
+		width: 500px;
 		height: 100%;
 		box-sizing: border-box;
 	}
@@ -313,13 +329,35 @@
 
 	}
 	
+	.icon1 {
+		width: 40px;
+		height: 40px;
+		box-sizing: border-box;
+	}
+
+	.icon2 {
+		margin-right: 10px;
+		width: 40px;
+		height: 40px;
+		box-sizing: border-box;
+	}
+
+	#subscribe {
+		width: 150px;
+		height: 60px;
+		box-sizing: border-box;
+		font-size: 25px;
+		border-radius: 5px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	}
+	
 </style>
 <script>
 
 	$(function () {
 
 		ajaxSelectSellerMarketList();
-		console.log(${ requestScope.sellerNo });
+		// console.log(${ requestScope.sellerNo });
 		ajaxSelectSubscribe();
 
 	});
@@ -335,7 +373,7 @@
 			success: function(result) {
 
 				let str	= '<div class="store-address-title">'
-					+ '<div class="store-address-icon">아이콘</div>'
+					+ '<div class="store-address-icon"><img class="icon1" src="resources/images/sample/map.png"></img></div>'
 					+ '<div class="store-address">' + result[0].address + '</div>'
 					+ '</div>'
 					+ '<div class="store-title">'
@@ -351,11 +389,11 @@
 					+ '<div class="store-detail">'
 					+ '<div class="store-subscribe">'
 					+ '<div class="store-subscribe-text">단골</div>'
-					+ '<div class="store-subscribe-count">' + result[3] + '</div>'
+					+ '<div class="store-subscribe-count"><img class="icon2" src="resources/images/sample/person.png">' + result[3] + '</div>'
 					+ '</div>'
 					+ '<div class="store-rating">'
 					+ '<div class="store-rating-text">평점</div>'
-					+ '<div class="store-rating-count">' + result[1] + '</div>'
+					+ '<div class="store-rating-count"><img class="icon2" src="resources/images/sample/star.png">' + result[1] + '</div>'
 					+ '</div>'
 					+ '<div class="store-review">'
 					+ '<div class="store-review-text">후기</div>'
@@ -365,8 +403,9 @@
 					
 					$('.store').append(str);
 					
-					$("#thumbnail").attr("src", result[0].changeName);
-
+					$('.header-title').text(result[0].companyName);
+					
+					$('#thumbnail').attr('src', result[4].changeName);
 			},
 			error: function() {
 
@@ -390,13 +429,13 @@
 
 				if (result > 0) {
 					
-					console.log(result);
+					// console.log(result);
 
 					$("#subscribe").css("background-color", "#388755");
 
 				} else {
 					
-					console.log(result);
+					// console.log(result);
 
 					$("#subscribe").css("background-color", "lightgray");
 
@@ -432,7 +471,7 @@
 	            </div>
 	            
 				<div class="header-img">
-					<img id="thumbnail" src="${ requestScope.goodsFile.changeName }">
+					<img id="thumbnail" src="${sessionScope.loginSeller.changeName }">
 				</div>
 
 				<div class="content">
@@ -754,7 +793,7 @@
 	success: function (data) {
 	
 		console.log("통신성공!!!");
-		console.log(data);
+		// console.log(data);
 	
 	
 		// Remove skeleton UI
