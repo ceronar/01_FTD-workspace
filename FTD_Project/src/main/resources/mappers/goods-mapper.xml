@@ -33,6 +33,9 @@
 		<result column="REPLY_CONTENT" property="replyContent" />
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
+		
+		<result column="MEMBER_ID" property="replyWriter" />
+		
 	</resultMap>
 	
 	<resultMap id="goodsSellResultSet" type="goodsSell">
@@ -359,5 +362,25 @@
 		   SET DELETE_DATE = SYSDATE
 		 WHERE GOOD_NO = #{goodNo}
 	</update>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="sellReplyResultSet">
+		SELECT * 
+		  FROM SELL_REPLY S
+		  JOIN MEMBER M ON(S.MEMBER_NO = M.MEMBER_NO)
+		 WHERE S.SELL_NO = #{sno}
+		   AND M.STATUS IS NULL
+		   AND S.DELETE_DATE IS NULL
+	</select>
+	
+	<insert id="ajaxInsertReply" parameterType="sellReply">
+		INSERT INTO SELL_REPLY(REPLY_NO
+                     , MEMBER_NO
+                     , SELL_NO
+                     , REPLY_CONTENT)
+                VALUES(SEQ_SRNO.NEXTVAL
+                     , #{memberNo}
+                     , #{sellNo}
+                     , #{replyContent})
+	</insert>
 
 </mapper>

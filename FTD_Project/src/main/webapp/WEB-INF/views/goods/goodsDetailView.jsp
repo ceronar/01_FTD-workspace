@@ -441,6 +441,17 @@
 		box-sizing: border-box;
 	}
 	
+	#replyArea {
+		width: 80%;
+		height: 80%;
+		box-sizing: border-box;
+		border: 1px solid black;
+	}
+
+	tr, td {
+		border: 1px solid black;
+	}
+	
 
 </style>
 <script type="text/javascript">
@@ -619,7 +630,43 @@
 						
 						<div class="br-line"></div>
 
-						<div class="goods-reply-content"></div>
+						<div class="goods-reply-content">
+						
+						<table id="replyArea" class="table" align="center" >
+			                <thead>
+			                    <tr>
+			                    <c:choose>
+									<c:when test="${ empty sessionScope.loginUser }">
+										<!-- 로그인 전 : 댓글창 막기 -->
+										<th colspan="2">
+				                            <textarea class="form-control" cols="55" rows="2" style="resize:none; width:100%;" readonly>로그인한 사용자만 이용 가능한 서비스입니다. 로그인 후 이용 바랍니다.</textarea>
+				                        </th>
+				                        <th style="vertical-align:middle"><button class="btn btn-secondary" disabled>등록하기</button></th>                  
+									</c:when>
+									<c:otherwise>
+				                        <th colspan="2">
+				                            <textarea class="form-control" id="replyContent" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+				                        </th>
+				                        <th style="vertical-align:middle"><button class="btn btn-secondary" onclick="addReply();">등록하기</button></th>                  
+									</c:otherwise>                    
+			                    
+			                    </c:choose>
+			                  
+			                    </tr>
+			                    <tr>
+			                        <td colspan="3">댓글(<span id="rcount"></span>)</td>
+			                    </tr>
+			                </thead>
+	                		<tbody>            
+			               </tbody>
+			           </table>
+							
+						
+						
+						
+						
+						
+						</div>
 
 					</div>
 					
@@ -799,6 +846,80 @@
 	
 	}
 
+</script>
+<script>
+	$(function() {
+		
+		// 댓글리스트 조회용 선언적 함수 호출
+		selectReplyList();
+		
+		// 만약, 댓글이 실시간으로 달리는걸 보고싶다면?
+		setInterval(selectReplyList, 1000);
+	
+	});
+	
+	function addReply() {
+		
+		if($("#replyContent").val().trim().length != 0) {
+		
+			$.ajax({
+				url : "rinsert.go",
+				type : "get",
+				data : {  
+					sellNo : ${ requestScope.goodsSell.sellNo },
+					memberNo : ${ sessionScope.loginUser.memberNo },
+					replyContent : $("#replyContent").val()
+   				},
+   				success : function(result) { 
+   					
+   					// 댓글 작성 성공 시
+   					selectReplyList();
+   					$("#replyContent").val("");
+   					
+   				},
+   				error : function() {
+   					console.log("댓글 작성용 ajax 통신 실패!");
+   				}
+			});
+			
+		} else {
+			
+			alertify.alert("Alert", "댓글 작성 후 등록을 요청해주세요.", function(){ alertify.success('Ok'); });
+		}
+	}
+	
+	function selectReplyList() {
+		
+		// 해당 게시글에 딸린 댓글 조회 요청용 ajax 요청
+		$.ajax({
+			url : "rlist.go",
+			type : "get",
+			data : {sno : ${ requestScope.goodsSell.sellNo }},
+			success : function(result){
+				
+				// console.log(result);
+				
+				let resultStr = "";
+				
+				for(let i = 0; i < result.length; i++) {
+					
+					resultStr += "<tr>"
+							   + "<th>" + result[i].replyWriter + "</th>"
+							   + "<th>" + result[i].replyContent + "</th>"
+							   + "<th>" + result[i].createDate + "</th>"
+							   + "</tr>";								   
+				}
+				
+				$("#replyArea>tbody").html(resultStr);
+				$("#rcount").text(result.length);
+				
+			},
+			error : function(){
+				console.log("댓글리스트 조회용 ajax 통신 실패!");
+			}	
+		});
+	}
+   
 </script>
 </body>
 </html>

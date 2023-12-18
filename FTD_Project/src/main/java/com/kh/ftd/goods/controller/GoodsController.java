@@ -23,6 +23,7 @@ import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.goods.model.vo.SellReply;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.order.model.vo.Cart;
@@ -798,6 +799,27 @@ public class GoodsController {
 			
 		}
 	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.go", produces = "application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int sno) {
+		
+		ArrayList<SellReply> list = goodsService.selectReplyList(sno);
+
+		// Gson gson = new Gson();
+		// return gson.toJson(list);
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "rinsert.go")
+	public String ajaxInsertReply(SellReply r) {
+			
+		int result = goodsService.ajaxInsertReply(r);
+		
+		return (result > 0) ? "success" : "fail";
 	}
 	
 		
