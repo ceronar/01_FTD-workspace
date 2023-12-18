@@ -21,4 +21,5 @@ public class GoodsSell {
 	private int count; 				//	COUNT	NUMBER
 	private String createDate; 		//	CREATE_DATE	DATE
 	private String deleteDate; 		//	DELETE_DATE	DATE
+	private String changeName; 		//대표사진담을곳
 }

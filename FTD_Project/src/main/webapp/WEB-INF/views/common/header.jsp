@@ -94,8 +94,8 @@
 		<div class="nav-menu" id="nav2">
 			<a href="sellerListPage.se" 			class="menu1">판매자</a>
 			<a href="${pageContext.request.contextPath}" 								class="menu2">베스트</a>
-			<a href="${pageContext.request.contextPath}" 								class="menu3">홍보</a>
-			<a href="${pageContext.request.contextPath}" 								class="menu4">후기</a>
+			<a href="${pageContext.request.contextPath}/plist.bo" 								class="menu3">홍보</a>
+			<a href="${pageContext.request.contextPath}/rlist.bo" 								class="menu4">후기</a>
 		</div>
 		
 		<div class="nav-menu" id="nav3">

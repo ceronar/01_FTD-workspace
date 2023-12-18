@@ -276,7 +276,8 @@ public class SellerController {
 		//댓글 개수 담을 곳
 		ArrayList<Object> rList = new ArrayList<Object>();
 		
-	
+		//파는 판매글 담을 곳
+		ArrayList<Object> gsList = new ArrayList<Object>();
 			
 		//진짜 다 담을 곳
 		ArrayList<Object> arrList2 = new ArrayList<Object>();
@@ -311,9 +312,13 @@ public class SellerController {
 		//각 홍보리스트 댓글갯수
 		int replyList =  promotionService.PromotionReplyCount(promotionNo);
 		//System.out.println(replyList); 
-	
 		rList.add(replyList);
 		
+		
+		//이 마켓에서 지금 파는 상품
+		ArrayList<GoodsSell> goodSell = promotionService.goodSell(sellerNo);
+		//System.out.println(goodSell); 
+		gsList.add(goodSell);
 		
 		}
 		
@@ -346,6 +351,7 @@ public class SellerController {
 	        	arrList.add(rList.get(i));
 	        	arrList.add(pC1List.get(i));
 	        	arrList.add(pC2List.get(i));
+	        	arrList.add(gsList.get(i));
 	        	
 	        	//System.out.println(arrList);
 	        	arrList2.add(arrList);
