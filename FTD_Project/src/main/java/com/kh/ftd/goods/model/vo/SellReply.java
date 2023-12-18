@@ -13,8 +13,10 @@ public class SellReply {
 
 	private int replyNo; 			//	REPLY_NO	NUMBER
 	private int memberNo; 			//	MEMBER_NO	NUMBER
-	private int sellNo;				//	SELL_NO	NUMBER
+	private int sellNo;				//	SELL_NO	NUMBER	
 	private String replyContent; 	//	REPLY_CONTENT	VARCHAR2(100 BYTE)
 	private String createDate; 		//	CREATE_DATE	DATE
 	private String deleteDate; 		//	DELETE_DATE	DATE
+	
+	private String replyWriter;
 }

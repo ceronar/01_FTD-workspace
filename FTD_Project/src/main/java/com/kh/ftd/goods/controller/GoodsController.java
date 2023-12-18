@@ -23,6 +23,7 @@ import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.goods.model.vo.SellReply;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.member.model.vo.Member;
 import com.kh.ftd.order.model.vo.Cart;
@@ -184,7 +185,27 @@ public class GoodsController {
 			// 상품의 후기
 			ArrayList<Review> r = goodsService.selectGoodReview(goodNo);
 			//System.out.println(goodNo);
-			System.out.println(r);
+			//System.out.println(r);
+			
+
+			for(int i = 0; i < r.size(); i++) {
+				
+				String r1List = r.get(i).getRevContent();
+				
+				r1List = r1List.replaceAll("<img.*?>", "");
+				
+		        // <p> 태그 제거
+				r1List = r1List.replaceAll("<p.*?>|</p>", "");
+				
+				 // <b> 태그 제거
+				r1List = r1List.replaceAll("<b.*?>|</b>", "");
+				
+				r1List = r1List.trim();
+				
+				
+				r.get(i).setRevContent(r1List);
+			}
+			
 			
 			System.out.println(goodsFile);
 			
@@ -196,7 +217,7 @@ public class GoodsController {
 			model.addAttribute("goodsSell", goodsSell);
 			model.addAttribute("goods", goods);
 			model.addAttribute("goodsFile", goodsFile);
-			model.addAttribute("r", r);	
+			model.addAttribute("r", r);
 			
 			return "goods/goodsDetailView";
 	
@@ -799,6 +820,27 @@ public class GoodsController {
 			
 		}
 	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.go", produces = "application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int sno) {
+		
+		ArrayList<SellReply> list = goodsService.selectReplyList(sno);
+
+		// Gson gson = new Gson();
+		// return gson.toJson(list);
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "rinsert.go")
+	public String ajaxInsertReply(SellReply r) {
+			
+		int result = goodsService.ajaxInsertReply(r);
+		
+		return (result > 0) ? "success" : "fail";
 	}
 	
 		

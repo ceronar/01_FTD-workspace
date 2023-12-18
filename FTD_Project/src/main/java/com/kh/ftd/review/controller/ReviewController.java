@@ -428,6 +428,46 @@ public class ReviewController {
 			}
 		}
 		
+		@RequestMapping(value = "updateEnroll.rev")
+		public String promotionUpdateEnrollForm(Model mv ,int rno) {
+			
+			//System.out.println(rno);
+			Review r = reviewService.selectReview(rno);
+			//System.out.println(r);
+			mv.addAttribute("r", r);
+			
+			return "review/reviewUpdateForm";
+		}
+		
+		//후기리스트 글 수정
+		@RequestMapping("updateForm.rev")
+		public String updatePromotion(HttpSession session, Review r) {
+			
+			
+			System.out.println(r);
+			
+			int result = reviewService.updateReview(r);
+			
+			System.out.println(result);
+			
+			if(result > 0) { // 수정 성공 
+				
+			session.setAttribute("successMsg", "글 수정을 성공했습니다.");
+				
+			return "redirect:/rdlist.bo?rno=" + r.getRevNo();
+				
+				
+			} else { // 수정 실패
+				
+				session.setAttribute("successMsg", "글 수정을 실패했습니다.");
+				
+			return "common/errorPage";
+			}
+		
+			
+		}
+			
+		
 		
 	
 }

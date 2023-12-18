@@ -10,6 +10,7 @@ import com.kh.ftd.goods.model.dao.GoodsDao;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.goods.model.vo.SellReply;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
@@ -204,7 +205,20 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+	public ArrayList<SellReply> selectReplyList(int sno) {
+		
+		return goodsDao.selectReplyList(sqlSession, sno);
+	}
+
+	@Override
+	public int ajaxInsertReply(SellReply r) {
+		
+		return goodsDao.ajaxInsertReply(sqlSession, r);
+	}
+
+	@Override
 	public ArrayList<Goods> selectGoodsListTop() {
+
 		return goodsDao.selectGoodsListTop(sqlSession);
 	}
 	

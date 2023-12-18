@@ -167,7 +167,7 @@
             </div>
         </div>
         <form name="myform" id="myform" method="post" action="insert.rev">
-        	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+        	<input type="text" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
         	<input type="hidden" name="goodNo" value="${ requestScope.rev.goodNo }">
         	
         	<h2>제목 :</h2>

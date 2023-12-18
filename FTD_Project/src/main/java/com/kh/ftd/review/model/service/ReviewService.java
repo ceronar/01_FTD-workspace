@@ -64,4 +64,7 @@ public interface ReviewService {
 	// 후기 조회수 기준 조회
 	ArrayList<Review> selectReviewListTop();
 
+	// 리뷰 수정 기능
+	int updateReview(Review r);
+
 }

@@ -6,14 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
-   <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-   
+	
+    
+    <!-- include summernote css/js --> 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -21,10 +24,6 @@
             padding: 0;
             background-color: #f8f9fa;
         }
-        
-         .header {
-		display: none;
-		}
 
         header {
             background-color: #343a40;
@@ -44,9 +43,27 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             font-size: 18px;
         }
+		/*
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #2ECC71;
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            width: 150px; /* Set a fixed width for the button */
+        }
 
-       
-
+        .btn:hover {
+            background-color: #27AE60;
+        }
+		*/
         header {
             display: flex;
             justify-content: space-between;
@@ -96,83 +113,88 @@
             resize: vertical; /* Allow vertical resizing */
         }
 
-
-        <!-- a태그 버튼 -->
-         .btn > a {
-            float : right;
-            padding: 8px 20px;
-            border: none;
-            background-color: #2ecc71;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 10px 5px;
-            text-decoration: none;
+        #profile_3 {
+            margin-left: auto; /* Move to the right */
         }
 
-        .btn a:hover {
-            background-color: #27ae60;        
-         }
+        #profile_3 button {
+            background-color: transparent;
+            color: #0c7c4b;
+            border: 1px solid #0c7c4b;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        #profile_3 button:hover {
+            background-color: #0c7c4b;
+            color: #ffffff;
+        }
+        #profile_2_2 > span{
+            font-size : 15px;
+            color : rgb(143, 143, 143);
+        }
     </style>
-    <title>글 작성</title>
+    <title>글 수정</title>
 </head>
 <body>
     <header>
         <h1>글 수정 페이지</h1>
     </header>
-    
-     <jsp:include page="../common/header.jsp" />
+	<jsp:include page="../common/header.jsp" />
 
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	
 	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
-
+	
     <main>
         <div class="profile">
-            <div class="profile_1">
-                 <c:choose>
-			    	<c:when test="${requestScope.sellerFile.changeName == null}">
-			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
-			    	</c:when>
-			    	<c:otherwise>
-			    		<img src="${requestScope.sellerFile.changeName }">
-			    	</c:otherwise>
-			    </c:choose>
-            </div>
+           
             <div class="profile_2">
-                <span>${sessionScope.loginSeller.companyName}</span>
-                <div>
-                    <span>${sessionScope.loginSeller.address}</span>
+                <span>${ sessionScope.loginUser.memberId }</span>
+                <div id="profile_2_2">
+                    <span>${ sessionScope.loginUser.address}</span>
+                    <!-- 지역 -->
                     <span></span>
+                    <!-- 몇분전인지-->
                 </div>
             </div>
-         
         </div>
-
-       <div align="center">
-         <form id="enrollForm" method="post" action="updatePromotion.pr">
-         	
-         	
-         	<input type="hidden" name="promotionNo" value="${requestScope.p.promotionNo}">
-            <textarea id="summernote" name="promotionContent"  required></textarea>
-  
-
-     
-            <div align="center">
-                <input type="submit" value="게시글 등록">
-            </div>
-        </form>
-       </div>
-       
+        <form name="myform" id="myform" method="post" action="updateForm.rev">
+        	<input type="text" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+        	<input type="hidden" name="goodNo" value="${ requestScope.r.goodNo }">
+        	<input type="hidden" name="revNo" value="${ requestScope.r.revNo }">
+        	<h2>제목 :</h2>
+        	<br>
+        	<input type="text" name="revTitle">
+        	
+        	<textarea id="summernote" name="revContent" required></textarea>
+        
+		    <fieldset>
+		        <input type="radio" name="starRating" value="5" id="rate1"><label for="rate1">⭐</label>
+		        <input type="radio" name="starRating" value="4" id="rate2"><label for="rate2">⭐</label>
+		        <input type="radio" name="starRating" value="3" id="rate3"><label for="rate3">⭐</label>
+		        <input type="radio" name="starRating" value="2" id="rate4"><label for="rate4">⭐</label>
+		        <input type="radio" name="starRating" value="1" id="rate5"><label for="rate5">⭐</label>
+		    </fieldset>
+		    <button class="btn" type="submit">수정 하기</button>
+		</form>
+        
     </main>
 
-     <script>
+    <script>
         $(document).ready(function() {
+        	$('input[value=${requestScope.r.starRating}]').attr("checked", true);
+        	 
         	
-        	let update = '${requestScope.p.promotionContent}';
         	
-        	$("#summernote").html(update);
+		let update = '${requestScope.r.revContent}';
+		        	
+		        $("#summernote").html(update);
         	
         	$('#summernote').summernote({
         		width : 900,
@@ -231,8 +253,7 @@
 				processData : false,
 				success : function(data) {
 		
-					$(el).summernote('editor.insertImage', data);		
-					
+					$(el).summernote('editor.insertImage', data);							
 				},
 				error : function() {
 					console.log("ajax 통신 오류")
@@ -243,5 +264,7 @@
     	
     </script>
 </body>
+
 </html>
-<!-- 11/27 성광 홍보작성페이지 jsp추가 -->
+
+<!-- 11/27 성광 후기작성페이지 jsp추가 -->

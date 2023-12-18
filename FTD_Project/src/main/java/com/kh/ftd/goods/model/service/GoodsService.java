@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.goods.model.vo.SellReply;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
@@ -102,7 +103,14 @@ public interface GoodsService {
 	// 판매자 상품 삭제
 	int deleteSellerGoods(int goodNo);
 	
+	// 상품 글 댓글 조회 (select)
+	ArrayList<SellReply> selectReplyList(int sno);
+	
+	// 상품 글 댓글 등록 (insert)
+	int ajaxInsertReply(SellReply r);
+
 	// 상품 추천순 조회
 	ArrayList<Goods> selectGoodsListTop();
+
 	
 }

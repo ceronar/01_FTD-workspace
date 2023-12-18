@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,6 +132,9 @@
             color: #777;
             font-size : 15px;
         }
+        .goodSell:hover{
+        cursor:pointer;
+        }
    
     </style>
           <script>
@@ -177,11 +181,10 @@
 
                         data.forEach(function (val) {
 							
-
                        let str  = '<div class="review-content">'
                      +  '<div id="name">'
 	                     +  '<div> '+val[0].memberNo+'</div>'
-	                     + ' <div><p class="review-date">xx 시간전</p></div>'
+	                     + ' <div><p class="review-date">'+ val[0].createDate +'</p></div>'
                   	 +	'</div>'
 				+'<div class="detail">'
                   + '<h2>후기</h2>'
@@ -195,13 +198,21 @@
              str +='</div>'
                 + '<div>'
                   +     '<div id="review_product">'        
-                  +         '<table border="1" id="product">'
-                  +             '<tr>'
-                  +                 '<td><img src="" id="img_2"></td>'
-                  +                 '<td width="685px;">'
-                  +                    '<div>A급 러시아 대게(선어,자숙)</div>'
-                  +                     '<div id="img_2_text_2">3kg (3미 내외)</div>'
-                  +                 '</td>'
+                  +         '<table border="1" id="product" class="goodSell">'
+                  if(val[4] != null){
+             str +=		'<input type="hidden" value="'+ val[4].sellNo +'">'
+                  }
+             str +=             '<tr>'
+                  if(val[2] != null){
+             str +=                 '<td><img src="'+ val[2].changeName +'" id="img_2"></td>'
+                  }
+             str +=                 '<td width="685px;">'
+            	   if(val[4] != null){
+            		   let count = val[4].count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+             str +=                    '<div>'+ val[4].sellTitle +'</div>'
+                  +                     '<div id="img_2_text_2">'+ count +'원</div>'
+            	   }
+             str +=                 '</td>'
                   +                 '<td><i class="fas fa-chevron-right"></i></td>'
                   +             '</tr>'
                   +         '</table>'
@@ -250,6 +261,22 @@
 
         </script>
 
+          <script>
+            $(function () {
+
+                $(".review").on('click', '.goodSell', function (e) {
+
+                	// console.log(e.currentTarget.children.item(0).value);
+                	 
+                    let sno = e.currentTarget.children.item(0).value;
+
+                    //
+
+                    location.href = "goodsDetailPage.go?sno=" + sno;
+                });
+            });
+        </script>
+        
         <script>
           $(function () {
 
@@ -263,6 +290,7 @@
                 });
             }); 
         </script>
+        
      <title>쇼핑몰 후기</title>
 </head>
 <body>

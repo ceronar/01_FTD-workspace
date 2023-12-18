@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.ftd.goods.model.vo.Goods;
 import com.kh.ftd.goods.model.vo.GoodsFile;
 import com.kh.ftd.goods.model.vo.GoodsSell;
+import com.kh.ftd.goods.model.vo.SellReply;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
@@ -167,6 +168,16 @@ public class GoodsDao {
 
 	public ArrayList<Goods> selectGoodsListTop(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("goodsMapper.selectGoodsListTop");
+	}
+	
+	public ArrayList<SellReply> selectReplyList(SqlSessionTemplate sqlSession, int sno) {
+		
+		return (ArrayList)sqlSession.selectList("goodsMapper.selectReplyList", sno);
+	}
+	
+	public int ajaxInsertReply(SqlSessionTemplate sqlSession, SellReply r) {
+		
+		return sqlSession.insert("goodsMapper.ajaxInsertReply", r);
 	}
 	
 }
