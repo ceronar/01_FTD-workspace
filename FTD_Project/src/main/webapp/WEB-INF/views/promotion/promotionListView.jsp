@@ -11,6 +11,20 @@
          <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
         <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
         <style>
+        
+        /* navi css */
+	#nav1 {
+	    display: none !important;
+	}
+	
+	#nav2 {
+	    display: block !important;
+	}
+	
+	#nav3 {
+	    display: none ;
+	}
+        
             body {
                 font-family: 'Lato', sans-serif;
                 font-weight: 400;
@@ -432,7 +446,7 @@
                                 + '<span>'
                                 + val[1].address
                                 + '</span>'
-                                + '<span>* 17분 전</span>'
+                                + '<span>&nbsp('+val[0].createDate+')</span>'
                                 + '</div>'
                                 + '</div>'
                                 + '</div>'
@@ -576,13 +590,7 @@
 
 
                     <div class="top">
-                        <div id="filter">
-                            <a href="">필터</a>
-                            <a href="">필터</a>
-                            <!-- Ajax처리 -->
-                            <a href="">필터</a>
-                            <a href="">필터</a>
-                        </div>
+                       <!--  필터지움 -->
 					<!--  로그인한 판매자만 글작성할수있게 조건문 -->
 					 <c:if test="${ not empty sessionScope.loginSeller }"> 
                         <div align="rigth">
