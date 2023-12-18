@@ -61,4 +61,7 @@ public interface ReviewService {
 	// 리뷰 작성 기능
 	int insertReview(Review rev);
 
+	// 리뷰 수정 기능
+	int updateReview(Review r);
+
 }

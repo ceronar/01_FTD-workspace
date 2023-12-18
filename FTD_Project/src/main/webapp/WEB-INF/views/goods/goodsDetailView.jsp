@@ -580,6 +580,7 @@
 						<div class="br-line"></div>
 
 						<div class="sub-review-content" >
+						<hr>
 						<c:forEach var="r" items="${requestScope.r }">
 							 <div class="profile_under_1">
 							 	<!-- 프로필 -->
@@ -598,14 +599,17 @@
 					             </c:forEach>   
 					             ${r.starRating} 
 					            </div>
-					         
-				       		 </div>
-				       		 	<%-- 내용 --%>
-				       		   <div id="content">
+					            <br>
+					            <%-- 내용 --%>
+					            <div id="content" >
 						
 						           ${r.revContent }
 						
 						      </div>
+				       		 </div>
+				       		 	
+				       		
+						      <hr>
 					       </c:forEach> 
 						</div>
 					</div>

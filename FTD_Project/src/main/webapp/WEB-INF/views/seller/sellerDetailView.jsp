@@ -206,6 +206,17 @@
 			cursor: pointer;
 			background-color: #27ae60;
 		}
+		 .goodSell:hover{
+        	cursor:pointer;
+        }
+        
+        .stop-scrolling {
+		  height: 100%;
+		  overflow: hidden;
+		}
+   		.main-div {
+   			height: 1200px;
+   		}
 	</style>
 	<script>
 
@@ -327,47 +338,78 @@
 							<button class="inquiry-btn" onclick="selectSellerInquiry()">문의</button>
 						</div>
 
-						<script>
-							function toggle_layer() {
-								if ($(".promotion").css("display") == "none") {
-									$(".promotion").show();
-								}
-							}
-						</script>
+
+						<div align="center">
+							<ul>
+								<li class="promotion">
+								</li>
+							</ul>
+							<div class="review">
+							</div>
+							<div class="inquiry">
+								<table class="list-area">
+									<thead>
+										<tr>
+											<td colspan="6">문의 작성 하기</td>
+										</tr>
+										<tr>
+											<th class="inqNo" style="width : 7%;">번호</th>
+											<th style="width : 15%;">답변여부</th>
+											<th style="width : 38%;">제목</th>
+											<th style="width : 10%;">문의자</th>
+											<th style="width : 10%">조회수</th>
+											<th style="width : 15%;">등록일</th>
+										</tr>
+
+									</thead>
+									<tbody class="list-tbody">
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+								
 
 						<script>
 
 
-
+							let promotionNum = 1;
+							let reviewNum = 0;
+							let inquiryNum = 0;
 							var page = 0;
 							var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
 
+							 $(document).ready(function () {
+								 
+								 selectSellerPromotion();
+
+					                $(window).scroll(function () {
+					                    if ($(window).scrollTop() + $(window).height() > $(document).height() - promotionNum) {
+					                        page++;
+					                        selectSellerPromotion();
+					                    }
+					                });
+					            });
+							
 							function selectSellerPromotion() {
-
-								$(function () {
-
-									toggle_layer();
-
-
-
-								});
-
-								$(function () {
+								promotionNum = 1;
+								reviewNum = 0;
+								inquiryNum = 0;
 									$(".inquiry").hide();
+									$(".inquiry").addClass("stop-scrolling");
 									$(".review").hide();
+									$(".review").addClass("stop-scrolling");
+									$(".promotion").show();
+									$(".promotion").removeClass("stop-scrolling");
 
 									$(".inquiry-btn").attr("disabled", false);
 									$(".review-btn").attr("disabled", false);
 									$(".promotion-btn").attr("disabled", true);
-								})
-
-								$(window).scroll(function () {
-									if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-										page++;
-										selectSellerPromotion();
-									}
-								});
-
+	
 								$.ajax({
 									url: 'list.pr',
 									type: 'post',
@@ -376,6 +418,9 @@
 									page: page,
 									size: pageSize
 	                    	},
+	                    	beforeSend: function () {
+	                            setTimeout(5000);
+	                        },
 							success: function (data) {
 
 								console.log("통신성공!!!");
@@ -500,7 +545,7 @@
 
 								});
 
-
+									return false;
 
 
 							},
@@ -516,22 +561,27 @@
 						<script>
 							var page = 0;
 							var pageSize = 5; // 초기 로딩 시 20개씩 불러오기
-
+							var size = 0;
 
 
 
 
 							function selectSellerReview() {
-								$(function () {
+								promotionNum = 0;
+								reviewNum = 1;
+								inquiryNum = 0;
 									$(".promotion").hide();
+									$(".promotion").addClass("stop-scrolling");
 									$(".inquiry").hide();
-
+									$(".inquiry").addClass("stop-scrolling");
+									$(".review").show();
+									$(".review").removeClass("stop-scrolling");
 									$(".review-btn").attr("disabled", true);
 									$(".promotion-btn").attr("disabled", false);
 									$(".inquiry-btn").attr("disabled", false);
-								})
+									
 								$(window).scroll(function () {
-									if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+									if ($(window).scrollTop() + $(window).height() > $(document).height() - reviewNum) {
 										page++;
 										selectSellerReview();
 									}
@@ -542,7 +592,10 @@
 									type: 'get',
 									data: { page: page, size: pageSize, sno: ${ requestScope.sellerNo } },
 
-							success: function (data) {
+									beforeSend: function () {
+			                            setTimeout(5000);
+			                        },
+									success: function (data) {
 
 								console.log("통신성공!!!");
 								console.log(data);
@@ -554,25 +607,35 @@
 									let str = '<div class="review-content">'
 										+ '<div id="name">'
 										+ '<div> ' + val[0].memberNo + '</div>'
-										+ ' <div><p class="review-date">xx 시간전</p></div>'
+										+ ' <div><p class="review-date">'+ val[0].createDate +'</p></div>'
 										+ '</div>'
 										+ '<div class="detail">'
 										+ '<h2>후기</h2>'
-										+ '<p>' + val[0].revContent + '</p>'
+										+ '<p>'+ val[6] +'</p>'
 										+ '<input type="hidden" value="' + val[0].revNo + '">'
-										+ '<div>'
-										+ '<img src="' + val[1][0].changeName + '" id="img_1">'
+										if(val[5].length >= 1){
+									str +=  '<div>'
+										+ '<img src="' + val[5][0]+ '" id="img_1">'
 										+ '</div>'
-										+ '</div>'
+										}
+									str += '</div>'
 										+ '<div>'
 										+ '<div id="review_product">'
-										+ '<table border="1" id="product">'
-										+ '<tr>'
-										+ '<td><img src="" id="img_2"></td>'
-										+ '<td width="685px;">'
-										+ '<div>A급 러시아 대게(선어,자숙)</div>'
-										+ '<div id="img_2_text_2">3kg (3미 내외)</div>'
-										+ '</td>'
+										+ '<table border="1" id="product" class="goodSell">'
+										  if(val[4] != null){
+									str +=		'<input type="hidden" value="'+ val[4].sellNo +'">'		  
+										  }
+									str += 		'<tr>'
+										 if(val[2] != null){
+									str += '<td><img src="'+ val[2].changeName +'" id="img_2"></td>'
+										 }
+									str += '<td width="685px;">'
+										 if(val[4] != null){
+											  let count = val[4].count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									str += '<div>'+ val[4].sellTitle +'</div>'
+										+ '<div id="img_2_text_2">'+ count +'원</div>'
+										 }
+									str += '</td>'
 										+ '<td><i class="fas fa-chevron-right"></i></td>'
 										+ '</tr>'
 										+ '</table>'
@@ -613,6 +676,22 @@
 
 						</script>
 
+				<script>
+		           $(function () {
+		
+		               $(".review").on('click', '.goodSell', function (e) {
+		
+		               	// console.log(e.currentTarget.children.item(0).value);
+		               	 
+		                   let sno = e.currentTarget.children.item(0).value;
+		
+		                   //
+		
+		                   location.href = "goodsDetailPage.go?sno=" + sno;
+		               });
+		           });
+		       </script>
+				
 						<script>
 
 							var page = 0;
@@ -620,19 +699,26 @@
 
 
 							function selectSellerInquiry() {
-								$(function () {
+								promotionNum = 0;
+								reviewNum = 0;
+								inquiryNum = 1;
+								
 									$(".promotion").hide();
+									$(".promotion").addClass("stop-scrolling");
 									$(".review").hide();
+									$(".review").addClass("stop-scrolling");
+									$(".inquiry").show();
+									$(".inquiry").removeClass("stop-scrolling");
 									if ($(".inquiry").css("display") === "none") {
 										$(".inquiry").css("display", "block");
 									}
 									$(".inquiry-btn").attr("disabled", true);
 									$(".review-btn").attr("disabled", false);
 									$(".promotion-btn").attr("disabled", false);
-								})
+			
 
 								$(window).scroll(function () {
-									if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+									if ($(window).scrollTop() + $(window).height() > $(document).height() - inquiryNum) {
 										page++;
 										selectSellerInquiry();
 									}
@@ -702,39 +788,6 @@
 								});
 							}); 
 						</script>
-						<div align="center">
-							<ul>
-								<li class="promotion">
-								</li>
-							</ul>
-							<div class="review">
-							</div>
-							<div class="inquiry">
-								<table class="list-area">
-									<thead>
-										<tr>
-											<td colspan="6">문의 작성 하기</td>
-										</tr>
-										<tr>
-											<th class="inqNo" style="width : 7%;">번호</th>
-											<th style="width : 15%;">답변여부</th>
-											<th style="width : 38%;">제목</th>
-											<th style="width : 10%;">문의자</th>
-											<th style="width : 10%">조회수</th>
-											<th style="width : 15%;">등록일</th>
-										</tr>
-
-									</thead>
-									<tbody class="list-tbody">
-
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<script>
 			// console.log(document.getElementById("subscribe"))
 			$(function () {

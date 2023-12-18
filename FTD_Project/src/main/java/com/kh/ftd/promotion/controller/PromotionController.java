@@ -59,7 +59,7 @@ public class PromotionController {
 					
 					//이 홍보게시글의 내용 , 조횟수
 					Promotion p = promotionService.selectPromotion(pno);
-					//System.out.println(p);
+					System.out.println(p);
 					
 					//즉, sellerNo 구할수있음
 					int sno = p.getSellerNo();
@@ -92,11 +92,11 @@ public class PromotionController {
 					int reviewCount = promotionService.reviewCount(sno);
 					//System.out.println(reviewCount);
 					
-					//이 마켓에서 지금 파는 상품
+					//이 마켓에서 지금 파는 상품 (+대표이미지)
 					ArrayList<GoodsSell> goodSell = promotionService.goodSell(sno);
-					System.out.println(goodSell);
+					//System.out.println(goodSell);
 					
-					//이 마켓에서 지금 파는 상품게시글의 이미지 없을경우 널일때 기본이미지들가게 해야뎀
+					//이 마켓에서 지금 파는 상품 
 					ArrayList<GoodsFile> goodFile = promotionService.goodFile(sno);
 					//System.out.println(goodFile);
 					
@@ -125,7 +125,7 @@ public class PromotionController {
 	}
 	
 	@RequestMapping(value = "promoptionEnrollForm.bo")
-	public String enrollForm(Model mv) {
+	public String enrollForm(Model mv  ) {
 		
 		
 		
@@ -167,6 +167,17 @@ public class PromotionController {
 			}
 		
 			
+		}
+		
+		@RequestMapping(value = "updateEnroll.pr")
+		public String promotionUpdateEnrollForm(Model mv ,int pno) {
+			
+			System.out.println(pno);
+			Promotion p = promotionService.selectPromotion(pno);
+			System.out.println(p);
+			mv.addAttribute("p", p);
+			
+			return "promotion/promotionUpdateForm";
 		}
 		
 	//홍보리스트 글 수정
