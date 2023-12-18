@@ -14,6 +14,7 @@
 		<result column="EXPIRATION_DATE" property="expiration" />
 		<result column="STOCK" property="stock" />
 		<result column="CHANGE_NAME" property="changeName" />
+		<result column="SELL_NO" property="sellNo" />
 	</resultMap>
 
 	<resultMap id="goodsFileResultSet" type="goodsFile">
@@ -60,6 +61,21 @@
 	<resultMap id="likeResultSet" type="like">
 		<result column="MEMBER_NO" property="memberNo" />
 		<result column="GOOD_NO" property="goodNo" />
+	</resultMap>
+	
+	<resultMap id="reviewResultSet" type="review">
+		<result column="REV_NO" property="revNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="GOOD_NO" property="goodNo" />
+		<result column="REV_TITLE" property="revTitle" />
+		<result column="REV_CONTENT" property="revContent" />
+		<result column="COUNT" property="count" /> <!-- 별칭 -->
+		<result column="STAR_RATING" property="starRating" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+		<result column="MEMBER_ID" property="memberNo"/>
+		<result column="GOOD_TITLE" property="goodTitle"/>
+		
 	</resultMap>
 	
 	<select id="ajaxSelectGoodsSellList" resultMap="goodsSellResultSet">
@@ -284,4 +300,64 @@
 		 WHERE FILE_NO = #{fileNo}	
 	</update>
 	
+
+	<select id="selectGoodReview" parameterType="_int" resultMap="reviewResultSet" >
+	SELECT DISTINCT
+	    R.REV_NO,
+	    M.MEMBER_ID,
+	    R.GOOD_NO,
+	    R.REV_TITLE,
+	    R.REV_CONTENT,
+	    R.COUNT,
+	    R.STAR_RATING,
+	    R.CREATE_DATE,
+	    R.DELETE_DATE
+	FROM 
+	    REVIEW R
+	    JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
+        JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+        JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
+	WHERE 
+	    R.DELETE_DATE IS NULL
+	AND
+		G.DELETE_DATE IS NULL
+	AND
+        S.DELETE_DATE IS NULL
+    AND
+       M.STATUS IS NULL
+    AND
+		G.GOOD_NO = #{goodNo}
+	ORDER BY 
+	    R.REV_NO DESC
+	</select>
+
+	<update id="deleteGoodsFile" parameterType="_int">
+		UPDATE GOODS_FILE
+		   SET DELETE_DATE = SYSDATE
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
+	<update id="deleteSellerGoodsText" parameterType="_int">
+		UPDATE GOODS_SELL
+		   SET DELETE_DATE = SYSDATE
+		 WHERE SELL_NO = #{sellNo}
+	</update>
+	
+	<update id="updateSellerGoods" parameterType="goods">
+		UPDATE GOODS
+		   SET GOOD_TITLE = #{goodTitle},
+		       GOOD_DETAIL = #{goodDetail},
+		       ORIGIN = #{origin},
+		       PRICE = #{price},
+		       EXPIRATION_DATE = #{expiration},
+		       STOCK = #{stock}
+		 WHERE GOOD_NO = #{goodNo}
+	</update>
+	
+	<update id="deleteSellerGoods" parameterType="_int">
+		UPDATE GOODS
+		   SET DELETE_DATE = SYSDATE
+		 WHERE GOOD_NO = #{goodNo}
+	</update>
+
 </mapper>

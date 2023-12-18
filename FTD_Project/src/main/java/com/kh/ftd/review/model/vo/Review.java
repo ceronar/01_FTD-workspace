@@ -23,4 +23,5 @@ public class Review {
 	private String createDate;		//	CREATE_DATE
 	private String deleteDate;		//	DELETE_DATE
 	private String goodTitle;		// GOODS 에서 조회한 품목명
+
 }

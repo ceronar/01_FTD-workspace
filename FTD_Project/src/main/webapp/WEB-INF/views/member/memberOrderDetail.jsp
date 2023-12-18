@@ -137,7 +137,7 @@
 		$(function() {
 			$(".orderDetail-table>tbody").on("click", "tr", e => {
 				let sellNo = e.target.parentElement.children.item(6).innerText;
-				location.href = "goodsDetailPage.go?gno=" + sellNo;
+				location.href = "goodsDetailPage.go?sno=" + sellNo;
 			});
 		});
 		

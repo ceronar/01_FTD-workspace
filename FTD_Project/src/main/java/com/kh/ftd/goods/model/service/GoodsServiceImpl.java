@@ -13,6 +13,7 @@ import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.member.model.vo.Like;
 import com.kh.ftd.order.model.vo.Cart;
 import com.kh.ftd.order.model.vo.OrderGoods;
+import com.kh.ftd.review.model.vo.Review;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -171,7 +172,41 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDao.updateGoodsFile(sqlSession, goodsFile);
 	}
+
+	@Override
+
+	public ArrayList<Review> selectGoodReview(int goodNo) {
+		
+		return goodsDao.selectGoodReview(sqlSession,goodNo);
+	}
+
+	public int deleteGoodsFile(int sellNo) {
+
+		return goodsDao.deleteGoodsFile(sqlSession, sellNo);
+	}
+
+	@Override
+	public int deleteSellerGoodsText(int sellNo) {
+
+		return goodsDao.deleteSellerGoodsText(sqlSession, sellNo);
+	}
+
+	@Override
+	public int updateSellerGoods(Goods goods) {
+		
+		return goodsDao.updateSellerGoods(sqlSession, goods);
+	}
+
+	@Override
+	public int deleteSellerGoods(int goodNo) {
+		// TODO Auto-generated method stub
+		return goodsDao.deleteSellerGoods(sqlSession, goodNo);
+	}
 	
+	
+	
+	
+
 	
 	
 }

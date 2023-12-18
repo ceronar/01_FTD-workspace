@@ -12,7 +12,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
 <style>
+
+.sub-review-content {
+    margin: 20px;
+     border : 0px;
+}
+
+.profile_under_1 {
+    border: 1px solid #ccc;
+    padding: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+     border : 0px;
+}
+
+.profile_2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+     border : 0px;
+}
+
+#profile_2_2 {
+    font-size: 12px;
+    color: #888;
+     border : 0px;
+}
+.starRating{
+	border : 0px;
+}
+
+.star-rating {
+    margin-top: 5px;
+     border : 0px;
+}
+
+.star-rating span {
+    margin-right: 3px;
+     border : 0px;
+}
+
+#content {
+ 
+    border : 0px;
+}
 
 	div {
 		border: 1px solid black;
@@ -392,7 +441,7 @@
 		height: 100%;
 		box-sizing: border-box;
 	}
-
+	
 
 </style>
 <script type="text/javascript">
@@ -400,27 +449,19 @@
 		
 	$(document).ready(function () {
 			
-		if( sessionScope.loginUser !=  null) { // 구매자 로그인 후
-			
-			ajaxSelectLike();
-				
-			
-		} else if( sessionScope.loginSeller != null) { // 판매자 로그인 후
-			
-
-		} else { // 로그인 전
-			
-			
-		}
+		ajaxSelectLike();
 		
 	});
 		
 	function ajaxSelectLike() {
-		      
+		
+		let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+		let goodNo = "${ requestScope.goods.goodNo }";
+		
 		$.ajax({
 			url : 'ajaxSelectLike.go',
 	        type: 'get',
-	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        data: { memberNo: memberNo, goodNo: goodNo },
 	        success: function(result) {	        
 	            	
 	        	if(result > 0) {
@@ -429,12 +470,17 @@
 	        			'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png">'	  
 	        		);  
 	        		
+	        	} else if(result == -1 ) {
+	        		
+	        		
+	        		
 	        	} else {
 	        		
 	        		$(".goods-like").html(
 		        		'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_off.png">'	  
 		        	); 	   
 	        	}
+	        	
 	        	   
 	        },
 	        error : function() {
@@ -519,7 +565,7 @@
 
 					<div class="goods-content" id="goods-content">
 					
-						<textarea class="goodsSell-content" id="goodsSell-content"></textarea>
+						<div class="goodsSell-content" id="goodsSell-content"></div>
 
 					</div>
 
@@ -533,7 +579,35 @@
 						
 						<div class="br-line"></div>
 
-						<div class="sub-review-content"></div>
+						<div class="sub-review-content" >
+						<c:forEach var="r" items="${requestScope.r }">
+							 <div class="profile_under_1">
+							 	<!-- 프로필 -->
+							 <div class="profile_2">
+				                <span>${r.memberNo}</span>
+				                <div id="profile_2_2">
+				                    <span>${r.createDate }</span>
+				                    <!-- 몇분전인지-->
+				                </div>
+				            </div>
+					            <%-- 별점 --%>
+					         
+					            <div class="starRating">
+					             <c:forEach var="star" begin="1" step="1" end="${r.starRating}">
+					                <span ><i class="fas fa-star" style="color : rgb(255, 225, 0)"></i></span>
+					             </c:forEach>   
+					             ${r.starRating} 
+					            </div>
+					         
+				       		 </div>
+				       		 	<%-- 내용 --%>
+				       		   <div id="content">
+						
+						           ${r.revContent }
+						
+						      </div>
+					       </c:forEach> 
+						</div>
 					</div>
 
 					<div class="br2-line"></div>
@@ -560,7 +634,7 @@
 	            	<c:when test="${ (not empty sessionScope.loginSeller) and (sessionScope.loginSeller.sellerNo eq requestScope.goodsSell.sellerNo) }">
 	            	<div class="sub-footer3">
 						<button class="update-button" type="button" onclick="location.href='sellerGoodsUpdateEnrollForm.go?sno=' + ${requestScope.goodsSell.sellNo};">수정하기</button>
-						<button class="delete-button" type="button" onclick="location.href='sellerGoodsDeleteEnrollForm.go';">삭제하기</button>
+						<button class="delete-button" type="button" onclick="location.href='sellerGoodsDelete.go?sno=' + ${requestScope.goodsSell.sellNo};">삭제하기</button>
 					</div>	            		
 	            	</c:when>
 	            	
@@ -689,12 +763,14 @@
 	// 상품 찜 하기 클릭 이벤트 함수	
 	function ajaxClickLike() {
 	    
-		let loginUser
+		let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+		
+		let goodNo = "${ requestScope.goods.goodNo }";
 		
 		$.ajax({
 			url : 'ajaxClickLike.go',
 	        type: 'get',
-	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        data: { memberNo: memberNo, goodNo: goodNo },
 	        success: function(result) {
 	        	
 	        	console.log(result);	

@@ -36,7 +36,7 @@ public class ReviewController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getReviewLegacyData.bo" , produces = "application/json; charset=UTF-8")
-	public String ajaxpromotionListView(int page, int size, Model m) {
+	public String ajaxReviewListView(int page, int size, Model m) {
 		
 		
 		int rno = 0;
