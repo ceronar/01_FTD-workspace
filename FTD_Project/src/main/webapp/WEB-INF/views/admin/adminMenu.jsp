@@ -200,15 +200,15 @@
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">campaign</span>
-	        <p><a href="notice.ad">공지 관리</a></p>
+	        <p><a href="list.no">공지 관리</a></p>
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">assignment</span>
-	        <p><a href="board.ad">게시판 관리</a></p>
+	        <p><a><s>게시판 관리</s></a></p>
 	      </div>
 	      <div class="ani-navbar-menu">
 	        <span class="material-symbols-outlined ani-navbar-menu__icon">store</span>
-	        <p><a href="market.ad">마켓 관리</a></p>
+	        <p><a><s>마켓 관리</s></a></p>
 	      </div>
 	    </nav>
 	    
