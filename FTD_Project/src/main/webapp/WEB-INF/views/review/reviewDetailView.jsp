@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -205,6 +208,10 @@
    .profile_under_option{
    
    margin-left: auto;}
+   
+     .goodSell:hover{
+        cursor:pointer;
+        }
     	
    
     <!-- 댓글수정 모달창 -->
@@ -271,10 +278,7 @@
       		<form action="" id="postForm" method="post">
                	<input type="hidden" id="rno" name="rno"
                				value="${ requestScope.r.revNo }">
-				<c:forEach var="f" items="${ requestScope.rfList }">
-                	<input type="hidden" name="filePath" id="filePath"
-                				value="${ f.changeName }">
-               	</c:forEach>
+			
             </form>
 
         	<script>
@@ -286,7 +290,7 @@
                		if(num == 1) { 
                			// num == 1 일 경우 : 수정하기 버튼을 클릭한 상태
                			
-               			$("#postForm").attr("action", "updateForm.bo").submit();
+               			$("#postForm").attr("action", "updateEnroll.rev").submit();
                			
                		} else {
                			// num == 2 일 경우 : 삭제하기 버튼을 클릭한 상태
@@ -310,7 +314,7 @@
        		 </div>
 		  </c:otherwise>
 		  </c:choose>
-        <div id="content">
+        <div id="content" align="center">
 
            ${ requestScope.r.revContent }
 
@@ -320,23 +324,17 @@
 
         <!-- 상품 -->
         <div class="review">
-
-            
-
-            <div class="review-content">
-               
-                <div>
-                    <!-- 사진 -->
-                    <img src="" id="img_1">
-                </div>
-                 
+            <div class="review-content">        
                     <div id="review_product">
                         <!-- 상품 -->
-                        <table border="1" id="product">
+                        <table border="1" id="product" class="goodSell">
+                        <input type="hidden" value="${requestScope.goodsList.sellNo }">
                             <tr>
-                                <td><img src="" id="img_2"></td>
-                                <td width="870px;">
+                                <td><img src="${requestScope.goodsFileList.changeName }" id="img_2"></td>
+                                <td width="870px;" align="center">
+                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${requestScope.goodsList.count }" var="count" />
                                     <div>${requestScope.goodsList.sellTitle }</div>
+                                    <div>${count}원</div>
                                </td>
                                <td>></td>
                             </tr>
@@ -387,6 +385,23 @@
 						
 	      </c:forEach>
 	           -->
+	         
+	      <!--------------------------클릭시 구매했던 상품으로이동하는 스크립트----------------------------->
+	        <script>
+            $(function () {
+
+                $(".review").on('click', '.goodSell', function (e) {
+
+                	// console.log(e.currentTarget.children.item(0).value);
+                	 
+                    let sno = e.currentTarget.children.item(0).value;
+
+                    //
+
+                    location.href = "goodsDetailPage.go?sno=" + sno;
+                });
+            });
+        </script>  
 	           
 	              <!-- 댓글 로그인관련 조건거는곳 --> 
            <script> 

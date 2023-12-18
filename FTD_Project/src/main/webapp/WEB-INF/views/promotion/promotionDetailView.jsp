@@ -331,12 +331,7 @@
 	             </div>
            </div> 
             <form action="" id="postForm" method="post">
-               	<input type="hidden" id="pno" name="pno"
-               				value="${ requestScope.p.promotionNo }">
-				<c:forEach var="f" items="${ requestScope.pfList }">
-                	<input type="hidden" name="filePath" id="filePath"
-                				value="${ f.changeName }">
-               	</c:forEach>
+               	<input type="hidden" id="pno" name="pno" value="${requestScope.p.promotionNo }">
             </form>
 
         	<script>
@@ -348,7 +343,7 @@
                		if(num == 1) { 
                			// num == 1 일 경우 : 수정하기 버튼을 클릭한 상태
                			
-               			$("#postForm").attr("action", "updatePromotion.pr").submit();
+               			$("#postForm").attr("action", "updateEnroll.pr").submit();
                			
                		} else {
                			// num == 2 일 경우 : 삭제하기 버튼을 클릭한 상태

@@ -116,6 +116,16 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.insertReview(sqlSession, rev);
 	}
 
+	@Override
+	public int updateReview(Review r) {
+		
+		return reviewDao.updateReview(sqlSession, r);
+	}
+	@Override
+	public ArrayList<Review> selectReviewListTop() {
+		return reviewDao.selectReviewListTop(sqlSession);
+	}
+
 
 
 }

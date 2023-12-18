@@ -215,6 +215,12 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return goodsDao.ajaxInsertReply(sqlSession, r);
 	}
+
+	@Override
+	public ArrayList<Goods> selectGoodsListTop() {
+
+		return goodsDao.selectGoodsListTop(sqlSession);
+	}
 	
 	
 	

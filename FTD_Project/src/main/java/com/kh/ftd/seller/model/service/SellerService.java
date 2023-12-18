@@ -77,4 +77,7 @@ public interface SellerService {
 	int sellerOrderDetailChangeStatusToY(int orderDetailNo);
 	// 판매자 배송 상태 변경 메소드 to E
 	int sellerOrderDetailChangeStatusToE(int orderDetailNo);
+	
+	// 추천가게 리스트 조회 top 10
+	ArrayList<Seller> sellerListTop();
 }

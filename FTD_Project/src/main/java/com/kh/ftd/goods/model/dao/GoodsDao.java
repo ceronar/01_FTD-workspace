@@ -165,6 +165,10 @@ public class GoodsDao {
 		
 		return sqlSession.update("goodsMapper.deleteSellerGoods", goodNo);
 	}
+
+	public ArrayList<Goods> selectGoodsListTop(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("goodsMapper.selectGoodsListTop");
+	}
 	
 	public ArrayList<SellReply> selectReplyList(SqlSessionTemplate sqlSession, int sno) {
 		

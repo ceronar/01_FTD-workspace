@@ -15,6 +15,7 @@
 		<result column="STOCK" property="stock" />
 		<result column="CHANGE_NAME" property="changeName" />
 		<result column="SELL_NO" property="sellNo" />
+		<result column="LIKE_COUNT" property="likeCount" />
 	</resultMap>
 
 	<resultMap id="goodsFileResultSet" type="goodsFile">
@@ -362,7 +363,7 @@
 		   SET DELETE_DATE = SYSDATE
 		 WHERE GOOD_NO = #{goodNo}
 	</update>
-	
+
 	<select id="selectReplyList" parameterType="_int" resultMap="sellReplyResultSet">
 		SELECT * 
 		  FROM SELL_REPLY S
@@ -382,5 +383,18 @@
                      , #{sellNo}
                      , #{replyContent})
 	</insert>
+
+	<select id="selectGoodsListTop" resultMap="goodsResultSet">
+		SELECT * FROM (
+		    SELECT G.GOOD_NO, G.SELLER_NO, G.GOOD_TITLE, G.GOOD_DETAIL, G.ORIGIN, G.PRICE, G.CREATE_DATE, G.DELETE_DATE, G.EXPIRATION_DATE, G.STOCK, COUNT(L.MEMBER_NO) AS LIKE_COUNT, F.CHANGE_NAME
+		    FROM GOODS G
+		    LEFT JOIN "LIKE" L ON G.GOOD_NO = L.GOOD_NO
+		    LEFT JOIN GOODS_SELL S ON (G.GOOD_NO = S.GOOD_NO  AND S.DELETE_DATE IS NULL)
+		    LEFT JOIN GOODS_FILE F ON (S.SELL_NO = F.SELL_NO AND F.DELETE_DATE IS NULL AND F.CREATE_DATE IS NOT NULL)
+		    GROUP BY G.GOOD_NO, G.SELLER_NO, G.GOOD_TITLE, G.GOOD_DETAIL, G.ORIGIN, G.PRICE, G.CREATE_DATE, G.DELETE_DATE, G.EXPIRATION_DATE, G.STOCK, F.CHANGE_NAME
+		    ORDER BY G.GOOD_NO
+		)
+		WHERE ROWNUM &lt;= 10
+	</select>
 
 </mapper>

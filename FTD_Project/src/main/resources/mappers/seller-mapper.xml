@@ -19,6 +19,8 @@
 		<result column="ACCEPT_DATE" property="acceptDate"/>
 		<result column="REFUSE_REASON" property="refuseReason"/>
 		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="SUBSCRIBE_COUNT" property="subscribeCount"/>
+		<result column="STAR_RATING" property="starRating"/>
 	</resultMap>
 	
 	<resultMap id="sellerFileResultSet" type="sellerFile">
@@ -28,6 +30,11 @@
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate"/>
+	</resultMap>
+	
+	<resultMap id="subscribeResultSet" type="subscribe">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="SELLER_NO" property="sellerNo" />
 	</resultMap>
 	
 	<!-- 판매자 마켓 리스트 조회 -->
@@ -240,5 +247,26 @@
 		   SET STATUS = 'E'
 		 WHERE ORDER_DETAIL_NO = #{orderDetailNo}
 	</update>
+	
+	<select id="sellerListTop" resultMap="sellerResultSet">	
+		SELECT S.*, SC.SUBSCRIBE_COUNT, SF.CHANGE_NAME, SS.STAR_RATING
+		FROM SELLER S
+		JOIN (
+		    SELECT SELLER_NO, COUNT(*) AS SUBSCRIBE_COUNT
+		    FROM SUBSCRIBE
+		    GROUP BY SELLER_NO
+		    ORDER BY COUNT(*) DESC
+		) SC ON S.SELLER_NO = SC.SELLER_NO
+		LEFT JOIN SELLER_FILE SF ON (SF.SELLER_NO = S.SELLER_NO AND SF.DELETE_DATE IS NULL)
+		LEFT JOIN (SELECT NVL(TRUNC(AVG(STAR_RATING), 2), 0.0) AS "STAR_RATING", G.SELLER_NO
+		  FROM REVIEW R
+		  JOIN GOODS G ON (R.GOOD_NO = G.GOOD_NO)
+		  JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+		 WHERE G.DELETE_DATE IS NULL
+		   AND R.DELETE_DATE IS NULL
+		   AND M.STATUS IS NULL
+          GROUP BY G.SELLER_NO) SS ON (SS.SELLER_NO = S.SELLER_NO)
+		WHERE ROWNUM &lt;= 10
+	</select>
 	
 </mapper>

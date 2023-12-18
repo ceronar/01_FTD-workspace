@@ -108,5 +108,9 @@ public interface GoodsService {
 	
 	// 상품 글 댓글 등록 (insert)
 	int ajaxInsertReply(SellReply r);
+
+	// 상품 추천순 조회
+	ArrayList<Goods> selectGoodsListTop();
+
 	
 }

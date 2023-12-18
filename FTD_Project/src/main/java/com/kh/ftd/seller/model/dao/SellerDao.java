@@ -124,4 +124,8 @@ public class SellerDao {
 	public int sellerOrderDetailChangeStatusToE(SqlSession sqlSession, int orderDetailNo) {
 		return sqlSession.update("sellerMapper.sellerOrderDetailChangeStatusToE", orderDetailNo);
 	}
+
+	public ArrayList<Seller> sellerListTop(SqlSession sqlSession) {
+		return (ArrayList)sqlSession.selectList("sellerMapper.sellerListTop");
+	}
 }
