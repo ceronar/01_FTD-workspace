@@ -34,7 +34,7 @@
 			<jsp:include page="common/sidebar.jsp" />
 			<div class="main-div">
 				<jsp:include page="common/header.jsp" />
-				<div class="content">메인 컨텐츠<br>
+				<div class="content">
 					<!-- 슬라이드 화면 -->
 					<section id="cont_center">
 		            	<article class="column col4">
@@ -45,25 +45,27 @@
 				            			<img src="resources/images/notice/다운로드.jpg">
 				            			<img src="resources/images/notice/다운로드.jpg">
 							</div>
-							<br><br><br><br>
-							<div></div>
-							<br><br><br><br>
+							<br>
 						</article>
 					</section>
-					<h2>추천 </h2>
 					<div class="top10List">
+						<h3>추천 가게</h3>
 						<div class="">
 							
 						</div>
-						<h3><a href="sellerListPage.se">산지마켓 더보기 ></a></h3>
+						<h4><a href="sellerListPage.se">산지마켓 더보기 ></a></h4>
+						<br>
+						<h3>추천 상품</h3>
 						<div class="">
 							
 						</div>
-						<h3><a href="goodsListPage.go">상품 더보기 ></a></h3>
+						<h4><a href="goodsListPage.go">상품 더보기 ></a></h4>
+						<br>
+						<h3>후기</h3>
 						<div class="">
 							
 						</div>
-						<h3><a href="rlist.bo">후기 더보기 ></a></h3>
+						<h4><a href="rlist.bo">후기 더보기 ></a></h4>
 					</div>
 				</div>
 				<jsp:include page="common/footer.jsp" />
