@@ -185,7 +185,7 @@
 					+ '</div>'
 					+ '<div class="store-title">'
 						+ '<div class="store-name">'+ result[0].companyName + '</div>'
-						+ '<div class="store-subscribe-button"><button id="subscribe">단골맺기</button><form action="list.in"><button type="submit">문의</button><input type="hidden" name="sellerNo" id="sellerNo" value="${ requestScope.sellerNo }"></form></div>'
+						+ '<div class="store-subscribe-button"><button id="subscribe">단골맺기</button>'
 					+ '</div>'
 					+ '<div class="store-detail">'
 						+ '<div class="store-subscribe">'

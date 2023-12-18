@@ -159,8 +159,8 @@
 					        <div class="btn">
 					        	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
 					            	<a onclick="deleteSelected()">삭제</a>
-				            	</c:if>
-					            <a href="enrollForm.no">작성</a>
+					            	<a href="enrollForm.no">작성</a>
+					            </c:if>
 					        </div>
 				    </div>
 				</form>
