@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,7 +244,7 @@
 			                            <input type="hidden" class="price" name="goodPrice" value="${ c.price }">
 			                            <input type="hidden" class="stock" name="goodStock" value="${ c.stock }">
 			                        </td>
-			                        <td>${ c.price * c.count }원</td>
+			                        <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${ c.price * c.count }" />원</td>
 			                        <td><button type="button" class="deleteBtn"><span class="material-symbols-outlined">close</span></button></td>
 			                    </tr>
 			                    </c:forEach>

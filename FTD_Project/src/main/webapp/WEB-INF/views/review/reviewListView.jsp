@@ -185,12 +185,14 @@
                   	 +	'</div>'
 				+'<div class="detail">'
                   + '<h2>후기</h2>'
-                  + '<p>'+ val[0].revContent +'</p>'
+                  + '<p>'+ val[6] +'</p>'
                   + '<input type="hidden" value="' + val[0].revNo + '">'  
-                  +     '<div>'
-                  +         '<img src="'+ val[1][0].changeName +'" id="img_1">'
+                  if(val[5].length >= 1){
+             str +=     '<div>'
+                  +         '<img src="'+ val[5][0]+'" id="img_1">'
                   +     '</div>'
-				+'</div>'
+                  }
+             str +='</div>'
                 + '<div>'
                   +     '<div id="review_product">'        
                   +         '<table border="1" id="product">'
