@@ -48,6 +48,11 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+	@RequestMapping("main")
+	public String mainPage() {
+		return "main";
+	}
+	
 	
 	// 로그인 폼
 	@RequestMapping("loginForm.me")

@@ -159,7 +159,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
  <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
 <script>
-	
 	$(document).ready(function () { 
 		
 		ajaxSelectSellerMarketList();
@@ -218,7 +217,7 @@
 		$.ajax({
 			url : 'ajaxSelectSubscribe.se',
 			type: 'get',
-			data : { memberNo : ${sessionScope.loginUser.memberNo }, sellerNo : ${requestScope.sellerNo}},
+			data : { memberNo : ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 }, sellerNo : ${requestScope.sellerNo}},
 			success: function(result) {
 				
 				console.log(result);
