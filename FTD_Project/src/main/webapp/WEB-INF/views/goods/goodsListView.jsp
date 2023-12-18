@@ -10,7 +10,7 @@
 <style>
 
 	div {
-		border: 1px solid black;
+		/* border: 1px solid black; */
 	}
 
 	/* goods-list */
@@ -142,6 +142,12 @@
 		height: 100%;
 		border: 1px solid black;
 	}
+	
+	#img-div {
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;	
+	}
 
 	
 </style>
@@ -180,7 +186,7 @@
                 	$('.goods').append(
                 			'<div class="goods-list">'
 								+'<input type="hidden" value="' + item[1].sellNo + '">'
-								+'<div class="goods-img">'+item[2].changeName+'</div>'
+								+'<div class="goods-img"><img id="img-div" src="'+ item[2].changeName +'"></div>'
 								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
 								+'<div class="goods-price">'+item[0].price+'원</div>'
 								+'<div class="goods-detail">'
@@ -241,20 +247,20 @@
         </div>
 	</div>
 	
-	<script>
-		$(function () {
-				
-			$(".goods").on('click', '.goods-list', function (e) {
-
-            	let sno = e.currentTarget.children.item(0).value;
-
-                console.log(sno);
-
-                location.href = "goodsDetailPage.go?sno=" + sno;
-                
-            });
+<script>
+	$(function () {
 			
+		$(".goods").on('click', '.goods-list', function (e) {
+
+			let sno = e.currentTarget.children.item(0).value;
+
+            console.log(sno);
+
+            location.href = "goodsDetailPage.go?sno=" + sno;
+               
 		});
-	</script>
+		
+	});
+</script>
 </body>
 </html>

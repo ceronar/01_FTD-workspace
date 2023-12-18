@@ -86,6 +86,10 @@ public interface GoodsService {
 	// 상품 글 상세조회 대표 파일 수정 (update)
 	int updateGoodsFile(GoodsFile goodsFile);
 	
+	// 판매자 상품 글 파일 삭제
+	int deleteGoodsFile(int sellNo);
 	
+	// 판매자 상품 글 삭제 
+	int deleteSellerGoodsText(int sellNo);
 	
 }
