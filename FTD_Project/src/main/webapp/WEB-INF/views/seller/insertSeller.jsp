@@ -286,6 +286,7 @@
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="companyNo" class="companyNo form-control form-control" required>                     
                     </div>
+                    <small style="color: grey;">(예: 1234-567-1234)</small>
                     </td>
                 </tr>
 
@@ -295,6 +296,7 @@
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="businessNo" class="businessNo form-control form-control" required>                     
                     </div>
+                    <small style="color: grey;">(예: 123-지역-5678)</small>
                     </td>
                 </tr>
 
@@ -302,7 +304,7 @@
                     <th><span class="nessesary"></span> 주소 : </th>
                     <td colspan="3">
                         <div style="display: flex;">
-                            <input type="text" id="address" name="address" required class="postcodify_postcode5 form-control form-control" value="" />
+                            <input type="text" id="address" name="address" required class="postcodify_address form-control form-control" value="" />
                             <button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px;">검색</button>
                         </div>
                     </td>
@@ -314,6 +316,7 @@
                     <div style="display:flex; width: 300px;">                
                         <input type="text" name="accountNo" class="accountNo form-control form-control" required>                     
                     </div>
+                    <small style="color: grey;">(예: 123-45678-1234-567)</small>
                     </td>
                 </tr>
             </table>
@@ -350,11 +353,12 @@
                     </td>
                 </tr>
             </table>
-        </div>
+            <br><br>
+            <div align="center">
+                <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
+                <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
+            </div>
 
-        <div align="center">
-            <p id="requireDuplicateText">아이디 중복체크를 진행해주세요</p>
-            <button type="submit" id="submit-form"  disabled onclick="return validate();">확인</button>
         </div>
 
     </form>
