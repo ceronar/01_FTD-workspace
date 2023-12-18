@@ -177,24 +177,24 @@
 	              
         </div>
     </div>
-    				<!-- 슬라이드 스크립트 -->
-		            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-           	        <script type="text/javascript">
-			        $(".slider").slick({
-						dots: true,
-						autoplay: true,
-						autoplaySpeed: 3000,
-						arrows: true,
-						responsive: [
-						    {
-							    breakpoint: 768,
-							    settings: {
-							        autoplay: false,
-						      	}
-						    }
-						]
-					});
-			        </script>
+			<!-- 슬라이드 스크립트 -->
+            <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	        <script type="text/javascript">
+		        $(".slider").slick({
+					dots: true,
+					autoplay: true,
+					autoplaySpeed: 3000,
+					arrows: true,
+					responsive: [
+					    {
+						    breakpoint: 768,
+						    settings: {
+						        autoplay: false,
+					      	}
+					    }
+					]
+				});
+	        </script>
 
 </body>
 </html>
