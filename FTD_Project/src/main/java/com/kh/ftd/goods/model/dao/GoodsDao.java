@@ -138,4 +138,14 @@ public class GoodsDao {
 		return sqlSession.update("goodsMapper.updateGoodsFile", goodsFile);
 	}
 	
+	public int deleteGoodsFile(SqlSessionTemplate sqlSession, int sellNo) {
+		
+		return sqlSession.update("goodsMapper.deleteGoodsFile", sellNo);
+	}
+	
+	public int deleteSellerGoodsText(SqlSessionTemplate sqlSession, int sellNo) {
+		
+		return sqlSession.update("goodsMapper.deleteSellerGoodsText", sellNo);
+	}
+	
 }

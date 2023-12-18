@@ -234,7 +234,7 @@
 							
 						'<div class="goods">'
 							
-							+'<input type="hidden" value="">'
+							+'<input type="hidden" value="' + item.goodNo + '">'
 							+'<div class="goods-content">'	
 										
 								+'<div class="goods-title">'
@@ -302,7 +302,20 @@
 	        </div>             
         </div>
 	</div>
-	
 
+<script>
+	
+	$(function () {
+			
+		$(".goods-div").on('click', '.goods', function (e) {
+
+			let gno = e.currentTarget.children.item(0).value;
+
+            location.href = "sellerGoodsListDetailPage.go?sno=" + gno;
+               
+		});
+		
+	});
+</script>
 </body>
 </html>

@@ -392,7 +392,7 @@
 		height: 100%;
 		box-sizing: border-box;
 	}
-
+	
 
 </style>
 <script type="text/javascript">
@@ -400,27 +400,19 @@
 		
 	$(document).ready(function () {
 			
-		if( sessionScope.loginUser !=  null) { // 구매자 로그인 후
-			
-			ajaxSelectLike();
-				
-			
-		} else if( sessionScope.loginSeller != null) { // 판매자 로그인 후
-			
-
-		} else { // 로그인 전
-			
-			
-		}
+		ajaxSelectLike();
 		
 	});
 		
 	function ajaxSelectLike() {
-		      
+		
+		let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+		let goodNo = "${ requestScope.goods.goodNo }";
+		
 		$.ajax({
 			url : 'ajaxSelectLike.go',
 	        type: 'get',
-	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        data: { memberNo: memberNo, goodNo: goodNo },
 	        success: function(result) {	        
 	            	
 	        	if(result > 0) {
@@ -429,12 +421,17 @@
 	        			'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png">'	  
 	        		);  
 	        		
+	        	} else if(result == -1 ) {
+	        		
+	        		
+	        		
 	        	} else {
 	        		
 	        		$(".goods-like").html(
 		        		'<img class="like-icon" src= "${pageContext.request.contextPath}/resources/images/sample/like_off.png">'	  
 		        	); 	   
 	        	}
+	        	
 	        	   
 	        },
 	        error : function() {
@@ -519,7 +516,7 @@
 
 					<div class="goods-content" id="goods-content">
 					
-						<textarea class="goodsSell-content" id="goodsSell-content"></textarea>
+						<div class="goodsSell-content" id="goodsSell-content"></div>
 
 					</div>
 
@@ -560,7 +557,7 @@
 	            	<c:when test="${ (not empty sessionScope.loginSeller) and (sessionScope.loginSeller.sellerNo eq requestScope.goodsSell.sellerNo) }">
 	            	<div class="sub-footer3">
 						<button class="update-button" type="button" onclick="location.href='sellerGoodsUpdateEnrollForm.go?sno=' + ${requestScope.goodsSell.sellNo};">수정하기</button>
-						<button class="delete-button" type="button" onclick="location.href='sellerGoodsDeleteEnrollForm.go';">삭제하기</button>
+						<button class="delete-button" type="button" onclick="location.href='sellerGoodsDelete.go?sno=' + ${requestScope.goodsSell.sellNo};">삭제하기</button>
 					</div>	            		
 	            	</c:when>
 	            	
@@ -689,12 +686,14 @@
 	// 상품 찜 하기 클릭 이벤트 함수	
 	function ajaxClickLike() {
 	    
-		let loginUser
+		let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+		
+		let goodNo = "${ requestScope.goods.goodNo }";
 		
 		$.ajax({
 			url : 'ajaxClickLike.go',
 	        type: 'get',
-	        data: { memberNo: ${ sessionScope.loginUser.memberNo }, goodNo: ${ requestScope.goods.goodNo } },
+	        data: { memberNo: memberNo, goodNo: goodNo },
 	        success: function(result) {
 	        	
 	        	console.log(result);	

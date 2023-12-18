@@ -284,11 +284,13 @@
 	});
 	
 	function ajaxSelectSellerGoodTitle() {
+		
+		let sellerNo = '${sessionScope.loginSeller.sellerNo}';
 	      
 	    $.ajax({
 	        url : 'ajaxSelectSellerGoodTitle.go',
 	        type: 'get',
-	        data: { sellerNo : ${sessionScope.loginSeller.sellerNo} },
+	        data: { sellerNo : sellerNo },
 	        success: function(result) {
 	        	          	
 				console.log(result);
@@ -304,8 +306,9 @@
 					for(var i = 0; i < result.length; i++) {			
 						
 						$(".goodsTitle").append(
-								"<option>" + result[i].goodTitle + "</option>"
-							  + "<input type='hidden' value='"+ result[i].goodNo + "' name='goodNo'>"
+								"<option value='"+ result[i].goodNo + "'>" 
+									+ result[i].goodTitle						
+								+ "</option>"
 						);
 						
 						$("#origin").text(result[i].origin);
@@ -360,7 +363,7 @@
 							<input type="text" id="" name="sellTitle">
 						</div>
 						<div class="goods-price">
-							<select class="goodsTitle">
+							<select class="goodsTitle" name='goodNo'>
 								
 							</select>
 						</div>
