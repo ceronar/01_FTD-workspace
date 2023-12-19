@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <style>
 	.sidebar  div {
-		/* border: 1px solid black; */
+		border: 1px solid black;
 		width: 100%;	
 		text-align: center;
 	}
@@ -65,24 +65,6 @@
 			<div class="text">산지마켓</div>
 		</div>
 		<c:choose>
-			<%-- 판매자 로그인 후 --%>
-           	<c:when test="${ not empty sessionScope.loginSeller }">
-           		<div class="sidebar-menu" onclick="location.href='sellerGoodsListPage.go';">
-					<div class="icon"><span class="material-symbols-outlined">local_mall</span></div>
-					<div class="text">쇼핑몰</div>
-				</div>
-           	</c:when>
-           	
-			<%-- 로그인 전 --%>
-           	<c:otherwise>
-				<div class="sidebar-menu" onclick="location.href='goodsRecommendPage.go';">
-					<div class="icon"><span class="material-symbols-outlined">local_mall</span></div>
-					<div class="text">쇼핑몰</div>
-				</div>	
-           	</c:otherwise>
-		
-		</c:choose>
-		<c:choose>
 			<c:when test="${ not empty sessionScope.loginSeller }">
 			<div class=""></div>
 			</c:when>
@@ -93,8 +75,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-		
-		
+			
 		<c:choose>
 			<c:when test="${ not empty sessionScope.loginSeller }">
 				<div class="sidebar-menu" onclick="location.href='sellerPage';">

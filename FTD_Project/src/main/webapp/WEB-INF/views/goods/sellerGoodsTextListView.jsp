@@ -140,14 +140,11 @@
 	}
 	
 	#nav2 {
-	    display: none;
-	}
-	
-	#nav3 {
 	    display: block !important;
 	}
 	
-	.menu2 {
+
+	.menu3 {
 		font-size: 25px;
 		border-bottom: 3px solid black;
 		color: black;

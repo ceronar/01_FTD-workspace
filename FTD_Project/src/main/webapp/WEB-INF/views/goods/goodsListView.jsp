@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +9,15 @@
 <title>상품 리스트 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <style>
 
 	div {
 		/* border: 1px solid black; */
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	/* goods-list */
@@ -40,6 +47,8 @@
 		height: 35px;
 		text-align: left;
 		line-height: 35px;
+		font-size: 25px;
+		color: rgb(108, 108, 108);
 	}
 
 	.goods-price {
@@ -47,6 +56,7 @@
 		height: 35px;
 		line-height: 35px;
 		text-align: left;
+		font-size: 20px;
 	}
 
 	.goods-detail {
@@ -59,6 +69,9 @@
 		height: 100%;
 		float: left;
 		box-sizing: border-box;
+		line-height: 30px;
+		font-size: 25px;
+		
 	}
 
 	.star-icon {
@@ -66,8 +79,9 @@
 	}
 
 	.star-icon > img {
-		width: 100%;
-		height: 100%;
+		box-sizing: border-box;
+		width: 32px;
+		height: 32px;
 	}
 
 	.goods-rating {
@@ -78,10 +92,10 @@
 		width: 40px;
 	}
 
-	.review-icon > span {
-		line-height: 40px;
-		font-size: 30px;
-		color: rgb(85, 85, 85)
+	.review-icon > img {
+		box-sizing: border-box;
+		width: 32px;
+		height: 32px;
 	}
 
 	.goods-review {
@@ -90,6 +104,12 @@
 	
 	.goods-count-icon {
 		width: 40px;
+	}
+	
+	.goods-count-icon > img {
+		box-sizing: border-box;
+		width: 35px;
+		height: 35px;
 	}
 	
 	.goods-count {
@@ -102,14 +122,10 @@
 	}
 	
 	#nav2 {
-	    display: none;
-	}
-	
-	#nav3 {
 	    display: block !important;
 	}
 	
-	.menu3 {
+	.menu2 {
 		font-size: 25px;
 		border-bottom: 3px solid black;
 		color: black;
@@ -188,13 +204,13 @@
 								+'<input type="hidden" value="' + item[1].sellNo + '">'
 								+'<div class="goods-img"><img id="img-div" src="'+ item[2].changeName +'"></div>'
 								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
-								+'<div class="goods-price">'+item[0].price+'원</div>'
+								+'<div class="goods-price">' + item[0].priceStr + '원</div>'
 								+'<div class="goods-detail">'
-									+'<div class="star-icon"><img src="${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
+									+'<div class="star-icon"><img src="resources/images/sample/star.png"></div>'
 									+'<div class="goods-rating">'+item[3]+'</div>'
-									+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
+									+'<div class="review-icon"><img src="resources/images/sample/talk.png"></div>'
 									+'<div class="goods-review">'+item[4]+'</div>'
-									+'<div class="goods-count-icon"></div>'
+									+'<div class="goods-count-icon"><img src="resources/images/sample/eye.png"></div>'
 									+'<div class="goods-count">'+ item[1].count +'</div>'
 								+'</div>'
 						+'</div>'
