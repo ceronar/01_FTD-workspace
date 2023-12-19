@@ -126,7 +126,7 @@
 							<td>${ og.count * og.price }</td>
 							<td>${ og.status eq "N" ? "<span class='red'>배송전</span>" : og.status eq "Y" ? "<span class='orange'>배송중</span>" : "<span class='green'>배송완료</span>" }</td>
 							<td hidden>${ og.sellNo }</td>
-							<td class="review-btn"><button>후기 작성</button></td>
+							<td class="review-btn"><button ${ og.status ne 'E' ? 'disabled' : '' }>후기 작성</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

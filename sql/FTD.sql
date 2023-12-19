@@ -334,7 +334,7 @@ CREATE TABLE "REVIEW" (
 	"REV_NO"	        NUMBER		        NOT NULL,
 	"MEMBER_NO"	        NUMBER		        NOT NULL,
 	"GOOD_NO"	        NUMBER		        NOT NULL,
-	"REV_TITLE"	        VARCHAR2(100)		
+	"REV_TITLE"	        VARCHAR2(100),		
 	"REV_CONTENT"	    VARCHAR2(3000)		NOT NULL,
 	"COUNT"	            NUMBER	            DEFAULT 0	NOT NULL,
     "STAR_RATING"	    NUMBER	            DEFAULT 0	NOT NULL,

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,7 @@
             font-size: 18px;
         }
 
-        button {
+        .btn {
             display: block;
             margin: 20px auto;
             padding: 15px;
@@ -58,7 +59,7 @@
             width: 150px; /* Set a fixed width for the button */
         }
 
-        button:hover {
+        .btn:hover {
             background-color: #27AE60;
         }
 
@@ -131,7 +132,7 @@
        	margin-left: auto;
         }
 
-        .profile_3_1 button {
+        .profile_3_1 .btn {
             background-color: transparent;
             color: #0c7c4b;
             border: 1px solid #0c7c4b;
@@ -144,7 +145,7 @@
             margin-right: 10px;
         }
 
-        .profile_3_1 button:hover {
+        .profile_3_1 .btn:hover {
             background-color: #0c7c4b;
             color: #ffffff;
         }
@@ -225,53 +226,78 @@
     <title>홍보(리스트)</title>
     
      <script>
-    function toggleSubscribe() {
-        var comIcon = $("#com-icon");
+   
+    
+ // 찜하기 조회
+	function ajaxSelectSubscribe() {
+		
+		let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+		
+		$.ajax({
+			url : 'ajaxSelectSubscribe.se',
+			type: 'get',
+			data : { memberNo : memberNo, sellerNo : ${requestScope.p.sellerNo}},	
+			success: function(result) {
 
-        if (comIcon.hasClass("sub12")) {
-            // Already subscribed, change to "찜"
-            comIcon.removeClass("sub12").addClass("sub1").text("찜");
-            let memberNo = ${!empty sessionScope.loginUser ? sessionScope.loginUser.memberNo : 0};
-            // AJAX call to controller (adjust the URL and data accordingly)
-            $.ajax({
-                url: "sub.po",
-                type: "post",
-                data: {
-                    sno: ${requestScope.p.sellerNo},
-                    mno: memberNo
-                },
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function () {
-                    console.log("ajax 통신 실패!");
-                }
-            });
-        } else {
-            // Not subscribed, change to "찜 이미함"
-            comIcon.removeClass("sub1").addClass("sub12").text("찜 이미함");
-            let memberNo = ${!empty sessionScope.loginUser ? sessionScope.loginUser.memberNo : 0};
-            // AJAX call to controller (adjust the URL and data accordingly)
-            $.ajax({
-                url: "sub.po",
-                type: "post",
-                data: {
-                    pno: ${requestScope.p.promotionNo},
-                    mno: memberNo
-                },
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function () {
-                    console.log("ajax 통신 실패!");
-                }
-            });
-        }
-        
-        $(".sub1234").click(function() {
-        	alert("로그인 후 이용하실 수 있습니다.")
-        });
-    }
+				if (result > 0) {
+					
+					// console.log(result);
+
+					$("#subscribe").css("background-color", "#388755");
+
+				} else {
+					
+					// console.log(result);
+
+					$("#subscribe").css("background-color", "lightgray");
+
+				}
+
+			},
+			error: function() {
+
+				console.log("ajax 통신 실패");
+			}
+			
+		
+		});
+	}
+ 
+ $(function() {
+	 
+ 
+	let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+	
+	// 찜하기 클릭 이벤트
+	$(".profile_3_1").on("click", "#subscribe", () => {
+		$.ajax({
+			url: "ajaxClickSubscribe.se",
+			type: "get",
+			data: { memberNo: memberNo, sellerNo: ${ requestScope.p.sellerNo }},
+			success : result => {
+				
+				if(result == "추가") {
+					
+					$(".profile_3_1 .btn").css("background-color", "red");
+					$("#subscribe").html("단골");
+					
+				} else if(result == "삭제") {
+									
+					$("#subscribe").css("background-color", "blue");
+					$("#subscribe").html("단골맺기");
+					
+				} else {
+					
+					location.href = "pdlist.bo?pno=" + ${ requestScope.p.promotionNo };
+				}
+			},
+			error : () => {
+				console.log("ajax 통신 실패");
+			}
+		});
+	});
+	
+ });
 </script>
 </head>
 <body>
@@ -362,26 +388,12 @@
                <c:otherwise>
             <div class="profile_3">
 			    <div class="profile_3_1">
-			        <a href="sellerDetailPage.se?sno=${requestScope.p.sellerNo}" style="width: 50px">
-			            <i class="fas fa-store"></i>
-			        </a>
-			        <div>
-			            <c:choose>
-			                <c:when test="${sessionScope.loginUser != null}">
-			                    <c:choose>
-			                        <c:when test="">
-			                            <button class="sub1" onclick="toggleSubscribe()" id="com-icon">찜</button>
-			                        </c:when>
-			                        <c:otherwise>
-			                            <button class="sub12" onclick="toggleSubscribe()" id="com-icon">찜 이미함</button>
-			                        </c:otherwise>
-			                    </c:choose>
-			                </c:when>
-			                <c:otherwise>
-			                    <button class="sub1234" id="com-icon">찜</button>
-			                </c:otherwise>
-			            </c:choose>
-			        </div>
+			        <a href="sellerDetailPage.se?sno=${requestScope.p.sellerNo}" style="width: 50px; color : green; font-size : 30px;"><i class="fas fa-store"></i></a>
+			        	<c:if test="${ !empty sessionScope.loginUser }"> 
+			        	
+						<button class="btn" id="subscribe">단골맺기</button>
+						
+						</c:if>
 			    </div>
 			</div>
            	   </c:otherwise>
@@ -398,7 +410,7 @@
         </div>
 
 
-        <button class="modify_Buy">구매하기</button>
+        <button class="modify_Buy btn">구매하기</button>
     </main>
 
     <main>
@@ -648,7 +660,7 @@
    
         </div>
         <!-- 삭제 -->
-         	<button onclick="insertReply()">입력 </button>
+         	<button class="btn" onclick="insertReply()">입력 </button>
          	
        		 <form action="" id="postFormReply" method="post">
                	<input type="hidden" id="prno" name="replyNo" value="">
@@ -692,9 +704,9 @@
 					     <textarea class="modal_repCon" name="modal_repCon"></textarea>
 					    </div>
 					    
-					    <div class="button_option">
-					    <div><button type="button" class="modal_modify_btn">수정</button></div>
-					     <div><button type="button" class="modal_cancel">취소</button></div>
+					    <div class="button_option btn">
+					    <div><button type="button" class="modal_modify_btn btn">수정</button></div>
+					     <div><button type="button" class="modal_cancel btn">취소</button></div>
 					    </div>
 					    
 					   </div>
@@ -734,8 +746,9 @@
 					    		
 					    			<div>
 						    			<div style=" line-height: 50px; margin-left : 10px;">
+						    			 <fmt:formatNumber type="number" maxFractionDigits="3" value="${g.count}" var="count" />
 							    			<div>${g.sellTitle}</div>
-							    			<div>${g.count}원</div>
+							    			<div>${count }원</div>
 						    			</div>					    		
 					    			</div>
 					    			<div style=" margin-left : auto; margin-right : 30px; line-height: 110px;" >

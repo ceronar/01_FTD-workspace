@@ -27,48 +27,7 @@
 		color: black;
 	}
         
-            body {
-                font-family: 'Lato', sans-serif;
-                font-weight: 400;
-                /* Normal font weight */
-                margin: 0;
-                padding: 0;
-                background-color: #f8f9fa;
-            }
-
-            header {
-                background-color: #343a40;
-                color: #ffffff;
-                text-align: center;
-                padding: 1em;
-                position: relative;
-                max-width: 1000px;
-                margin: 0 auto;
-            }
-
-            main {
-                max-width: 1000px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #ffffff;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                font-size: 20px;
-            }
-
-            footer {
-                text-align: center;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background-color: #343a40;
-                padding: 15px;
-                max-width: 1000px;
-                margin: 0 auto;
-            }
-
-            .checkout-btn {
+      .checkout-btn {
                 display: block;
                 max-width: 1000px;
                 margin: 20px auto;
@@ -83,28 +42,7 @@
                 font-size: 18px;
                 transition: background-color 0.3s;
             }
-
-            .checkout-btn:hover {
-                background-color: #0056b3;
-            }
-
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            header h1 {
-                margin: 0;
-            }
-
-            header a {
-                padding: 10px;
-                text-decoration: none;
-                color: #ffffff;
-            }
-
-            .cart {
+	 .cart {
                 width: 100%;
             }
 
@@ -144,6 +82,11 @@
                 text-decoration: none;
                 color: black;
             }
+            
+            .profile{
+            	margin-right : 35px;
+            }
+            
 
             .profile>#profile_1,
             #profile_2 {
@@ -378,8 +321,7 @@
                 border-radius: 50px 50px 50px 50px;
          
             }
-
-/*--------------------------------------------------------*/
+	
         </style>
         <script>
             var page = 0;
@@ -456,7 +398,7 @@
 
                                 + '<div>'
                                 + '<div >'
-                                + '<div class="detail" style="margin-left : 35px">'
+                                + '<div class="detail" ">'
                                 + '<input type="hidden" value="' + val[0].promotionNo + '">'
                                 + '<h2>판매</h2>'
                                 + val[6];
@@ -526,7 +468,7 @@
                                 + '</div>'
                                 + '</div>'
 
-                                + '<div align="left" style="width : 710px">'
+                                + '<div align="left" style="width : 780px">'
                                 + '<span><i class="far fa-comment"></i></span>'
                                 + '<span>'
                                 + val[4]
