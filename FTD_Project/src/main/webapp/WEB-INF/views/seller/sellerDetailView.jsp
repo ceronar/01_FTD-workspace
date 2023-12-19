@@ -288,13 +288,13 @@
 	
 	.header-img {
 		width: 100%;
-		height: 500px;
+		height: 720px;
 		background-color: #ffffff;
     	box-sizing: border-box;
 	}
 	
 	#thumbnail {
-		width: 500px;
+		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
 	}

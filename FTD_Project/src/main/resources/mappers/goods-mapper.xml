@@ -119,7 +119,16 @@
 	</select>
 	
 	<select id="ajaxSelectSellerGoodsList" parameterType="_int" resultMap="goodsResultSet">
-		SELECT * 
+		SELECT GOOD_NO
+			 , SELLER_NO
+			 , GOOD_TITLE
+			 , GOOD_DETAIL
+			 , ORIGIN
+			 , TO_CHAR(PRICE, '999,999,999') AS "PRICE_STR"
+			 , CREATE_DATE
+			 , DELETE_DATE
+			 , EXPIRATION_DATE
+			 , STOCK 
 		  FROM GOODS
 		 WHERE SELLER_NO = #{sellerNo}
 		   AND DELETE_DATE IS NULL
