@@ -99,9 +99,9 @@ public class InquiryController {
 //		System.out.println("i : " + i);
 //		System.out.println("inf : " + inf);
 		
-//		for(MultipartFile uf : upfile) {
-//			System.out.println("upfile : " + uf);
-//		}
+		for(MultipartFile uf : upfile) {
+			System.out.println("upfile : " + uf);
+		}
 		
 		i.setInqTitle(changeTagMethod(i.getInqTitle()));
 		

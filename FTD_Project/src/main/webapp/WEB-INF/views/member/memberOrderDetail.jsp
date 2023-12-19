@@ -37,10 +37,6 @@
             font-size : 30px;
         }
         
-        button:hover {
-            background-color: #27AE60;
-        }
-		
 		.content-area {
 			max-width: 1000px;
 			margin: 20px auto;
@@ -69,6 +65,13 @@
 		}
 		.review-btn {
 			width : 80px;
+			padding : 0px;
+		}
+		
+		.review-btn button {
+			width : 100%;
+			height : 100%;
+			
 		}
 		.orderDetail-table img {
 			max-width: 100px;

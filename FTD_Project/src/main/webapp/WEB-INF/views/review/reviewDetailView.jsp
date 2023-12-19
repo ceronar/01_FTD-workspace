@@ -225,6 +225,39 @@
     display: inline-block;
     margin-right: 10px; 
 }
+
+
+ #review_product {
+        /* Add any styling for the container div if needed */
+    }
+
+    #product {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 10px; /* Adjust the margin as needed */
+        border-radius: 7px; /* Apply rounded corners to the table */
+        overflow: hidden; /* Ensure the rounded corners are visible */
+    }
+
+    #product td {
+        border: 2px solid #dddddd;
+        padding: 8px;
+        transition: background-color 0.3s ease; /* Hover effect duration and ease */
+    }
+
+    #product:hover td {
+        background-color: #d3f3e3; /* Light mint color on hover for the entire table */
+    }
+
+    #img_2 {
+        max-width: 100px; /* Adjust the maximum width of the image as needed */
+    }
+
+    .product-info {
+        width: 870px;
+        text-align: center;
+    }
+
     </style>
     <title>후기(리스트)</title>
 </head>
@@ -331,12 +364,10 @@
                         <input type="hidden" value="${requestScope.goodsList.sellNo }">
                             <tr>
                                 <td><img src="${requestScope.goodsFileList.changeName }" id="img_2"></td>
-                                <td width="870px;">
+                                <td width="870px;" align="center">
                                 <fmt:formatNumber type="number" maxFractionDigits="3" value="${requestScope.goodsList.count }" var="count" />
-	                                <div style="margin-left : 20px;">
-	                                    <div>${requestScope.goodsList.sellTitle }</div>
-	                                    <div>${count}원</div>
-	                                 </div>
+                                    <div>${requestScope.goodsList.sellTitle }</div>
+                                    <div>${count}원</div>
                                </td>
                                <td>></td>
                             </tr>

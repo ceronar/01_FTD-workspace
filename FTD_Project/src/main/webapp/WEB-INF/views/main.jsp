@@ -198,8 +198,8 @@
 		            	<article class="column col4">
 			            	<div class="slider">
 				            			<img src="resources/images/notice/다운로드.jpg">
-				            			<img src="resources/images/notice/다운로드.jpg">
-				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드1.jpg">
+				            			<img src="resources/images/notice/다운로드2.jpg">
 				            			<img src="resources/images/notice/다운로드.jpg">
 				            			<img src="resources/images/notice/다운로드.jpg">
 							</div>
@@ -243,7 +243,7 @@
 								<table class="good_table">
 									<c:forEach var="g" items="${ requestScope.gList }">
 										<tr>
-											<td hidden><input type="hidden" name="goodNo" value="${ g.goodNo }"></td>
+											<td hidden><input type="hidden" name="goodNo" value="${ g.sellNo }"></td>
 											<td class="review-img"><img src= "${ g.changeName }" ></td>
 											<td>
 												${ g.goodTitle } <br>

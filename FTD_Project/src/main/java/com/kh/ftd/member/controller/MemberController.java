@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ftd.goods.model.service.GoodsService;
 import com.kh.ftd.goods.model.vo.Goods;
+import com.kh.ftd.goods.model.vo.GoodsSell;
 import com.kh.ftd.inquiry.model.service.InquiryService;
 import com.kh.ftd.inquiry.model.vo.Inquiry;
 import com.kh.ftd.member.model.service.MemberService;
@@ -61,9 +62,9 @@ public class MemberController {
 		
 		// 추천상품 리스트 조회 top 10 (홍보)
 		ArrayList<Goods> gList = goodsService.selectGoodsListTop();
-//		for(Goods g : gList) {
-//			System.out.println("g : " + g);
-//		}
+		for(Goods g : gList) {
+			System.out.println("g : " + g);
+		}
 		
 		// 추천후기 리스트 조회 top 10
 		ArrayList<Review> rList = reviewService.selectReviewListTop();

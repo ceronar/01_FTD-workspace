@@ -27,12 +27,7 @@
 		color: black;
 	}
     
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
+      
 
     
         header {
@@ -141,6 +136,38 @@
         .goods_title{
        	margin-right : 100px;
         }
+        
+        
+        #review_product {
+        /* Add any styling for the container div if needed */
+    }
+
+    #product {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 10px; /* Adjust the margin as needed */
+        border-radius: 7px; /* Apply rounded corners to the table */
+        overflow: hidden; /* Ensure the rounded corners are visible */
+    }
+
+    #product td {
+        border: 2px solid #dddddd;
+        padding: 8px;
+        transition: background-color 0.3s ease; /* Hover effect duration and ease */
+    }
+
+    #product:hover td {
+        background-color: #d3f3e3; /* Light mint color on hover for the entire table */
+    }
+
+    #img_2 {
+        max-width: 100px; /* Adjust the maximum width of the image as needed */
+    }
+
+    .product-info {
+        width: 870px;
+        text-align: center;
+    }
    
     </style>
           <script>
@@ -164,14 +191,7 @@
                     url: 'getReviewLegacyData.bo',
                     type: 'get',
                     data: { page: page, size: pageSize },
-                    beforeSend: function (data) {
-                        //console.log(data);
-                        // Ajax 요청 전에 로딩 애니메이션 표시
-
-                        $('#loading').show();
-
-
-                    },
+                  
                     success: function (data) {
 
                         console.log("통신성공!!!");
@@ -320,9 +340,7 @@
            
         </div>
         
-         <div id="loading">
-             <img src="resources/images/sample/0019.gif" alt="Loading..." />
-         </div>
+   
 
         <!-- 추가적인 리뷰는 위와 같은 구조로 추가 가능 -->
 

@@ -606,6 +606,11 @@
                 /* Adjust the margin as needed */
             }
             
+            	.detail:hover{
+				cursor: pointer;
+			}
+	
+            
             /* 파일 두개일때 */
 /*--------------------------------------------------------*/
             .product2_image_1 {
@@ -736,6 +741,37 @@
        	margin-right : 100px;
         }
         
+        /* 추가 */
+        #review_product {
+        /* Add any styling for the container div if needed */
+    }
+
+    #product {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 10px; /* Adjust the margin as needed */
+        border-radius: 7px; /* Apply rounded corners to the table */
+        overflow: hidden; /* Ensure the rounded corners are visible */
+    }
+
+    #product td {
+        border: 2px solid #dddddd;
+        padding: 8px;
+        transition: background-color 0.3s ease; /* Hover effect duration and ease */
+    }
+
+    #product:hover td {
+        background-color: #d3f3e3; /* Light mint color on hover for the entire table */
+    }
+
+    #img_2 {
+        max-width: 100px; /* Adjust the maximum width of the image as needed */
+    }
+
+    .product-info {
+        width: 870px;
+        text-align: center;
+    }
 </style>
 <script>
 
@@ -1249,7 +1285,7 @@
 
 								data.forEach(function (val) {
 
-									let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : "${pageContext.request.contextPath}" + val[2].changeName;
+									let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" :  val[2].changeName;
 									let str = '<div>'
 										+ '<div class="profile">'
 										+ '<div id="profile_1" style="width : 50px; height : 50px;">'
@@ -1325,22 +1361,6 @@
 
 									str += '</div>'
 										+ '<div class="product_options">'
-										+ '<div>'
-										+ '<div class="swiper-wrapper">'
-										+ '<div class="product" id="product_1">'
-										+ '<div>'
-										+ '<span>해녀 채취 말똥성게</span>'
-										+ '<span>12,500원~</span>'
-										+ '</div>'
-										+ '</div>'
-										+ '<div class="product" id="product_2">'
-										+ '<div>'
-										+ '<span>홍새우 (단새우)급냉</span>'
-										+ '<span>23,000원~</span>'
-										+ '</div>'
-										+ '</div>'
-										+ '</div>'
-										+ '</div>'
 										+ '</div>'
 										+ '</div>'
 
