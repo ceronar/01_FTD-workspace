@@ -101,6 +101,7 @@
 		float: left;
 		height: 70%;
 		line-height: 40px;
+		font-size: 25px;
 	}
 
 	.store-detail {

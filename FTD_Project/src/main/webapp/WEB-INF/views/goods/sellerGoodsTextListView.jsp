@@ -86,7 +86,7 @@
 	.seller-title {
 		border: 1px solid black;
 		width: 100%;
-		height: 100px;
+		height: 150px;
 		margin-bottom: 30px;
 		box-sizing: border-box;
 		padding: 20px;
@@ -100,16 +100,23 @@
 	}
 
 	.seller-img {
-		width: 60px;
+		width: 100px;
+		height: 100px;
 		margin-left: 70px;
 		margin-right: 30px;
+	}
+	
+	#seller-img2 {
+		width: 100px;
+		height: 100px;	
 	}
 
 	.seller-name {
 		width: 70%;
-		font-size: 30px;
+		height: 100px;
+		font-size: 35px;
 		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 55px;
+		line-height: 100px;
 		padding-left: 60px;
 		text-align: left;
 	}
@@ -245,7 +252,7 @@
 	            <div class="content">
 	            
 	            	<div class="seller-title">
-						<div class="seller-img"></div>
+						<div class="seller-img"><img id="seller-img2" src="${ sessionScope.loginSeller.changeName }"></div>
 						<div class="seller-name">${sessionScope.loginSeller.companyName }님의 상품 글 관리 페이지</div>
 					</div>
 
