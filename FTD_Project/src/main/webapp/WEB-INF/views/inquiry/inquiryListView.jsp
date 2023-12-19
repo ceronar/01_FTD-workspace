@@ -153,55 +153,55 @@
 		padding : 20px
 	}
 	
-	h1 {
-                    text-align: center;
-                    color: #333;
-                }
+	.container h1 {
+        text-align: center;
+        color: #333;
+    }
 
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
+    .container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-                th,
-                td {
-                    padding: 10px;
-                    text-align: center;
-                    border-top: 1px solid #ccc;
-                    border-bottom: 1px solid #ccc;
-                }
+    .container th,
+    .container td {
+        padding: 10px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
 
-                th {
-                    background-color: #f2f2f2;
-                }
+    .container th {
+        background-color: #f2f2f2;
+    }
 
-                tbody tr:hover {
-                    background-color: #f9f9f9;
-                    cursor: pointer;
-                }
+    .container tbody tr:hover {
+        background-color: #f9f9f9;
+        cursor: pointer;
+    }
 
-                .btn button {
-                    float: right;
-                    padding: 8px 20px;
-                    border: none;
-                    background-color: #2ecc71;
-                    color: #fff;
-                    cursor: pointer;
-                    border-radius: 3px;
-                    margin: 10px 5px;
-                }
+    .btn button {
+        float: right;
+        padding: 8px 20px;
+        border: none;
+        background-color: #2ecc71;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 3px;
+        margin: 10px 5px;
+    }
 
-                .btn button:hover {
-                    background-color: #27ae60;
-                }
+    .btn button:hover {
+        background-color: #27ae60;
+    }
 
-                .material-symbols-outlined {
-                    font-variation-settings:
-                        'FILL' 0,
-                        'wght' 400,
-                        'GRAD' 0,
-                        'opsz' 24
-                }
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+    }
 	
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -292,7 +292,7 @@
 		            
 		            // 각 객체의 속성을 추출하여 테이블에 추가합니다.
 		            var row = '<tr>';
-		            row += '<td name="inqNo" class="inqNo">' + item.inqNo + '</td>' +
+		           		 row += '<td name="inqNo" class="inqNo">' + item.inqNo + '</td>' +
 				                '<td name="answer" class="answer">' + answer + '</td>' +
 				                '<td name="inqTitle" class="inqTitle">' + item.inqTitle + '</td>' +
 				                '<td name="memberId" class="memberId">' + item.memberId + '</td>' +
@@ -361,8 +361,6 @@
 						
 						
 					</div>
-	
-				
 		        </div>
 
 				<div class="sub-content">
