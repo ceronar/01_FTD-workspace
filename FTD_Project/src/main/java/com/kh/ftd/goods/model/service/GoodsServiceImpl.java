@@ -175,12 +175,12 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-
 	public ArrayList<Review> selectGoodReview(int goodNo) {
 		
 		return goodsDao.selectGoodReview(sqlSession,goodNo);
 	}
-
+	
+	@Override
 	public int deleteGoodsFile(int sellNo) {
 
 		return goodsDao.deleteGoodsFile(sqlSession, sellNo);

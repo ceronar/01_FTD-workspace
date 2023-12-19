@@ -13,6 +13,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
+
+<!-- 슬라이드 외부 css -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <style>
 
 	.sub-review-content {
@@ -534,6 +539,7 @@
 
 
 </script>
+
 </head>
 <body>
 	
@@ -610,7 +616,27 @@
 
 					<div class="goods-content" id="goods-content">
 					
-						<div class="goodsSell-content" id="goodsSell-content"></div>
+						<div class="goodsSell-content" id="goodsSell-content">
+							<div class="post-content">
+					            <!-- 슬라이드 화면 -->
+					            <section id="cont_center">
+					            	<article class="column col4">
+							            	<div class="slider">
+												<div  id="img-slider" align="center">
+					                            	<img src="" alt="슬라이드사진1">
+					                            	<img src="" alt="슬라이드사진2">
+					                            	<img src="" alt="슬라이드사진3">
+					                            	<img src="" alt="슬라이드사진4">
+					                            	<img src="" alt="슬라이드사진5">
+									            </div>
+											</div>	
+										<br><br><br><br>
+										<div></div>
+										<br><br><br><br>
+									</article>	
+								</section>
+				            </div>
+						</div>
 
 					</div>
 
@@ -777,7 +803,24 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 슬라이드 스크립트 -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script type="text/javascript">
+		$(".slider").slick({
+			dots: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			arrows: true,
+			responsive: [
+			    {
+				    breakpoint: 768,
+				    settings: {
+				        autoplay: false,
+			      	}
+			    }
+			]
+		});
+	</script>
 <script>
 	
 	$(function() {
