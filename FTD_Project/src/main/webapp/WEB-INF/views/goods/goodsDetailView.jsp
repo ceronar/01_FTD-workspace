@@ -63,6 +63,7 @@
 	}
 
 	div {
+		font-family: 'Noto Sans KR', sans-serif;
 		/* border: 1px solid black; */
 	}
 
@@ -80,6 +81,7 @@
 		background-color: #ffffff;
     	box-sizing: border-box;
 		position: sticky; /* 스크롤에 고정 */
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		top: 0px;
 	}
 
@@ -119,7 +121,7 @@
 
 	.header-img {
 		width: 100%;
-		height: 500px;
+		height: 700px;
 		background-color: #ffffff;
     	box-sizing: border-box;
 	}
@@ -200,6 +202,7 @@
 		position: sticky; /* 스크롤에 고정 */
 		top: 50px;
 		background-color: #ffffff;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 
 	/* sub-menu */
@@ -302,8 +305,27 @@
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 	}
+	
+	.pay-button2 {
+		width: 60%;
+		height: 40px;
+		margin-top: 5px;
+		margin-left: 20px;
+		box-sizing: border-box;
+		display: inline;
+		font-size: 20px;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
 
 	.like-button {
+		width: 30%;
+		height: 40px;
+		display: inline;
+		font-size: 20px;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.like-button2 {
 		width: 30%;
 		height: 40px;
 		display: inline;
@@ -404,6 +426,12 @@
 		box-sizing: border-box;
 	}
 	
+	.like-icon2 {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+	}
+	
 	.sub-footer3 {
 		width: 100%;
 		height: 50px;
@@ -449,7 +477,11 @@
 	}
 
 	tr, td {
-		border: 1px solid black;
+		/* border: 1px solid black; */
+	}
+
+	menu1:visited {
+		border-bottom: 3px solid black;
 	}
 	
 
@@ -528,8 +560,11 @@
 					<div class="goods">
 
 						<div class="goods-title">${ requestScope.goodsSell.sellTitle }</div>
-						<div class="goods-price">${ requestScope.goods.price } 원
-							<div class="goods-like"></div>
+						<div class="goods-price">${ requestScope.goods.priceStr } 원
+							<div class="goods-like">
+							<c:if test="${ ( empty sessionScope.loginUser ) and ( empty sessionScope.loginSeller) }">
+								<img class="like-icon2" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png" onclick="location.href='loginForm.me';"></div>
+							</c:if>
 						</div>
 						
 						<div class="br-line"></div>
@@ -568,8 +603,8 @@
 					<div class="br2-line"></div>
 
 					<div class="sub-menu">
-						<a href="#goods-content" 							class="menu1">상품소개</a>
-						<a href="#sub-review" 								class="menu2">후기</a>
+						<a href="#goods-content" 						class="menu1">상품소개</a>
+						<a href="#sub-review" 							class="menu2">후기</a>
 						<a href="#goods-reply" 								class="menu3">상품문의</a>
 					</div>
 
@@ -689,8 +724,7 @@
 	            	</c:when>
 	            	
 					<%-- 로그인 회원과 비회원 --%>
-	            	<c:otherwise>
-	            	
+	            	<c:when test="${ not empty sessionScope.loginUser }">	     
 					<div class="sub-footer1">
 						<div class="btn-icon" id="footer-icon1"><span class="material-symbols-outlined">keyboard_arrow_up</span></div>
 						<button class="like-button" type="button">찜 하기</button>
@@ -723,7 +757,13 @@
 							<button class="pay2-button" type="submit" name="order" value="order">주문하기</button>
 						</form>
 					</div>
-							
+					</c:when>
+					<c:otherwise>
+						<div class="sub-footer1">
+							<div class="btn-icon" id="footer-icon1" onclick="location.href='loginForm.me';"><span class="material-symbols-outlined">keyboard_arrow_up</span></div>
+							<button class="like-button2" type="button" onclick="location.href='loginForm.me';">찜 하기</button>
+							<button class="pay-button2" type="button" onclick="location.href='loginForm.me';">주문하기</button>
+						</div>		
 	            	</c:otherwise>         	
        				</c:choose>
 							
@@ -807,6 +847,45 @@
 			ajaxClickLike();  	
     	});
 		
+		$(".menu1").click(function() {
+	        
+			$(".menu1").css("border-bottom","3px solid black");
+			$(".menu1").css("color","rgb(44, 116, 44)"); 
+	        
+			$(".menu2").css("border-bottom","");
+			$(".menu2").css("color",""); 
+			
+			$(".menu3").css("border-bottom","");
+			$(".menu3").css("color",""); 
+
+		});
+		
+		$(".menu2").click(function() {
+			
+			$(".menu1").css("border-bottom","");
+			$(".menu1").css("color",""); 
+	        
+			$(".menu2").css("border-bottom","3px solid black");
+			$(".menu2").css("color","rgb(44, 116, 44)"); 
+			
+			$(".menu3").css("border-bottom","");
+			$(".menu3").css("color",""); 
+
+		});
+		
+		$(".menu3").click(function() {
+	        
+			$(".menu1").css("border-bottom","");
+			$(".menu1").css("color",""); 
+	        
+			$(".menu2").css("border-bottom","");
+			$(".menu2").css("color",""); 
+			
+			$(".menu3").css("border-bottom","3px solid black");
+			$(".menu3").css("color","rgb(44, 116, 44)"); 
+
+		});
+		
 		
 	});
 	
@@ -864,6 +943,8 @@
 	
 	function addReply() {
 		
+		let memberNo = "${ sessionScope.loginUser.memberNo }";
+		
 		if($("#replyContent").val().trim().length != 0) {
 		
 			$.ajax({
@@ -871,7 +952,7 @@
 				type : "get",
 				data : {  
 					sellNo : ${ requestScope.goodsSell.sellNo },
-					memberNo : ${ sessionScope.loginUser.memberNo },
+					memberNo : memberNo,
 					replyContent : $("#replyContent").val()
    				},
    				success : function(result) { 

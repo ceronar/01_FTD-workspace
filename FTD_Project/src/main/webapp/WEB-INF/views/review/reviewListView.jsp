@@ -21,8 +21,10 @@
 	    display: block !important;
 	}
 	
-	#nav3 {
-	    display: none ;
+	.menu3 {
+		font-size: 25px;
+		border-bottom: 3px solid black;
+		color: black;
 	}
     
         body {

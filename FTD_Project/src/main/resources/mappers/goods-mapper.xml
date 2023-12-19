@@ -16,6 +16,7 @@
 		<result column="CHANGE_NAME" property="changeName" />
 		<result column="SELL_NO" property="sellNo" />
 		<result column="LIKE_COUNT" property="likeCount" />
+		<result column="PRICE_STR" property="priceStr" />
 	</resultMap>
 
 	<resultMap id="goodsFileResultSet" type="goodsFile">
@@ -88,11 +89,20 @@
           JOIN SELLER S ON (G.SELLER_NO = S.SELLER_NO)
 		 WHERE G.DELETE_DATE IS NULL
            AND S.DELETE_DATE IS NULL
-		 ORDER BY G.CREATE_DATE
+		 ORDER BY G.CREATE_DATE DESC
 	</select>
 	
 	<select id="ajaxSelectGoodsList" parameterType="_int" resultMap="goodsResultSet">
-		SELECT *
+		SELECT GOOD_NO
+			 , SELLER_NO
+			 , GOOD_TITLE
+			 , GOOD_DETAIL
+			 , ORIGIN
+			 , TO_CHAR(PRICE, '999,999,999') AS "PRICE_STR"
+			 , CREATE_DATE
+			 , DELETE_DATE
+			 , EXPIRATION_DATE
+			 , STOCK
 		  FROM GOODS
 		 WHERE DELETE_DATE IS NULL 
 		   AND GOOD_NO = #{goodNo}	
@@ -141,7 +151,7 @@
 		 WHERE G.DELETE_DATE IS NULL
            AND S.DELETE_DATE IS NULL
            AND G.SELLER_NO = #{sellerNo}
-		 ORDER BY G.CREATE_DATE
+		 ORDER BY G.CREATE_DATE DESC
 	</select>
 	
 	<select id="ajaxSelectGoodsByGoodNo" parameterType="_int" resultMap="goodsResultSet">	
@@ -227,7 +237,16 @@
 	</select>
 	
 	<select id="selectGoodsByGoodNo" parameterType="_int" resultMap="goodsResultSet">
-		SELECT *
+		SELECT GOOD_NO
+			 , SELLER_NO
+			 , GOOD_TITLE
+			 , GOOD_DETAIL
+			 , ORIGIN
+			 , TO_CHAR(PRICE, '999,999,999') AS "PRICE_STR"
+			 , CREATE_DATE
+			 , DELETE_DATE
+			 , EXPIRATION_DATE
+			 , STOCK
 		  FROM GOODS
 		 WHERE GOOD_NO = #{goodNo}
 	</select>
