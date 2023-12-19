@@ -117,7 +117,7 @@
 	<select id="selectInquiry" parameterType="inquiry" resultMap="inquiryResultSet">
 		SELECT INQ_NO
 		     , INQ_TITLE
-		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , CREATE_DATE
 		     , INQ_CONTENT
 		     , SELLER_NO
 		     , MEMBER_NO
@@ -135,7 +135,7 @@
 			 , INQ_NO
 			 , ORIGIN_NAME
 			 , CHANGE_NAME
-		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , CREATE_DATE
 		  FROM INQUIRY_FILE
 		 WHERE DELETE_DATE IS NULL
 		   AND INQ_NO = #{inqNo}
@@ -147,7 +147,7 @@
 			 , MEMBER_NO
 			 , M.MEMBER_ID
 			 , REPLY_CONTENT
-		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , CREATE_DATE
 		  FROM INQUIRY_REPLY
 		  JOIN MEMBER M USING (MEMBER_NO)
 		 WHERE DELETE_DATE IS NULL
@@ -217,7 +217,7 @@
 		                        , INQ_NO
 		                        , MEMBER_NO
 		                        , REPLY_CONTENT
-		     					, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE")
+		     					, CREATE_DATE)
 		                   VALUES(SEQ_IRNO.NEXTVAL
 		                        , #{inqNo}
 		                        , #{memberNo}

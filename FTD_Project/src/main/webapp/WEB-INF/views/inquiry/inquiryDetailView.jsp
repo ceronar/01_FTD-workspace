@@ -28,7 +28,6 @@
 	   }
 	   .post-content {
 	       margin-top: 20px;
-	       border-top: 1px solid #ccc;
 	       padding-top: 20px;
 	   }
 	
@@ -137,7 +136,7 @@
 					            <div class="notice-info">  
 					                <p>작성일: ${requestScope.i2.createDate }</p>
 					                <div class="btn">
-					                	<c:if test="${ empty requestScope.i2.responseDate and (not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo) }">
+					                	<c:if test="${ empty requestScope.i2.responseDate and (not empty sessionScope.loginSeller and sessionScope.loginSeller.sellerNo eq requestScope.i2.sellerNo) }">
 							        		<button onclick="responseForm(1)">답글 작성</button>
 							        	</c:if>
 							        	<c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq requestScope.i2.memberNo}">
@@ -146,7 +145,6 @@
 							            </c:if>
 							        </div>
 					            </div>
-					            <c:if test="${ not empty sessionScope.loginUser and sessionScope.loginUser.memberNo eq 1}">
 						        	<script>
 					                	function responseForm(num) {
 					                		if(num == 1) {
@@ -168,7 +166,6 @@
 					                		
 					                	}
 					                </script>
-					        	</c:if>
 				            <div class="post-content">
 					            <!-- 슬라이드 화면 -->
 					            <section id="cont_center">
@@ -226,7 +223,7 @@
 					                </div>
 					                <p>답변일: ${requestScope.i2.responseDate }</p>
 					        </div>
-					        <c:if test="${ not empty requestScope.i2.responseDate  }">
+					        <c:if test="${ not empty requestScope.i2.responseDate and (requestScope.i2.sellerNo eq sessionScope.loginSeller.sellerNo)  }">
 					        	<div class="btn">
 						            <button onclick="responseForm(4)">답글 수정</button>
 						            <button onclick="responseForm(5)">답글 삭제</button>
@@ -242,7 +239,7 @@
 					                	<textarea placeholder="댓글을 입력하세요" name="replyContent"required></textarea>
 					                </c:when>
 					                <c:otherwise>
-					                	<textarea placeholder="로그인 후 이용 가능합니다." name="replyContent" disabled ></textarea>
+					                	<textarea placeholder="구매자 로그인 후 이용 가능합니다." name="replyContent" disabled ></textarea>
 					                </c:otherwise>
 				                </c:choose>
 				                <button type="submit" class="reply-btn">댓글작성</button>
@@ -343,7 +340,7 @@
 		    var data = {
 		       replyNo: $(this).attr("data-repNum"),
 		       replyContent : $(".modal_repCon").val(),
-		       inqNo: ${requestScope.i2.inqNo}
+		       inqNo : ${requestScope.i2.inqNo}
 		      };  
 		    
 		    $.ajax({
