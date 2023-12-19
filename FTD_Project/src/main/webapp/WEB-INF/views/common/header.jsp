@@ -103,30 +103,22 @@
 		</div>
 		
 		<div class="nav-menu" id="nav2">
-			<a href="sellerListPage.se" 			class="menu1">판매자</a>
-			<a href="${pageContext.request.contextPath}" 								class="menu2">베스트</a>
-			<a href="${pageContext.request.contextPath}/plist.bo" 								class="menu3">홍보</a>
-			<a href="${pageContext.request.contextPath}/rlist.bo" 								class="menu4">후기</a>
-		</div>
-		
-		<div class="nav-menu" id="nav3">
-		<c:choose>
+			<a href="sellerListPage.se" 															class="menu1">판매자</a>
+			<c:choose>
 			<%-- 판매자 로그인 후 --%>
            	<c:when test="${ not empty sessionScope.loginSeller }">
-           		<a href="sellerGoodsListPage.go" 			class="menu1">판매자 상품</a>
-				<a href="sellerGoodsTextListPage.go" 		class="menu2">판매자 상품 글</a>
+           		<a href="sellerGoodsListPage.go" 													class="menu2">판매자 상품</a>
+				<a href="sellerGoodsTextListPage.go" 												class="menu3">판매자 상품 글</a>
+				<a href="${pageContext.request.contextPath}/plist.bo" 								class="menu4">홍보</a>
            	</c:when>
-           	
-			<%-- 로그인 전 이거나 구매자일 경우 --%>
            	<c:otherwise>
-				<a href="goodsRecommendPage.go" 	class="menu1">쇼핑추천</a>
-				<a href="goodsBestPage.go" 			class="menu2">베스트</a>	
-           	</c:otherwise> 
-		</c:choose>
-			<a href="goodsListPage.go" 				class="menu3">상품</a>
-			<a href="" 								class="menu4">비고</a>
+				<a href="goodsListPage.go" 															class="menu2">상품</a>
+				<a href="${pageContext.request.contextPath}/rlist.bo" 								class="menu3">후기</a> 	
+				<a href="${pageContext.request.contextPath}/plist.bo" 								class="menu4">홍보</a>
+           	</c:otherwise>
+			</c:choose>
 		</div>
-		
+			
 		<!-- 구매자 마이페이지 -->
 		<div class="nav-menu" id="nav4">
 			<a href="orderList.me" 					class="menu1">주문내역</a>
