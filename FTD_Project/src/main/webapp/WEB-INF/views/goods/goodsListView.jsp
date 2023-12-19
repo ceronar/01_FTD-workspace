@@ -83,10 +83,12 @@
 	}
 
 	.goods-rating {
+	
 		width: 40px;
 	}
 
 	.review-icon {
+	
 		width: 40px;
 	}
 
@@ -161,6 +163,19 @@
 		box-sizing: border-box;
 		width: 100%;
 		height: 100%;	
+	}
+
+	#select-goods {
+		width: 100%;
+		height: 50px;
+		font-size: 20px;
+		text-align: center;
+		border: 0px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	}
+
+	#select-goods > option {
+		height: 80px;
 	}
 
 	
@@ -243,7 +258,11 @@
 					<br><br>
 
 		            <div class="goods-filter">
-						<div class="goods-filter-div"></div>
+						<div class="goods-filter-div">
+							<select id="select-goods">
+								<option>최신순</option>
+							</select>
+						</div>
 					</div>
 
 					<br>

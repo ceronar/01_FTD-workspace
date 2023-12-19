@@ -8,6 +8,11 @@
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
+
+	div {
+		/* border: 1px solid black; */
+	}
+
 	/* goods-list */
 	.goods-list {
 		width: 280px;
@@ -35,6 +40,8 @@
 		height: 35px;
 		text-align: left;
 		line-height: 35px;
+		font-size: 25px;
+		color: rgb(108, 108, 108);
 	}
 
 	.goods-price {
@@ -42,6 +49,7 @@
 		height: 35px;
 		line-height: 35px;
 		text-align: left;
+		font-size: 20px;
 	}
 
 	.goods-detail {
@@ -50,10 +58,12 @@
 		line-height: 35px;
 	}
 
-	.star-icon, .goods-rating, .review-icon, .goods-review {
+	.star-icon, .goods-rating, .review-icon, .goods-review, .goods-count-icon, .goods-count {
 		height: 100%;
 		float: left;
 		box-sizing: border-box;
+		line-height: 30px;
+		font-size: 25px;
 	}
 
 	.star-icon {
@@ -61,6 +71,9 @@
 	}
 
 	.star-icon > img {
+		box-sizing: border-box;
+		width: 32px;
+		height: 32px;
 		width: 100%;
 		height: 100%;
 	}
@@ -73,28 +86,37 @@
 		width: 40px;
 	}
 
-	.review-icon > span {
-		line-height: 40px;
-		font-size: 30px;
-		color: rgb(85, 85, 85)
+	.review-icon > img {
+		box-sizing: border-box;
+		width: 32px;
+		height: 32px;
 	}
 
 	.goods-review {
 		width: 40px;
 	}
+	
+	.goods-count-icon {
+		width: 40px;
+	}
+	
+	.goods-count-icon > img {
+		box-sizing: border-box;
+		width: 35px;
+		height: 35px;
+	}
 
 	.seller-title {
-		border: 1px solid black;
 		width: 100%;
 		height: 150px;
 		margin-bottom: 30px;
 		box-sizing: border-box;
 		padding: 20px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 
 	.seller-img, .seller-name {
 		height: 100%;
-		border: 1px solid black;
 		float: left;
 		box-sizing: border-box;
 	}
@@ -135,6 +157,9 @@
 		height: 50px;
 		font-size: 17px;
 		font-family: 'Noto Sans KR', sans-serif;
+		background-color: rgba(223, 240, 217, 0.966);
+		color: rgb(21, 71, 21);
+		border-radius: 8px;
 	}
 	
 	h1 {
@@ -165,6 +190,10 @@
 		box-sizing: border-box;
 		width: 100%;
 		height: 100%;	
+	}
+	
+	.goods-count {
+		width: 40px;
 	}
 	
 
@@ -212,15 +241,16 @@
                 			'<div class="goods-list">'
 								+'<input type="hidden" value="' + item[1].sellNo + '">'
 								+'<div class="goods-img"><img id="img-div" src="'+ item[2].changeName +'"></div>'
-								+'<div class="goods-title">'+item[1].sellTitle+'</div>'
-								+'<div class="goods-price">'+item[0].price+'원</div>'
+								+'<div class="goods-title">'+ item[1].sellTitle +'</div>'
+								+'<div class="goods-price">'+item[0].priceStr.trim() +'원</div>'
 								+'<div class="goods-detail">'
-									+'<div class="star-icon"><img src= "${pageContext.request.contextPath}/resources/images/sample/star-icon.png"></div>'
+									+'<div class="star-icon"><img src="resources/images/sample/star.png"></div>'
 									+'<div class="goods-rating">'+item[3]+'</div>'
-									+'<div class="review-icon"><span class="material-symbols-outlined">chat_bubble</span></div>'
+									+'<div class="review-icon"><img src="resources/images/sample/talk.png"></div>'
 									+'<div class="goods-review">'+item[4]+'</div>'
+									+'<div class="goods-count-icon"><img src="resources/images/sample/eye.png"></div>'
+									+'<div class="goods-count">'+ item[1].count +'</div>'
 								+'</div>'
-
 						+'</div>'
 						
                     );
@@ -257,7 +287,7 @@
 					</div>
 
 					<div class="goods-eroll">
-						<button class="goods-eroll-btn" onclick="location.href='sellerGoodsTextEnrollForm.go';">상품 등록</button>
+						<button class="goods-eroll-btn" onclick="location.href='sellerGoodsTextEnrollForm.go';">상품 글 등록</button>
 					</div>
 					
 					<div class="goods-div">

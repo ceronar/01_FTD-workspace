@@ -130,7 +130,7 @@
 		<!-- 판매자 마이페이지 -->
 		<div class="nav-menu" id="nav5">
 			<a href="sellerGoodsListPage.go" 		class="menu1">상품</a>
-			<a href="sellerGoodsTextListPage.go" 	class="menu2">홍보</a>
+			<a href="sellerDetailPage.se?sno=${sessionScope.loginSeller.sellerNo}" class="menu2">홍보</a>
 			<a href="orderGoodsList.se" 			class="menu3">판매 완료</a>
 			<a href="#" 							class="menu4"></a>
 		</div>

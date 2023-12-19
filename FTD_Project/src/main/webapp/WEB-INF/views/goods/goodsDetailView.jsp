@@ -14,10 +14,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
 
-<!-- 슬라이드 외부 css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <style>
 
 	.sub-review-content {
@@ -49,6 +45,7 @@
 	    color: #888;
 	     border : 0px;
 	}
+	
 	.starRating{
 		border : 0px;
 	}
@@ -455,6 +452,10 @@
 		display: inline;
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #0e9720;
+		border-color: #13970e;
+		border-radius: 8px;
+		color: white;
 	}
 
 	.delete-button {
@@ -466,6 +467,10 @@
 		display: inline;
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #0e9720;
+		border-color: #13970e;
+		border-radius: 8px;
+		color: white;
 	}
 	
 	#thumbnail {
@@ -481,14 +486,13 @@
 		border: 1px solid black;
 	}
 
-	tr, td {
-		/* border: 1px solid black; */
+	#table-div {
+		margin: auto;
+		width: 850px;
+		height: 300px;
+		background-color: #edffec;
 	}
 
-	menu1:visited {
-		border-bottom: 3px solid black;
-	}
-	
 
 </style>
 <script type="text/javascript">
@@ -569,14 +573,15 @@
 						<div class="goods-price">${ requestScope.goods.priceStr } 원
 							<div class="goods-like">
 							<c:if test="${ ( empty sessionScope.loginUser ) and ( empty sessionScope.loginSeller) }">
-								<img class="like-icon2" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png" onclick="location.href='loginForm.me';"></div>
+								<img class="like-icon2" src= "${pageContext.request.contextPath}/resources/images/sample/like_on.png" onclick="location.href='loginForm.me';">
 							</c:if>
+							</div>
 						</div>
 						
 						<div class="br-line"></div>
 						<br>
 
-						<table>
+						<table id="table-div">
 							<tr>
 								<th>배송비</th>
 								<td>4,000원</td>
@@ -598,13 +603,10 @@
 								<td>받으신 후 냉장 보관 해주세요.</td>
 							</tr>
 						</table>
-
+						
 					</div>
-		        </div>
-				
-				
+		        </div>		
 				<div class="sub-content">
-				
 							
 					<div class="br2-line"></div>
 
@@ -617,25 +619,7 @@
 					<div class="goods-content" id="goods-content">
 					
 						<div class="goodsSell-content" id="goodsSell-content">
-							<div class="post-content">
-					            <!-- 슬라이드 화면 -->
-					            <section id="cont_center">
-					            	<article class="column col4">
-							            	<div class="slider">
-												<div  id="img-slider" align="center">
-					                            	<img src="" alt="슬라이드사진1">
-					                            	<img src="" alt="슬라이드사진2">
-					                            	<img src="" alt="슬라이드사진3">
-					                            	<img src="" alt="슬라이드사진4">
-					                            	<img src="" alt="슬라이드사진5">
-									            </div>
-											</div>	
-										<br><br><br><br>
-										<div></div>
-										<br><br><br><br>
-									</article>	
-								</section>
-				            </div>
+						
 						</div>
 
 					</div>
@@ -651,8 +635,8 @@
 						<div class="br-line"></div>
 
 						<div class="sub-review-content" >
-						<hr>
-						<c:forEach var="r" items="${requestScope.r }">
+							<hr>
+							<c:forEach var="r" items="${requestScope.r }">
 							 <div class="profile_under_1">
 							 	<!-- 프로필 -->
 							 <div class="profile_2">

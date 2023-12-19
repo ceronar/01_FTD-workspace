@@ -11,41 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-    <%--
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .center-div {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 1080px;
-            margin: auto;
-        }
-        
-        .main-div {
-        	width: 800px;
-        	margin: auto;
-        }
-        
-        h2 {
-            color: #333;
-        }
-
-        form {
-            display: grid;
-            gap: 10px;
-        }
-      --%>
-
+  
       .content {
 		height: 900px;
       }
@@ -57,7 +23,7 @@
       }
       
       input {
-          
+            
           padding: 8px;
           box-sizing: border-box;
           border: 1px solid #ccc;
@@ -74,6 +40,7 @@
           cursor: pointer;
           font-size: 16px;
       }
+      
       button:hover {
           background-color: #388755;
       }
@@ -184,8 +151,11 @@
 
 <!-- member Information Section -->
 	<div class="wrapper">
+        
         <div class="center-div">
+	        
 	        <jsp:include page="../common/sidebar.jsp" />
+	        
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
