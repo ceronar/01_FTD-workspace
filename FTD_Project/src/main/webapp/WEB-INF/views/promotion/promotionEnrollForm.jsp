@@ -145,8 +145,7 @@
             <div class="profile_2">
                 <span>${sessionScope.loginSeller.companyName}</span>
                 <div>
-                    <span>${sessionScope.loginSeller.address}</span>*
-                    <span>17분전</span>
+                    <span>${sessionScope.loginSeller.address}</span>
                 </div>
             </div>
          
