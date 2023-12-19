@@ -25,6 +25,9 @@
             background-color: #f8f9fa;
         }
 
+	.header{
+		display : none;
+	}
         header {
             background-color: #343a40;
             color: #ffffff;
@@ -165,12 +168,10 @@
             </div>
         </div>
         <form name="myform" id="myform" method="post" action="updateForm.rev">
-        	<input type="text" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+        	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
         	<input type="hidden" name="goodNo" value="${ requestScope.r.goodNo }">
         	<input type="hidden" name="revNo" value="${ requestScope.r.revNo }">
-        	<h2>제목 :</h2>
-        	<br>
-        	<input type="text" name="revTitle">
+
         	
         	<textarea id="summernote" name="revContent" required></textarea>
         
@@ -188,7 +189,10 @@
 
     <script>
         $(document).ready(function() {
-        	$('input[value=${requestScope.r.starRating}]').attr("checked", true);
+        	
+        	let count = Math.trunc(${requestScope.r.starRating});
+        
+        	$('input[value="'+ count +'"]').attr("checked", true);
         	 
         	
         	

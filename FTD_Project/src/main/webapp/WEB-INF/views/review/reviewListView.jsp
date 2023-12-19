@@ -27,12 +27,7 @@
 		color: black;
 	}
     
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
+      
 
     
         header {
@@ -164,14 +159,7 @@
                     url: 'getReviewLegacyData.bo',
                     type: 'get',
                     data: { page: page, size: pageSize },
-                    beforeSend: function (data) {
-                        //console.log(data);
-                        // Ajax 요청 전에 로딩 애니메이션 표시
-
-                        $('#loading').show();
-
-
-                    },
+                  
                     success: function (data) {
 
                         console.log("통신성공!!!");
@@ -320,9 +308,7 @@
            
         </div>
         
-         <div id="loading">
-             <img src="resources/images/sample/0019.gif" alt="Loading..." />
-         </div>
+   
 
         <!-- 추가적인 리뷰는 위와 같은 구조로 추가 가능 -->
 
