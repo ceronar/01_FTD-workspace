@@ -168,6 +168,21 @@
 			height: 100%;
 			width: 20%;
 		}
+		.good_table img{
+			width : 250px;
+			height : 200px;
+		}
+		
+		
+		.store-img img {
+			width : 100%;
+			height : 100%;
+		}
+		
+		.review-img img {
+			width : 100%;
+			height : 100%;
+		}
 		
 	</style>
 </head>
@@ -229,7 +244,7 @@
 									<c:forEach var="g" items="${ requestScope.gList }">
 										<tr>
 											<td hidden><input type="hidden" name="goodNo" value="${ g.goodNo }"></td>
-											<td><img src= "${ g.changeName }" ></td>
+											<td class="review-img"><img src= "${ g.changeName }" ></td>
 											<td>
 												${ g.goodTitle } <br>
 												${ g.goodDetail }
@@ -310,9 +325,9 @@
 
             $(".content_2").on('click', '.good_table', e => {
             	
-            	 var value = e.target.parentElement.children.item(0).children.item(0).value;
+            	var value = e.target.parentElement.children.item(0).children.item(0).value;
 				console.log(value);
-                // location.href = "goodsDetailPage.go?sno=" + value;
+                location.href = "goodsDetailPage.go?sno=" + value;
                 
             });
     	});
