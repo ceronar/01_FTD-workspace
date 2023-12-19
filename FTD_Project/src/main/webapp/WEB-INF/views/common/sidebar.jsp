@@ -11,8 +11,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
 <style>
+
+	.sidebar {
+		width: 100px; /* 사이드바 너비 설정 */
+		height: 340px;
+		background-color: white; /* 흰색 배경 */
+		/* border-top: 4px solid rgb(85, 85, 85); 사이드바 위에 4px 보더 추가 */
+		/* margin-left: 4px solid rgb(85, 85, 85); */
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		position: sticky; /* 스크롤에 고정 */
+		top: 160px;
+	}
+	
+	.sidebar div {
+	    display: block;
+	}
+	
 	.sidebar  div {
-		border: 1px solid black;
 		width: 100%;	
 		text-align: center;
 	}
@@ -55,6 +73,8 @@
 </style>
 </head>
 <body>
+	
+
 	<div class="sidebar">
 		<div class="sidebar-menu" onclick="location.href='${pageContext.request.contextPath}';">
 			<div class="icon"><span id="home-icon" class="material-symbols-outlined">home</span></div>
@@ -92,5 +112,17 @@
 		</c:choose>
 
 	</div>
+	
+		<c:if test="${ not empty sessionScope.loginSeller }">
+			<script>
+			$(function () {	
+				
+				$(".sidebar").css("height", "260px");
+				
+				console.log("잘실행되나?");
+				
+			});
+		</script>
+		</c:if>
 </body>
 </html>

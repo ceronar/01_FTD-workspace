@@ -27,6 +27,17 @@
 			text-decoration: none;
 			color: black;
 		}
+		
+		.top10List table{
+			width : 100%;
+			border-collapse: collapse;
+		}
+		
+		.top10List table tr:hover{
+			cursor : pointer;
+			background-color: lightgray;
+		}
+		
 		.goodsTop10List table td{
 			width : 20%;
 		}
@@ -217,7 +228,7 @@
 								<table class="good_table">
 									<c:forEach var="g" items="${ requestScope.gList }">
 										<tr>
-											<td><input type="hidden" name="goodNo" value="${ g.goodNo }"></td>
+											<td hidden><input type="hidden" name="goodNo" value="${ g.goodNo }"></td>
 											<td><img src= "${ g.changeName }" ></td>
 											<td>
 												${ g.goodTitle } <br>
@@ -242,6 +253,7 @@
 								<table class="review_table">
 									<c:forEach var="r" items="${ requestScope.rList }">
 										<tr>
+											<td><input type="hidden" name="revNo" value="${ r.revNo }"></td>
 											<td>${ r.revTitle }</td>
 											<td>조회수 : ${ r.count }</td>
 											<td>작성자 : ${ r.memberNo }</td>
@@ -296,16 +308,11 @@
     	$(function () {
 
 
-            $(".content_2").on('click', '.good_table', function (e) {
-            	let target = e.target;
-            	let store = findParentWithClass(target, "store");
-            	let sno = store.children.item(0).value;
-            	console.log(sno);
-            	// let sno = e.currentTarget.children.value;
-
-                // console.log(sno);
-
-                location.href = "goodsDetailPage.go?sno=" + sno;
+            $(".content_2").on('click', '.good_table', e => {
+            	
+            	 var value = e.target.parentElement.children.item(0).children.item(0).value;
+				console.log(value);
+                // location.href = "goodsDetailPage.go?sno=" + value;
                 
             });
     	});
@@ -314,15 +321,10 @@
 
 
             $(".content_3").on('click', '.review_table', function (e) {
-            	let target = e.target;
-            	let store = findParentWithClass(target, "store");
-            	let sno = store.children.item(0).value;
-            	console.log(sno);
-            	// let sno = e.currentTarget.children.value;
+            	
+            	var value = $(this).closest('tr').find('td:first-child input[name="revNo"]').val();
 
-                // console.log(sno);
-
-                location.href = "sellerDetailPage.se?sno=" + sno;
+                location.href = "sellerDetailPage.se?sno=" + value;
                 
             });
     	});

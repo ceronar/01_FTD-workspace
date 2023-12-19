@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>판매자 상품 관리 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -117,7 +117,7 @@
 	.seller-title {
 		border: 1px solid black;
 		width: 100%;
-		height: 100px;
+		height: 150px;
 		margin-bottom: 30px;
 		box-sizing: border-box;
 		padding: 20px;
@@ -131,18 +131,28 @@
 	}
 
 	.seller-img {
-		width: 60px;
+		width: 100px;
+		height: 100px;
 		margin-left: 70px;
 		margin-right: 30px;
+	}
+	
+	#seller-img2 {
+		width: 100px;
+		height: 100px;
+		box-sizing: border-box;
+		box-shadow: 0 0 10px rgba(235, 234, 234, 0.589);
 	}
 
 	.seller-name {
 		width: 70%;
-		font-size: 30px;
+		height: 100px;
+		font-size: 35px;
 		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 55px;
+		line-height: 100px;
 		padding-left: 60px;
 		text-align: left;
+		box-shadow: 0 0 10px rgba(235, 234, 234, 0.589);
 	}
 
 	.goods-eroll {
@@ -280,8 +290,8 @@
 	            <div class="content">
 					
 					<div class="seller-title">
-						<div class="seller-img"></div>
-						<div class="seller-name">${sessionScope.loginSeller.companyName }님의 상품 관리 페이지</div>
+						<div class="seller-img"><img id="seller-img2" src="${ sessionScope.loginSeller.changeName }"></div>
+						<div class="seller-name">${sessionScope.loginSeller.companyName}님의 상품 관리 페이지</div>
 					</div>
 
 					<div class="goods-eroll">
