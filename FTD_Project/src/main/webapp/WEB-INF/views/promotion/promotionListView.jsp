@@ -366,6 +366,12 @@
 	}
 	
 	
+	.hrClass {
+    background:lightgray;
+    height:1px;
+    border:0;
+	}
+	
 	
         </style>
         <script>
@@ -497,7 +503,7 @@
                                 + '</span>'
                                 + '</div>'
 
-                                + '<hr>';
+                                + '<hr class="hrClass">';
 
 
                                 $('.promotion').append(str);

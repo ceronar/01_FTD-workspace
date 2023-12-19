@@ -772,6 +772,17 @@
         width: 870px;
         text-align: center;
     }
+    
+    	.hrClass {
+    background:lightgray;
+    height:1px;
+    border:0;
+	}
+	
+	.detail:hover{
+		cursor: pointer;
+	}
+    
 </style>
 <script>
 
@@ -1193,7 +1204,7 @@
 										+ '</div>'
 										+ '</div>'
 										+ '</div>'
-										+ '<hr>';
+										+ '<hr class="hrClass>';
 
 
 									$('.review').append(str);
@@ -1331,6 +1342,7 @@
 											+ '</div>'
 											+ '</div>'
 											+ '</div>';
+										
 									} else if (val[5].length == 2) {
 
 										str += '<div class="product_image">'
@@ -1343,7 +1355,7 @@
 											+ '</div>'
 											+ '</div>'
 											+ '</div>'
-
+											
 									} else if (val[5].length == 1) {
 
 										str += '<div class="product_image">'
@@ -1353,7 +1365,7 @@
 											+ '</div>'
 											+ '</div>'
 											+ '</div>'
-
+										
 									} else {
 
 
@@ -1371,7 +1383,7 @@
 										+ '</span>'
 										+ '</div>'
 
-										+ '<hr>';
+										+ '<hr class="hrClass>';
 
 
 									$('.promotion').append(str);
