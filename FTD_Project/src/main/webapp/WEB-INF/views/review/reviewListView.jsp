@@ -135,6 +135,10 @@
         .goodSell:hover{
         cursor:pointer;
         }
+        
+        .goods_title{
+       	margin-right : 100px;
+        }
    
     </style>
           <script>
@@ -209,8 +213,10 @@
              str +=                 '<td width="685px;">'
             	   if(val[4] != null){
             		   let count = val[4].count.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-             str +=                    '<div>'+ val[4].sellTitle +'</div>'
+             str +=                     '<div class="goods_title" >'
+            	  +						'<div>'+ val[4].sellTitle +'</div>'
                   +                     '<div id="img_2_text_2">'+ count +'원</div>'
+                  +						'</div>'
             	   }
              str +=                 '</td>'
                   +                 '<td><i class="fas fa-chevron-right"></i></td>'

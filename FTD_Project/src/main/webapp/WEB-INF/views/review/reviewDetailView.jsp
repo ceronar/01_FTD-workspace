@@ -331,10 +331,12 @@
                         <input type="hidden" value="${requestScope.goodsList.sellNo }">
                             <tr>
                                 <td><img src="${requestScope.goodsFileList.changeName }" id="img_2"></td>
-                                <td width="870px;" align="center">
+                                <td width="870px;">
                                 <fmt:formatNumber type="number" maxFractionDigits="3" value="${requestScope.goodsList.count }" var="count" />
-                                    <div>${requestScope.goodsList.sellTitle }</div>
-                                    <div>${count}원</div>
+	                                <div style="margin-left : 20px;">
+	                                    <div>${requestScope.goodsList.sellTitle }</div>
+	                                    <div>${count}원</div>
+	                                 </div>
                                </td>
                                <td>></td>
                             </tr>
