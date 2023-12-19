@@ -9,28 +9,28 @@
 <style>
 
 
-        h1 {
+        .container h1 {
             text-align: center;
             color: #333;
         }
 
-        table {
+        .container table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        th, td {
+        .container th, .container td {
             padding: 10px;
             text-align: center;
             border-top : 1px solid #ccc;
             border-bottom : 1px solid #ccc;
         }
 
-        th {
+        .container th {
             background-color: #f2f2f2;
         }
 
-        tbody tr:hover {
+        .container tbody tr:hover {
             background-color: #f9f9f9;
             cursor : pointer;
         }
@@ -106,17 +106,29 @@
 				                    </tr>
 				                </thead>
 				                <tbody>
-				                    <c:forEach var="n" items="${ requestScope.list }">
-				                    <tr>
-				                    	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
-					                    	<td><input type="checkbox" id="delete" name="delete" value="${ requestScope.n.noticeNo }"></td>
-					                    </c:if>
-				                        <td class="noticeNo" >${n.noticeNo}</td>
-				                        <td class="noticeName" >${ n.noticeTitle }</td>
-				                        <td class="count" >${ n.count }</td>
-				                        <td class="createDate" >${ n.createDate }</td>
-				                    </tr>
-				                    </c:forEach>
+				                	
+				                	<c:choose>
+				                	<c:when test="${ not empty requestScope.list  }">	                	
+					                    <c:forEach var="n" items="${ requestScope.list }">
+					                    <tr>
+					                    	<c:if test="${sessionScope.loginUser.memberId eq 'admin'}">
+						                    	<td><input type="checkbox" id="delete" name="delete" value="${ requestScope.n.noticeNo }"></td>
+						                    </c:if>
+					                        <td class="noticeNo" >${n.noticeNo}</td>
+					                        <td class="noticeName" >${ n.noticeTitle }</td>
+					                        <td class="count" >${ n.count }</td>
+					                        <td class="createDate" >${ n.createDate }</td>
+					                    </tr>
+					                    </c:forEach>
+				                    </c:when>
+				                    <c:otherwise>
+				                    	<tr>
+				                    		<td colspan="5">
+				                    			<p>작성된 공지사항이 없습니다.</p>
+				                    		</td>
+				                    	</tr>
+				                    </c:otherwise>
+				                    </c:choose>
 				                </tbody>
 				            </table>
 				            <input type="hidden" id="nnoList" name="nnoList" value="">
@@ -143,7 +155,7 @@
 			                    </c:forEach>
 			                    
 			                    <c:choose>
-			                    	<c:when test="${ requestScope.pi.currentPage eq requestScope.pi.maxPage }">
+			                    	<c:when test="${ (requestScope.pi.currentPage eq requestScope.pi.maxPage )or requestScope.pi.listCount < requestScope.pi.pageLimit }">
 					                   
 					                </c:when>
 					                <c:otherwise>
