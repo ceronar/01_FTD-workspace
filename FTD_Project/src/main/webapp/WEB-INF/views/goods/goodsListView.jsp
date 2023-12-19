@@ -34,7 +34,6 @@
 		display: block;
 		box-sizing: border-box;
 		margin: auto;
-
 	}
 
 	.goods-img {
@@ -70,8 +69,7 @@
 		float: left;
 		box-sizing: border-box;
 		line-height: 30px;
-		font-size: 25px;
-		
+		font-size: 25px;	
 	}
 
 	.star-icon {
