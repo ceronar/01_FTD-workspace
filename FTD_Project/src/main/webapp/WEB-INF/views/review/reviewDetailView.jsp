@@ -286,7 +286,7 @@
                 </div>
             </div>
            	<div class="count">
-           		조회수 ${requestScope.r.count}
+           		<i class="fas fa-eye" style="font-size : 20px;""></i> ${requestScope.r.count}
            	</div>
         </div>
     <div id="profile_under">

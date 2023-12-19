@@ -359,7 +359,7 @@
 		width: 100%;
 		height: 70px;
 		margin-bottom: 30px;
-
+	
 	}
 	.detail:hover{
 		cursor: pointer;
