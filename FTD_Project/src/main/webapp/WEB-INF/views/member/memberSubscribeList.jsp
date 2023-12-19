@@ -59,6 +59,11 @@
 		#nav5 {
 		    display: none !important;
 		}
+		
+		.subscribe-table img {
+			height: 250px;
+			width: 250px;
+		}
         
     </style>
 </head>
