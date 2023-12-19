@@ -101,6 +101,7 @@
 		float: left;
 		height: 70%;
 		line-height: 40px;
+		font-size: 25px;
 	}
 
 	.store-detail {
@@ -187,8 +188,8 @@
 	        $(window).scroll(function () {
 	            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1) {
 	                
-	            	ajaxSelectSellerList();
 	            	page++;	         
+	            	ajaxSelectSellerList();
 	            }
 	        });
 	    });

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>판매자 상품 관리 페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/main.css?version=1.2" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,13 +16,17 @@
 	.goods {
 		width: 100%;
 		height: 200px;
-		border: 1px solid lightgrey;		
+		/* border: 1px solid lightgrey;		 */
+	}
+
+	div {
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	/* 테스트 */
 	.goods-content  div {
 		box-sizing: border-box;
-		box-shadow: 0 0 1px rgb(0, 0, 0);
+		/* box-shadow: 0 0 1px rgb(0, 0, 0); */
 	}
 
 	/* store div 공통 css */
@@ -31,6 +35,7 @@
 		width: 100%;
 		float: left;
 		box-sizing: border-box;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 
 	/* store-content 공통 css */
@@ -41,12 +46,13 @@
 	}
 	
 	/* store-title 공통 css */
-	.goods-title div {
+	.goods-title > div {
 		float: left;
 		height: 100%;
 		text-align: center;
 		line-height: 80px;
 		box-sizing: border-box;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	.goods-title {
@@ -55,7 +61,8 @@
 	}
 
 	.goods-title-img {
-		width: 10%;
+		width: 15%;
+		height: 50%;
 	}
 
 	.goods-name {
@@ -65,7 +72,7 @@
 	}
 
 	.goods-origin {
-		width: 45%;
+		width: 40%;
 		color: rgb(38, 40, 40);
 	}
 
@@ -83,6 +90,9 @@
 		float: left;
 		height: 100%;
 		line-height: 60px;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-size: 22px;
+	
 	}
 
 	.goods-detail {
@@ -115,32 +125,39 @@
 	}
 
 	.seller-title {
-		border: 1px solid black;
+		/* border: 1px solid black; */
 		width: 100%;
-		height: 100px;
+		height: 150px;
 		margin-bottom: 30px;
 		box-sizing: border-box;
 		padding: 20px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 
 	.seller-img, .seller-name {
 		height: 100%;
-		border: 1px solid black;
 		float: left;
 		box-sizing: border-box;
 	}
 
 	.seller-img {
-		width: 60px;
+		width: 100px;
+		height: 100px;
 		margin-left: 70px;
 		margin-right: 30px;
+	}
+	
+	#seller-img2 {
+		width: 100px;
+		height: 100px;	
 	}
 
 	.seller-name {
 		width: 70%;
-		font-size: 30px;
+		height: 100px;
+		font-size: 35px;
 		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 55px;
+		line-height: 100px;
 		padding-left: 60px;
 		text-align: left;
 	}
@@ -159,6 +176,9 @@
 		height: 50px;
 		font-size: 17px;
 		font-family: 'Noto Sans KR', sans-serif;
+		background-color: rgba(223, 240, 217, 0.966);
+		color: rgb(21, 71, 21);
+		border-radius: 8px;
 	}
 	
 	h1 {
@@ -183,6 +203,27 @@
 	
 	.goods-div {
 		height: 510px;
+	}
+	
+	.icon3 {
+		height: 50px;
+		width: 80px;
+		padding: 5px;
+		margin-top: 15px;
+		line-height: 40px;
+		margin-left: 15px;
+		box-sizing: border-box;
+		background-color: rgba(186, 231, 171, 0.966);
+		color: rgb(44, 116, 44);
+		border-radius: 4px;
+		
+	}
+	
+	.icon2 {
+		margin-top: 5px;
+		box-sizing: border-box;
+		height: 50px;
+		width: 50px;
 	}
 	
 
@@ -234,7 +275,7 @@
 							+'<div class="goods-content">'	
 										
 								+'<div class="goods-title">'
-									+'<div class="goods-title-img">아이콘</div>'
+									+'<div class="goods-title-img"><div class="icon3">판매중</div></div>'
 									+'<div class="goods-name">'+item.goodTitle+'</div>'
 									+'<div class="goods-origin">'+item.origin+'</div>'
 								+'</div>'
@@ -242,10 +283,10 @@
 								+'<div class="goods-text">'+item.goodDetail+'</div>'
 		
 								+'<div class="goods-detail">'
-									+'<div class="goods-price-text">판매가</div>'
-									+'<div class="goods-price">'+item.price+'원</div>'
-									+'<div class="goods-createDate">'+item.createDate+'</div>'
-									+'<div class="goods-stock-icon">아이콘</div>'
+									+'<div class="goods-price-text"><img class="icon2" src= "resources/images/sample/money.png"></div>'
+									+'<div class="goods-price">'+ item.priceStr +'원</div>'
+									+'<div class="goods-createDate">'+item.createDate.substring(0, 10) +'</div>'
+									+'<div class="goods-stock-icon"><img class="icon2" src= "resources/images/sample/box.png"></div>'
 									+'<div class="goods-stock">'+item.stock+'</div>'
 								+'</div>'
 							+'</div>'
@@ -280,8 +321,8 @@
 	            <div class="content">
 					
 					<div class="seller-title">
-						<div class="seller-img"></div>
-						<div class="seller-name">${sessionScope.loginSeller.companyName }님의 상품 관리 페이지</div>
+						<div class="seller-img"><img id="seller-img2" src="${ sessionScope.loginSeller.changeName }"></div>
+						<div class="seller-name">${sessionScope.loginSeller.companyName}님의 상품 관리 페이지</div>
 					</div>
 
 					<div class="goods-eroll">

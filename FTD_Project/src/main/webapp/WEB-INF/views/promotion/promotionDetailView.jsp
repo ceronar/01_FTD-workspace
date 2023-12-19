@@ -326,7 +326,7 @@
 			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<img src="${pageContext.request.contextPath}${sellerFile.changeName }">
+			    		<img src="${sellerFile.changeName }">
 			    	</c:otherwise>
 			    </c:choose>
             </div>
@@ -421,7 +421,7 @@
 			    		<img src="/ftd/resources/uploadFiles/sellerPage/pngwing.com.png">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<img src="${pageContext.request.contextPath}${sellerFile.changeName }">
+			    		<img src="${sellerFile.changeName }">
 			    	</c:otherwise>
 			    </c:choose>
             </div>

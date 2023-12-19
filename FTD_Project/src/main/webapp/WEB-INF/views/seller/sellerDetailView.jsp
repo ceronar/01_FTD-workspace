@@ -288,13 +288,13 @@
 	
 	.header-img {
 		width: 100%;
-		height: 500px;
+		height: 720px;
 		background-color: #ffffff;
     	box-sizing: border-box;
 	}
 	
 	#thumbnail {
-		width: 500px;
+		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
 	}
@@ -605,6 +605,11 @@
                 margin-right: 10px;
                 /* Adjust the margin as needed */
             }
+            
+            	.detail:hover{
+				cursor: pointer;
+			}
+	
             
             /* 파일 두개일때 */
 /*--------------------------------------------------------*/
@@ -1249,7 +1254,7 @@
 
 								data.forEach(function (val) {
 
-									let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : "${pageContext.request.contextPath}" + val[2].changeName;
+									let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" :  val[2].changeName;
 									let str = '<div>'
 										+ '<div class="profile">'
 										+ '<div id="profile_1" style="width : 50px; height : 50px;">'

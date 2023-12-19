@@ -33,6 +33,9 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+        .header{
+        	display : none;
+        }
 
         main {
             max-width: 1000px;
@@ -159,25 +162,22 @@
             <div class="profile_2">
                 <span>${ sessionScope.loginUser.memberId }</span>
                 <div id="profile_2_2">
-                    <span>경북 포항</span>
+                    <span>${ sessionScope.loginUser.address }</span>
                     <!-- 지역 -->
-                    <span>* 17분 전</span>
+                    <span></span>
                     <!-- 몇분전인지-->
                 </div>
             </div>
         </div>
         <form name="myform" id="myform" method="post" action="insert.rev">
-        	<input type="text" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
+        	<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.memberNo }">
         	<input type="hidden" name="goodNo" value="${ requestScope.rev.goodNo }">
         	
-        	<h2>제목 :</h2>
-        	<br>
-        	<input type="text" name="revTitle">
-        	
+       
         	<textarea id="summernote" name="revContent" required></textarea>
         
 		    <fieldset>
-		        <input type="radio" name="starRating" value="5" id="rate1"><label for="rate1">⭐</label>
+		        <input type="radio" name="starRating" value="5" id="rate1" checked="checked"><label for="rate1">⭐</label>
 		        <input type="radio" name="starRating" value="4" id="rate2"><label for="rate2">⭐</label>
 		        <input type="radio" name="starRating" value="3" id="rate3"><label for="rate3">⭐</label>
 		        <input type="radio" name="starRating" value="2" id="rate4"><label for="rate4">⭐</label>

@@ -321,6 +321,51 @@
                 border-radius: 50px 50px 50px 50px;
          
             }
+            
+            #enrollForm {
+		  color: green;
+		  text-decoration: underline lightgreen;
+		  font-size : 20px;
+		  margin-right: auto;
+		}
+		
+		#enrollForm:focus,
+		#enrollForm:hover {
+		  display: inline-block;
+		  color: lightgreen;
+		  transform: translateY(-2px);
+		  transition: 1s;
+		  
+	
+		}
+		
+			 .goods-eroll-btn {
+		float: right;
+		margin-top: 10px;
+		width: 150px;
+		height: 50px;
+		font-size: 17px;
+		font-family: 'Noto Sans KR', sans-serif;
+		background-color: rgba(223, 240, 217, 0.966);
+		color: rgb(21, 71, 21);
+		border-radius: 8px;
+		line-height: 50px;
+		text-decoration: none;
+		border : 2px solid black;
+	}
+	
+	.goods-eroll {
+		box-sizing: border-box;
+		width: 100%;
+		height: 70px;
+		margin-bottom: 30px;
+
+	}
+	.detail:hover{
+		cursor: pointer;
+	}
+	
+	
 	
         </style>
         <script>
@@ -349,14 +394,7 @@
                     url: 'getLegacyData.bo',
                     type: 'get',
                     data: { page: page, size: pageSize },
-                    beforeSend: function (data) {
-                        //console.log(data);
-                        // Ajax 요청 전에 로딩 애니메이션 표시
-
-                        $('#loading').show();
-
-
-                    },
+                 
                     success: function (data) {
 
                         console.log("통신성공!!!");
@@ -372,7 +410,7 @@
 
                         data.forEach(function (val) {
                         	
-           let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : "${pageContext.request.contextPath}"+val[2].changeName;			
+           let marketImg = (val[2] == null) ? "/ftd/resources/uploadFiles/sellerPage/pngwing.com.png" : val[2].changeName;			
 
                        let str  ='<div>'
                                 + '<div class="profile">'
@@ -527,7 +565,7 @@
 			
 				           
 				            		
-				        <div class="content">
+				        <div class="content" >
 				        
 		   
                     <!-- 내용은 여전히 동일하게 유지 -->
@@ -537,8 +575,10 @@
                        <!--  필터지움 -->
 					<!--  로그인한 판매자만 글작성할수있게 조건문 -->
 					 <c:if test="${ not empty sessionScope.loginSeller }"> 
-                        <div align="rigth">
-                            <a href="promoptionEnrollForm.bo">글작성</a>
+                        <div >
+                          <div class="goods-eroll" >
+                            <a class="goods-eroll-btn" href="promoptionEnrollForm.bo">글작성</a>
+                           </div>
                         </div>
                      </c:if>
                         <!-- post 방식으로 바꿔야델듯 -->
@@ -553,9 +593,7 @@
 
                         </ul>
                     </div>
-                         <div id="loading">
-                        <img src="resources/images/sample/0019.gif" alt="Loading..." />
-                    </div>
+                  
 
 				
 				        </div>

@@ -401,7 +401,7 @@
 			                    </c:when>
 								<c:otherwise>
 									<li class="page-item">
-			                    		<a class="page-link" href="seller.ad?cpage=${ p }">${ p }</a>
+			                    		<a class="page-link" href="user.ad?cpage=${ p }">${ p }</a>
 			                    	</li>
 								</c:otherwise>
 							</c:choose>

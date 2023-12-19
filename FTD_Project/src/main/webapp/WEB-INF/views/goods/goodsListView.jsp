@@ -13,6 +13,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
+
+<!-- 슬라이드 외부 css -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <style>
 
 	div {
@@ -34,7 +39,6 @@
 		display: block;
 		box-sizing: border-box;
 		margin: auto;
-
 	}
 
 	.goods-img {
@@ -70,8 +74,7 @@
 		float: left;
 		box-sizing: border-box;
 		line-height: 30px;
-		font-size: 25px;
-		
+		font-size: 25px;	
 	}
 
 	.star-icon {
@@ -240,7 +243,19 @@
 	            
 	            <div class="content">
 	                
-					<div class="goods-promotion"></div>
+					<div class="goods-promotion">
+						<!-- 슬라이드 화면 -->
+						<section id="cont_center">
+			            	<article class="column col4">
+				            	<div class="slider">
+					            			<img src="resources/images/notice/다운로드.jpg">
+					            			<img src="resources/images/notice/다운로드1.jpg">
+					            			<img src="resources/images/notice/다운로드2.jpg">
+								</div>
+								<br>
+							</article>
+						</section>
+					</div>
 					
 					<br><br>
 
@@ -262,6 +277,24 @@
 	        </div>             
         </div>
 	</div>
+	<!-- 슬라이드 스크립트 -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script type="text/javascript">
+	$(".slider").slick({
+		dots: true,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		responsive: [
+			{
+				breakpoint: 768,
+			    settings: {
+			    	autoplay: false,
+		      	}
+		    }
+		]
+	});
+	</script>
 	
 <script>
 	$(function () {
