@@ -159,9 +159,9 @@
             <div class="profile_2">
                 <span>${ sessionScope.loginUser.memberId }</span>
                 <div id="profile_2_2">
-                    <span>경북 포항</span>
+                    <span>${ sessionScope.loginUser.address }</span>
                     <!-- 지역 -->
-                    <span>* 17분 전</span>
+                    <span></span>
                     <!-- 몇분전인지-->
                 </div>
             </div>
@@ -177,7 +177,7 @@
         	<textarea id="summernote" name="revContent" required></textarea>
         
 		    <fieldset>
-		        <input type="radio" name="starRating" value="5" id="rate1"><label for="rate1">⭐</label>
+		        <input type="radio" name="starRating" value="5" id="rate1" chacked><label for="rate1">⭐</label>
 		        <input type="radio" name="starRating" value="4" id="rate2"><label for="rate2">⭐</label>
 		        <input type="radio" name="starRating" value="3" id="rate3"><label for="rate3">⭐</label>
 		        <input type="radio" name="starRating" value="2" id="rate4"><label for="rate4">⭐</label>
