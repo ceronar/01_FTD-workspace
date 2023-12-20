@@ -365,15 +365,11 @@ public class MemberController {
 			
 			if(deleteSubscribe > 0) { // 삭제 성공
 				
-				session.setAttribute("successMsg", "좋아하지 않게 되었어요.!");
-				
-				return "삭제";
+				return "N";
 								
 			} else { // 삭제 실패
 				
-				session.setAttribute("successMsg", "찜하기 처리를 실패했습니다.");
-				
-				return "삭제실패";
+				return "Y";
 			}
 			
 		} else { // 조회 결과가 없을 경우
@@ -383,15 +379,11 @@ public class MemberController {
 			
 			if(insertSubscribe > 0) { // 추가 성공
 				
-				session.setAttribute("successMsg", "찜하기.");			
-				
-				return "추가";
+				return "Y";
 				
 			} else { // 추가 실패
 				
-				session.setAttribute("successMsg", "찜하기 처리를 실패했습니다.");
-				
-				return "추가실패";
+				return "N";
 			}
 		}
 		

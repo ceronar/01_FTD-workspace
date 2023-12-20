@@ -177,7 +177,7 @@
         .review #img_1 {
             width: 1000px;
             height: 300px;
-            border-radius: 5%;
+          border-radius: 10px;
 
 
         }
@@ -212,6 +212,9 @@
      .goodSell:hover{
         cursor:pointer;
         }
+        .fas:hover{
+		cursor : pointer;
+	}
     	
    
     <!-- 댓글수정 모달창 -->
@@ -257,6 +260,8 @@
         width: 870px;
         text-align: center;
     }
+    
+   
 
     </style>
     <title>후기(리스트)</title>
@@ -304,8 +309,8 @@
             
        
             <div class="profile_under_option">
-                <a onclick="postFormSubmit(1)">수정</a>
-           		<a onclick="postFormSubmit(2)">삭제</a>
+                <a onclick="postFormSubmit(1)"><i class="fas fa-wrench">/ </i></a>
+           		<a onclick="postFormSubmit(2)"><i class="fas fa-trash-alt"></i></a>
             </div>
         </div>
       		<form action="" id="postForm" method="post">
@@ -509,8 +514,8 @@
 	 		            +   	'<div class="replyOption">';
 	 		          
 	 		            	if(${!empty sessionScope.loginUser} && result[i].memberNo == "${sessionScope.loginUser.memberId}"){
-	           resultStr +=  '<a class="modify"  data-repNum="'+ result[i].replyNo +'">수정 </a>'
-	 			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')">삭제</a>';
+	           resultStr +=  '<a class="modify" style="margin-right : 20px;  data-repNum="'+ result[i].replyNo +'"><i class="fas fa-wrench"></i></a>'
+	 			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')"><i class="fas fa-trash-alt"></i></a>';
 	 		            	}   
 	 		   
 	 		            resultStr  +='</div>'

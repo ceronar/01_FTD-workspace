@@ -341,17 +341,18 @@
 		
 			 .goods-eroll-btn {
 		float: right;
-		margin-top: 10px;
-		width: 150px;
+
+		width: 100px;
 		height: 50px;
-		font-size: 17px;
+		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 		background-color: rgba(223, 240, 217, 0.966);
 		color: rgb(21, 71, 21);
 		border-radius: 8px;
 		line-height: 50px;
 		text-decoration: none;
-		border : 2px solid black;
+		
+
 	}
 	
 	.goods-eroll {
@@ -567,7 +568,7 @@
 					 <c:if test="${ not empty sessionScope.loginSeller }"> 
                         <div >
                           <div class="goods-eroll" >
-                            <a class="goods-eroll-btn" href="promoptionEnrollForm.bo">글작성</a>
+                            <a class="goods-eroll-btn" href="promoptionEnrollForm.bo"><i class="fas fa-edit"></i></a>
                            </div>
                         </div>
                      </c:if>
