@@ -204,21 +204,24 @@
 
 	/* 네비게이션 메뉴 스타일 */
 	.sub-menu button {
+		border : none;
 		width: 180px;
-		display: inline-block;
-		/* 가로로 나열되도록 변경합니다. */
-		text-decoration: none;
-		padding: 10px;
-		/* 위아래 좌우 여백 조절 */
-		margin: 0 5px;
-		/* 좌우 간격 조절 */
+	    display: inline-block; /* 가로로 나열되도록 변경합니다. */
+	    text-decoration: none;
+	    padding: 10px; /* 위아래 좌우 여백 조절 */
+	    margin: 0 5px; /* 좌우 간격 조절 */
 		font-size: 22px;
-		color: rgb(85, 85, 85);
-		font-family: 'Noto Sans KR', sans-serif;
-		/* background-color: #ccc; */
-		/* border-radius: 5px; */
-	}
+	    color: rgb(85, 85, 85);
+	    font-family: 'Noto Sans KR', sans-serif;
+	    /* background-color: #ccc; */
+	    /* border-radius: 5px; */
 
+	}
+	
+	.sub-menu button:hover {
+		cursor: pointer;
+	}
+	
 	.enrollForm-btn {
 		width: 100%;
 	}
@@ -351,9 +354,7 @@
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	}
 	
-	.sub-menu:hover{
-		cursor: pointer;
-	}
+
 	
 	
 /*----------------홍보---------------------------------------------------*/
