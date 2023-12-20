@@ -275,7 +275,7 @@ public class ReviewController {
 	@RequestMapping("enrollForm.rev")
 	public ModelAndView reviewEnrollForm(Review rev, ModelAndView mv) {
 		
-		System.out.println(rev);
+		//System.out.println(rev);
 		
 		mv.addObject("rev", rev).setViewName("review/reviewEnrollForm");
 		
@@ -287,7 +287,7 @@ public class ReviewController {
 	public String insertPromotion(HttpSession session, Review rev) {
 		
 		
-		System.out.println(rev);
+		//System.out.println(rev);
 		
 		int result = reviewService.insertReview(rev);
 		
