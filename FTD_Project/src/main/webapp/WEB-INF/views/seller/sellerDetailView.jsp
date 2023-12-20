@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -918,7 +919,14 @@
 							<table class="list-area">
 								<thead>
 									<tr>
-										<td colspan="6">문의 작성 하기</td>
+										<c:choose>
+											<c:when test="${!empty sessionScope.loginUser }">
+												<td colspan="6" onclick="location.href='enrollForm.in?sno=' + '${ requestScope.sellerNo }';">문의 작성 하기</td>
+											</c:when>
+											<c:otherwise>
+												<td colspan="6">문의 하려면 로그인 해야합니다</td>
+											</c:otherwise>
+										</c:choose>
 									</tr>
 									<tr>
 										<th class="inqNo" style="width : 7%;">번호</th>
@@ -994,9 +1002,11 @@
 		});
 		
 		//
+		/*
 		$('.list-area>thead>tr>td').on('click', function () {
 			location.href = 'enrollForm.in?sno=' + ${ requestScope.sellerNo };
 		});
+		*/
 		
 		//
 		$('.list-area tbody').on('click', 'tr', function () {

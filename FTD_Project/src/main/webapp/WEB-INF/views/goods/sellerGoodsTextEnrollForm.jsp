@@ -352,7 +352,7 @@
 	            
 				<div class="header-img">
 					<img id="thumbnail">
-					<input type="file" id="thumbnail-img" name="upfile" onchange="loadImg(this);">
+					<input type="file" id="thumbnail-img" name="upfile" required onchange="loadImg(this);">
 				</div>
 	            
 	            <div class="content">					
@@ -360,7 +360,7 @@
 					<div class="goods">
 
 						<div class="goods-title">
-							<input type="text" id="" name="sellTitle">
+							<input type="text" id="" name="sellTitle" required>
 						</div>
 						<div class="goods-price">
 							<select class="goodsTitle" name='goodNo'>
@@ -406,7 +406,7 @@
 					</div>
 
 					<div class="goods-content" id="goods-content">
-						<textarea class="summernote" id="summernote" name="sellContent"></textarea>    
+						<textarea class="summernote" id="summernote" name="sellContent" required></textarea>    
 					</div>
 					
 					<div class="hidden-content">

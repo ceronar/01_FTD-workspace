@@ -246,7 +246,7 @@
                                 <td align="right" class="information">
                                     <div style=" align-items: center;">
                                         <label for="address">소재지:</label>
-                                        <input type="text" class="form-control postcodify_postcode5" id="address" value="${ sessionScope.loginSeller.address }" name="address">
+                                        <input type="text" class="form-control postcodify_postcode5" id="address" value="${ sessionScope.loginSeller.address }" name="address" required>
                                     </div>
                                 </td>
                                 <td><button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px; margin-left: 10px;">검색</button></td>
