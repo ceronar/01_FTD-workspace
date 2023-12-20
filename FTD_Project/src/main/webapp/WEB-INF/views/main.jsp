@@ -269,7 +269,7 @@
 									<c:forEach var="r" items="${ requestScope.rList }">
 										<tr>
 											<td><input type="hidden" name="revNo" value="${ r.revNo }"></td>
-											<td>${ r.revTitle }</td>
+											<td>${ r.revContent }</td>
 											<td>조회수 : ${ r.count }</td>
 											<td>작성자 : ${ r.memberNo }</td>
 										</tr>
