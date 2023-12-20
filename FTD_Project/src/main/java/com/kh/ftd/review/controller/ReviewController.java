@@ -329,6 +329,8 @@ public class ReviewController {
 										  , Model model
 										  , HttpSession session) {
 			
+			rr.setReplyContent(changeTagMethod(rr.getReplyContent()));
+			
 			//System.out.println(rr);
 			
 			int result = reviewService.insertReviewReply(rr);
@@ -342,6 +344,9 @@ public class ReviewController {
 		public String updatePromotionReply(ReviewReply rr
 										  , Model model
 										  , HttpSession session) {	
+			
+			rr.setReplyContent(changeTagMethod(rr.getReplyContent()));
+
 			
 			//System.out.println(rr);
 			
@@ -468,6 +473,26 @@ public class ReviewController {
 		}
 			
 		
+		//-----------------------------------
+		public String changeTagMethod(String message) {
+
+			String rtnStr = null;
+		    StringBuffer strTxt = new StringBuffer("");
+		    char chrBuff;
+		    int len = message.length();
+		    for(int i = 0; i < len; i++) {
+		    	chrBuff = (char)message.charAt(i);
+		    	switch(chrBuff) {
+	          		case '<': strTxt.append("&lt;"); break;
+	          		case '>': strTxt.append("&gt;"); break;
+	          		case '&': strTxt.append("&amp;"); break;
+	          		default:
+	          		strTxt.append(chrBuff);
+	        	}
+	      	}
+	      	rtnStr = strTxt.toString();
+			return rtnStr;
+		}
 		
 	
 }

@@ -496,6 +496,8 @@ public class PromotionController {
 									  , Model model
 									  , HttpSession session) {
 		
+		pr.setReplyContent(changeTagMethod(pr.getReplyContent()));
+		
 		//System.out.println(pr);
 		
 		int result = promotionService.insertPromotionReply(pr);
@@ -511,6 +513,8 @@ public class PromotionController {
 	public String updatePromotionReply(PromotionReply prno
 									  , Model model
 									  , HttpSession session) {	
+		
+		prno.setReplyContent(changeTagMethod(prno.getReplyContent()));
 		
 		//System.out.println(prno);
 		
@@ -600,5 +604,26 @@ public class PromotionController {
 		return changeName;
 	}
 	
+	
+//---------------------------------------------
+	public String changeTagMethod(String message) {
+
+		String rtnStr = null;
+	    StringBuffer strTxt = new StringBuffer("");
+	    char chrBuff;
+	    int len = message.length();
+	    for(int i = 0; i < len; i++) {
+	    	chrBuff = (char)message.charAt(i);
+	    	switch(chrBuff) {
+          		case '<': strTxt.append("&lt;"); break;
+          		case '>': strTxt.append("&gt;"); break;
+          		case '&': strTxt.append("&amp;"); break;
+          		default:
+          		strTxt.append(chrBuff);
+        	}
+      	}
+      	rtnStr = strTxt.toString();
+		return rtnStr;
+	}
 	
 }
