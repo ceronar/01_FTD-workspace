@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 	<style type="text/css">
 		.slider img {
-			height : 250px;
+			height : 350px;
 		}
 		.top10List>div {
 			border: 1px solid lightgray;
@@ -197,11 +197,9 @@
 					<section id="cont_center">
 		            	<article class="column col4">
 			            	<div class="slider">
-				            			<img src="resources/images/notice/다운로드.jpg">
-				            			<img src="resources/images/notice/다운로드1.jpg">
-				            			<img src="resources/images/notice/다운로드2.jpg">
-				            			<img src="resources/images/notice/다운로드.jpg">
-				            			<img src="resources/images/notice/다운로드.jpg">
+				            			<img src="resources/images/notice/다운로드3.jpg">
+				            			<img src="resources/images/notice/다운로드4.jpg">
+				            			<img src="resources/images/notice/다운로드7.jpg">
 							</div>
 							<br>
 						</article>
