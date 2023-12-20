@@ -14,7 +14,7 @@
 
 	.sidebar {
 		width: 100px; /* 사이드바 너비 설정 */
-		height: 340px;
+		height: 320px;
 		background-color: white; /* 흰색 배경 */
 		/* border-top: 4px solid rgb(85, 85, 85); 사이드바 위에 4px 보더 추가 */
 		/* margin-left: 4px solid rgb(85, 85, 85); */
@@ -113,16 +113,5 @@
 
 	</div>
 	
-		<c:if test="${ not empty sessionScope.loginSeller }">
-			<script>
-			$(function () {	
-				
-				$(".sidebar").css("height", "260px");
-				
-				console.log("잘실행되나?");
-				
-			});
-		</script>
-		</c:if>
 </body>
 </html>

@@ -247,6 +247,10 @@
 		display: inline;
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #0e9720;
+		border-color: #13970e;
+		border-radius: 8px;
+		color: white;
 	}
 
 	.btn-icon {
@@ -272,6 +276,17 @@
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
+	}
+
+	#table-div {
+		margin: auto;
+		width: 850px;
+		height: 300px;
+		background-color: #edffec;
+	}
+
+	.goodsTitle {
+		border: 0px;
 	}
 
 </style>
@@ -363,7 +378,7 @@
 							<input type="text" id="" name="sellTitle" required>
 						</div>
 						<div class="goods-price">
-							<select class="goodsTitle" name='goodNo'>
+							<select class="goodsTitle" name='goodNo' required>
 								
 							</select>
 						</div>
@@ -371,7 +386,7 @@
 						<div class="br-line"></div>
 						<br>
 
-						<table>
+						<table id="table-div">
 							<tr>
 								<th>배송비</th>
 								<td>4,000원</td>
@@ -399,7 +414,8 @@
 				
 				
 				<div class="sub-content">
-				
+					
+					<div class="br2-line"></div>
 
 					<div class="sub-menu">
 						<a href="#goods-content" class="menu1">상품소개</a>

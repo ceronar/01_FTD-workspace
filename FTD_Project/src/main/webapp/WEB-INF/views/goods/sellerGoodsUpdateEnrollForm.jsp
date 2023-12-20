@@ -76,7 +76,7 @@
 
 	.header-img {
 		width: 100%;
-		height: 500px;
+		height: 700px;
 		background-color: #ffffff;
     	box-sizing: border-box;
 	}
@@ -225,19 +225,6 @@
 		
 	}
 
-	.sub-footer1 {
-		width: 100%;
-		height: 50px;
-		position: sticky; /* 스크롤에 고정 */
-		bottom : 0px;
-		background-color: #ffffff;
-		border-top-left-radius: 4px;
-    	border-top-right-radius: 4px;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-		/* padding-top: 5px; */
-	}
-
-
 	.pay-button {
 		width: 60%;
 		height: 40px;
@@ -247,6 +234,10 @@
 		display: inline;
 		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #0e9720;
+		border-color: #13970e;
+		border-radius: 8px;
+		color: white;
 	}
 
 	.btn-icon {
@@ -272,6 +263,25 @@
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
+	}
+
+	#table-div {
+		margin: auto;
+		width: 850px;
+		height: 300px;
+		background-color: #edffec;
+	}
+
+	.sub-footer1 {
+		width: 100%;
+		height: 50px;
+		position: sticky; /* 스크롤에 고정 */
+		bottom : 0px;
+		background-color: #ffffff;
+		border-top-left-radius: 4px;
+    	border-top-right-radius: 4px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		/* padding-top: 5px; */
 	}
 
 </style>
@@ -324,7 +334,7 @@
 						<div class="br-line"></div>
 						<br>
 
-						<table>
+						<table id="table-div">
 							<tr>
 								<th>배송비</th>
 								<td>4,000원</td>
