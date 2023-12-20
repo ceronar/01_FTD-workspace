@@ -71,6 +71,7 @@
 
         .review-content {
             flex: 1;
+            
         }
 
         .review-content h2 {
@@ -168,6 +169,16 @@
         width: 870px;
         text-align: center;
     }
+    
+    .hrClass {
+    background:lightgray;
+    height:1px;
+    border:0;
+	}
+	
+	.detail:hover{
+		cursor: pointer;
+	}
    
     </style>
           <script>
@@ -266,7 +277,7 @@
                   +     '</div>'
                  +  '</div>'
               + '</div>'
-              + '<hr>';
+              + '<hr class="hrClass">';
 
 
                                 $('.review').append(str);

@@ -11,41 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-    <%--
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .center-div {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 1080px;
-            margin: auto;
-        }
-        
-        .main-div {
-        	width: 800px;
-        	margin: auto;
-        }
-        
-        h2 {
-            color: #333;
-        }
-
-        form {
-            display: grid;
-            gap: 10px;
-        }
-      --%>
-
+  
       .content {
 		height: 900px;
       }
@@ -57,7 +23,7 @@
       }
       
       input {
-          
+            
           padding: 8px;
           box-sizing: border-box;
           border: 1px solid #ccc;
@@ -74,6 +40,7 @@
           cursor: pointer;
           font-size: 16px;
       }
+      
       button:hover {
           background-color: #388755;
       }
@@ -184,8 +151,11 @@
 
 <!-- member Information Section -->
 	<div class="wrapper">
+        
         <div class="center-div">
+	        
 	        <jsp:include page="../common/sidebar.jsp" />
+	        
 	        <div class="main-div">
 		        <jsp:include page="../common/header.jsp" />
 		        <div class="content">
@@ -222,7 +192,7 @@
                             <tr>
                                 <td align="right" class="information">
                                     <label for="email"> &nbsp; 이메일 : </label>
-                                    <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email">
+                                    <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email" required>
                                 </td>
                                 <td></td>
                             </tr>
@@ -234,7 +204,7 @@
                             <tr>
                                 <td align="right" class="information">
                                     <label for="phone"> &nbsp; 폰번호 : </label>
-                                    <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone">
+                                    <input type="tel" class="form-control" id="phone" value="${ sessionScope.loginUser.phone }" name="phone" required>
                                 </td>
                                 <td></td>
                             </tr>
@@ -247,7 +217,7 @@
                                 <td align="right" class="information">
                                     <div style=" align-items: center;">
                                         <label for="zipCode"> &nbsp; 우편번호 : </label>
-                                        <input type="text" class="form-control postcodify_postcode5" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode">
+                                        <input type="text" class="form-control postcodify_postcode5" id="zipCode" value="${ sessionScope.loginUser.zipCode }" name="zipCode" required>
                                     </div>
                                 </td>
                                 <td><button type="button" id="postcodify_search_button" style="border-radius: 10px; width: 70px; margin-left: 10px;">검색</button></td>
@@ -260,7 +230,7 @@
                             <tr>
                                 <td align="right" class="information">
                                     <label for="address"> &nbsp; 주소 : </label>
-                                    <input type="text" class="form-control postcodify_address" id="address" value="${ sessionScope.loginUser.address }" name="address">
+                                    <input type="text" class="form-control postcodify_address" id="address" value="${ sessionScope.loginUser.address }" name="address" required>
                                 </td>
                                 <td></td>
                             </tr>
@@ -272,7 +242,7 @@
                             <tr>
                                 <td align="right" class="information">
                                     <label for="detailAddress"> &nbsp; 상세주소 : </label>
-                                    <input type="text" class="form-control postcodify_details" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress">
+                                    <input type="text" class="form-control postcodify_details" id="detailAddress" value="${ sessionScope.loginUser.detailAddress }" name="detailAddress" required>
                                 </td>
                                 <td></td>
                         </table>
@@ -380,7 +350,7 @@
                   <tr>
                       <td>비밀번호</td>
                       <td>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memberPwd" name="memberPwd"> <br>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memberPwd" name="memberPwd" required> <br>
                             <input type="hidden" name="memberId" value="${ sessionScope.loginUser.memberId }">
                       </td>
               </table>

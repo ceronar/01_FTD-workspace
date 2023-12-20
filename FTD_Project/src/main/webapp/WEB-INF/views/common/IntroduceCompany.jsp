@@ -124,35 +124,7 @@
 						            </td>
 						        </tr>
 						    </table>
-						    <hr>
-						    <br><br><br>
-						    <table>
-						
-								<tr>
-									<td><img src="resources/images/sample/cabbage2.jpg" id="subImg1"></img></td>
-									<td>김원진 : </td>
-								</tr>
-								   
-								<tr>
-								     <td><img src="resources/images/sample/eggplant.jpg" id="subImg2"></img></td>
-								     <td>천재영 : </td>
-								</tr>
-								
-								<tr>
-								      <td><img src="resources/images/sample/tomato.jpg" id="subImg3"></img></td>
-								      <td>김종현 : </td>
-								</tr>
-								
-								<tr>
-									  <td><img src="resources/images/sample/avocado.jpg" id="subImg4"></img></td>
-									  <td>전희재 : </td>
-								</tr>
-								
-								<tr>
-									 <td><img src="resources/images/sample/paprika.jpg" id="subImg5"></img></td>
-									 <td>최성광 : </td>
-								</tr>
-							</table>
+						   
 						</div>
 					</div>
 				</div>

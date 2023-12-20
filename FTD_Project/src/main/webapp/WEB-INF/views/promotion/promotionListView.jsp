@@ -359,12 +359,18 @@
 		width: 100%;
 		height: 70px;
 		margin-bottom: 30px;
-
+	
 	}
 	.detail:hover{
 		cursor: pointer;
 	}
 	
+	
+	.hrClass {
+    background:lightgray;
+    height:1px;
+    border:0;
+	}
 	
 	
         </style>
@@ -497,7 +503,7 @@
                                 + '</span>'
                                 + '</div>'
 
-                                + '<hr>';
+                                + '<hr class="hrClass">';
 
 
                                 $('.promotion').append(str);

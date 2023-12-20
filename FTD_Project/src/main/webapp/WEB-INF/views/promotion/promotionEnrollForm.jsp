@@ -116,18 +116,7 @@
             background-color: #27ae60;        
          }
          
-         a {
-  color: green;
-  text-decoration: underline lightgreen;
-}
-
-a:focus,
-a:hover {
-  display: inline-block;
-  color: lightgreen;
-  transform: translateY(-2px);
-  transition: 1s;
-}
+         
     </style>
     <title>글 작성</title>
 </head>

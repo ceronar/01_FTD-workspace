@@ -317,7 +317,7 @@
     <main>
         <div class="count">
         <span>판매</span>
-        <span>조회수 ${requestScope.p.count}</span>
+        <span><i class="fas fa-eye" style="font-size : 20px;""></i> ${requestScope.p.count}</span>
         </div>
         <div class="profile">
             <div class="profile_1">

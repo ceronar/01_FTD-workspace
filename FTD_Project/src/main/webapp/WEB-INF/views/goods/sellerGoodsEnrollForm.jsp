@@ -225,7 +225,7 @@
 							<table>
 								<tr>
 									<th>품목</th>
-									<td><input type="text" name="goodTitle"></td>
+									<td><input type="text" name="goodTitle" required></td>
 								</tr>
 								<tr>
 									<th class="td-size"></th>
@@ -233,11 +233,11 @@
 								</tr>
 								<tr>
 									<th>품목상세정보</th>
-									<td><input type="text" name="goodDetail"></td>
+									<td><input type="text" name="goodDetail" required></td>
 								</tr>
 								<tr>
 									<th>원산지</th>
-									<td><input type="text" name="origin"></td>
+									<td><input type="text" name="origin" required></td>
 								</tr>
 								<tr>
 									<th class="td-size"></th>
@@ -245,15 +245,15 @@
 								</tr>
 								<tr>
 									<th>판매가</th>
-									<td><input type="number" name="price"></td>
+									<td><input type="number" name="price" required></td>
 								</tr>
 								<tr>
 									<th>유통기한</th>
-									<td><input type="date" name="expiration"></td>
+									<td><input type="date" name="expiration" required></td>
 								</tr>
 								<tr>
 									<th>재고</th>
-									<td><input type="number" name="stock"></td>
+									<td><input type="number" name="stock" required></td>
 								</tr>
 							</table>	
 
@@ -272,15 +272,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-	
-	$(function() {
-    	
-
-	});
-	
-	</script>
 
 </body>
 </html>
