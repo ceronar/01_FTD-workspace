@@ -335,11 +335,13 @@
     	$(function () {
 
 
-            $(".content_3").on('click', '.review_table', function (e) {
+				$(".content_3").on('click', '.review_table', e => {
             	
-            	var value = $(this).closest('tr').find('td:first-child input[name="revNo"]').val();
-
-                location.href = "sellerDetailPage.se?sno=" + value;
+            	var parentTrTag = e.target;
+                //부모 태그 명이 TR이 나올때까지 자동순회
+                for(;parentTrTag.nodeName != 'TR' ; parentTrTag=parentTrTag.parentElement);
+                let rno = parentTrTag.children.item(0).children.item(0).value;
+                location.href = "rdlist.bo?rno=" + rno;
                 
             });
     	});
