@@ -155,7 +155,7 @@
 	.seller-name {
 		width: 70%;
 		height: 100px;
-		font-size: 35px;
+		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 		line-height: 100px;
 		padding-left: 60px;

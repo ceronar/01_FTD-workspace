@@ -16,7 +16,7 @@
 	/* goods-list */
 	.goods-list {
 		width: 280px;
-		height: 390px;
+		height: 450px;
 		display: inline-block;
 		padding-top: 20px;
 		margin-bottom: 20px;
@@ -27,6 +27,7 @@
 		display: block;
 		box-sizing: border-box;
 		margin: auto;
+		font-family: 'Noto Sans KR', sans-serif;
 
 	}
 
@@ -37,11 +38,12 @@
 
 	.goods-title {
 		margin-top: 10px;
-		height: 35px;
+		height: 60px;
 		text-align: left;
 		line-height: 35px;
 		font-size: 25px;
 		color: rgb(108, 108, 108);
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	.goods-price {
@@ -50,6 +52,7 @@
 		line-height: 35px;
 		text-align: left;
 		font-size: 20px;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	.goods-detail {
@@ -64,6 +67,7 @@
 		box-sizing: border-box;
 		line-height: 30px;
 		font-size: 25px;
+		font-family: 'Noto Sans KR', sans-serif;
 	}
 
 	.star-icon {
@@ -136,7 +140,7 @@
 	.seller-name {
 		width: 70%;
 		height: 100px;
-		font-size: 35px;
+		font-size: 20px;
 		font-family: 'Noto Sans KR', sans-serif;
 		line-height: 100px;
 		padding-left: 60px;

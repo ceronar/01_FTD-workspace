@@ -480,10 +480,10 @@
 	}
 	
 	#replyArea {
+		margin-top: 20px;
 		width: 80%;
 		height: 80%;
 		box-sizing: border-box;
-		border: 1px solid black;
 	}
 
 	#table-div {
@@ -492,6 +492,11 @@
 		height: 300px;
 		background-color: #edffec;
 	}
+	
+	.form-control {
+		height: 100px;
+	}
+	
 
 
 </style>

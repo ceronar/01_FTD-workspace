@@ -28,7 +28,7 @@
 	/* goods-list */
 	.goods-list {
 		width: 280px;
-		height: 390px;
+		height: 450px;
 		display: inline-block;
 		padding-top: 20px;
 		margin-bottom: 20px;
@@ -48,7 +48,7 @@
 
 	.goods-title {
 		margin-top: 10px;
-		height: 35px;
+		height: 60px;
 		text-align: left;
 		line-height: 35px;
 		font-size: 25px;
@@ -182,6 +182,20 @@
 	#select-goods > option {
 		height: 80px;
 	}
+	
+	#cont_center {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.column col4 {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.slider img {
+		 height : 350px;
+	}
 
 	
 </style>
@@ -259,17 +273,17 @@
 	            <div class="content">
 	                
 					<div class="goods-promotion">
-						<!-- 슬라이드 화면 -->
-						<section id="cont_center">
-			            	<article class="column col4">
-				            	<div class="slider">
-					            			<img src="resources/images/notice/다운로드.jpg">
-					            			<img src="resources/images/notice/다운로드1.jpg">
-					            			<img src="resources/images/notice/다운로드2.jpg">
-								</div>
-								<br>
-							</article>
-						</section>
+											<!-- 슬라이드 화면 -->
+					<section id="cont_center">
+		            	<article class="column col4">
+			            	<div class="slider">
+				            			<img src="resources/images/notice/다운로드3.jpg">
+				            			<img src="resources/images/notice/다운로드4.jpg">
+				            			<img src="resources/images/notice/다운로드7.jpg">
+							</div>
+							<br>
+						</article>
+					</section>
 					</div>
 					
 					<br><br>
