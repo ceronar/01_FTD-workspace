@@ -62,9 +62,10 @@ public class MemberController {
 		
 		// 추천상품 리스트 조회 top 10 (홍보)
 		ArrayList<Goods> gList = goodsService.selectGoodsListTop();
-		for(Goods g : gList) {
-			System.out.println("g : " + g);
-		}
+		
+//		for(Goods g : gList) {
+//			System.out.println("g : " + g);
+//		}
 		
 		// 추천후기 리스트 조회 top 10
 		ArrayList<Review> rList = reviewService.selectReviewListTop();
