@@ -179,6 +179,27 @@
 	.detail:hover{
 		cursor: pointer;
 	}
+	
+	 .container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .container img {
+    display: block;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    margin-right : 40px;
+    color: white;
+    font-size: 16px;
+    border : 1px solid black;
+    width : 40px;
+  }
    
     </style>
           <script>
@@ -228,8 +249,9 @@
                   + '<p>'+ val[6] +'</p>'
                   + '<input type="hidden" value="' + val[0].revNo + '">'  
                   if(val[5].length >= 1){
-             str +=     '<div>'
+             str +=     '<div class="container">'
                   +         '<img src="'+ val[5][0]+'" id="img_1">'
+                  +			'<div class="overlay">'+ val[5].length +'</div>'
                   +     '</div>'
                   }
              str +='</div>'
@@ -276,8 +298,9 @@
                   +         '</div>'
                   +     '</div>'
                  +  '</div>'
+                 + '<hr class="hrClass">';
               + '</div>'
-              + '<hr class="hrClass">';
+        
 
 
                                 $('.review').append(str);

@@ -69,9 +69,21 @@ public class MemberController {
 		
 		// 추천후기 리스트 조회 top 10
 		ArrayList<Review> rList = reviewService.selectReviewListTop();
-//		for(Review r : rList) {
-//			System.out.println("r : " + r);
-//		}
+		for(Review r : rList) {
+			System.out.println("r : " + r);
+			r.setRevContent(r.getRevContent().replaceAll("<img.*?>", "")
+											 .replaceAll("<p.*?>|</p>", "")
+											 .replaceAll("<b.*?>|</b>", "")
+											 .trim());
+			
+
+			if(r.getRevContent().length() > 80) {
+				
+				r.setRevContent((r.getRevContent().substring(0, 77) + "..."));
+			}
+			
+			System.out.println(r.getRevContent());
+		}
 		
 		mv.addObject("sList", sList).addObject("gList", gList).addObject("rList", rList).setViewName("main");
 		
