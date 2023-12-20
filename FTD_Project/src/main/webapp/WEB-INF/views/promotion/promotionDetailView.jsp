@@ -56,7 +56,7 @@
             cursor: pointer;
             font-size: 18px;
             transition: background-color 0.3s;
-            width: 150px; /* Set a fixed width for the button */
+            width: 150px;
         }
 
         .btn:hover {
@@ -134,8 +134,7 @@
 
         .profile_3_1 .btn {
             background-color: transparent;
-            color: #0c7c4b;
-            border: 1px solid #0c7c4b;
+            color: white;
             padding: 10px;
             cursor: pointer;
             border-radius: 4px;
@@ -196,6 +195,7 @@
 	 div.modalContent button { margin : 0px;  width: 100px; height : 40px; padding : 0px;}
 	 div.modalContent button.modal_cancel { margin : 0px; width: 100px; height : 40px; padding : 0px;}
 	 .button_option div {
+	 text-align: center;
     display: inline-block;
     margin-right: 10px; 
   }
@@ -215,8 +215,10 @@
 	.goodSell:hover{
 		background : #f2fff6;
 	}
-	
-	
+	.fas:hover{
+		cursor : pointer;
+	}
+		
     </style>
     
     <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -265,8 +267,9 @@
  
  $(function() {
 	 
- 
 	let memberNo = ${!empty sessionScope.loginUser.memberNo ? sessionScope.loginUser.memberNo : 0 };
+	
+	checkSubscribe(memberNo);
 	
 	// 찜하기 클릭 이벤트
 	$(".profile_3_1").on("click", "#subscribe", () => {
@@ -274,17 +277,20 @@
 			url: "ajaxClickSubscribe.se",
 			type: "get",
 			data: { memberNo: memberNo, sellerNo: ${ requestScope.p.sellerNo }},
-			success : result => {
+			success : (result) => {
+				console.log(result);
 				
-				if(result == "추가") {
+				if(result == "Y") {
 					
-					$(".profile_3_1 .btn").css("background-color", "red");
-					$("#subscribe").html("단골");
+					$(".profile_3_1 .btn").css("background-color", "orange");
+					$("#subscribe").html("단골취소");
+					alertify.success('찜하기');
 					
-				} else if(result == "삭제") {
+				} else if(result == "N") {
 									
-					$("#subscribe").css("background-color", "blue");
+					$("#subscribe").css("background-color", "#2ECC71");
 					$("#subscribe").html("단골맺기");
+					alertify.error('찜취소');
 					
 				} else {
 					
@@ -296,6 +302,31 @@
 			}
 		});
 	});
+	
+	function checkSubscribe(memberNo) {
+		$.ajax({
+			url: "ajaxSelectSubscribe.se",
+			type: "get",
+			data: { memberNo: memberNo, sellerNo: ${ requestScope.p.sellerNo }},
+			success : result => {
+				
+				if(result > 0) {
+					
+					$(".profile_3_1 .btn").css("background-color", "orange");
+					$("#subscribe").html("단골취소");
+					
+				} else {
+									
+					$("#subscribe").css("background-color", "#2ECC71");
+					$("#subscribe").html("단골맺기");
+					
+				}
+			},
+			error : () => {
+				console.log("ajax 통신 실패");
+			}
+		});
+	}
 	
  });
 </script>
@@ -316,7 +347,6 @@
    
     <main>
         <div class="count">
-        <span>판매</span>
         <span><i class="fas fa-eye" style="font-size : 20px;""></i> ${requestScope.p.count}</span>
         </div>
         <div class="profile">
@@ -346,14 +376,14 @@
              <c:when test="${ not empty sessionScope.loginSeller and sessionScope.loginSeller.sellerNo eq requestScope.p.sellerNo}">
            <div class="profile_3">
 	             <div class="profile_3_1">
-		              <a href="sellerDetailPage.se?sno=${sessionScope.loginSeller.sellerNo}" style="width : 50px"><i class="fas fa-store"></i></a>
+		              <a  href="sellerDetailPage.se?sno=${sessionScope.loginSeller.sellerNo}" style="width : 50px; color : black;"><i class="fas fa-store">/</i></a>
 		              
 		        
 		              
 	             </div>
 	             <div class="profile_3_1">
-		              <a onclick="postFormSubmit(1)"> 수정</a>
-			          <a onclick="postFormSubmit(2)">삭제</a>
+		              <a onclick="postFormSubmit(1)"><i class="fas fa-wrench">/ </i></a>
+			          <a onclick="poa-trash-alt"><i class="fas fa-trash-alt"></i></a>
 	             </div>
            </div> 
             <form action="" id="postForm" method="post">
@@ -548,8 +578,8 @@
 		            +   	'<div class="replyOption">';
 		          
 		            	if(${!empty sessionScope.loginUser} && result[i].memberNo == "${sessionScope.loginUser.memberId}"){
-          resultStr +=  '<a class="modify"  data-repNum="'+ result[i].replyNo +'">수정 </a>'
-			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')">삭제</a>';
+          resultStr +=  '<a class="modify" style="margin-right : 20px;"  data-repNum="'+ result[i].replyNo +'"><i class="fas fa-wrench"></i></a>'
+			        +        '<a class="delete" onclick="postFormReplySubmit(4, '+ result[i].replyNo +')"><i class="fas fa-trash-alt"></i></a>';
 		            	}   
 		   
 		            resultStr  +='</div>'
@@ -704,7 +734,7 @@
 					     <textarea class="modal_repCon" name="modal_repCon"></textarea>
 					    </div>
 					    
-					    <div class="button_option btn">
+					    <div class="button_option">
 					    <div><button type="button" class="modal_modify_btn btn">수정</button></div>
 					     <div><button type="button" class="modal_cancel btn">취소</button></div>
 					    </div>

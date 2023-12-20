@@ -48,7 +48,7 @@
         }
 
         .review {
-            border-bottom: 1px solid #ddd;
+            
             padding: 15px 0;
             justify-content: space-between;
             align-items: center;
@@ -59,7 +59,7 @@
         .review #img_1 {
             width: 860px;
             height: 300px;
-            border-radius: 5%;
+            border-radius: 10px;
 
             margin-right: 10px;
         }
@@ -194,11 +194,13 @@
     bottom: 0;
     right: 0;
     margin: 10px;
-    margin-right : 40px;
+    margin-right : 20px;
     color: white;
     font-size: 16px;
-    border : 1px solid black;
+    border-radius: 15px;
+    background : black; opacity: 0.5;
     width : 40px;
+    padding: 3px;
   }
    
     </style>
@@ -251,7 +253,7 @@
                   if(val[5].length >= 1){
              str +=     '<div class="container">'
                   +         '<img src="'+ val[5][0]+'" id="img_1">'
-                  +			'<div class="overlay">'+ val[5].length +'</div>'
+                  +			'<div class="overlay">+'+ val[5].length +'</div>'
                   +     '</div>'
                   }
              str +='</div>'
